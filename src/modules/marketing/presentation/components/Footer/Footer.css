@@ -1,0 +1,153 @@
+
+
+
+
+
+.tx-footer {
+  background: #dadee3;
+  border-top: 1px solid #e7e5e0;
+  padding: 64px 48px 32px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #57544c;
+}
+
+.tx-footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Brand block */
+.tx-footer-brand {
+  max-width: 320px;
+  flex: 1 1 280px;
+}
+
+.tx-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.tx-footer-logo img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50px;
+  object-fit: contain;
+}
+
+.tx-footer-logo span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.tx-footer-tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b675e;
+  margin: 0 0 20px;
+}
+
+.tx-footer-contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.tx-footer-contact a {
+  color: #4f5bd5;
+  text-decoration: none;
+}
+
+.tx-footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.tx-footer-address-line {
+  display: block;
+  color: #6b675e;
+}
+
+/* Link columns */
+.tx-footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  flex: 2 1 560px;
+  justify-content: space-between;
+}
+
+.tx-footer-column h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9a968c;
+  margin: 0 0 16px;
+}
+
+.tx-footer-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tx-footer-column a {
+  font-size: 14px;
+  color: #3c3a35;
+  text-decoration: none;
+}
+
+.tx-footer-column a:hover {
+  color: #4f5bd5;
+  text-decoration: underline;
+}
+
+/* Bottom bar */
+.tx-footer-bottom {
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid #e7e5e0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #9a968c;
+}
+
+.tx-footer-bottom p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tx-footer {
+    padding: 48px 24px 24px;
+  }
+
+  .tx-footer-top {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .tx-footer-columns {
+    gap: 32px;
+  }
+
+  .tx-footer-bottom {
+    flex-direction: column;
+  }
+}
