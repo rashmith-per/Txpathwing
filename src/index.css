@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+html {
+  margin: 0;
+  padding: 0;
+
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  color: var(--color-heading);
+
+  background: var(--color-white);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+:root {
+  /* Font */
+  --font-primary: "Inter", sans-serif;
+
+  /* Font weights */
+  --font-bodytext: 400;
+  --font-navigation: 500;
+  --font-cardheading: 600;
+  --font-sectionheading: 700;
+  --font-mainheading: 800;
+}
