@@ -1,17 +1,6 @@
-import { useState } from 'react'
-import OnePlatform from '../../components/OnePlatform/OnePlatform'
-
-function Home() {
-
-  return (
-    <>
-    <OnePlatform/>
-     </>
-  )
-}
-
-export default Home
-import React from "react";
+import OnePlatform from "../../components/OnePlatform/OnePlatform";
+import ElevenStages from "../Learner_journey/Learner_journey";
+import Courses from "../Courses/Courses";
 import "./Home.css";
 
 const deliveryModes = [
@@ -44,74 +33,82 @@ const deliveryModes = [
   },
 ];
 
-const Delivery = () => {
+function Home() {
   return (
-    <section className="delivery-section">
-      <div className="delivery-container">
+    <>
+      {/* One Platform Section */}
+      <OnePlatform />
+      <ElevenStages />
+      <Courses />
 
-        {/* Heading */}
-        <div className="delivery-header">
-          <p className="delivery-eyebrow">DELIVERY</p>
+      {/* Delivery Section */}
+      <section className="delivery-section">
+        <div className="delivery-container">
 
-          <h2>
-            Three modes, the same{" "}
-            <span>record of progress.</span>
-          </h2>
+          {/* Heading */}
+          <div className="delivery-header">
+            <p className="delivery-eyebrow">DELIVERY</p>
 
-          <p className="delivery-intro">
-            Learn in the environment that works best for you — live online,
-            face-to-face in the classroom, or a flexible combination of both.
-          </p>
-        </div>
+            <h2>
+              Three modes, the same{" "}
+              <span>record of progress.</span>
+            </h2>
 
-        {/* Cards */}
-        <div className="delivery-grid">
-          {deliveryModes.map((mode, index) => (
-            <article
-              className="delivery-card"
-              key={mode.title}
-              style={{
-                animationDelay: `${index * 0.12}s`,
-              }}
-            >
-              {/* Image */}
-              <div className="delivery-image">
-                <span className="delivery-number">
-                  {mode.number}
-                </span>
+            <p className="delivery-intro">
+              Learn in the environment that works best for you — live online,
+              face-to-face in the classroom, or a flexible combination of both.
+            </p>
+          </div>
 
-                <img
-                  src={mode.image}
-                  alt={mode.title}
-                  loading="lazy"
-                />
-
-                <span className="delivery-badge">
-                  {mode.type}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="delivery-content">
-                <h3>{mode.title}</h3>
-
-                <p>{mode.description}</p>
-
-                <a href="#" className="delivery-link">
-                  <span>Explore mode</span>
-
-                  <span className="delivery-arrow">
-                    ↗
+          {/* Cards */}
+          <div className="delivery-grid">
+            {deliveryModes.map((mode, index) => (
+              <article
+                className="delivery-card"
+                key={mode.title}
+                style={{
+                  animationDelay: `${index * 0.12}s`,
+                }}
+              >
+                {/* Image */}
+                <div className="delivery-image">
+                  <span className="delivery-number">
+                    {mode.number}
                   </span>
-                </a>
-              </div>
-            </article>
-          ))}
+
+                  <img
+                    src={mode.image}
+                    alt={mode.title}
+                    loading="lazy"
+                  />
+
+                  <span className="delivery-badge">
+                    {mode.type}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="delivery-content">
+                  <h3>{mode.title}</h3>
+
+                  <p>{mode.description}</p>
+
+                  <a href="#" className="delivery-link">
+                    <span>Explore mode</span>
+
+                    <span className="delivery-arrow">
+                      ↗
+                    </span>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
         </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
-};
+}
 
-export default Delivery;
+export default Home;
