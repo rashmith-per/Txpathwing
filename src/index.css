@@ -10,8 +10,6 @@ body {
   margin: 0;
   padding: 0;
 
-  color: var(--color-heading);
-
   background: var(--color-white);
 
   -webkit-font-smoothing: antialiased;

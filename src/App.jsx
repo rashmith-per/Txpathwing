@@ -1,21 +1,14 @@
-import { useState } from 'react'
-import './App.css'
-import Home from './modules/marketing/presentation/pages/Home/Home'
-
-
+import Home from "./modules/marketing/presentation/pages/Home/Home";
 
 
 function App() {
   return (
-    <>
-    <Home/>
-     </>
-  )
+    <BrowserRouter>
+      <Routes>
+  <Home/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
-   
-
 
 export default App;
-
-
-
