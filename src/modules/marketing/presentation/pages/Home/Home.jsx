@@ -1,6 +1,7 @@
 import OnePlatform from "../../components/OnePlatform/OnePlatform";
 import ElevenStages from "../Learner_journey/Learner_journey";
 import Courses from "../Courses/Courses";
+import CTA from "../../components/CTA/CTA";
 import "./Home.css";
 
 const deliveryModes = [
@@ -40,6 +41,7 @@ function Home() {
       <OnePlatform />
       <ElevenStages />
       <Courses />
+      <CTA/>
 
       {/* Delivery Section */}
       <section className="delivery-section">

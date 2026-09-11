@@ -51,17 +51,21 @@ export default function ElevenStages() {
 
           <div className="desc-wrap fade-in">
             <p className="hero-desc">
-              This is a <span className="desc-strong">real sequence</span>, not a feature list — each stage consumes what the previous one produced.
-              Stages marked{" "}
-              <span className="ai-tag mono-font">
-                <span className="tag-dot" />
-                AI
-              </span>{" "}
-              are where the{" "}
-              <span className="layer-chip mono-font">
-                AI layer
-              </span>{" "}
-              reads or writes.
+              <span className="desc-sentence">
+                This is a <span className="desc-strong">real sequence</span>, not a feature list — each stage consumes what the previous one produced.
+              </span>
+              <span className="desc-sentence">
+                Stages marked{" "}
+                <span className="ai-tag mono-font">
+                  <span className="tag-dot" />
+                  AI
+                </span>{" "}
+                are where the{" "}
+                <span className="layer-chip mono-font">
+                  AI layer
+                </span>{" "}
+                reads or writes.
+              </span>
             </p>
           </div>
         </div>
