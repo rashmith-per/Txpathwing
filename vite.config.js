@@ -8,6 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  css: {
+    postcss: {},
+  },
   server: {
     watch: {
       ignored: ['**/*.zip'],
