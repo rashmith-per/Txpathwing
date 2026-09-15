@@ -13,10 +13,10 @@
 html,
 body,
 #root {
-  width: 200%;
+  width: 100%;
   min-height: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
 }
 
 body {
@@ -64,7 +64,7 @@ body {
 
   width: 100%;
 
-  z-index: 1000;
+  z-index: 1100;
 
   background: rgba(255, 255, 255, 0.97);
 
@@ -88,7 +88,7 @@ body {
 ========================================================= */
 
 .nav-container {
-  width: 160%;
+  width: 100%;
   max-width: 1400px;
 
   height: 76px;

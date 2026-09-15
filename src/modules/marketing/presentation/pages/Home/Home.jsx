@@ -1,5 +1,5 @@
 import OnePlatform from "../../components/OnePlatform/OnePlatform";
-import ElevenStages from "../Learner_journey/Learner_journey";
+import LearnerJourney from "../Learner_journey/Learner_journey";
 import Courses from "../Courses/Courses";
 import CTA from "../../components/CTA/CTA";
 import "./Home.css";
@@ -39,7 +39,7 @@ function Home() {
     <>
       {/* One Platform Section */}
       <OnePlatform />
-      <ElevenStages />
+      <LearnerJourney />
       <Courses />
       <CTA/>
 
