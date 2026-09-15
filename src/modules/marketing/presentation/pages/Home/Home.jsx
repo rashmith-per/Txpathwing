@@ -1,4 +1,8 @@
-import ElevenStages from "../Learner_journey/Learner_journey";
+
+import LearnerJourney from "../Learner_journey/Learner_journey";
+
+
+
 
 import CTA from "../../components/CTA/CTA";
 import OnePlatfrom from "../../components/OnePlatform/OnePlatform";
@@ -14,7 +18,7 @@ const Home = () => {
       <OnePlatfrom />
 
       {/* Learner Journey */}
-      <ElevenStages />
+    <LearnerJourney />
 
       {/* Courses */}
       <Cources />
