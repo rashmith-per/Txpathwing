@@ -6,6 +6,7 @@ import "./Home.css";
 import Mode from "../../components/Modes/Modes";
 import FAQ from "../../components/FAQ/FAQ";
 import Cources from "../../pages/Courses/Courses";
+import TrustSection from "../../components/TrustSection/TrustSection";
 import Hero from "../../components/Hero/Hero";
 
 const Home = () => {
@@ -26,6 +27,8 @@ const Home = () => {
 
       {/* Modes */}
       <Mode />
+      
+      <TrustSection />
 
       {/* FAQ */}
       <FAQ />
