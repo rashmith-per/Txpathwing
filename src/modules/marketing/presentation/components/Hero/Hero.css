@@ -1,0 +1,1295 @@
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero-section {
+    width: 100%;
+
+    min-height: 720px;
+
+    padding:
+        34px 0 70px;
+
+    background: #f6f8fd;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.hero-container {
+
+    width:
+        min(
+            1400px,
+            calc(100% - 120px)
+        );
+
+    min-height: 610px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(480px, 0.95fr);
+
+    align-items: center;
+
+    gap: 50px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.hero-left {
+
+    width: 100%;
+
+    max-width: 780px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.hero-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-bottom: 25px;
+
+    color: #61749c;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+    font-weight: 700;
+
+    letter-spacing: 2.8px;
+
+    text-transform: uppercase;
+}
+
+
+.hero-eyebrow span:nth-child(even) {
+
+    color: #9ba8c2;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.hero-title {
+
+    margin: 0;
+
+    color: #080f22;
+
+    font-size:
+        clamp(
+            54px,
+            5.35vw,
+            78px
+        );
+
+    line-height: 0.99;
+
+    font-weight: 900;
+
+    letter-spacing: -4px;
+
+    perspective: 1000px;
+}
+
+
+/* =========================================================
+   HEADING LINE
+========================================================= */
+
+.hero-title-line {
+
+    display: block;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   INDIVIDUAL WORD
+========================================================= */
+
+.hero-word {
+
+    position: relative;
+
+    display: inline-block;
+
+    margin-right: 0.17em;
+
+    color: #080f22;
+
+    cursor: default;
+
+    /*
+       IMPORTANT:
+       No hover movement.
+       No zoom.
+       No glow.
+    */
+
+    transform: none;
+
+    transform-origin: center center;
+
+    transition: none;
+
+    will-change: auto;
+}
+
+
+/* =========================================================
+   BLUE HIGHLIGHT
+   "first offer," REMAINS BLUE
+========================================================= */
+
+.hero-word-highlight {
+
+    color: #2855d8;
+}
+
+
+/* =========================================================
+   REMOVE WORD HOVER EFFECT
+========================================================= */
+
+/*
+   Keep the exact same appearance
+   when the mouse passes over the word.
+*/
+
+.hero-word:hover {
+
+    color: #080f22;
+
+    transform: none;
+
+    text-shadow: none;
+
+    z-index: auto;
+}
+
+
+/*
+   Blue highlighted words must remain blue.
+*/
+
+.hero-word-highlight:hover {
+
+    color: #2855d8;
+
+    transform: none;
+
+    text-shadow: none;
+
+    z-index: auto;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hero-description {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin:
+        32px 0 0;
+
+    color: #2b507d;
+
+    font-size: 18px;
+
+    line-height: 1.75;
+
+    font-weight: 450;
+
+    letter-spacing: -0.1px;
+}
+
+
+/* =========================================================
+   BUTTON CONTAINER
+========================================================= */
+
+.hero-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 34px;
+}
+
+
+/* =========================================================
+   BUTTON BASE
+========================================================= */
+
+.hero-button {
+
+    min-height: 54px;
+
+    padding:
+        0 22px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition:
+
+        transform 0.22s ease,
+
+        box-shadow 0.22s ease,
+
+        background 0.22s ease,
+
+        border-color 0.22s ease;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.hero-button-primary {
+
+    gap: 13px;
+
+    color: #ffffff;
+
+    background: #2855d9;
+
+    border:
+        1px solid
+        #2855d9;
+
+    box-shadow:
+        0 7px 18px
+        rgba(
+            40,
+            85,
+            217,
+            0.18
+        );
+}
+
+
+.hero-button-primary:hover {
+
+    transform:
+        translateY(-2px);
+
+    background: #214bd0;
+
+    border-color:
+        #214bd0;
+
+    box-shadow:
+        0 11px 25px
+        rgba(
+            40,
+            85,
+            217,
+            0.25
+        );
+}
+
+
+/* =========================================================
+   BUTTON ARROW
+========================================================= */
+
+.hero-button-arrow {
+
+    display: inline-block;
+
+    font-size: 21px;
+
+    line-height: 1;
+
+    transition:
+        transform 0.22s ease;
+}
+
+
+.hero-button-primary:hover
+.hero-button-arrow {
+
+    transform:
+        translateX(5px);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.hero-button-secondary {
+
+    color: #10182d;
+
+    background: #ffffff;
+
+    border:
+        1px solid
+        #c8d4ea;
+
+    box-shadow:
+        0 3px 8px
+        rgba(
+            40,
+            55,
+            90,
+            0.03
+        );
+}
+
+
+.hero-button-secondary:hover {
+
+    transform:
+        translateY(-2px);
+
+    background: #fbfcff;
+
+    border-color:
+        #9fb2dc;
+
+    box-shadow:
+        0 8px 18px
+        rgba(
+            40,
+            55,
+            90,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   HERO SKILLS
+   DIRECTLY BELOW BUTTONS
+========================================================= */
+
+.hero-skills-wrapper {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin-top: 24px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    -webkit-mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 7%,
+            black 93%,
+            transparent 100%
+        );
+
+    mask-image:
+        linear-gradient(
+            to right,
+            transparent 0%,
+            black 7%,
+            black 93%,
+            transparent 100%
+        );
+}
+
+
+/* =========================================================
+   MOVING TRACK
+========================================================= */
+
+.hero-skills-track {
+
+    display: flex;
+
+    width: max-content;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+    will-change: transform;
+
+    animation:
+        heroSkillsMove
+        32s
+        linear
+        infinite;
+}
+
+
+/* =========================================================
+   SKILL GROUP
+========================================================= */
+
+.hero-skills-group {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+    gap: 28px;
+
+    padding-right: 28px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   INDIVIDUAL SKILL
+========================================================= */
+
+.hero-skill {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+
+    white-space: nowrap;
+
+    color: #172344;
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    font-weight: 650;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+/* =========================================================
+   SKILL ICON CONTAINER
+========================================================= */
+
+.hero-skill-icon {
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   SKILL ICON
+========================================================= */
+
+.hero-skill-icon img {
+
+    width: 27px;
+
+    height: 27px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================================
+   SKILL NAME
+========================================================= */
+
+.hero-skill-name {
+
+    color: #182544;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   SKILL HOVER
+========================================================= */
+
+.hero-skill:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.04);
+}
+
+
+/* =========================================================
+   CONTINUOUS RIGHT → LEFT ANIMATION
+========================================================= */
+
+@keyframes heroSkillsMove {
+
+    0% {
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            );
+    }
+
+    100% {
+
+        transform:
+            translate3d(
+                -50%,
+                0,
+                0
+            );
+    }
+}
+
+
+/* =========================================================
+   PAUSE SKILLS ON HOVER
+========================================================= */
+
+.hero-skills-wrapper:hover
+.hero-skills-track {
+
+    animation-play-state:
+        paused;
+}
+
+
+/* =========================================================
+   PLATFORM DATA RECTANGLE
+========================================================= */
+
+.hero-rectangleData {
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            1fr
+        );
+
+    border-top:
+        1px solid
+        #d9e1ef;
+
+    border-bottom:
+        1px solid
+        #d9e1ef;
+
+    background: transparent;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DATA ITEM
+========================================================= */
+
+.hero-data-item {
+
+    min-height: 112px;
+
+    padding:
+        18px 16px 16px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DATA VERTICAL DIVIDERS
+========================================================= */
+
+.hero-data-item + .hero-data-item {
+
+    border-left:
+        1px solid
+        #d9e1ef;
+}
+
+
+/* =========================================================
+   DATA NUMBER
+========================================================= */
+
+.hero-data-value {
+
+    margin: 0;
+
+    font-size: 30px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: -0.04em;
+
+    color: #080f22;
+}
+
+
+/* =========================================================
+   DATA DESCRIPTION
+========================================================= */
+
+.hero-data-description {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    font-weight: 400;
+
+    color: #64748b;
+
+    letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.hero-right {
+
+    width: 100%;
+
+    min-height: 560px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .hero-container {
+
+        width:
+            calc(100% - 160px);
+
+        max-width: 1400px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL DESKTOP
+========================================================= */
+
+@media (max-width: 1150px) {
+
+    .hero-container {
+
+        width:
+            calc(100% - 70px);
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(420px, 0.9fr);
+
+        gap: 30px;
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                50px,
+                5.7vw,
+                68px
+            );
+
+        letter-spacing: -3px;
+    }
+
+
+    .hero-description {
+
+        font-size: 17px;
+
+        line-height: 1.65;
+    }
+
+
+    .hero-skills-group {
+
+        gap: 24px;
+
+        padding-right: 24px;
+    }
+
+
+    .hero-rectangleData {
+
+        margin-top: 25px;
+    }
+
+
+    .hero-data-item {
+
+        padding:
+            16px 12px;
+    }
+
+
+    .hero-data-value {
+
+        font-size: 27px;
+    }
+
+
+    .hero-data-description {
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero-section {
+
+        padding-top: 28px;
+    }
+
+
+    .hero-container {
+
+        width:
+            calc(100% - 50px);
+
+        display: block;
+
+        min-height: auto;
+    }
+
+
+    .hero-left {
+
+        max-width: 820px;
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                50px,
+                7vw,
+                70px
+            );
+    }
+
+
+    .hero-skills-wrapper {
+
+        max-width: 100%;
+    }
+
+
+    .hero-right {
+
+        min-height: 450px;
+
+        margin-top: 35px;
+    }
+
+
+    /* =====================================================
+       TABLET DATA
+    ===================================================== */
+
+    .hero-rectangleData {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+    }
+
+
+    .hero-data-item {
+
+        min-height: 105px;
+    }
+
+
+    .hero-data-item:nth-child(3) {
+
+        border-left: none;
+
+        border-top:
+            1px solid
+            #d9e1ef;
+    }
+
+
+    .hero-data-item:nth-child(4) {
+
+        border-top:
+            1px solid
+            #d9e1ef;
+    }
+
+
+    .hero-data-item:nth-child(2) {
+
+        border-left:
+            1px solid
+            #d9e1ef;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .hero-section {
+
+        min-height: auto;
+
+        padding:
+            25px 0 45px;
+    }
+
+
+    .hero-container {
+
+        width:
+            calc(100% - 32px);
+    }
+
+
+    .hero-eyebrow {
+
+        gap: 5px;
+
+        margin-bottom: 18px;
+
+        font-size: 9px;
+
+        letter-spacing: 1.8px;
+    }
+
+
+    .hero-eyebrow span:nth-child(even) {
+
+        margin:
+            0 1px;
+    }
+
+
+    .hero-title {
+
+        font-size:
+            clamp(
+                39px,
+                10.5vw,
+                54px
+            );
+
+        line-height: 1.01;
+
+        letter-spacing: -2.2px;
+    }
+
+
+    .hero-title-line {
+
+        white-space: normal;
+    }
+
+
+    .hero-word {
+
+        margin-right:
+            0.13em;
+    }
+
+
+    /* =====================================================
+       DESCRIPTION
+    ===================================================== */
+
+    .hero-description {
+
+        margin-top: 23px;
+
+        font-size: 15px;
+
+        line-height: 1.65;
+    }
+
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
+    .hero-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+        margin-top: 27px;
+    }
+
+
+    .hero-button {
+
+        width: 100%;
+
+        min-height: 52px;
+    }
+
+
+    /* =====================================================
+       MOBILE SKILLS
+    ===================================================== */
+
+    .hero-skills-wrapper {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        margin-top: 21px;
+    }
+
+
+    .hero-skills-group {
+
+        gap: 22px;
+
+        padding-right: 22px;
+    }
+
+
+    .hero-skill {
+
+        gap: 6px;
+    }
+
+
+    .hero-skill-icon {
+
+        width: 24px;
+
+        height: 24px;
+    }
+
+
+    .hero-skill-icon img {
+
+        width: 23px;
+
+        height: 23px;
+    }
+
+
+    .hero-skill-name {
+
+        font-size: 11px;
+    }
+
+
+    /* =====================================================
+       MOBILE PLATFORM DATA
+    ===================================================== */
+
+    .hero-rectangleData {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+        margin-top: 24px;
+    }
+
+
+    .hero-data-item {
+
+        min-height: 96px;
+
+        padding:
+            15px 12px;
+    }
+
+
+    .hero-data-value {
+
+        font-size: 25px;
+    }
+
+
+    .hero-data-description {
+
+        margin-top: 8px;
+
+        font-size: 11px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       RIGHT SIDE
+    ===================================================== */
+
+    .hero-right {
+
+        min-height: 360px;
+
+        margin-top: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .hero-container {
+
+        width:
+            calc(100% - 24px);
+    }
+
+
+    .hero-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: 1.5px;
+    }
+
+
+    .hero-title {
+
+        font-size: 35px;
+
+        letter-spacing: -1.7px;
+    }
+
+
+    .hero-description {
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    .hero-skills-group {
+
+        gap: 18px;
+
+        padding-right: 18px;
+    }
+
+
+    .hero-skill-name {
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE DATA
+    ===================================================== */
+
+    .hero-rectangleData {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .hero-data-item {
+
+        min-height: auto;
+
+        padding:
+            16px 14px;
+    }
+
+
+    .hero-data-item + .hero-data-item {
+
+        border-left: none;
+
+        border-top:
+            1px solid
+            #d9e1ef;
+    }
+
+
+    .hero-data-item:nth-child(3) {
+
+        border-left: none;
+    }
+
+
+    .hero-data-value {
+
+        font-size: 26px;
+    }
+
+
+    .hero-data-description {
+
+        font-size: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-word,
+    .hero-button,
+    .hero-button-arrow,
+    .hero-skill {
+
+        transition: none !important;
+    }
+
+
+    .hero-skills-track {
+
+        animation: none !important;
+
+        transform: none !important;
+    }
+
+}
