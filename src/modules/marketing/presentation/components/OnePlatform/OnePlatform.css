@@ -6,7 +6,6 @@
 .oneplatform-section {
   position: relative;
   margin: 0 auto;
-  width: 90%;
   height: 70vh;
   min-height: 520px;
 
@@ -16,24 +15,6 @@
     35px;
 
   overflow: hidden;
-
-  background:
-    radial-gradient(
-      circle at 8% 45%,
-      rgba(50, 145, 240, 0.13),
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 92% 65%,
-      rgba(30, 115, 230, 0.11),
-      transparent 27%
-    ),
-    linear-gradient(
-      135deg,
-      #f7fbff 0%,
-      #ffffff 50%,
-      #eef7ff 100%
-    );
 
   color: #081a35;
 
