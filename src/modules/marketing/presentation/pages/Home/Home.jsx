@@ -6,6 +6,7 @@ import "./Home.css";
 import Mode from "../../components/Modes/Modes";
 import FAQ from "../../components/FAQ/FAQ";
 import Cources from "../../pages/Courses/Courses";
+import Login from "../../components/Login/Login";
 
 const Home = () => {
   return (
@@ -27,6 +28,8 @@ const Home = () => {
 
       {/* FAQ */}
       <FAQ />
+
+      <Login/>
     </>
   );
 };
