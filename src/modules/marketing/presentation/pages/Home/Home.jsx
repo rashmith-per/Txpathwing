@@ -1,10 +1,10 @@
-
+import React from "react";
+import OnePlatform from "../../components/OnePlatform/OnePlatform";
 import LearnerJourney from "../Learner_journey/Learner_journey";
 import CTA from "../../components/CTA/CTA";
-import OnePlatfrom from "../../components/OnePlatform/OnePlatform";
-import "./Home.css";
 import Mode from "../../components/Modes/Modes";
 import FAQ from "../../components/FAQ/FAQ";
+import "./Home.css";
 import Cources from "../../pages/Courses/Courses";
 import TrustSection from "../../components/TrustSection/TrustSection";
 import Hero from "../../components/Hero/Hero";
@@ -16,21 +16,21 @@ const Home = () => {
       {/* One Platform */}
       <OnePlatfrom />
 
-      {/* Learner Journey */}
-    <LearnerJourney />
+      {/* Learner Journey Section */}
+      <LearnerJourney />
 
-      {/* Courses */}
-      <Cources />
+      {/* Courses Section */}
+      <Courses />
 
-      {/* CTA */}
+      {/* CTA / Credential Verification */}
       <CTA />
 
-      {/* Modes */}
+      {/* Delivery Modes Section */}
       <Mode />
       
       <TrustSection />
 
-      {/* FAQ */}
+      {/* FAQ Section */}
       <FAQ />
     </>
   );

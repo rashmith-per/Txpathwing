@@ -12,6 +12,8 @@ export default defineConfig({
     postcss: {},
   },
   server: {
+    port: 5173,
+    host: true,
     watch: {
       ignored: ['**/*.zip'],
     },

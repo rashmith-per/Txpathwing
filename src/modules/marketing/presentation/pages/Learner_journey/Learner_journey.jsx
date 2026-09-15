@@ -7,6 +7,7 @@ import {
 import "./Learner_journey.css";
 
 const CORE_TECH = [
+  
   { name: "HTML", color: "#E34F26", letter: "H" }, { name: "CSS", color: "#1572B6", letter: "C" },
   { name: "Python", color: "#3776AB", letter: "Py" }, { name: "SQL", color: "#4479A1", letter: "S" },
 ];
@@ -74,7 +75,7 @@ const ProjectSlide = () => (
       </div>
     </div>
     <div className="lj-proj-footer">
-      <div className="lj-proj-tags">{["React", "Tailwind", "APIs"].map((t) => (<span key={t} className="lj-proj-tag">{t}</span>))}</div>
+      <div className="lj-proj-tags">{["React", "CSS3", "APIs"].map((t) => (<span key={t} className="lj-proj-tag">{t}</span>))}</div>
       <span className="lj-proj-highlight">10+ Real-Time Projects</span>
     </div>
   </div>
@@ -269,7 +270,7 @@ export default function LearnerJourney() {
               <div className="lj-placement-header"><p className="lj-placement-title">Free Add-ons Included</p><span className="lj-placement-count">8 Benefits</span></div>
               <div className="lj-benefits-grid">
                 {PLACEMENT_BENEFITS.map((item, i) => (
-                  <div key={item.label} className="lj-benefit-item" style={{ animation: activeStep >= 3 ? "bounceScale 0.6s cubic-bezier(.34,1.56,.64,1) both" : "none", animationDelay: `${i * 90}ms` }}>
+                  <div key={item.label} className={`lj-benefit-item ${activeStep >= 3 ? "active" : ""}`} style={{ animationDelay: `${i * 90}ms` }}>
                     <div className="lj-benefit-icon-box"><item.icon className="lj-benefit-icon" /></div>
                     <span className="lj-benefit-label">{item.label}</span>
                   </div>
