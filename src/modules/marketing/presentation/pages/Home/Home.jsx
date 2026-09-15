@@ -1,40 +1,16 @@
-import OnePlatform from "../../components/OnePlatform/OnePlatform";
+
 import ElevenStages from "../Learner_journey/Learner_journey";
-import Courses from "../Courses/Courses";
+
 import CTA from "../../components/CTA/CTA";
+import OnePlatfrom from "../../components/OnePlatform/OnePlatform";
+import ElevenStages from "../../../presentation/pages/Learner_journey/Learner_journey";
 import "./Home.css";
+import Mode from "../../components/Modes/Modes";
+import FAQ from "../../components/FAQ/FAQ";
+import Cources from "../../pages/Courses/Courses";
 
-const deliveryModes = [
-  {
-    number: "01",
-    type: "Live online",
-    title: "Online live",
-    description:
-      "Join instructor-led sessions from anywhere with real-time interaction, discussion and guided learning.",
-    image:
-      "https://images.pexels.com/photos/7014767/pexels-photo-7014767.jpeg?auto=compress&cs=tinysrgb&w=1400",
-  },
-  {
-    number: "02",
-    type: "In person",
-    title: "Classroom",
-    description:
-      "Learn face-to-face with instructors and peers in a focused, structured classroom environment.",
-    image:
-      "https://images.unsplash.com/photo-1758270703928-6a8597669abc?auto=format&fit=crop&fm=jpg&q=80&w=1400",
-  },
-  {
-    number: "03",
-    type: "Flexible",
-    title: "Hybrid",
-    description:
-      "Combine classroom learning with online sessions for a flexible experience without losing instructor connection.",
-    image:
-      "https://images.pexels.com/photos/5905710/pexels-photo-5905710.jpeg?auto=compress&cs=tinysrgb&w=1400",
-  },
-];
-
-function Home() {
+const Home = () => {
+  
   return (
     <>
       {/* One Platform Section */}
@@ -109,8 +85,10 @@ function Home() {
 
         </div>
       </section>
+    <Mode />
+    <FAQ />
     </>
   );
-}
+};
 
 export default Home;
