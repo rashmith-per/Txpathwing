@@ -1,14 +1,13 @@
-/* ==========================================================================
-   Learner Journey Component Styles
-   Clean, friendly, daily-use semantic class names (.lj-*)
-   ========================================================================== */
 
-/* Page & Layout */
+
+/* 1. Page & Layout */
 .lj-page {
   min-height: 100vh;
   background-color: #ffffff;
   color: #0F172A;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .lj-page ::selection {
@@ -26,10 +25,11 @@
 @media (min-width: 1024px) {
   .lj-container {
     flex-direction: row;
+    align-items: flex-start;
   }
 }
 
-/* Sticky Left Sidebar */
+/* 2. Sticky Left Sidebar */
 .lj-sticky-sidebar {
   padding: 32px 20px;
   border-bottom: 1px solid #F1F5F9;
@@ -39,16 +39,18 @@
 @media (min-width: 1024px) {
   .lj-sticky-sidebar {
     width: 44%;
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 76px !important;
-    height: calc(100vh - 76px) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 76px;
+    height: calc(100vh - 76px);
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 0 40px;
     border-bottom: 0;
     border-right: 1px solid #F1F5F9;
+    z-index: 10;
   }
 }
 
@@ -58,9 +60,9 @@
 
 .lj-main-title {
   font-size: 34px;
-  line-height: 1.02;
+  line-height: 1.16;
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: #0F172A;
   margin: 0;
 }
@@ -68,6 +70,7 @@
 @media (min-width: 1024px) {
   .lj-main-title {
     font-size: 44px;
+    line-height: 1.16;
   }
 }
 
@@ -75,7 +78,7 @@
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  background-image: linear-gradient(to right, #2563eb, #1d4ed8, #4f46e5);
+  background-image: linear-gradient(135deg, #2563eb, #1d4ed8, #4f46e5);
 }
 
 .lj-blue-text {
@@ -119,11 +122,12 @@
   background-color: #7dd3fc;
 }
 
-/* Right Content Area & Vertical Timeline */
+/* 3. Steps Column & Vertical Timeline */
 .lj-steps-column {
   position: relative;
   padding: 32px 20px;
   background-color: #FCFDFF;
+  flex: 1;
 }
 
 @media (min-width: 1024px) {
@@ -179,24 +183,18 @@
 /* Step Sections & Badges */
 .lj-step-section {
   position: relative;
-  padding-left: 0;
-  padding-bottom: 64px;
+  margin-bottom: 64px;
 }
 
 @media (min-width: 640px) {
   .lj-step-section {
-    padding-left: 56px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lj-step-section {
-    padding-bottom: 112px;
+    padding-left: 64px;
+    margin-bottom: 80px;
   }
 }
 
 .lj-step-3-section {
-  padding-bottom: 96px;
+  margin-bottom: 0;
 }
 
 .lj-step-badge {
@@ -326,7 +324,7 @@
   gap: 12px;
 }
 
-/* Step 1: Schedule Cards & Core Tech */
+/* 4. Step 1: Schedule Cards & Core Tech */
 .lj-schedule-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -449,34 +447,25 @@
   color: #0F172A;
 }
 
-/* Interactive Showcase Carousel */
+/* 5. Interactive Showcase Carousel */
 .lj-showcase-card {
+  margin-top: 16px;
   border-radius: 16px;
-  background-color: #0F172A;
-  border: 1px solid #1E293B;
-  padding: 12px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-  position: relative;
+  background-color: #0b1120;
+  border: 1px solid #1e293b;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   animation: fadeUp 0.6s ease-out both;
-  animation-delay: 300ms;
-}
-
-@media (min-width: 640px) {
-  .lj-showcase-card {
-    padding: 16px;
-  }
+  animation-delay: 260ms;
 }
 
 .lj-showcase-topbar {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid #1E293B;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  background-color: rgba(15, 23, 42, 0.8);
+  padding: 10px 14px;
 }
 
 .lj-window-controls {
@@ -496,21 +485,21 @@
   height: 10px;
   border-radius: 50%;
 }
-.dot-red { background-color: #f87171; }
-.dot-yellow { background-color: #facc15; }
-.dot-green { background-color: #4ade80; }
+
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #eab308; }
+.dot-green { background-color: #22c55e; }
 
 .lj-showcase-url {
-  margin-left: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 11px;
-  color: rgba(125, 211, 252, 0.8);
-  font-family: ui-monospace, monospace;
+  color: #94a3b8;
   display: none;
 }
 
 @media (min-width: 640px) {
   .lj-showcase-url {
-    display: inline-block;
+    display: inline;
   }
 }
 
@@ -518,19 +507,19 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: rgba(30, 41, 59, 0.9);
-  padding: 4px;
-  border-radius: 12px;
+  border-radius: 8px;
+  background-color: rgba(30, 41, 59, 0.8);
+  padding: 2px;
 }
 
 .lj-tab-btn {
   padding: 4px 10px;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 11px;
   font-weight: 700;
-  color: #94a3b8;
+  border: none;
   background: transparent;
-  border: 0;
+  color: #94a3b8;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -540,9 +529,9 @@
 }
 
 .lj-tab-btn.active {
-  background-color: #0ea5e9;
-  color: #020617;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .lj-showcase-arrows {
@@ -552,17 +541,16 @@
 }
 
 .lj-arrow-btn {
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  background-color: #1E293B;
-  color: #cbd5e1;
+  padding: 4px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .lj-arrow-btn:hover {
@@ -571,69 +559,72 @@
 }
 
 .lj-slide-container {
-  animation: fadeUp 0.5s ease-out;
+  min-height: 250px;
+  transition: opacity 0.3s ease;
 }
 
 .lj-showcase-foot {
-  margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11px;
-  color: #94A3B8;
-  padding-top: 8px;
-  border-top: 1px solid rgba(30, 41, 59, 0.8);
+  border-top: 1px solid rgba(51, 65, 85, 0.6);
+  background-color: rgba(15, 23, 42, 0.6);
+  padding: 10px 14px;
 }
 
 .lj-indicators {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .lj-ind-dot {
-  height: 6px;
-  width: 6px;
-  border-radius: 9999px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
   background-color: #334155;
-  border: 0;
   cursor: pointer;
-  transition: all 0.3s ease;
   padding: 0;
+  transition: all 0.2s ease;
 }
 
 .lj-ind-dot:hover {
-  background-color: #64748B;
+  background-color: #64748b;
 }
 
 .lj-ind-dot.active {
-  width: 24px;
-  background-color: #38BDF8;
+  background-color: #38bdf8;
+  transform: scale(1.25);
 }
 
 .lj-cycle-note {
-  margin-left: 8px;
   font-size: 10px;
-  color: #64748B;
+  color: #64748b;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .lj-cycle-note {
+    display: inline;
+  }
 }
 
 .lj-showcase-badge {
   font-size: 10px;
-  font-weight: 600;
-  color: #38BDF8;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #38bdf8;
 }
 
-/* Slide Cards General */
 .lj-slide-card {
-  background-color: #0F172A;
-  border-radius: 12px;
-  padding: 12px;
-  color: #ffffff;
+  padding: 16px;
 }
 
 @media (min-width: 640px) {
   .lj-slide-card {
-    padding: 16px;
+    padding: 20px;
   }
 }
 
@@ -642,8 +633,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
   padding-bottom: 12px;
-  border-bottom: 1px solid #1E293B;
 }
 
 .lj-ecom-brand-wrap {
@@ -653,13 +644,10 @@
 }
 
 .lj-ecom-brand {
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  background: linear-gradient(to right, #38bdf8, #3b82f6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: #38bdf8;
 }
 
 .lj-text-white {
@@ -668,13 +656,12 @@
 
 .lj-ecom-badge {
   display: none;
-  font-size: 10px;
   padding: 2px 8px;
-  border-radius: 9999px;
-  background: rgba(14, 165, 233, 0.1);
-  color: #38bdf8;
-  border: 1px solid rgba(14, 165, 233, 0.2);
-  font-weight: 500;
+  border-radius: 4px;
+  background-color: rgba(37, 99, 235, 0.2);
+  color: #93c5fd;
+  font-size: 10px;
+  font-weight: 600;
 }
 
 @media (min-width: 640px) {
@@ -693,9 +680,9 @@
   display: none;
   align-items: center;
   gap: 6px;
-  background-color: rgba(30, 41, 59, 0.8);
   padding: 4px 10px;
   border-radius: 8px;
+  background-color: rgba(30, 41, 59, 0.8);
   font-size: 11px;
   color: #94a3b8;
 }
@@ -755,9 +742,9 @@
   overflow: hidden;
 }
 
-.gradient-blue-sky { background: linear-gradient(to bottom right, rgba(37, 99, 235, 0.3), rgba(14, 165, 233, 0.2)); }
-.gradient-indigo-blue { background: linear-gradient(to bottom right, rgba(79, 70, 229, 0.3), rgba(59, 130, 246, 0.2)); }
-.gradient-sky-cyan { background: linear-gradient(to bottom right, rgba(2, 132, 199, 0.3), rgba(6, 182, 212, 0.2)); }
+.gradient-blue-sky { background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(14, 165, 233, 0.25)); }
+.gradient-indigo-blue { background: linear-gradient(135deg, rgba(79, 70, 229, 0.35), rgba(59, 130, 246, 0.25)); }
+.gradient-sky-cyan { background: linear-gradient(135deg, rgba(2, 132, 199, 0.35), rgba(6, 182, 212, 0.25)); }
 
 .lj-ecom-product-tag {
   font-size: 9px;
@@ -777,11 +764,6 @@
   color: #cbd5e1;
 }
 
-.lj-ecom-cat {
-  font-size: 9px;
-  opacity: 0.8;
-}
-
 .lj-ecom-rating {
   display: flex;
   align-items: center;
@@ -799,19 +781,15 @@
   margin-top: 8px;
   font-size: 11px;
   font-weight: 700;
-  color: #f1f5f9;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.2s ease;
+  color: #ffffff;
 }
 
 .lj-ecom-product-card:hover .lj-ecom-product-name {
-  color: #7dd3fc;
+  color: #38bdf8;
 }
 
 .lj-ecom-product-footer {
-  margin-top: 6px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -819,31 +797,28 @@
 
 .lj-ecom-price {
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
   color: #38bdf8;
 }
 
 .lj-ecom-add-btn {
-  font-size: 10px;
-  font-weight: 700;
   padding: 2px 8px;
   border-radius: 4px;
-  background-color: #0ea5e9;
-  color: #020617;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .lj-ecom-bottom {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(30, 41, 59, 0.8);
+  margin-top: 14px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  font-size: 10px;
+  font-size: 11px;
   color: #94a3b8;
-  font-weight: 500;
 }
 
 .lj-ecom-features {
@@ -852,51 +827,55 @@
   gap: 12px;
 }
 
-.lj-ecom-feat {
-  display: flex;
+.lj-ecom-features span {
+  display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #34d399;
+  color: #cbd5e1;
 }
 
 .lj-ecom-preview-link {
-  color: #38bdf8;
-  font-weight: 600;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
+  color: #38bdf8;
+  cursor: pointer;
 }
 
-/* Slide 2: DevStudio / Analytics Dashboard */
+/* Slide 2: Project Code & Telemetry */
 .lj-proj-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
   padding-bottom: 12px;
-  border-bottom: 1px solid #1E293B;
 }
 
 .lj-proj-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 800;
-  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .lj-proj-badge {
   display: flex;
   align-items: center;
   gap: 6px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   font-size: 10px;
+  font-weight: 700;
   color: #34d399;
-  font-weight: 600;
 }
 
 .lj-pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: #34d399;
   animation: pulseDot 2s infinite ease-in-out;
@@ -917,43 +896,49 @@
 
 .lj-code-window {
   border-radius: 8px;
-  background-color: rgba(2, 6, 23, 0.9);
-  border: 1px solid #1e293b;
+  background-color: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(51, 65, 85, 0.6);
   padding: 12px;
-  font-family: ui-monospace, monospace;
-  font-size: 10px;
-  line-height: 1.6;
-  color: #cbd5e1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
 }
 
 .lj-code-title {
-  color: #64748b;
-  font-size: 9px;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(30, 41, 59, 0.8);
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  color: #94a3b8;
+  font-size: 10px;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .lj-code-tag {
   color: #38bdf8;
-  font-family: system-ui, sans-serif;
-  font-weight: 700;
+  font-size: 9px;
 }
 
-.lj-code-pink { color: #f472b6; margin: 0; }
-.lj-code-yellow { color: #fde047; }
-.lj-code-indent { padding-left: 8px; margin: 0; }
+.lj-code-window p {
+  margin: 2px 0;
+  line-height: 1.4;
+}
+
+.lj-code-indent {
+  padding-left: 12px;
+}
+
+.lj-code-pink { color: #f472b6; }
+.lj-code-yellow { color: #fbbf24; }
 .lj-code-slate { color: #94a3b8; }
 .lj-code-sky { color: #38bdf8; }
-.lj-code-comment { color: #a5b4fc; }
-.lj-code-green { color: #34d399; }
-.lj-code-cyan { color: #7dd3fc; }
+.lj-code-comment { color: #64748b; font-style: italic; }
+.lj-code-green { color: #4ade80; }
+.lj-code-cyan { color: #22d3ee; }
 
 .lj-telemetry-box {
   border-radius: 8px;
-  background: linear-gradient(to bottom right, #1e293b, rgba(30, 41, 59, 0.6));
+  background-color: rgba(30, 41, 59, 0.5);
   border: 1px solid rgba(51, 65, 85, 0.6);
   padding: 12px;
   display: flex;
@@ -967,51 +952,46 @@
   justify-content: space-between;
   font-size: 11px;
   font-weight: 700;
-  color: #e2e8f0;
+  color: #cbd5e1;
 }
 
 .lj-latency-badge {
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: rgba(14, 165, 233, 0.2);
-  color: #7dd3fc;
-  font-size: 9px;
+  font-size: 10px;
+  color: #34d399;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .lj-telemetry-grid {
-  margin-top: 8px;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
 }
 
 .lj-telemetry-stat {
-  padding: 8px;
   border-radius: 6px;
-  background-color: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(51, 65, 85, 0.5);
+  background-color: rgba(15, 23, 42, 0.6);
+  padding: 8px;
 }
 
 .lj-stat-sub {
-  font-size: 9px;
+  font-size: 10px;
   color: #94a3b8;
 }
 
 .lj-stat-val {
-  font-size: 14px;
+  margin-top: 4px;
+  font-size: 15px;
   font-weight: 800;
   color: #ffffff;
-  margin-top: 2px;
 }
 
-.lj-emerald { color: #34d399; }
-.lj-blue { color: #60a5fa; }
-.lj-sky { color: #38bdf8; }
+.lj-emerald {
+  color: #34d399;
+}
 
 .lj-telemetry-footer {
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(51, 65, 85, 0.5);
+  margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1020,43 +1000,40 @@
 }
 
 .lj-view-project-btn {
-  padding: 2px 8px;
-  border-radius: 4px;
-  background-color: #0ea5e9;
-  color: #020617;
-  font-weight: 700;
-  font-size: 9px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
+  color: #38bdf8;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .lj-proj-footer {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(30, 41, 59, 0.8);
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
-  color: #94a3b8;
 }
 
 .lj-proj-tags {
   display: flex;
+  align-items: center;
   gap: 6px;
 }
 
 .lj-proj-tag {
   padding: 2px 8px;
   border-radius: 4px;
-  background-color: #1e293b;
-  color: #cbd5e1;
+  background-color: rgba(30, 41, 59, 0.8);
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
 }
 
 .lj-proj-highlight {
+  font-size: 11px;
+  font-weight: 700;
   color: #38bdf8;
-  font-weight: 600;
 }
 
 /* Slide 3: Career Readiness */
@@ -1064,27 +1041,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
   padding-bottom: 12px;
-  border-bottom: 1px solid #1E293B;
 }
 
 .lj-career-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 800;
-  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.lj-sky {
+  color: #38bdf8;
 }
 
 .lj-ready-badge {
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 9999px;
-  background-color: rgba(16, 185, 129, 0.2);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background-color: rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   font-size: 10px;
   font-weight: 700;
+  color: #93c5fd;
 }
 
 .lj-career-grid {
@@ -1096,33 +1077,27 @@
 
 @media (min-width: 640px) {
   .lj-career-grid {
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .lj-eval-box {
   border-radius: 8px;
-  background-color: rgba(30, 41, 59, 0.6);
+  background-color: rgba(30, 41, 59, 0.5);
   border: 1px solid rgba(51, 65, 85, 0.6);
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .lj-eval-heading {
   font-size: 10px;
-  text-transform: uppercase;
-  font-weight: 700;
   color: #94a3b8;
-  letter-spacing: 0.05em;
 }
 
 .lj-score-row {
   margin-top: 4px;
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 4px;
 }
 
 .lj-big-score {
@@ -1132,22 +1107,23 @@
 }
 
 .lj-score-max {
-  font-size: 12px;
-  color: #94a3b8;
+  font-size: 11px;
+  color: #64748b;
 }
 
 .lj-progress-bars {
-  margin-top: 8px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 10px;
 }
 
 .lj-progress-info {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  color: #cbd5e1;
+  font-size: 10px;
+  color: #94a3b8;
 }
 
 .lj-progress-val {
@@ -1155,30 +1131,34 @@
   color: #38bdf8;
 }
 
+.lj-blue {
+  color: #60a5fa;
+}
+
 .lj-progress-track {
-  width: 100%;
   height: 6px;
-  background-color: #334155;
+  width: 100%;
   border-radius: 9999px;
+  background-color: #1e293b;
   overflow: hidden;
 }
 
 .lj-progress-fill-sky {
   height: 100%;
-  background-color: #38bdf8;
   border-radius: 9999px;
+  background-color: #38bdf8;
 }
 
 .lj-progress-fill-blue {
   height: 100%;
-  background-color: #3b82f6;
   border-radius: 9999px;
+  background-color: #2563eb;
 }
 
 .lj-interview-box {
   border-radius: 8px;
-  background: linear-gradient(to bottom right, rgba(23, 37, 84, 0.7), #0f172a);
-  border: 1px solid rgba(30, 58, 138, 0.4);
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(51, 65, 85, 0.6);
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -1190,8 +1170,7 @@
   align-items: center;
   gap: 6px;
   font-size: 10px;
-  font-weight: 700;
-  color: #7dd3fc;
+  color: #fbbf24;
 }
 
 .lj-interview-topic {
@@ -1202,178 +1181,169 @@
 }
 
 .lj-interview-desc {
-  margin: 4px 0 0 0;
+  margin-top: 4px;
   font-size: 10px;
   color: #94a3b8;
+  line-height: 1.4;
 }
 
 .lj-interview-footer {
   margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px solid #1e293b;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .lj-feedback-tag {
-  font-size: 9px;
-  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  color: #34d399;
 }
 
 .lj-room-btn {
   padding: 4px 10px;
-  border-radius: 4px;
-  background-color: #0ea5e9;
-  color: #020617;
-  font-weight: 700;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: #ffffff;
   font-size: 10px;
-  border: 0;
+  font-weight: 700;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .lj-room-btn:hover {
-  background-color: #38bdf8;
+  background-color: #1d4ed8;
 }
 
 .lj-career-footer {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(30, 41, 59, 0.8);
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 10px;
-  color: #94a3b8;
+  font-size: 11px;
 }
 
 .lj-career-partners {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: #38bdf8;
-}
-
-.lj-career-support {
-  color: #cbd5e1;
+  gap: 6px;
+  color: #fbbf24;
   font-weight: 600;
 }
 
-/* Step 2: Job Tracks Grid & Tilt Cards */
+.lj-career-support {
+  color: #94a3b8;
+}
+
+/* 6. Step 2: Job Track Cards & Grid */
 .lj-tracks-grid {
-  margin-top: 24px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .lj-tracks-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .lj-tilt-card {
-  transition: transform 0.3s ease-out;
-  will-change: transform;
+  perspective: 1000px;
+  height: 100%;
 }
 
 .lj-track-card {
   position: relative;
+  height: 100%;
   border-radius: 16px;
   background-color: #ffffff;
   border: 1px solid #E2E8F0;
   padding: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   animation: fadeUp 0.6s ease-out both;
 }
 
 .lj-track-card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  border-color: #bfdbfe;
+  border-color: #93c5fd;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.12);
 }
 
 .lj-popular-badge {
   position: absolute;
   top: -10px;
   right: 16px;
-  padding: 4px 10px;
   border-radius: 9999px;
-  background-color: #0F172A;
-  color: #ffffff;
+  background-color: #2563eb;
+  padding: 2px 10px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
 }
 
 .lj-track-top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .lj-track-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
   color: #0F172A;
+  line-height: 1.25;
 }
 
 .lj-track-pills {
-  margin-top: 4px;
+  margin-top: 6px;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
 }
 
 .lj-pill-duration {
-  padding: 2px 8px;
-  border-radius: 9999px;
-  background-color: #F1F5F9;
-  border: 1px solid #E2E8F0;
   font-size: 11px;
-  font-weight: 700;
-  color: #334155;
+  font-weight: 600;
+  color: #64748B;
 }
 
 .lj-pill-mode {
-  padding: 2px 8px;
-  border-radius: 9999px;
-  background-color: #eff6ff;
-  border: 1px solid #dbeafe;
-  color: #1d4ed8;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #F1F5F9;
+  color: #475569;
 }
 
 .lj-track-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .lj-track-checks {
-  margin-top: 16px;
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 12px;
+  gap: 6px;
 }
 
 .lj-check-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 12px;
   color: #334155;
   font-weight: 500;
 }
@@ -1381,19 +1351,20 @@
 .lj-check-icon {
   width: 14px;
   height: 14px;
-  color: #059669;
+  color: #10B981;
+  flex-shrink: 0;
 }
 
 .lj-track-chips {
-  margin-top: 16px;
+  margin-top: 14px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
 .lj-tech-chip {
-  padding: 4px 10px;
-  border-radius: 9999px;
+  padding: 2px 8px;
+  border-radius: 6px;
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
   font-size: 11px;
@@ -1444,15 +1415,15 @@
   color: #2563EB;
 }
 
-.lj-track-card:hover .lj-arrow-slide {
-  transform: translateX(2px);
-}
-
 .lj-arrow-slide {
   transition: transform 0.2s ease;
 }
 
-/* Step 3: Placement Assistance & Drive */
+.lj-track-card:hover .lj-arrow-slide {
+  transform: translateX(3px);
+}
+
+/* 7. Step 3: Placement Assistance & Drive */
 .lj-placement-card {
   margin-top: 20px;
   border-radius: 16px;
@@ -1515,6 +1486,10 @@
   background-color: #F8FAFC;
   padding: 12px 14px;
   transition: all 0.2s ease;
+}
+
+.lj-benefit-item.active {
+  animation: bounceScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 .lj-benefit-item:hover {
@@ -1591,7 +1566,7 @@
 .lj-drive-banner {
   margin-top: 16px;
   border-radius: 16px;
-  background: linear-gradient(to bottom right, #7c3aed, #4f46e5);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
   padding: 20px;
   color: #ffffff;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
@@ -1648,7 +1623,7 @@
   height: 24px;
 }
 
-/* Reusable Icon Utilities */
+/* 8. Reusable Icon Utilities */
 .lj-icon-xs {
   width: 10px;
   height: 10px;
@@ -1659,7 +1634,7 @@
   height: 14px;
 }
 
-/* Keyframe Animations */
+/* 9. Keyframe Animations */
 @keyframes floatY {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -1684,4 +1659,4 @@
 .float-1 { animation: floatY 4s ease-in-out infinite; }
 .float-2 { animation: floatY 4.6s ease-in-out infinite 0.4s; }
 .float-3 { animation: floatY 5s ease-in-out infinite 0.8s; }
-.float-4 { animation: floatY 3.8s ease-in-out infinite 1.2s; }
+.float-4 { animation: floatY 3.8s ease-in-out infinite 1.2s; }\n
