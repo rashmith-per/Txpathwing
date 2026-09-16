@@ -1,210 +1,299 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  ArrowRight, BookOpen, Brain, Briefcase, Check, ChevronLeft, ChevronRight,
+  CircleCheck, Clock, CodeXml, Database, ExternalLink, FileText, Globe,
+  Layers, Search, ShoppingCart, Sparkles, Star, Users, Zap
+} from "lucide-react";
 import "./Learner_journey.css";
 
-const STAGES = [
-  { num: "01", title: "Discovery", desc: "Landing page, catalogue, search and filters — plus a recommendation feed built from what similar learners actually finished.", isAI: true },
-  { num: "02", title: "Onboarding", desc: "Email or mobile sign-up, OTP verification, then education, skills and career goal captured once.", isAI: false },
-  { num: "03", title: "Enrolment", desc: "Free courses grant access directly. Paid ones route through the gateway, then enrolment activates on webhook.", isAI: false },
-  { num: "04", title: "Learning", desc: "DRM video, downloadable resources, resume-from-last-position, and progress written on every lesson close.", isAI: false },
-  { num: "05", title: "AI tutoring", desc: "Ask about the lesson on screen and get an answer scoped to your syllabus, not the open internet.", isAI: true },
-  { num: "06", title: "Practice", desc: "Quizzes, coding labs in a sandbox, assignments and practice tests — generated against your weak areas.", isAI: true },
-  { num: "07", title: "Examination", desc: "Timed exams with AI proctoring. Auto-evaluation for objective items, human evaluation for the rest.", isAI: true },
-  { num: "08", title: "Certification", desc: "Eligibility check on completion and score, then a certificate with a unique ID and QR verification URL.", isAI: false },
-  { num: "09", title: "Skill profile", desc: "Scores and completions become a structured skill vector — the platform record of what you can do.", isAI: true },
-  { num: "10", title: "Job matching", desc: "Your skill vector is scored against live openings. You see the fit percentage and the exact gap.", isAI: true },
-  { num: "11", title: "Placement", desc: "Apply, interview, get selected, joining tracked — then the loop restarts at the next skill gap.", isAI: false },
-  { num: "↺", title: "Back to 01", desc: "A new goal or a new skill gap re-enters the loop at discovery. That return is the business model.", isAI: false, isLoop: true },
+const CORE_TECH = [
+  
+  { name: "HTML", color: "#E34F26", letter: "H" }, { name: "CSS", color: "#1572B6", letter: "C" },
+  { name: "Python", color: "#3776AB", letter: "Py" }, { name: "SQL", color: "#4479A1", letter: "S" },
+];
+const JOB_TRACKS = [
+  { title: "MERN Full Stack", duration: "8 Months", includes: "Includes Fundamentals", mode: "Online", projects: "10+ Real-time Projects", stack: ["mongoDB", "Express", "React", "Node"], accent: "#3B82F6", popular: true },
+  { title: "Java Full Stack", duration: "8 Months", includes: "Includes Fundamentals", mode: "Online", projects: "10+ Projects", stack: ["React", "Java", "Spring"], accent: "#F59E0B" },
+  { title: "Python Full Stack with GenAI", duration: "6 Months", includes: "After Fundamentals", mode: "Online + Offline", projects: "AI Projects", stack: ["Python", "GenAI", "Django"], accent: "#10B981" },
+  { title: "Java Full Stack with Gen AI", duration: "6 Months", includes: "After Fundamentals", mode: "Online + Offline", projects: "AI Integrated", stack: ["Java", "Gen AI", "Spring AI"], accent: "#8B5CF6" },
+];
+const PLACEMENT_BENEFITS = [
+  { icon: Brain, label: "Aptitude Training" }, { icon: Users, label: "Soft Skills Training" },
+  { icon: FileText, label: "Resume Preparation" }, { icon: Zap, label: "AI-Powered Mock Interviews" },
+  { icon: Users, label: "Mock Interviews by Tech and HR Panels" }, { icon: Briefcase, label: "Scheduling Interviews" },
+  { icon: Globe, label: "Access to Placement Portal" }, { icon: Sparkles, label: "Mega Offline Placement Drives" },
+];
+const ECOM_PRODUCTS = [
+  { name: "Pro Wireless ANC", cat: "Audio", price: "$89.99", rating: "4.9", tag: "Best Seller", bg: "gradient-blue-sky" },
+  { name: "Smart Watch Ultra", cat: "Wearable", price: "$149.00", rating: "4.8", tag: "Trending", bg: "gradient-indigo-blue" },
+  { name: "RGB Mechanical Board", cat: "Accessories", price: "$119.50", rating: "5.0", tag: "Hot", bg: "gradient-sky-cyan" },
 ];
 
-export default function ElevenStages() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+const EcomSlide = () => (
+  <div className="lj-slide-card">
+    <div className="lj-ecom-header">
+      <div className="lj-ecom-brand-wrap"><span className="lj-ecom-brand">NXT<span className="lj-text-white">STORE</span></span><span className="lj-ecom-badge">E-Commerce App</span></div>
+      <div className="lj-ecom-actions"><div className="lj-ecom-search"><Search className="lj-icon-sm" /><span>Search products...</span></div><div className="lj-ecom-cart"><ShoppingCart className="lj-icon-sm" /><span>3 items</span></div></div>
+    </div>
+    <div className="lj-ecom-grid">
+      {ECOM_PRODUCTS.map((it) => (
+        <div key={it.name} className="lj-ecom-product-card">
+          <div className={`lj-ecom-thumb ${it.bg}`}><span className="lj-ecom-product-tag">{it.tag}</span><div className="lj-ecom-thumb-meta"><span>{it.cat}</span><span className="lj-ecom-rating"><Star className="lj-icon-xs lj-star-icon" />{it.rating}</span></div></div>
+          <div className="lj-ecom-product-name">{it.name}</div>
+          <div className="lj-ecom-product-footer"><span className="lj-ecom-price">{it.price}</span><span className="lj-ecom-add-btn">+ Add</span></div>
+        </div>
+      ))}
+    </div>
+    <div className="lj-ecom-bottom">
+      <div className="lj-ecom-features"><span><Check className="lj-icon-sm" /> State Management</span><span><Check className="lj-icon-sm" /> Stripe Checkout</span></div>
+      <span className="lj-ecom-preview-link">Live Preview <ExternalLink className="lj-icon-sm" /></span>
+    </div>
+  </div>
+);
 
-  // Auto-advance along the learning route map every 2 seconds when playing
+const ProjectSlide = () => (
+  <div className="lj-slide-card">
+    <div className="lj-proj-header"><div className="lj-proj-title"><CodeXml className="lj-icon-sm lj-sky" /><span>DevStudio / Analytics Dashboard</span></div><div className="lj-proj-badge"><span className="lj-pulse-dot" /><span>Build: Passing</span></div></div>
+    <div className="lj-proj-grid">
+      <div className="lj-code-window">
+        <div className="lj-code-title"><span>Dashboard.jsx</span><span className="lj-code-tag">React 19</span></div>
+        <p className="lj-code-pink">export default function <span className="lj-code-yellow">App</span>() &#123;</p>
+        <p className="lj-code-indent lj-code-slate">const [stats, setStats] = <span className="lj-code-sky">useState</span>([]);</p>
+        <p className="lj-code-indent lj-code-comment">&#47;&#47; REST API + Cloud sync</p>
+        <p className="lj-code-indent lj-code-green">&lt;<span className="lj-code-cyan">AnalyticsView</span> data=&#123;stats&#125; /&gt;</p>
+        <p className="lj-code-pink">&#125;</p>
+      </div>
+      <div className="lj-telemetry-box">
+        <div>
+          <div className="lj-telemetry-header"><span>Live Telemetry</span><span className="lj-latency-badge">24ms Latency</span></div>
+          <div className="lj-telemetry-grid">
+            <div className="lj-telemetry-stat"><div className="lj-stat-sub">Active Users</div><div className="lj-stat-val">2,480+</div></div>
+            <div className="lj-telemetry-stat"><div className="lj-stat-sub">Uptime</div><div className="lj-stat-val lj-emerald">99.98%</div></div>
+          </div>
+        </div>
+        <div className="lj-telemetry-footer"><span>Cloud Deployed</span><span className="lj-view-project-btn">View Project <ArrowRight className="lj-icon-xs" /></span></div>
+      </div>
+    </div>
+    <div className="lj-proj-footer">
+      <div className="lj-proj-tags">{["React", "CSS3", "APIs"].map((t) => (<span key={t} className="lj-proj-tag">{t}</span>))}</div>
+      <span className="lj-proj-highlight">10+ Real-Time Projects</span>
+    </div>
+  </div>
+);
+
+const CareerSlide = () => (
+  <div className="lj-slide-card">
+    <div className="lj-career-header"><div className="lj-career-title"><Briefcase className="lj-icon-sm lj-sky" /><span>Candidate Career Readiness</span></div><span className="lj-ready-badge">94% Job Ready</span></div>
+    <div className="lj-career-grid">
+      <div className="lj-eval-box">
+        <div className="lj-eval-heading">Evaluation Score</div>
+        <div className="lj-score-row"><span className="lj-big-score">9.4</span><span className="lj-score-max">/ 10</span></div>
+        <div className="lj-progress-bars">
+          <div className="lj-progress-info"><span>DSA & Logic</span><span className="lj-progress-val">92%</span></div>
+          <div className="lj-progress-track"><div className="lj-progress-fill-sky" style={{ width: "92%" }} /></div>
+          <div className="lj-progress-info"><span>Full Stack Dev</span><span className="lj-progress-val lj-blue">96%</span></div>
+          <div className="lj-progress-track"><div className="lj-progress-fill-blue" style={{ width: "96%" }} /></div>
+        </div>
+      </div>
+      <div className="lj-interview-box">
+        <div>
+          <div className="lj-interview-tag"><Clock className="lj-icon-sm" /><span>Next Scheduled Interview</span></div>
+          <div className="lj-interview-topic">Technical Mock Round with Senior SDE</div>
+          <p className="lj-interview-desc">Live Coding, Problem Solving & System Architecture Review</p>
+        </div>
+        <div className="lj-interview-footer"><span className="lj-feedback-tag">Feedback: Top 5%</span><button className="lj-room-btn">Enter Interview Room</button></div>
+      </div>
+    </div>
+    <div className="lj-career-footer"><span className="lj-career-partners"><Sparkles className="lj-icon-sm" /> 1000+ Hiring Partners</span><span className="lj-career-support">16 Months Placement Support</span></div>
+  </div>
+);
+
+const SHOWCASE_SLIDES = [
+  { id: "ecommerce", title: "E-Commerce", badge: "Full-Stack Storefront", url: "shopnext-store.dev", content: <EcomSlide /> },
+  { id: "projects", title: "Projects", badge: "Portfolio Project", url: "dev-studio.portfolio.dev", content: <ProjectSlide /> },
+  { id: "career", title: "Career", badge: "Career Hub", url: "career-readiness.nxtwave.io", content: <CareerSlide /> },
+];
+
+const TiltCard = ({ children, className = "" }) => {
+  const ref = useRef(null);
+  const onMouseMove = (e) => {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.transform = `perspective(1000px) rotateX(${((r.height / 2 - (e.clientY - r.top)) / (r.height / 2)) * 4}deg) rotateY(${(((e.clientX - r.left) - r.width / 2) / (r.width / 2)) * 4}deg) translateY(-6px)`;
+  };
+  return (<div ref={ref} onMouseMove={onMouseMove} onMouseLeave={() => ref.current && (ref.current.style.transform = "perspective(1000px) rotateX(0) rotateY(0) translateY(0)")} className={`lj-tilt-card ${className}`}>{children}</div>);
+};
+
+const StepBadge = ({ num, activeStep }) => (
+  <div className={`lj-step-badge ${activeStep === num ? "active" : ""} ${activeStep > num ? "done" : ""}`}>
+    {activeStep > num ? <Check className="lj-badge-check" /> : num}
+  </div>
+);
+
+const ShowcaseCarousel = () => {
+  const [idx, setIdx] = useState(0), [paused, setPaused] = useState(false);
   useEffect(() => {
-    if (!isPlaying) return;
-    const timer = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % STAGES.length);
-    }, 2000);
-    return () => clearInterval(timer);
-  }, [isPlaying]);
+    if (paused) return;
+    const t = setInterval(() => setIdx((p) => (p + 1) % SHOWCASE_SLIDES.length), 3800);
+    return () => clearInterval(t);
+  }, [paused]);
+  const slide = SHOWCASE_SLIDES[idx];
+  return (
+    <div className="lj-showcase-card" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <div className="lj-showcase-topbar">
+        <div className="lj-window-controls">
+          <div className="lj-window-dots"><div className="lj-dot dot-red" /><div className="lj-dot dot-yellow" /><div className="lj-dot dot-green" /></div>
+          <span className="lj-showcase-url">{slide.url}</span>
+        </div>
+        <div className="lj-showcase-tabs">
+          {SHOWCASE_SLIDES.map((s, i) => (<button key={s.id} type="button" onClick={() => setIdx(i)} className={`lj-tab-btn ${idx === i ? "active" : ""}`}>{s.title}</button>))}
+        </div>
+        <div className="lj-showcase-arrows">
+          <button type="button" onClick={() => setIdx((p) => (p === 0 ? SHOWCASE_SLIDES.length - 1 : p - 1))} className="lj-arrow-btn" aria-label="Previous"><ChevronLeft className="lj-icon-sm" /></button>
+          <button type="button" onClick={() => setIdx((p) => (p + 1) % SHOWCASE_SLIDES.length)} className="lj-arrow-btn" aria-label="Next"><ChevronRight className="lj-icon-sm" /></button>
+        </div>
+      </div>
+      <div key={idx} className="lj-slide-container">{slide.content}</div>
+      <div className="lj-showcase-foot">
+        <div className="lj-indicators">
+          {SHOWCASE_SLIDES.map((_, i) => (<button key={i} type="button" onClick={() => setIdx(i)} className={`lj-ind-dot ${idx === i ? "active" : ""}`} aria-label={`Slide ${i + 1}`} />))}
+          <span className="lj-cycle-note">Auto-cycling • One after another</span>
+        </div>
+        <span className="lj-showcase-badge">{slide.badge}</span>
+      </div>
+    </div>
+  );
+};
+
+export default function LearnerJourney() {
+  const [activeStep, setActiveStep] = useState(1), [progress, setProgress] = useState(0);
+  const s1Ref = useRef(null), s2Ref = useRef(null), s3Ref = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const { scrollY, innerHeight } = window, els = [s1Ref.current, s2Ref.current, s3Ref.current].filter(Boolean);
+      if (!els.length) return;
+      let step = 1;
+      els.forEach((el, i) => { if (el.getBoundingClientRect().top < innerHeight * 0.55) step = i + 1; });
+      setActiveStep(step);
+      const top = els[0].getBoundingClientRect().top + scrollY, total = els[2].getBoundingClientRect().bottom + scrollY - top - innerHeight * 0.5;
+      setProgress(Math.min(1, Math.max(0, (scrollY - top + innerHeight * 0.3) / total)));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div
-      className="min-h-screen w-full text-[#0F172A] selection:bg-[#EDE9FE] antialiased overflow-x-hidden relative"
-      style={{ background: "linear-gradient(160deg, #F8FAFC 0%, #F5F3FF 50%, #EFF6FF 100%)" }}
-    >
-      <main className="mx-auto max-w-[1440px] px-3 sm:px-5 pt-1.5 pb-2">
-        {/* Hero Section */}
-        <div className="max-w-[800px] mx-auto text-center flex flex-col items-center">
-          <div className="flex justify-center overflow-hidden">
-            <div className="header-label-anim mono text-[10px] font-semibold uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] via-[#2563EB] to-[#0084FF]" style={{ letterSpacing: "0.2em" }}>
-              THE LEARNER JOURNEY
-            </div>
-          </div>
-
-          <h1 className="hero-h1 text-center mt-2 sm:mt-2.5">
-            <span className="hero-line-wrap">
-              <span className="line1 hero-line">Eleven stages.</span>
-              <span className="hero-underline u1" />
-            </span>{" "}
-            <span className="hero-line-wrap">
-              <span className="line2 hero-line">One record.</span>
-              <span className="hero-underline u2" />
-            </span>
-          </h1>
-
-          <div className="mt-2 sm:mt-2.5 max-w-[640px] desc-anim mx-auto text-center">
-            <p className="text-[12.5px] sm:text-[13px] leading-[1.5] text-[#475569] font-[400] tracking-[-0.01em]">
-              This is a <span className="font-bold text-[#111827]">real sequence</span>, not a feature list — each stage consumes what the previous one produced.
-              Stages marked{" "}
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#F5F3FF] to-[#EFF6FF] border border-[#DDD6FE] text-[#6D28D9] text-[10px] font-bold mono shadow-xs align-middle">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />
-                AI
-              </span>{" "}
-              are where the{" "}
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-[#F5F3FF] border border-[#DDD6FE] text-[#6D28D9] font-bold text-[11px] mono align-middle">
-                AI layer
-              </span>{" "}
-              reads or writes.
-            </p>
+    <div className="lj-page">
+      <div className="lj-container">
+        <div className="lj-sticky-sidebar">
+          <div className="lj-sidebar-inner">
+            <h1 className="lj-main-title">Get Ready for<br />Your <span className="lj-title-highlight">IT Career</span><br />in <span className="lj-blue-text">3 Steps</span></h1>
+            <p className="lj-main-desc">A structured, industry-aligned path from fundamentals to placement. Scroll to explore how each stage compounds your growth.</p>
+            <div className="lj-accent-line"><div className="lj-accent-bar" /><div className="lj-accent-dot-1" /><div className="lj-accent-dot-2" /></div>
           </div>
         </div>
 
-        {/* Route Map Stepper Ribbon */}
-        <div className="mt-2.5 rounded-[12px] border border-[#DDD6FE] bg-white/95 backdrop-blur-md p-2 sm:p-2.5 px-3 shadow-[0_2px_12px_rgba(109,40,217,0.06)]">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 pb-2 border-b border-[#EDE9FE]">
-            <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-white border border-[#DDD6FE] p-0.5 flex items-center justify-center shadow-xs shrink-0">
-                <img src="/tx-logo.png" alt="TX Logo" className="h-7 w-auto object-contain" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] via-[#2563EB] to-[#0084FF] mono">
-                    Learning Route Map
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[8.5px] font-bold mono bg-gradient-to-r from-[#F5F3FF] to-[#EFF6FF] text-[#6D28D9] border border-[#DDD6FE]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#7C3AED]" />
-                    Stage {STAGES[activeStep].num} of {STAGES.length}
-                  </span>
-                  {STAGES[activeStep].isAI && (
-                    <span className="ai-badge inline-flex items-center gap-1 rounded-full px-2 py-0.5 mono text-[8px] font-semibold">
-                      <span className="ai-dot h-1 w-1 rounded-full" />
-                      AI LAYER
-                    </span>
-                  )}
-                </div>
-                <div className="text-[13px] font-bold text-[#0F172A] mt-0.5 flex items-center gap-1.5 flex-wrap">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] to-[#0084FF]">
-                    {STAGES[activeStep].title}
-                  </span>
-                  <span className="text-[#CBD5E1] hidden sm:inline">•</span>
-                  <span className="text-[11.5px] font-normal text-[#64748B]">
-                    {STAGES[activeStep].desc}
-                  </span>
-                </div>
-              </div>
-            </div>
+        <div className="lj-steps-column">
+          <div className="lj-timeline-wrapper"><div className="lj-timeline-track"><div className="lj-timeline-fill" style={{ height: `${progress * 100}%` }} /></div></div>
 
-            <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
-              <button type="button" onClick={() => { setIsPlaying(false); setActiveStep((p) => (p - 1 + STAGES.length) % STAGES.length); }} className="px-2 py-0.5 rounded-md border border-[#BFDBFE] bg-[#F8FAFC] hover:bg-[#F5F3FF] text-[#1D4ED8] hover:text-[#6D28D9] text-[10.5px] font-semibold mono transition-all cursor-pointer" title="Previous Milestone">
-                ◀ Prev
-              </button>
-              <button type="button" onClick={() => setIsPlaying(!isPlaying)} className={`px-3 py-0.5 rounded-md text-[10.5px] font-semibold mono transition-all flex items-center gap-1.5 shadow-sm cursor-pointer ${isPlaying ? "bg-gradient-to-r from-[#6D28D9] via-[#2563EB] to-[#0084FF] text-white shadow-indigo-400/25 hover:opacity-95" : "bg-[#F5F3FF] border border-[#C4B5FD] text-[#6D28D9] hover:bg-[#EDE9FE]"}`}>
-                {isPlaying ? <><span className="text-[9px]">⏸</span> Pause Tour</> : <><span className="text-[9px]">▶</span> Play Tour</>}
-              </button>
-              <button type="button" onClick={() => { setIsPlaying(false); setActiveStep((p) => (p + 1) % STAGES.length); }} className="px-2 py-0.5 rounded-md border border-[#BFDBFE] bg-[#F8FAFC] hover:bg-[#F5F3FF] text-[#1D4ED8] hover:text-[#6D28D9] text-[10.5px] font-semibold mono transition-all cursor-pointer" title="Next Milestone">
-                Next ▶
-              </button>
-            </div>
-          </div>
-
-          {/* Connected Waypoints Trail */}
-          <div className="pt-2 relative overflow-x-auto pb-0.5">
-            <div className="min-w-[620px] relative py-1 px-3">
-              <div className="absolute top-[14px] left-6 right-6 h-[3px] bg-[#E2E8F0] rounded-full -z-0" />
-              <div className="absolute top-[14px] left-6 h-[3px] bg-gradient-to-r from-[#6D28D9] via-[#2563EB] to-[#0084FF] rounded-full transition-all duration-500 -z-0" style={{ width: `calc(${activeStep / (STAGES.length - 1)} * (100% - 48px))` }} />
-              <div className="flex items-center justify-between relative z-10">
-                {STAGES.map((stage, idx) => {
-                  const isCurrent = idx === activeStep;
-                  const isPassed = idx < activeStep;
-                  return (
-                    <button key={stage.num + idx} type="button" onClick={() => { setActiveStep(idx); setIsPlaying(false); }} className={`flex flex-col items-center cursor-pointer transition-all duration-300 focus:outline-none ${isCurrent ? "scale-110" : "hover:scale-105"}`} title={`Step ${stage.num}: ${stage.title}`}>
-                      <div className={`h-5 w-5 rounded-full flex items-center justify-center text-[9px] font-bold mono transition-all duration-300 ${isCurrent ? "bg-gradient-to-tr from-[#6D28D9] to-[#0084FF] text-white ring-2 ring-indigo-200 shadow-sm" : isPassed ? "bg-gradient-to-r from-[#6D28D9] to-[#2563EB] text-white" : "bg-white border-2 border-[#CBD5E1] text-[#64748B]"}`}>
-                        {isPassed ? "✓" : stage.isLoop ? "↺" : stage.num}
-                      </div>
-                      <span className={`text-[8.5px] mono font-medium mt-0.5 tracking-tight ${isCurrent ? "text-[#6D28D9] font-bold" : isPassed ? "text-[#475569]" : "text-[#94A3B8]"}`}>
-                        {stage.title.split(" ")[0]}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 6x2 Cards Grid */}
-        <div className="mt-2.5 rounded-[12px] border border-[#DDD6FE] bg-white/90 backdrop-blur-sm p-2 shadow-[0_2px_12px_rgba(109,40,217,0.06),0_1px_3px_rgba(37,99,235,0.06)]">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1.5 sm:gap-2">
-            {STAGES.map((stage, i) => {
-              const isLoop = stage.isLoop;
-              const isCurrent = i === activeStep;
-              const isPassed = i < activeStep;
-
-              return (
-                <div key={stage.num + i} style={{ "--i": i }} onClick={() => { setActiveStep(i); setIsPlaying(false); }} className={`card-outer group ${isLoop ? "loop" : ""} ${isCurrent ? "is-active-step" : isPassed ? "is-passed-step" : ""}`}>
-                  <div className="card-inner">
-                    <div>
-                      <div className="flex items-start justify-between gap-1 flex-wrap">
-                        <div className="flex items-center gap-1.5">
-                          <span className="mono text-[11px] font-semibold tracking-wide card-num">{stage.num}</span>
-                          {isCurrent && <span className="step-status-badge active mono inline-flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-white" />CURRENT</span>}
-                          {isPassed && <span className="step-status-badge completed mono inline-flex items-center gap-0.5">✓ PASSED</span>}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          {stage.isAI && !isLoop && (
-                            <span className="ai-badge inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 mono text-[8.5px] font-medium tracking-[0.06em]">
-                              <span className="ai-dot h-1 w-1 rounded-full" />AI LAYER
-                            </span>
-                          )}
-                          {isLoop && (
-                            <span className="loop-icon inline-flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#F5F3FF] border border-[#DDD6FE] text-[#6D28D9] text-[11px] font-bold">
-                              ↻
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <h3 className="card-title mt-1.5 tracking-[-0.01em] leading-tight">{stage.title}</h3>
-                      <p className="card-desc mt-1 text-[10.5px] leading-[1.38]">{stage.desc}</p>
-                    </div>
-                    <div className="mt-2 flex items-center justify-between border-t border-[#EDE9FE] pt-1.5">
-                      <span className="card-foot mono text-[9.5px] flex items-center gap-1">
-                        {isLoop ? (
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6D28D9] to-[#0084FF] font-bold">↻ RE-ENTERS 01</span>
-                        ) : (
-                          <><span>STAGE {stage.num}</span><span className="text-[#6D28D9] font-bold">➔</span><span>{STAGES[i + 1]?.num}</span></>
-                        )}
-                      </span>
-                      <span className="card-arrow h-4.5 w-4.5 rounded-full flex items-center justify-center text-[10px]">
-                        {isCurrent ? "●" : "↗"}
-                      </span>
-                    </div>
+          {/* STEP 1 */}
+          <div ref={s1Ref} className="lj-step-section">
+            <StepBadge num={1} activeStep={activeStep} />
+            <div className="lj-mobile-pill step-1-pill">Step 1 — Fundamentals</div>
+            <div className="lj-step-header"><h2 className="lj-step-title">Fundamentals</h2><span className="lj-step-duration-badge">2 Months</span></div>
+            <div className="lj-step-stack">
+              <div className="lj-schedule-grid">
+                {[
+                  { icon: Clock, title: "Schedule", desc: "3 Hours Classes + 3 Hours Labs per day", delay: "0ms" },
+                  { icon: BookOpen, title: "Milestone", desc: "Fundamentals Exam + Project Review", delay: "100ms" },
+                ].map((c) => (
+                  <div key={c.title} className="lj-info-card" style={{ animationDelay: c.delay }}>
+                    <div className="lj-info-card-header"><c.icon className="lj-info-icon" /> {c.title}</div>
+                    <p className="lj-info-card-desc">{c.desc}</p>
                   </div>
+                ))}
+              </div>
+              <div className="lj-tech-card">
+                <div className="lj-tech-card-header"><p className="lj-tech-label">Courses Include</p><span className="lj-tech-count">4 Core Tech</span></div>
+                <div className="lj-tech-grid">
+                  {CORE_TECH.map((v, i) => (
+                    <div key={v.name} className={`lj-tech-item float-${(i % 4) + 1}`}>
+                      <div className="lj-tech-letter" style={{ background: v.color }}>{v.letter}</div>
+                      <div className="lj-tech-name">{v.name}</div>
+                    </div>
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+              <ShowcaseCarousel />
+            </div>
+          </div>
+
+          {/* STEP 2 */}
+          <div ref={s2Ref} className="lj-step-section">
+            <StepBadge num={2} activeStep={activeStep} />
+            <div className="lj-mobile-pill step-2-pill">Step 2 — Choose your Job Track</div>
+            <div className="lj-step-header"><h2 className="lj-step-title">Choose your Job Track</h2></div>
+            <p className="lj-step-intro">After fundamentals, pick a specialization aligned to hiring demand. Each track includes live classes, mentorship, and production projects.</p>
+            <div className="lj-tracks-grid">
+              {JOB_TRACKS.map((t, i) => (
+                <TiltCard key={t.title}>
+                  <div className="lj-track-card" style={{ animationDelay: `${i * 110}ms` }}>
+                    {t.popular && <div className="lj-popular-badge">Most Popular</div>}
+                    <div className="lj-track-top">
+                      <div>
+                        <div className="lj-track-title">{t.title}</div>
+                        <div className="lj-track-pills"><span className="lj-pill-duration">{t.duration}</span><span className="lj-pill-mode">{t.mode}</span></div>
+                      </div>
+                      <div className="lj-track-icon" style={{ background: t.accent }}><Layers className="lj-icon-sm" /></div>
+                    </div>
+                    <div className="lj-track-checks">
+                      <div className="lj-check-row"><CircleCheck className="lj-check-icon" /><span>{t.includes}</span></div>
+                      <div className="lj-check-row"><CircleCheck className="lj-check-icon" /><span>{t.projects}</span></div>
+                    </div>
+                    <div className="lj-track-chips">{t.stack.map((item) => (<span key={item} className="lj-tech-chip">{item}</span>))}</div>
+                    <div className="lj-track-divider" />
+                    <div className="lj-track-footer"><span className="lj-curriculum-label">Curriculum</span><span className="lj-explore-link">Explore track <ArrowRight className="lj-icon-xs lj-arrow-slide" /></span></div>
+                  </div>
+                </TiltCard>
+              ))}
+            </div>
+          </div>
+
+          {/* STEP 3 */}
+          <div ref={s3Ref} className="lj-step-section lj-step-3-section">
+            <StepBadge num={3} activeStep={activeStep} />
+            <div className="lj-mobile-pill step-3-pill">Step 3 — Placement Assistance</div>
+            <div className="lj-step-header"><h2 className="lj-step-title">Placement Assistance for Your Job</h2><span className="lj-step-3-badge">Up to 16 Months from date of joining</span></div>
+            <div className="lj-placement-card">
+              <div className="lj-placement-header"><p className="lj-placement-title">Free Add-ons Included</p><span className="lj-placement-count">8 Benefits</span></div>
+              <div className="lj-benefits-grid">
+                {PLACEMENT_BENEFITS.map((item, i) => (
+                  <div key={item.label} className={`lj-benefit-item ${activeStep >= 3 ? "active" : ""}`} style={{ animationDelay: `${i * 90}ms` }}>
+                    <div className="lj-benefit-icon-box"><item.icon className="lj-benefit-icon" /></div>
+                    <span className="lj-benefit-label">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="lj-stats-grid">
+                {[{ k: "16 Months", v: "Placement Support" }, { k: "1000+ Companies", v: "Hiring Network" }, { k: "Live + Portal", v: "Interview Access" }].map((st) => (
+                  <div key={st.k} className="lj-stat-item"><div className="lj-stat-k">{st.k}</div><div className="lj-stat-v">{st.v}</div></div>
+                ))}
+              </div>
+            </div>
+            <div className="lj-drive-banner">
+              <div className="lj-drive-glow" />
+              <div className="lj-drive-content">
+                <div><div className="lj-drive-tag">Placement Drive</div><div className="lj-drive-title">Mega Offline Drives + AI Mock Interviews</div></div>
+                <div className="lj-drive-icon-box"><Database className="lj-drive-icon" /></div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Footer Spec Strip */}
-        <div className="mt-2 flex flex-col sm:flex-row gap-2 justify-between text-[10.5px] mono">
-          <span className="text-[#94A3B8]">
-            <span className="text-[#6D28D9] font-semibold">TX Path</span> • Royal Indigo & Electric Blue • white #FFFFFF top 3px #2563EB → active #7C3AED top 4px #0084FF
-          </span>
-          <span className="text-[#2563EB] font-medium">TX brand gradient • #6D28D9 ➔ #2563EB ➔ #0084FF</span>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
+
+export { LearnerJourney as ElevenStages };

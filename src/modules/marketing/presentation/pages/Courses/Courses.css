@@ -20,7 +20,6 @@
 ========================================================= */
 
 .courses-container {
-
   width: calc(100% - 80px);
 
   max-width: 1400px;
@@ -34,13 +33,17 @@
   border-radius: 24px;
 
   background:
-    radial-gradient(circle at 84% 10%,
+    radial-gradient(
+      circle at 84% 10%,
       rgba(111, 102, 255, 0.08),
-      transparent 27%),
-    linear-gradient(135deg,
+      transparent 27%
+    ),
+    linear-gradient(
+      135deg,
       #ffffff 0%,
       #f9fbff 55%,
-      #f4f7ff 100%);
+      #f4f7ff 100%
+    );
 
   box-sizing: border-box;
 
@@ -53,20 +56,20 @@
 ========================================================= */
 
 .courses-header {
-
   display: flex;
 
   justify-content: space-between;
 
-  align-items: flex-start;
+  align-items: center;
 
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 
 
 .courses-heading {
-
   max-width: 780px;
+
+  flex: 1;
 }
 
 
@@ -75,7 +78,6 @@
 ========================================================= */
 
 .eyebrow {
-
   margin-bottom: 8px;
 
   color: #586487;
@@ -93,14 +95,15 @@
 ========================================================= */
 
 .courses-heading h1 {
-
   margin: 0;
 
   color: #080d38;
 
-  font-size: clamp(34px,
-      3.5vw,
-      50px);
+  font-size: clamp(
+    34px,
+    3.5vw,
+    50px
+  );
 
   line-height: 1.05;
 
@@ -115,7 +118,6 @@
 ========================================================= */
 
 .courses-heading p {
-
   margin: 11px 0 0;
 
   color: #5d6889;
@@ -129,120 +131,222 @@
 
 
 /* =========================================================
-   RIGHT ILLUSTRATION
+   RIGHT SIDE
+   COURSE DISCOVERY
 ========================================================= */
 
 .courses-illustration {
-
   position: relative;
 
-  width: 175px;
+  width: 345px;
 
-  height: 105px;
+  height: 125px;
 
-  flex-shrink: 0;
+  flex: 0 0 345px;
 
-  margin-right: 5px;
+  margin-left: 20px;
+
+  overflow: hidden;
 }
 
 
 /* =========================================================
-   ROCKET
+   COURSE VISUAL
 ========================================================= */
 
-.rocket {
-
+.course-visual {
   position: absolute;
 
-  left: 4px;
+  left: 0;
 
-  top: 32px;
+  bottom: 0;
 
-  font-size: 46px;
+  width: 190px;
 
-  transform: rotate(-15deg);
+  height: 125px;
 
-  filter:
-    drop-shadow(0 6px 10px rgba(80, 88, 210, 0.16));
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.course-illustration-svg {
+  width: 190px;
+
+  height: 125px;
+
+  display: block;
 }
 
 
 /* =========================================================
-   LEARN / BUILD / GROW
+   SMALL DECORATIVE DOTS
 ========================================================= */
 
-.learn-text {
-
+.discovery-dot {
   position: absolute;
+
+  width: 5px;
+
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #8b82df;
+
+  opacity: 0.45;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+
+.discovery-dot-one {
+  left: 128px;
+
+  top: 9px;
+}
+
+
+.discovery-dot-two {
+  left: 153px;
+
+  top: 27px;
+
+  width: 3px;
+
+  height: 3px;
+
+  opacity: 0.3;
+}
+
+
+/* =========================================================
+   DISCOVERY CONTENT
+========================================================= */
+
+.courses-discovery {
+  position: absolute;
+
+  top: 20px;
 
   right: 0;
 
-  top: 0;
+  width: 142px;
 
   display: flex;
 
   flex-direction: column;
 
-  font-size: 26px;
+  align-items: flex-start;
 
-  line-height: 1.15;
-
-  font-weight: 900;
-
-  letter-spacing: -1px;
-}
-
-
-.learn-text span:nth-child(1) {
-  color: #7d45e8;
-}
-
-
-.learn-text span:nth-child(2) {
-  color: #5d72df;
-}
-
-
-.learn-text span:nth-child(3) {
-  color: #7394e9;
+  z-index: 5;
 }
 
 
 /* =========================================================
-   SPARKS
+   DISCOVERY HEADING
 ========================================================= */
 
-.spark {
+.courses-discovery h3 {
+  margin: 0 0 10px;
 
-  position: absolute;
+  color: #5146bd;
 
-  color: #8065ed;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-  font-size: 12px;
+  font-size: 19px;
+
+  line-height: 1.08;
+
+  font-weight: 700;
+
+  letter-spacing: -0.3px;
 }
 
 
-.spark-one {
+/* =========================================================
+   VIEW ALL COURSES
+========================================================= */
 
-  left: 0;
+.view-courses-btn {
+  display: inline-flex;
 
-  top: 17px;
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  height: 32px;
+
+  padding: 0 13px;
+
+  border-radius: 17px;
+
+  background: #7564df;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  box-shadow:
+    0 4px 10px rgba(
+      99,
+      86,
+      200,
+      0.14
+    );
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 
-.spark-two {
+.view-courses-btn:hover {
+  transform:
+    translateY(-2px);
 
-  left: 4px;
+  background: #6756d3;
 
-  top: 48px;
+  box-shadow:
+    0 7px 15px rgba(
+      99,
+      86,
+      200,
+      0.20
+    );
 }
 
 
-.spark-three {
+.courses-arrow {
+  font-size: 14px;
 
-  left: 43px;
+  line-height: 1;
 
-  bottom: 5px;
+  transition:
+    transform 0.2s ease;
+}
+
+
+.view-courses-btn:hover .courses-arrow {
+  transform:
+    translateX(3px);
 }
 
 
@@ -251,7 +355,6 @@
 ========================================================= */
 
 .courses-categories {
-
   display: flex;
 
   flex-direction: column;
@@ -267,7 +370,6 @@
 ========================================================= */
 
 .category-row {
-
   position: relative;
 
   width: 100%;
@@ -287,11 +389,12 @@
 ========================================================= */
 
 .software-row {
-
   background:
-    linear-gradient(110deg,
+    linear-gradient(
+      110deg,
       #edf6ff,
-      #f7fbff);
+      #f7fbff
+    );
 
   border: 1px solid #d8e9ff;
 }
@@ -302,11 +405,12 @@
 ========================================================= */
 
 .cloud-row {
-
   background:
-    linear-gradient(110deg,
+    linear-gradient(
+      110deg,
       #e9faf8,
-      #f5fffe);
+      #f5fffe
+    );
 
   border: 1px solid #d4f0ec;
 }
@@ -317,11 +421,12 @@
 ========================================================= */
 
 .ai-row {
-
   background:
-    linear-gradient(110deg,
+    linear-gradient(
+      110deg,
       #f4edff,
-      #fbf8ff);
+      #fbf8ff
+    );
 
   border: 1px solid #e8dcff;
 }
@@ -332,13 +437,15 @@
 ========================================================= */
 
 .category-row {
-
   --card-width: 225px;
 
   --card-gap: 12px;
 
   --loop-width:
-    calc((var(--card-width) * 4) + (var(--card-gap) * 4));
+    calc(
+      (var(--card-width) * 4) +
+      (var(--card-gap) * 4)
+    );
 }
 
 
@@ -347,7 +454,6 @@
 ========================================================= */
 
 .marquee-wrapper {
-
   position: relative;
 
   width: 100%;
@@ -366,7 +472,6 @@
 
 .marquee-wrapper::before,
 .marquee-wrapper::after {
-
   content: "";
 
   position: absolute;
@@ -384,24 +489,26 @@
 
 
 .marquee-wrapper::before {
-
   left: 0;
 
   background:
-    linear-gradient(to right,
+    linear-gradient(
+      to right,
       rgba(237, 246, 255, 1),
-      rgba(237, 246, 255, 0));
+      rgba(237, 246, 255, 0)
+    );
 }
 
 
 .marquee-wrapper::after {
-
   right: 0;
 
   background:
-    linear-gradient(to left,
+    linear-gradient(
+      to left,
       rgba(247, 251, 255, 1),
-      rgba(247, 251, 255, 0));
+      rgba(247, 251, 255, 0)
+    );
 }
 
 
@@ -410,7 +517,6 @@
 ========================================================= */
 
 .marquee-track {
-
   display: flex;
 
   width: max-content;
@@ -438,7 +544,6 @@
 ========================================================= */
 
 .marquee-group {
-
   display: flex;
 
   align-items: stretch;
@@ -457,11 +562,9 @@
 
 /* =========================================================
    SOFTWARE
-   LEFT → RIGHT
 ========================================================= */
 
 .move-left-to-right {
-
   animation-name:
     moveSoftwareLeftToRight;
 }
@@ -470,33 +573,30 @@
 @keyframes moveSoftwareLeftToRight {
 
   0% {
-
     transform:
-      translate3d(calc(-1 * var(--loop-width)),
+      translate3d(
+        calc(-1 * var(--loop-width)),
         0,
-        0);
-
+        0
+      );
   }
 
   100% {
-
     transform:
-      translate3d(0,
+      translate3d(
         0,
-        0);
-
+        0,
+        0
+      );
   }
-
 }
 
 
 /* =========================================================
    CLOUD
-   RIGHT → LEFT
 ========================================================= */
 
 .move-right-to-left {
-
   animation-name:
     moveCloudRightToLeft;
 }
@@ -505,33 +605,30 @@
 @keyframes moveCloudRightToLeft {
 
   0% {
-
     transform:
-      translate3d(0,
+      translate3d(
         0,
-        0);
-
+        0,
+        0
+      );
   }
 
   100% {
-
     transform:
-      translate3d(calc(-1 * var(--loop-width)),
+      translate3d(
+        calc(-1 * var(--loop-width)),
         0,
-        0);
-
+        0
+      );
   }
-
 }
 
 
 /* =========================================================
    AI
-   LEFT → RIGHT
 ========================================================= */
 
 .ai-row .move-left-to-right {
-
   animation-name:
     moveAILeftToRight;
 }
@@ -540,23 +637,22 @@
 @keyframes moveAILeftToRight {
 
   0% {
-
     transform:
-      translate3d(calc(-1 * var(--loop-width)),
+      translate3d(
+        calc(-1 * var(--loop-width)),
         0,
-        0);
-
+        0
+      );
   }
 
   100% {
-
     transform:
-      translate3d(0,
+      translate3d(
         0,
-        0);
-
+        0,
+        0
+      );
   }
-
 }
 
 
@@ -565,18 +661,15 @@
 ========================================================= */
 
 .marquee-wrapper:hover .marquee-track {
-
   animation-play-state: paused;
 }
 
 
 /* =========================================================
    COURSE CARD
-   SAME COLOR FOR EVERY CARD
 ========================================================= */
 
 .course-card {
-
   position: relative;
 
   width: var(--card-width);
@@ -603,18 +696,15 @@
 
   border-radius: 13px;
 
-  /*
-    SAME PLAIN COLOR
-    FOR EVERY COURSE CARD
-  */
-
   background: #eef2ff;
 
   box-shadow:
-    0 3px 10px rgba(45,
+    0 3px 10px rgba(
+      45,
       55,
       100,
-      0.06);
+      0.06
+    );
 
   transition:
     transform 0.25s ease,
@@ -626,11 +716,9 @@
 
 /* =========================================================
    CARD HOVER
-   BORDER GLOW
 ========================================================= */
 
 .course-card:hover {
-
   transform:
     translateY(-3px);
 
@@ -639,29 +727,34 @@
   border-color: #7c6ee6;
 
   box-shadow:
-    0 0 0 1px rgba(124,
+    0 0 0 1px rgba(
+      124,
       110,
       230,
-      0.25),
+      0.25
+    ),
 
-    0 0 14px rgba(124,
+    0 0 14px rgba(
+      124,
       110,
       230,
-      0.28),
+      0.28
+    ),
 
-    0 10px 24px rgba(55,
+    0 10px 24px rgba(
+      55,
       65,
       120,
-      0.12);
+      0.12
+    );
 }
 
 
 /* =========================================================
-   COURSE ICON CONTAINER
+   COURSE ICON
 ========================================================= */
 
 .course-icon {
-
   width: 46px;
 
   height: 46px;
@@ -676,11 +769,6 @@
 
   border-radius: 11px;
 
-  /*
-    White icon container makes
-    brand colors stand out.
-  */
-
   background: #ffffff;
 
   border: 1px solid #dce2f2;
@@ -688,10 +776,12 @@
   overflow: hidden;
 
   box-shadow:
-    0 2px 7px rgba(40,
+    0 2px 7px rgba(
+      40,
       50,
       100,
-      0.07);
+      0.07
+    );
 
   transition:
     transform 0.25s ease,
@@ -705,7 +795,6 @@
 ========================================================= */
 
 .course-icon img {
-
   width: 30px;
 
   height: 30px;
@@ -713,12 +802,6 @@
   object-fit: contain;
 
   display: block;
-
-  /*
-    No filter!
-    This preserves each
-    technology's original color.
-  */
 
   transition:
     transform 0.25s ease;
@@ -730,7 +813,6 @@
 ========================================================= */
 
 .course-card:hover .course-icon {
-
   transform:
     scale(1.07);
 
@@ -739,15 +821,16 @@
   border-color: #b9b2ed;
 
   box-shadow:
-    0 4px 12px rgba(80,
+    0 4px 12px rgba(
+      80,
       70,
       160,
-      0.14);
+      0.14
+    );
 }
 
 
 .course-card:hover .course-icon img {
-
   transform:
     scale(1.08);
 }
@@ -758,7 +841,6 @@
 ========================================================= */
 
 .icon-fallback::before {
-
   content: "✦";
 
   color: #6954d8;
@@ -774,7 +856,6 @@
 ========================================================= */
 
 .course-card-content {
-
   min-width: 0;
 
   flex: 1;
@@ -788,7 +869,6 @@
 ========================================================= */
 
 .course-card h3 {
-
   margin: 0;
 
   color: #11183f;
@@ -802,6 +882,8 @@
   letter-spacing: -0.2px;
 
   display: -webkit-box;
+
+  line-clamp: 2;
 
   -webkit-line-clamp: 2;
 
@@ -819,7 +901,6 @@
 ========================================================= */
 
 .course-card:hover h3 {
-
   color: #5144b7;
 }
 
@@ -829,7 +910,6 @@
 ========================================================= */
 
 .course-card p {
-
   margin: 5px 0 0;
 
   color: #68728e;
@@ -843,7 +923,6 @@
 
 
 .course-card p span {
-
   color: #9aa3b8;
 }
 
@@ -855,12 +934,10 @@
 @media (min-width: 1400px) {
 
   .courses-container {
-
     width: calc(100% - 120px);
 
     max-width: 1400px;
   }
-
 }
 
 
@@ -871,7 +948,6 @@
 @media (max-width: 1100px) {
 
   .courses-container {
-
     width: calc(100% - 50px);
 
     padding:
@@ -880,27 +956,27 @@
 
 
   .courses-heading h1 {
-
     font-size: 42px;
   }
 
 
   .courses-heading p {
-
     font-size: 14px;
   }
 
 
   .courses-illustration {
+    width: 300px;
 
-    transform: scale(0.82);
+    flex-basis: 300px;
 
-    transform-origin: right top;
+    transform: scale(0.88);
+
+    transform-origin: right center;
   }
 
 
   .category-row {
-
     --card-width: 215px;
 
     --card-gap: 12px;
@@ -908,12 +984,10 @@
 
 
   .course-card {
-
     height: 82px;
 
     min-height: 82px;
   }
-
 }
 
 
@@ -924,7 +998,6 @@
 @media (max-width: 850px) {
 
   .courses-container {
-
     width: calc(100% - 30px);
 
     padding:
@@ -933,13 +1006,11 @@
 
 
   .courses-header {
-
     margin-bottom: 23px;
   }
 
 
   .courses-heading h1 {
-
     font-size: 37px;
 
     letter-spacing: -1.5px;
@@ -947,21 +1018,24 @@
 
 
   .courses-heading p {
-
     font-size: 13px;
   }
 
 
   .courses-illustration {
+    width: 260px;
 
-    width: 150px;
+    flex-basis: 260px;
 
-    transform: scale(0.75);
+    margin-left: 10px;
+
+    transform: scale(0.78);
+
+    transform-origin: right center;
   }
 
 
   .category-row {
-
     --card-width: 205px;
 
     --card-gap: 12px;
@@ -969,7 +1043,6 @@
 
 
   .course-card {
-
     height: 82px;
 
     min-height: 82px;
@@ -977,7 +1050,6 @@
 
 
   .course-icon {
-
     width: 44px;
 
     height: 44px;
@@ -987,12 +1059,10 @@
 
 
   .course-icon img {
-
     width: 28px;
 
     height: 28px;
   }
-
 }
 
 
@@ -1003,14 +1073,12 @@
 @media (max-width: 650px) {
 
   .courses-section {
-
     padding:
       8px 6px;
   }
 
 
   .courses-container {
-
     width: 100%;
 
     padding:
@@ -1021,13 +1089,11 @@
 
 
   .courses-header {
-
     margin-bottom: 21px;
   }
 
 
   .courses-heading {
-
     width: 100%;
 
     max-width: 100%;
@@ -1035,7 +1101,6 @@
 
 
   .eyebrow {
-
     font-size: 10px;
 
     letter-spacing: 2px;
@@ -1043,7 +1108,6 @@
 
 
   .courses-heading h1 {
-
     font-size: 31px;
 
     letter-spacing: -1.3px;
@@ -1051,7 +1115,6 @@
 
 
   .courses-heading p {
-
     font-size: 13px;
 
     line-height: 1.45;
@@ -1059,19 +1122,16 @@
 
 
   .courses-illustration {
-
     display: none;
   }
 
 
   .courses-categories {
-
     gap: 12px;
   }
 
 
   .category-row {
-
     --card-width: 195px;
 
     --card-gap: 10px;
@@ -1084,7 +1144,6 @@
 
 
   .course-card {
-
     height: 78px;
 
     min-height: 78px;
@@ -1098,7 +1157,6 @@
 
 
   .course-icon {
-
     width: 42px;
 
     height: 42px;
@@ -1110,7 +1168,6 @@
 
 
   .course-icon img {
-
     width: 27px;
 
     height: 27px;
@@ -1118,13 +1175,11 @@
 
 
   .course-card h3 {
-
     font-size: 12.5px;
   }
 
 
   .course-card p {
-
     margin-top: 4px;
 
     font-size: 9.5px;
@@ -1132,11 +1187,9 @@
 
 
   .course-card:hover {
-
     transform:
       translateY(-2px);
   }
-
 }
 
 
@@ -1147,26 +1200,22 @@
 @media (max-width: 420px) {
 
   .courses-container {
-
     padding:
       20px 10px 24px;
   }
 
 
   .courses-heading h1 {
-
     font-size: 28px;
   }
 
 
   .courses-heading p {
-
     font-size: 12px;
   }
 
 
   .category-row {
-
     --card-width: 185px;
 
     --card-gap: 10px;
@@ -1174,7 +1223,6 @@
 
 
   .course-card {
-
     height: 75px;
 
     min-height: 75px;
@@ -1184,7 +1232,6 @@
 
 
   .course-icon {
-
     width: 40px;
 
     height: 40px;
@@ -1194,7 +1241,6 @@
 
 
   .course-icon img {
-
     width: 26px;
 
     height: 26px;
@@ -1202,16 +1248,13 @@
 
 
   .course-card h3 {
-
     font-size: 12px;
   }
 
 
   .course-card p {
-
     font-size: 9px;
   }
-
 }
 
 
@@ -1222,7 +1265,6 @@
 @media (prefers-reduced-motion: reduce) {
 
   .marquee-track {
-
     animation: none !important;
 
     transform: none !important;
@@ -1231,11 +1273,11 @@
 
   .course-card,
   .course-icon,
-  .course-icon img {
-
+  .course-icon img,
+  .view-courses-btn,
+  .courses-arrow {
     transition: none !important;
   }
-
 }
 
 
@@ -1245,7 +1287,6 @@
 
 html,
 body {
-
   max-width: 100%;
 
   overflow-x: hidden;
@@ -1253,7 +1294,6 @@ body {
 
 
 #root {
-
   max-width: 100%;
 
   overflow-x: hidden;

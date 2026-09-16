@@ -6,7 +6,6 @@
 .oneplatform-section {
   position: relative;
   margin: 0 auto;
-  width: 90%;
   height: 70vh;
   min-height: 520px;
 
@@ -17,23 +16,8 @@
 
   overflow: hidden;
 
-  background:
-    radial-gradient(
-      circle at 8% 45%,
-      rgba(50, 145, 240, 0.13),
-      transparent 25%
-    ),
-    radial-gradient(
-      circle at 92% 65%,
-      rgba(30, 115, 230, 0.11),
-      transparent 27%
-    ),
-    linear-gradient(
-      135deg,
-      #f7fbff 0%,
-      #ffffff 50%,
-      #eef7ff 100%
-    );
+  /* CHANGED: COMPLETE BACKGROUND TO WHITE */
+  background: #ffffff;
 
   color: #081a35;
 
@@ -157,7 +141,8 @@
   margin: 10px auto 0;
 
   color: #58708f;
-font-family: "Inter", sans-serif;
+
+  font-family: "Inter", sans-serif;
 
   font-size: 14px;
 
@@ -194,7 +179,7 @@ font-family: "Inter", sans-serif;
 .oneplatform-card {
   position: relative;
 
-  height: 330px;
+  height: 350px;
 
   min-width: 0;
 
@@ -206,19 +191,13 @@ font-family: "Inter", sans-serif;
 
   border-radius: 20px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.98),
-      rgba(244, 249, 255, 0.92)
-    );
-
   border: 1px solid
     rgba(94, 153, 219, 0.23);
 
+  /* CHANGED: BLACK BOX SHADOW */
   box-shadow:
     0 15px 35px
-    rgba(36, 95, 155, 0.08),
+    rgba(0, 0, 0, 0.18),
 
     inset 0 1px 0
     rgba(255, 255, 255, 0.95);
@@ -263,9 +242,10 @@ font-family: "Inter", sans-serif;
   border-color:
     rgba(30, 125, 235, 0.4);
 
+  /* CHANGED: BLACK HOVER SHADOW */
   box-shadow:
     0 25px 50px
-    rgba(30, 111, 210, 0.15);
+    rgba(0, 0, 0, 0.28);
 }
 
 
@@ -433,7 +413,9 @@ font-family: "Inter", sans-serif;
   margin-bottom: 6px;
 
   color: #2378c9;
+
   font-family: var(--font-primary);
+
   font-size: 9px;
 
   font-weight: 700;
@@ -452,6 +434,7 @@ font-family: "Inter", sans-serif;
   margin: 0 0 7px;
 
   color: #081a35;
+
   font-family: var(--font-primary);
 
   font-size: 18px;
@@ -470,7 +453,9 @@ font-family: "Inter", sans-serif;
 
 .card-description {
   margin: 0 0 14px;
+
   font-family: var(--font-primary);
+
   color: #5b718d;
 
   font-size: 12px;
@@ -504,7 +489,9 @@ font-family: "Inter", sans-serif;
   align-items: flex-start;
 
   gap: 8px;
+
   font-family: var(--font-primary);
+
   color: #344d6c;
 
   font-size: 11.5px;
@@ -570,7 +557,7 @@ font-family: "Inter", sans-serif;
 
   justify-content: space-between;
 
-  margin-top: 12px;
+  margin-top: 200px;
 
   padding:
     8px 13px;
@@ -584,7 +571,7 @@ font-family: "Inter", sans-serif;
 
   color: #0875dd;
 
-  font-family:var(--font-primary);
+  font-family: var(--font-primary);
 
   font-size: 11px;
 
@@ -850,6 +837,15 @@ font-family: "Inter", sans-serif;
 .dots-right {
   right: 15px;
   bottom: 18%;
+}
+/* =========================================================
+   PURE WHITE BACKGROUND — REMOVE DECORATIONS
+========================================================= */
+
+.oneplatform-section .bg-orb,
+.oneplatform-section .wave,
+.oneplatform-section .dot-pattern {
+  display: none !important;
 }
 
 
@@ -1148,7 +1144,7 @@ font-family: "Inter", sans-serif;
 
 
   .card-content h3 {
-    font-size: 20px;    
+    font-size: 20px;
   }
 
 
