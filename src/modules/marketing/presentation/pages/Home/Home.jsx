@@ -13,27 +13,28 @@ const Home = () => {
   return (
     <>
     <Hero/>
-      {/* One Platform */}
-      <OnePlatfrom />
 
       {/* Learner Journey Section */}
       <LearnerJourney />
 
       {/* Courses Section */}
-      <Courses />
-
-      {/* CTA / Credential Verification */}
-      <CTA />
+      <Cources />
 
       {/* Delivery Modes Section */}
       <Mode />
       
       <TrustSection />
 
+       {/* One Platform */}
+      <OnePlatform />
+
+      {/* CTA / Credential Verification */}
+      <CTA />
+
       {/* FAQ Section */}
       <FAQ />
     </>
   );
-};
+}
 
 export default Home;
