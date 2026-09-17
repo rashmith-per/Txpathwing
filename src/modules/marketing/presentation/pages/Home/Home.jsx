@@ -5,17 +5,17 @@ import CTA from "../../components/CTA/CTA";
 import Mode from "../../components/Modes/Modes";
 import FAQ from "../../components/FAQ/FAQ";
 import "./Home.css";
-import Cources from "../../pages/Courses/Courses";
+import Courses from "../../pages/Courses/Courses";
 import TrustSection from "../../components/TrustSection/TrustSection";
 import Hero from "../../components/Hero/Hero";
+import Blog from "../Blog/Blog/Blog";
 
 const Home = () => {
   return (
     <>
-    <Hero/>
+      <Hero />
       {/* One Platform */}
-      <OnePlatfrom />
-
+      
       {/* Learner Journey Section */}
       <LearnerJourney />
 
@@ -27,11 +27,12 @@ const Home = () => {
 
       {/* Delivery Modes Section */}
       <Mode />
-      
+      <OnePlatform />
       <TrustSection />
 
       {/* FAQ Section */}
       <FAQ />
+      
     </>
   );
 };
