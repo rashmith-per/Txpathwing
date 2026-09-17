@@ -6,6 +6,7 @@ import Footer from "./modules/marketing/presentation/components/Footer/Footer";
 import Blog from "./modules/marketing/presentation/pages/Blog/Blog.jsx";
 import Home from "./modules/marketing/presentation/pages/Home/Home";
 import LearnerJourney from "./modules/marketing/presentation/pages/Learner_journey/Learner_journey";
+import Events from "./modules/marketing/presentation/pages/Events/Events";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/events" element={<Events />} />
         <Route path="/" element={<Home />} />
         <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/blog" element={<Blog />} />

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./Header.css";
 
 const NAV_LINKS = [
-  "Programs",
+  "Events",
   "Careers",
   "Institutions",
   "Pricing",
@@ -41,7 +41,9 @@ export default function Header() {
               <li key={label}>
                 <Link
                   className="nav-link"
-                  to={label === "Blog" ? "/blog" : "#"}
+                  to={
+                    label === "Blog" ? "/blog" : label === "Events" ? "/events" : "#"
+                  }
                 >
                   {label}
                 </Link>
@@ -98,7 +100,13 @@ export default function Header() {
           <Link
             key={label}
             className="mobile-link"
-            to={label === "Blog" ? "/blog" : "#"}
+            to={
+              label === "Events"
+                ? "/events"
+                : label === "Blog"
+                  ? "/blog"
+                  : "#"
+            }
             onClick={() => setMenuOpen(false)}
           >
             {label}

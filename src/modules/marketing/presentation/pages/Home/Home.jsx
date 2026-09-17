@@ -8,6 +8,8 @@ import "./Home.css";
 import Cources from "../../pages/Courses/Courses";
 import TrustSection from "../../components/TrustSection/TrustSection";
 import Hero from "../../components/Hero/Hero";
+import Pricing from "../../components/Pricing/Pricing";
+import HiringPartners from "../../components/HiringPartners/HiringPartner";
 
 const Home = () => {
   return (
@@ -27,13 +29,18 @@ const Home = () => {
 
        {/* One Platform */}
       <OnePlatform />
+      <HiringPartners />
 
       {/* CTA / Credential Verification */}
       <CTA />
 
+      <Pricing />
+
       {/* FAQ Section */}
       <FAQ />
+  
     </>
+    
   );
 }
 

@@ -1,0 +1,174 @@
+/* Hiring Partners - Final - No Box, Big Logos, 13 Exact Real Logos */
+ 
+.hiring-section {
+  position: relative;
+  width: 100%;
+  min-height: 85vh;
+  padding: 6rem 0;
+  background: #f8fafc;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.hiring-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at 50% 0%, rgba(224, 240, 255, 0.8), transparent 70%);
+  pointer-events: none;
+}
+ 
+.hiring-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+/* Badge - no box type, just text + dot */
+.hiring-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+ 
+.green-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+ 
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+ 
+/* Heading - exact text 68px */
+.hiring-heading {
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #0a2540;
+  text-align: center;
+  max-width: 800px;
+  margin: 0;
+}
+ 
+.gradient-text {
+  background: linear-gradient(90deg, #0a3cff 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.hiring-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+ 
+/* Marquee - no box, big logos */
+.marquee-wrapper {
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  padding: 0.75rem 0;
+  /* Fade edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+ 
+.marquee {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  align-items: center;
+}
+ 
+.marquee-left {
+  animation: scroll-left 45s linear infinite;
+}
+ 
+.marquee-right {
+  animation: scroll-right 50s linear infinite;
+}
+ 
+.marquee-wrapper:hover .marquee {
+  animation-play-state: paused;
+}
+ 
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+ 
+@keyframes scroll-right {
+  0% { transform: translateX(-33.333%); }
+  100% { transform: translateX(0); }
+}
+ 
+/* Logo - NO BOX, just big floating image 56px */
+.logo-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+}
+ 
+.logo-item:hover {
+  opacity: 1;
+  transform: scale(1.12);
+}
+ 
+.logo-img {
+  height: 56px; /* BIG - as requested */
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+ 
+/* Footer */
+.hiring-footer {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-top: 3rem;
+  text-align: center;
+}
+ 
+/* Responsive */
+@media (max-width: 1024px) {
+  .hiring-heading { font-size: 48px; }
+  .logo-img { height: 42px; max-width: 160px; }
+  .marquee { gap: 32px; }
+}
+ 
+@media (max-width: 640px) {
+  .hiring-heading { font-size: 36px; }
+  .hiring-badge { font-size: 11px; letter-spacing: 0.12em; }
+  .logo-img { height: 32px; max-width: 130px; }
+  .marquee { gap: 24px; }
+  .hiring-section { padding: 4rem 0; min-height: 70vh; }
+}
+ 
+ 
