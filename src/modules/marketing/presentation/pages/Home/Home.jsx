@@ -13,28 +13,30 @@ import Blog from "../Blog/Blog/Blog";
 const Home = () => {
   return (
     <>
-      <Hero />
-      {/* One Platform */}
-      
+    <Hero/>
+
       {/* Learner Journey Section */}
       <LearnerJourney />
 
       {/* Courses Section */}
-      <Courses />
-
-      {/* CTA / Credential Verification */}
-      <CTA />
+      <Cources />
 
       {/* Delivery Modes Section */}
       <Mode />
       <OnePlatform />
       <TrustSection />
 
+       {/* One Platform */}
+      <OnePlatform />
+
+      {/* CTA / Credential Verification */}
+      <CTA />
+
       {/* FAQ Section */}
       <FAQ />
       
     </>
   );
-};
+}
 
 export default Home;
