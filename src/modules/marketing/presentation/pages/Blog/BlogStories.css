@@ -1,0 +1,394 @@
+.stories-section {
+  width: 100%;
+  padding: 4.5rem 0 5rem;
+  background: #ffffff;
+}
+
+.stories-container {
+  width: min(100% - 40px, 1320px);
+  margin: 0 auto;
+}
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.stories-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 2rem;
+}
+
+.heading-copy {
+  max-width: 680px;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+
+  color: #2563eb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.section-label-line {
+  width: 25px;
+  height: 2px;
+  border-radius: 10px;
+  background: #2563eb;
+}
+
+.heading-copy h2 {
+  margin: 0;
+
+  color: #111827;
+  font-size: clamp(2rem, 3vw, 2.65rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.heading-copy h2 span {
+  color: #2563eb;
+}
+
+.heading-copy p {
+  max-width: 620px;
+  margin: 12px 0 0;
+
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   SLIDER CONTROLS
+   ========================================================= */
+
+.stories-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.story-control {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d7e3f1;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.story-control:hover {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}
+
+/* =========================================================
+   STORIES
+   ========================================================= */
+
+.stories-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* =========================================================
+   STORY CARD
+   ========================================================= */
+
+.story-card {
+  position: relative;
+
+  min-height: 245px;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #dce7f2;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  overflow: hidden;
+
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.035);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.story-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #3b82f6,
+    #60a5fa
+  );
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 18px 38px rgba(37, 99, 235, 0.09);
+}
+
+.story-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.story-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.quote-mark {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.story-avatar {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    145deg,
+    #2563eb,
+    #1e40af
+  );
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  box-shadow:
+    0 6px 15px rgba(37, 99, 235, 0.22);
+}
+
+/* =========================================================
+   QUOTE
+   ========================================================= */
+
+.story-message {
+  margin: 0;
+
+  color: #334155;
+
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 450;
+
+  flex: 1;
+}
+
+/* =========================================================
+   AUTHOR
+   ========================================================= */
+
+.story-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-top: 22px;
+  padding-top: 15px;
+
+  border-top: 1px solid #edf2f7;
+}
+
+.story-person {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.story-person h3 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.story-person span {
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.story-line {
+  width: 28px;
+  height: 3px;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+}
+
+/* =========================================================
+   INDICATOR
+   ========================================================= */
+
+.stories-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-top: 24px;
+}
+
+.indicator-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #cbd5e1;
+
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
+}
+
+.indicator-dot.active {
+  width: 20px;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .stories-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .story-card:nth-child(3) {
+    display: none;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .stories-section {
+    padding: 3.5rem 0 4rem;
+  }
+
+  .stories-container {
+    width: min(100% - 28px, 600px);
+  }
+
+  .stories-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .heading-copy h2 {
+    font-size: 2rem;
+  }
+
+  .heading-copy p {
+    font-size: 13px;
+  }
+
+  .stories-controls {
+    align-self: flex-end;
+  }
+
+  .stories-list {
+    grid-template-columns: 1fr;
+  }
+
+  .story-card {
+    min-height: 220px;
+  }
+
+  .story-card:nth-child(2),
+  .story-card:nth-child(3) {
+    display: none;
+  }
+}
