@@ -2,7 +2,15 @@
    TX PATHWING — ONE PLATFORM
    70% VIEWPORT SECTION
 ========================================================= */
+/* =========================================================
+   PURE WHITE BACKGROUND — REMOVE DECORATIONS
+========================================================= */
 
+.oneplatform-section .bg-orb,
+.oneplatform-section .wave,
+.oneplatform-section .dot-pattern {
+  display: none !important;
+}
 .oneplatform-section {
   position: relative;
   margin: 0 auto;
@@ -254,7 +262,7 @@
 ========================================================= */
 
 .oneplatform-card::before {
-  content: "";
+  content: "none";
 
   position: absolute;
 
@@ -279,6 +287,7 @@
 
 .oneplatform-card:hover::before {
   transform: scale(1.45);
+  content:none;
 }
 
 

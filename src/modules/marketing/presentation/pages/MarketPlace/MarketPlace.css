@@ -6,7 +6,7 @@
 }
  
 .mp-container {
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -88,8 +88,9 @@
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 20px;
-  padding: 20px;
+  padding:  20px 50px;
   min-height: 300px;
+  ;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,24 +134,6 @@
   padding: 5px 10px;
   border-radius: 999px;
   border: 1px solid #eef2f7;
-}
- 
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  flex-shrink: 0;
-}
- 
-.star {
-  color: #f59e0b;
-  font-size: 14px;
-}
- 
-.rating b {
-  color: #0f172a;
-  font-weight: 700;
 }
  
 .rev {
