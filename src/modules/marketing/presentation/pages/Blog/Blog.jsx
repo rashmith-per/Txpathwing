@@ -68,78 +68,21 @@ const Blog = () => {
       />
 
       {/* ── 1. HERO SECTION ── */}
-      <section className="blog-hero-section">
-        {/* Background Glows */}
-        <div className="blog-hero-glow-1" />
-        <div className="blog-hero-glow-2" />
-        <div className="blog-hero-glow-3" />
-        <div className="blog-hero-grid-pattern" />
+      
+      
+      
+      
 
-        <div className="blog-hero-content">
-          <div className="blog-hero-grid">
-            {/* Left Column */}
-            <div className="blog-hero-left">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="blog-hero-title"
-              >
-                Your Learning <br />
-                Journey <br />
-                <span className="blog-hero-gradient-text">
-                  Starts Here
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="blog-hero-subtitle"
-              >
-                Actionable insights, expert tutorials, and career guidance to help you stay ahead.
-              </motion.p>
-
-              {/* Search Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="blog-search-wrapper"
-              >
-                <form
-                  onSubmit={(e) => e.preventDefault()}
-                  className="blog-search-form"
-                >
-                  <Search className="blog-search-icon" size={20} />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search articles, topics..."
-                    className="blog-search-input"
-                  />
-                  {searchQuery && (
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery("")}
-                      className="blog-search-clear-btn"
-                      title="Clear search"
-                    >
-                      <X size={16} />
-                    </button>
-                  )}
-                  <button
-                    type="submit"
-                    className="blog-search-submit-btn"
-                  >
-                    Search
-                  </button>
-                </form>
-              </motion.div>
-
-              {/* Category Navigation Icons */}
+      {/* ── 2. TOP ARTICLES SECTION ── */}
+      <section className="blog-articles-section">
+        <div className="blog-articles-container">
+          {/* Section Header */}
+          <div className="blog-articles-header">
+            <div>
+              <h2 className="blog-section-heading">
+               Explore Our <span>Top Articles</span>
+              </h2>
+               {/* Category Navigation Icons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -169,26 +112,6 @@ const Blog = () => {
                 </div>
 
               </motion.div>
-            </div>
-            {/* Right Column - Animation */}
-            <div className="blog-hero-right">
-              <BlogAnimation />
-            </div>
-          </div>
-        </div>
-      </section>
-      
-       <BlogOverview />
-
-      {/* ── 2. TOP ARTICLES SECTION ── */}
-      <section className="blog-articles-section">
-        <div className="blog-articles-container">
-          {/* Section Header */}
-          <div className="blog-articles-header">
-            <div>
-              <h2 className="blog-section-heading">
-                Top Articles
-              </h2>
               {activeCategory !== "All" && (
                 <p className="blog-filter-indicator">
                   Showing results for <span className="blog-filter-category-name">{activeCategory}</span>
@@ -299,7 +222,7 @@ const Blog = () => {
             </div>
           )}
 
-         
+          <BlogOverview />
           <BlogStories />
           <BlogWriteForUs />
 
