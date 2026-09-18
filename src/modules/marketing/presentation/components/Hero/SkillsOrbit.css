@@ -1,0 +1,914 @@
+/* =========================================================
+   SKILLS ORBIT
+   SPACE ENVIRONMENT
+========================================================= */
+
+.orbit-wrapper {
+  position: relative;
+
+  width: 100%;
+
+  height: 620px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: transparent;
+
+  border-radius: 32px;
+
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   SPACE ATMOSPHERE
+========================================================= */
+
+.orbit-wrapper::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+
+  height: 500px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.08),
+    rgba(139, 92, 246, 0.05),
+    rgba(236, 72, 153, 0.025),
+    transparent 70%
+  );
+
+  filter: blur(32px);
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  animation: spaceGlow 8s ease-in-out infinite;
+}
+
+@keyframes spaceGlow {
+  0%,
+  100% {
+    transform: scale(0.92);
+
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: scale(1.08);
+
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.stars {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+/* =========================================================
+   INDIVIDUAL STAR
+========================================================= */
+
+.star {
+  position: absolute;
+
+  border-radius: 50%;
+
+  animation-name: starTwinkle;
+
+  animation-timing-function: ease-in-out;
+
+  animation-iteration-count: infinite;
+
+  box-shadow: 0 0 5px currentColor;
+}
+
+/* =========================================================
+   COLORED STAR ANIMATION
+========================================================= */
+
+@keyframes starTwinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+
+    transform: scale(0.65);
+  }
+
+  25% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+
+    transform: scale(1.5);
+  }
+
+  75% {
+    opacity: 0.4;
+  }
+}
+
+/* =========================================================
+   SCENE
+   MAIN ORBIT CONTAINER
+========================================================= */
+
+.scene {
+  position: relative;
+
+  width: 620px;
+
+  height: 620px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 2;
+
+  /*
+    Complete orbit is reduced.
+    This scales:
+    - rings
+    - skill positions
+    - skill pills
+    - center
+    - glow
+  */
+
+  transform: scale(0.78);
+
+  /*
+    Move orbit slightly toward
+    the right side.
+  */
+
+  left: 55px;
+}
+
+/* =========================================================
+   CENTER GLOW
+========================================================= */
+
+.center-glow {
+  position: absolute;
+
+  width: 250px;
+
+  height: 250px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.12),
+    rgba(139, 92, 246, 0.07),
+    rgba(236, 72, 153, 0.04),
+    transparent 70%
+  );
+
+  filter: blur(25px);
+
+  animation: centerPulse 5s ease-in-out infinite;
+
+  pointer-events: none;
+
+  z-index: 2;
+}
+
+@keyframes centerPulse {
+  0%,
+  100% {
+    transform: scale(0.88);
+
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.12);
+
+    opacity: 0.95;
+  }
+}
+
+/* =========================================================
+   CENTER CIRCLE
+========================================================= */
+
+.center-circle {
+  position: absolute;
+
+  width: 132px;
+
+  height: 132px;
+
+  border-radius: 50%;
+
+  z-index: 40;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  box-sizing: border-box;
+
+  /*
+    Slightly transparent white creates
+    a glass-like space-core effect.
+  */
+
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 1),
+    rgba(248, 250, 252, 0.98),
+    rgba(241, 245, 249, 0.96)
+  );
+
+  color: #111111;
+
+  border: 2px solid #111111;
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 0 22px rgba(59, 130, 246, 0.18),
+    0 0 45px rgba(139, 92, 246, 0.1),
+    0 0 0 7px rgba(255, 255, 255, 0.4);
+
+  animation: centerFloat 5s ease-in-out infinite;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   CENTER CIRCLE INNER SHINE
+========================================================= */
+
+.center-circle::before {
+  content: "";
+
+  position: absolute;
+
+  top: -38px;
+
+  left: -25px;
+
+  width: 95px;
+
+  height: 65px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.7);
+
+  filter: blur(14px);
+
+  transform: rotate(-25deg);
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+@keyframes centerFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* =========================================================
+   CENTER LOGO WRAPPER
+========================================================= */
+
+.center-logo-wrapper {
+  position: relative;
+
+  width: 42px;
+
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 5px;
+
+  z-index: 5;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   CENTER LOGO
+========================================================= */
+
+.center-logo {
+  width: 40px;
+
+  height: 40px;
+
+  object-fit: contain;
+
+  object-position: center;
+
+  display: block;
+
+  /*
+    Soft blue/purple space glow.
+  */
+
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.25))
+    drop-shadow(0 0 9px rgba(139, 92, 246, 0.12));
+
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+/* =========================================================
+   CENTER LOGO HOVER
+========================================================= */
+
+.center-circle:hover .center-logo {
+  transform: scale(1.08);
+
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4))
+    drop-shadow(0 0 14px rgba(139, 92, 246, 0.22));
+}
+
+/* =========================================================
+   TX PATHWAY
+========================================================= */
+
+.center-brand {
+  position: relative;
+
+  z-index: 5;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+
+  color: #111111;
+
+  white-space: nowrap;
+
+  margin-bottom: 5px;
+}
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.center-divider {
+  position: relative;
+
+  z-index: 5;
+
+  width: 43px;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, #2563eb, #8b5cf6, #ec4899);
+
+  margin-bottom: 0;
+
+  box-shadow: 0 0 7px rgba(139, 92, 246, 0.3);
+}
+
+/* =========================================================
+   FULL STACK
+========================================================= */
+
+.center-circle p {
+  margin: 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #111111;
+}
+
+/* =========================================================
+   DEVELOPER
+========================================================= */
+
+.center-circle span {
+  margin-top: 4px;
+
+  font-family: Georgia, serif;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  color: #111111;
+}
+
+/* =========================================================
+   ORBIT RINGS
+========================================================= */
+
+.orbit-ring {
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(59, 130, 246, 0.35);
+
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.08);
+}
+
+/* =========================================================
+   RING 1 - BLUE
+========================================================= */
+
+.orbit-ring-1 {
+  border-color: rgba(59, 130, 246, 0.45);
+
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.15);
+}
+
+/* =========================================================
+   RING 2 - PURPLE
+========================================================= */
+
+.orbit-ring-2 {
+  border-color: rgba(139, 92, 246, 0.45);
+
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.15);
+}
+
+/* =========================================================
+   RING 3 - PINK
+========================================================= */
+
+.orbit-ring-3 {
+  border-color: rgba(236, 72, 153, 0.4);
+
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.14);
+}
+
+/* =========================================================
+   RING 4 - CYAN
+========================================================= */
+
+.orbit-ring-4 {
+  border-color: rgba(6, 182, 212, 0.42);
+
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
+}
+
+/* =========================================================
+   SECONDARY ORBIT LINE
+========================================================= */
+
+.orbit-ring::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 2px;
+
+  border-radius: inherit;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  opacity: 0.5;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   ORBIT ROTATION
+========================================================= */
+
+.rotate-cw {
+  animation-name: orbitClockwise;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+}
+
+@keyframes orbitClockwise {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* =========================================================
+   ANTICLOCKWISE
+========================================================= */
+
+.rotate-ccw {
+  animation-name: orbitAntiClockwise;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+}
+
+@keyframes orbitAntiClockwise {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+/* =========================================================
+   SKILL POSITION
+========================================================= */
+
+.skill-position {
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  width: 0;
+
+  height: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   SKILL
+========================================================= */
+
+.skill-position .skill {
+  position: absolute;
+
+  min-width: 68px;
+
+  height: 32px;
+
+  padding: 0 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 999px;
+
+  /*
+    Keeping your current 15px skill
+    font size.
+  */
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  letter-spacing: 0.15px;
+
+  line-height: 1;
+
+  box-sizing: border-box;
+
+  pointer-events: auto;
+
+  cursor: pointer;
+
+  z-index: 10;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* =========================================================
+   WHITE SKILLS
+========================================================= */
+
+.skill-white {
+  background: rgba(255, 255, 255, 0.96);
+
+  color: #111111;
+
+  border: 1px solid #2563eb;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 9px rgba(37, 99, 235, 0.18);
+}
+
+/* =========================================================
+   BLACK SKILLS
+========================================================= */
+
+.skill-black {
+  background: #ffffff;
+
+  color: rgba(15, 23, 42, 0.96);
+
+  border: 1px solid #8b5cf6;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.18),
+    0 0 9px rgba(139, 92, 246, 0.2);
+}
+
+/* =========================================================
+   DIFFERENT SKILL BORDER COLORS
+========================================================= */
+
+.skill-position:nth-child(2n) .skill-white {
+  border-color: #06b6d4;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 11px rgba(6, 182, 212, 0.25);
+}
+
+.skill-position:nth-child(3n) .skill-white {
+  border-color: #ec4899;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 11px rgba(236, 72, 153, 0.22);
+}
+
+.skill-position:nth-child(4n) .skill-white {
+  border-color: #f59e0b;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 11px rgba(245, 158, 11, 0.22);
+}
+
+.skill-position:nth-child(5n) .skill-white {
+  border-color: #22c55e;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 11px rgba(34, 197, 94, 0.22);
+}
+
+/* =========================================================
+   BLACK SKILLS - DIFFERENT COLORS
+========================================================= */
+
+.skill-position:nth-child(2n) .skill-black {
+  border-color: #ec4899;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 11px rgba(236, 72, 153, 0.25);
+}
+
+.skill-position:nth-child(3n) .skill-black {
+  border-color: #06b6d4;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 11px rgba(6, 182, 212, 0.25);
+}
+
+.skill-position:nth-child(4n) .skill-black {
+  border-color: #f59e0b;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 11px rgba(245, 158, 11, 0.25);
+}
+
+.skill-position:nth-child(5n) .skill-black {
+  border-color: #22c55e;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 11px rgba(34, 197, 94, 0.25);
+}
+
+/* =========================================================
+   COUNTER ROTATION
+   Keeps text upright
+========================================================= */
+
+.skill-counter-cw {
+  animation-name: counterClockwise;
+}
+
+.skill-counter-ccw {
+  animation-name: counterClockwise;
+}
+
+@keyframes counterClockwise {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
+}
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.skill-position .skill:hover {
+  z-index: 100;
+
+  transform: translate(-50%, -50%) scale(1.1);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 18px currentColor;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+  .orbit-wrapper {
+    height: 600px;
+  }
+
+  .scene {
+    width: 620px;
+
+    height: 620px;
+
+    transform: scale(0.72);
+
+    left: 35px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .orbit-wrapper {
+    height: 570px;
+  }
+
+  .scene {
+    width: 620px;
+
+    height: 620px;
+
+    transform: scale(0.68);
+
+    left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .orbit-wrapper {
+    height: 500px;
+
+    border-radius: 24px;
+  }
+
+  .scene {
+    width: 620px;
+
+    height: 620px;
+
+    transform: scale(0.62);
+
+    left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .orbit-wrapper {
+    height: 420px;
+
+    border-radius: 20px;
+  }
+
+  .scene {
+    width: 620px;
+
+    height: 620px;
+
+    transform: scale(0.52);
+
+    left: 0;
+  }
+
+  .center-circle {
+    width: 132px;
+
+    height: 132px;
+  }
+
+  .center-logo-wrapper {
+    width: 42px;
+
+    height: 42px;
+  }
+
+  .center-logo {
+    width: 40px;
+
+    height: 40px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+  .orbit-wrapper {
+    height: 380px;
+  }
+
+  .scene {
+    width: 620px;
+
+    height: 620px;
+
+    transform: scale(0.46);
+
+    left: 0;
+  }
+}

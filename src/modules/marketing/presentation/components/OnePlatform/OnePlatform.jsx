@@ -71,17 +71,7 @@ function OnePlatform() {
   return (
     <section className="oneplatform-section">
 
-      {/* Background decoration */}
-      <div className="bg-orb orb-one"></div>
-      <div className="bg-orb orb-two"></div>
-      <div className="bg-orb orb-three"></div>
-
-      <div className="wave wave-one"></div>
-      <div className="wave wave-two"></div>
-
-      {/* Decorative dots */}
-      <div className="dot-pattern dots-left"></div>
-      <div className="dot-pattern dots-right"></div>
+     
 
       {/* Main container */}
       <div className="oneplatform-container">
@@ -111,7 +101,7 @@ function OnePlatform() {
         <div className="oneplatform-grid">
 
           {oneplatform.map((item, index) => (
-            <article
+            <div
               className={`oneplatform-card ${item.accent}`}
               key={item.number}
               style={{
@@ -122,7 +112,7 @@ function OnePlatform() {
               {/* Card top */}
               <div className="card-top">
 
-                <div className="icon-wrapper">
+                <div className="icon-container">
                   <div className="icon">
                     {item.icon}
                   </div>
@@ -179,26 +169,11 @@ function OnePlatform() {
 
               </button>
 
-            </article>
+            </div>
           ))}
 
         </div>
-
-        {/* Bottom tagline */}
-        <div className="bottom-tagline">
-
-          <span></span>
-
-          <p>
-            SKILLS TODAY
-            <b>•</b>
-            BRIGHTER TOMORROW
-          </p>
-
-          <span></span>
-
-        </div>
-
+       
       </div>
 
       {/* Floating paper plane */}

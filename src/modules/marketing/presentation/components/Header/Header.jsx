@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 const NAV_LINKS = [
-  "Programs",
+  "Events",
   "Careers",
   "Institutions",
   "Pricing",
@@ -31,16 +32,21 @@ export default function Header() {
     <>
       <header className={`header${scrolled ? " scrolled" : ""}`}>
         <div className="nav-container">
-          <a className="brand" href="/">
+          <Link className="brand" to="/">
             <img src={txIcon} alt="Tx Pathwing" />
-          </a>
+          </Link>
 
           <ul className="nav-links">
             {NAV_LINKS.map((label) => (
               <li key={label}>
-                <a className="nav-link" href="#">
+                <Link
+                  className="nav-link"
+                  to={
+                    label === "Blog" ? "/blog" : label === "Events" ? "/events" : "#"
+                  }
+                >
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -91,9 +97,20 @@ export default function Header() {
         </div>
 
         {NAV_LINKS.map((label) => (
-          <a key={label} className="mobile-link" href="#">
+          <Link
+            key={label}
+            className="mobile-link"
+            to={
+              label === "Events"
+                ? "/events"
+                : label === "Blog"
+                  ? "/blog"
+                  : "#"
+            }
+            onClick={() => setMenuOpen(false)}
+          >
             {label}
-          </a>
+          </Link>
         ))}
 
         <div className="mobile-actions">

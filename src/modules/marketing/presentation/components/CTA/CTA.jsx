@@ -8,7 +8,6 @@ export default function VerificationSection() {
   const [inputId, setInputId] = useState(VALID_ID);
   const [status, setStatus] = useState("verified"); // verified | invalid | idle
   const [showCert, setShowCert] = useState(false);
-  const [theme, setTheme] = useState("indigo"); // "indigo" | "cyber" | "gold"
 
   const handleVerify = () => {
     const val = inputId.trim().toUpperCase();
@@ -48,43 +47,10 @@ export default function VerificationSection() {
   }, [showCert]);
 
   return (
-    <section className={`verify-section theme-${theme}`}>
+    <section className="verify-section theme-indigo">
       <div className="verify-container">
         {/* Left Content */}
         <div className="left-content">
-          <div className="theme-switcher-bar">
-            <span className="theme-switcher-title mono-font">THEME:</span>
-            <div className="theme-pills">
-              <button
-                type="button"
-                className={`theme-pill-btn ${theme === "indigo" ? "active" : ""}`}
-                onClick={() => setTheme("indigo")}
-                title="TX Official Brand Gradient Theme"
-              >
-                <span className="pill-color-dot indigo-dot"></span>
-                Official Indigo
-              </button>
-              <button
-                type="button"
-                className={`theme-pill-btn ${theme === "cyber" ? "active" : ""}`}
-                onClick={() => setTheme("cyber")}
-                title="Cryptographic Dark Cyber Security Theme"
-              >
-                <span className="pill-color-dot cyber-dot"></span>
-                Cyber Shield
-              </button>
-              <button
-                type="button"
-                className={`theme-pill-btn ${theme === "gold" ? "active" : ""}`}
-                onClick={() => setTheme("gold")}
-                title="Academic Prestige Gold Theme"
-              >
-                <span className="pill-color-dot gold-dot"></span>
-                Prestige Gold
-              </button>
-            </div>
-          </div>
-
           <div className="top-badge-wrap">
             <span className="top-badge mono-font">
               <span className="badge-shield-dot" />

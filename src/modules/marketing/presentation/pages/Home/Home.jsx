@@ -1,37 +1,47 @@
-import ElevenStages from "../Learner_journey/Learner_journey";
-
+import React from "react";
+import OnePlatform from "../../components/OnePlatform/OnePlatform";
+import LearnerJourney from "../Learner_journey/Learner_journey";
 import CTA from "../../components/CTA/CTA";
-import OnePlatfrom from "../../components/OnePlatform/OnePlatform";
-import "./Home.css";
 import Mode from "../../components/Modes/Modes";
 import FAQ from "../../components/FAQ/FAQ";
+import "./Home.css";
 import Cources from "../../pages/Courses/Courses";
-import Login from "../../components/Login/Login";
+import TrustSection from "../../components/TrustSection/TrustSection";
+import Hero from "../../components/Hero/Hero";
+import Pricing from "../../components/Pricing/Pricing";
+import HiringPartners from "../../components/HiringPartners/HiringPartner";
 
 const Home = () => {
   return (
     <>
-      {/* One Platform */}
-      <OnePlatfrom />
+    <Hero/>
 
-      {/* Learner Journey */}
-      <ElevenStages />
+      {/* Learner Journey Section */}
+      <LearnerJourney />
 
-      {/* Courses */}
+      {/* Courses Section */}
       <Cources />
 
-      {/* CTA */}
+      {/* Delivery Modes Section */}
+      <Mode />
+      
+      <TrustSection />
+
+       {/* One Platform */}
+      <OnePlatform />
+      <HiringPartners />
+
+      {/* CTA / Credential Verification */}
       <CTA />
 
-      {/* Modes */}
-      <Mode />
+      <Pricing />
 
-      {/* FAQ */}
+      {/* FAQ Section */}
       <FAQ />
-
-      <Login/>
+  
     </>
+    
   );
-};
+}
 
 export default Home;
