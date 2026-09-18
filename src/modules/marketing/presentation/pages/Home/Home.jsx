@@ -8,7 +8,7 @@ import "./Home.css";
 import Courses from "../../pages/Courses/Courses";
 import TrustSection from "../../components/TrustSection/TrustSection";
 import Hero from "../../components/Hero/Hero";
-import Blog from "../Blog/Blog/Blog";
+// import Blog from "../Blog/Blog/Blog";
 import Pricing from "../../components/Pricing/Pricing";
 import HiringPartners from "../../components/HiringPartners/HiringPartner";
 
@@ -21,7 +21,7 @@ const Home = () => {
       <LearnerJourney />
 
       {/* Courses Section */}
-      <Cources />
+      <Courses />
 
       {/* Delivery Modes Section */}
       <Mode />
@@ -29,7 +29,7 @@ const Home = () => {
       <TrustSection />
 
        {/* One Platform */}
-      <OnePlatform />
+      
       <HiringPartners />
 
       {/* CTA / Credential Verification */}
