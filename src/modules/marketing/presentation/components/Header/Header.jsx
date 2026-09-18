@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 
 const NAV_LINKS = [
@@ -16,6 +16,19 @@ const NAV_LINKS = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const getNavLinkHref = (label) => {
+    if (label === "Blog") return "/blog";
+    if (label === "About us" || label === "About") return "/about";
+    return "#";
+  };
+
+  const isLinkActive = (label) => {
+    const href = getNavLinkHref(label);
+    if (href === "#") return false;
+    return location.pathname === href;
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -40,6 +53,8 @@ export default function Header() {
             {NAV_LINKS.map((label) => (
               <li key={label}>
                 <Link
+                  className={`nav-link${isLinkActive(label) ? " active" : ""}`}
+                  to={getNavLinkHref(label)}
                   className="nav-link"
                   to={
                     label === "Blog" ? "/blog" : label === "Events" ? "/events" : "#"
@@ -99,6 +114,8 @@ export default function Header() {
         {NAV_LINKS.map((label) => (
           <Link
             key={label}
+            className={`mobile-link${isLinkActive(label) ? " active" : ""}`}
+            to={getNavLinkHref(label)}
             className="mobile-link"
             to={
               label === "Events"
