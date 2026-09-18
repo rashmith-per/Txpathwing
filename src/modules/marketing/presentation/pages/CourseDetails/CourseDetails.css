@@ -1,0 +1,353 @@
+/* Course Detail - 14 Courses - Next Pages */
+.detail-page {
+    min-height: 100vh;
+    background: #f0f6ff;
+    font-family: Inter, system-ui, sans-serif;
+    color: #0f172a;
+}
+
+.detail-breadcrumb {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.back-btn {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: #0f172a;
+    color: #fff;
+}
+
+.crumb {
+    color: #64748b;
+}
+
+.detail-layout {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 32px;
+    align-items: start;
+}
+
+.detail-main {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 32px;
+}
+
+.detail-badge {
+    display: inline-block;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.detail-title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+    margin: 0 0 16px;
+}
+
+.detail-instructor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #e0f2fe;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+.inst-name {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.inst-role {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.detail-meta {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.detail-about {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 16px;
+}
+
+.detail-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.skill-pill {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 32px 0 16px;
+}
+
+.syllabus-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.syllabus-card {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.syllabus-card:hover {
+    border-color: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.08);
+}
+
+.syllabus-left {
+    background: #f8fafc;
+    padding: 16px;
+    border-right: 1px solid #e2e8f0;
+}
+
+.mod-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.mod-duration {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.syllabus-right {
+    padding: 16px;
+}
+
+.syllabus-right h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+
+.syllabus-right ul {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+}
+
+.syllabus-right li {
+    font-size: 13px;
+    color: #475569;
+}
+
+.projects-list {
+    display: grid;
+    gap: 12px;
+}
+
+.project-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.project-num {
+    font-size: 24px;
+    font-weight: 800;
+    color: #cbd5e1;
+}
+
+.project-name {
+    font-weight: 600;
+}
+
+.detail-sidebar {
+    position: sticky;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.buy-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.buy-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.buy-price .now {
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.buy-price .old {
+    font-size: 14px;
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+
+.buy-price .off {
+    background: #dcfce7;
+    color: #166534;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #1d4ed8;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.buy-btn:hover {
+    background: #1e40af;
+}
+
+.cart-btn {
+    width: 100%;
+    background: #fff;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.buy-features {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #475569;
+    display: grid;
+    gap: 6px;
+}
+
+.trust {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.info-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.info-card h4 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.info-card div {
+    font-size: 13px;
+    color: #475569;
+    margin: 6px 0;
+}
+
+@media (max-width: 1024px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-sidebar {
+        position: relative;
+    }
+
+    .detail-title {
+        font-size: 28px;
+    }
+
+    .syllabus-card {
+        grid-template-columns: 1fr;
+    }
+
+    .syllabus-right ul {
+        grid-template-columns: 1fr;
+    }
+}
