@@ -6,6 +6,7 @@ import Home from "./modules/marketing/presentation/pages/Home/Home";
 import LearnerJourney from "./modules/marketing/presentation/pages/Learner_journey/Learner_journey";
 import About from "./modules/marketing/presentation/pages/About/About";
 import Events from "./modules/marketing/presentation/pages/Events/Events";
+import Marketplace from "./modules/marketing/presentation/pages/MarketPlace/MarketPlace";
 import SignIn from "./modules/marketing/presentation/pages/SignIn/SignIn";
 
 function ScrollToTop() {
@@ -28,6 +29,7 @@ function AppLayout() {
       <Routes>
         <Route path="/events" element={<Events />} />
         <Route path="/" element={<Home />} />
+        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<SignIn />} />
