@@ -2,7 +2,15 @@
    TX PATHWING — ONE PLATFORM
    70% VIEWPORT SECTION
 ========================================================= */
+/* =========================================================
+   PURE WHITE BACKGROUND — REMOVE DECORATIONS
+========================================================= */
 
+.oneplatform-section .bg-orb,
+.oneplatform-section .wave,
+.oneplatform-section .dot-pattern {
+  display: none !important;
+}
 .oneplatform-section {
   position: relative;
   margin: 0 auto;
@@ -16,7 +24,10 @@
 
   overflow: hidden;
 
+<<<<<<< HEAD
+=======
   /* CHANGED: COMPLETE BACKGROUND TO WHITE */
+>>>>>>> vamshi
   background: #ffffff;
 
   color: #081a35;
@@ -254,7 +265,7 @@
 ========================================================= */
 
 .oneplatform-card::before {
-  content: "";
+  content: "none";
 
   position: absolute;
 
@@ -279,6 +290,7 @@
 
 .oneplatform-card:hover::before {
   transform: scale(1.45);
+  content:none;
 }
 
 
@@ -305,7 +317,7 @@
    ICON
 ========================================================= */
 
-.icon-wrapper {
+.icon-container {
   width: 53px;
   height: 53px;
 
@@ -325,17 +337,13 @@
 
   border: 1px solid #cee4fa;
 
-  box-shadow:
-    0 7px 18px
-    rgba(25, 112, 207, 0.1);
-
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease;
 }
 
 .oneplatform-card:hover
-.icon-wrapper {
+.icon-container {
   transform:
     translateY(-3px)
     rotate(-3deg);
@@ -621,223 +629,6 @@
     translateX(5px);
 }
 
-
-/* =========================================================
-   BOTTOM TAGLINE
-========================================================= */
-
-.bottom-tagline {
-  flex-shrink: 0;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 15px;
-
-  margin-top: 20px;
-}
-
-
-.bottom-tagline span {
-  width: 55px;
-
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #a8c8e8
-    );
-}
-
-
-.bottom-tagline span:last-child {
-  background:
-    linear-gradient(
-      90deg,
-      #a8c8e8,
-      transparent
-    );
-}
-
-
-.bottom-tagline p {
-  margin: 0;
-
-  color: #7791ae;
-
-  font-size: 8px;
-
-  font-weight: 700;
-
-  letter-spacing: 2.5px;
-
-  white-space: nowrap;
-}
-
-
-.bottom-tagline b {
-  margin:
-    0 6px;
-
-  color: #1680ed;
-}
-
-
-/* =========================================================
-   BACKGROUND ORBS
-========================================================= */
-
-.bg-orb {
-  position: absolute;
-
-  z-index: -2;
-
-  border-radius: 50%;
-
-  pointer-events: none;
-
-  animation:
-    floatOrb
-    8s
-    ease-in-out
-    infinite;
-}
-
-
-.orb-one {
-  width: 350px;
-  height: 350px;
-
-  left: -180px;
-  top: 25%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(55, 150, 245, 0.13),
-      transparent 68%
-    );
-}
-
-
-.orb-two {
-  width: 330px;
-  height: 330px;
-
-  right: -150px;
-  bottom: -130px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(24, 124, 238, 0.13),
-      transparent 68%
-    );
-
-  animation-delay: -3s;
-}
-
-
-.orb-three {
-  width: 200px;
-  height: 200px;
-
-  left: 45%;
-  top: -130px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(80, 163, 255, 0.1),
-      transparent 70%
-    );
-
-  animation-delay: -5s;
-}
-
-
-/* =========================================================
-   WAVES
-========================================================= */
-
-.wave {
-  position: absolute;
-
-  z-index: -1;
-
-  border:
-    2px solid
-    rgba(65, 145, 230, 0.08);
-
-  border-radius: 50%;
-
-  pointer-events: none;
-}
-
-
-.wave-one {
-  width: 550px;
-  height: 280px;
-
-  left: -210px;
-  top: 20%;
-
-  transform: rotate(-15deg);
-}
-
-
-.wave-two {
-  width: 600px;
-  height: 300px;
-
-  right: -220px;
-  bottom: -100px;
-
-  transform: rotate(20deg);
-}
-
-
-/* =========================================================
-   DOT PATTERNS
-========================================================= */
-
-.dot-pattern {
-  position: absolute;
-
-  z-index: -1;
-
-  width: 75px;
-  height: 60px;
-
-  opacity: 0.3;
-
-  background-image:
-    radial-gradient(
-      #3192ef 1.3px,
-      transparent 1.3px
-    );
-
-  background-size: 10px 10px;
-
-  pointer-events: none;
-}
-
-
-.dots-left {
-  left: 15px;
-  top: 43%;
-}
-
-
-.dots-right {
-  right: 15px;
-  bottom: 18%;
-}
 /* =========================================================
    PURE WHITE BACKGROUND — REMOVE DECORATIONS
 ========================================================= */
@@ -928,7 +719,6 @@
 
   font-size: 32px;
 
-  transform: rotate(-25deg);
 
   opacity: 0.75;
 
@@ -967,35 +757,19 @@
 }
 
 
-@keyframes floatOrb {
-
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(-15px);
-  }
-
-}
-
-
 @keyframes planeFloat {
 
   0%,
   100% {
     transform:
       translate(0, 0)
-      rotate(-25deg);
+      rotate(225deg);
   }
 
   50% {
     transform:
       translate(-7px, -8px)
-      rotate(-20deg);
+      rotate(220deg);
   }
 
 }
