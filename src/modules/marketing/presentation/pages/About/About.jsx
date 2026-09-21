@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   Users, BookOpen, Star, TrendingUp, Target, Compass, CheckCircle2, Sparkles,
-  ArrowRight, Award, Briefcase, HeartHandshake, Code2, Radio, Video, Calendar,
+  ArrowRight, BadgeCheck, BriefcaseBusiness, HeartHandshake, Code2, Radio, Video, CalendarDays,
   Laptop, GraduationCap, Building2, Trophy, X, ShieldCheck, Globe2, Rocket
 } from "lucide-react";
 import "./About.css";
@@ -119,7 +119,7 @@ const PILLARS = [
   { icon: Code2, title: "Practical, Real-Time Learning", desc: "We prioritize building software over memorizing syntax. Our curriculum centers on real-world industry projects, live telemetry, and modern frameworks." },
   { icon: HeartHandshake, title: "Personalized 1-on-1 Mentorship", desc: "Every learner receives hands-on guidance from industry veterans, code reviews, and tailored learning tracks to ensure steady technical progress." },
   { icon: Users, title: "Vibrant Community of Creators", desc: "Surround yourself with passionate peers, join collaborative hackathons, and tap into an active alumni network thriving across top tech enterprises." },
-  { icon: Briefcase, title: "Dedicated Career Outcomes", desc: "From resume crafting and system design mock interviews to mega offline placement drives, we support your job search every step of the way." }
+  { icon: BriefcaseBusiness, title: "Dedicated Career Outcomes", desc: "From resume crafting and system design mock interviews to mega offline placement drives, we support your job search every step of the way." }
 ];
 const JOURNEY_MILESTONES = [
   { num: "01", title: "Foundations First", desc: "Master computational logic, data structures, and core web fundamentals with daily guided practice." },
@@ -136,15 +136,15 @@ const ABOUT_OFFERINGS = [
   { id: "live-training", category: "learning", icon: Radio, tag: "Interactive", title: "Live Training", desc: "Interactive live classes with experts", details: "Direct instructor-led training with doubt-clearing sessions, live coding walkthroughs, and peer collaboration.", theme: "theme-green" },
   { id: "recorded-courses", category: "learning", icon: Video, tag: "On-Demand", title: "Recorded Courses", desc: "Learn at your own pace", details: "High-definition video lectures available 24/7 on demand with downloadable source codes and reference notes.", theme: "theme-red" },
   { id: "training-programs", category: "experience", icon: Users, tag: "Bootcamps", title: "Training Programs", desc: "Online, Offline, Hybrid modes", details: "Comprehensive multi-month bootcamps with flexible scheduling, continuous mentor reviews, and career assistance.", theme: "theme-purple" },
-  { id: "internships", category: "experience", icon: Briefcase, tag: "Real Experience", title: "Internships", desc: "Real-world work experience", details: "Work on production sprint cycles, submit pull requests, and earn verified internship credentials for your resume.", theme: "theme-orange" },
-  { id: "events", category: "career", icon: Calendar, tag: "Community", title: "Events", desc: "Hackathons, webinars & more", details: "National-level hackathons, tech tech-talks from industry leaders, and weekend coding sprint competitions.", theme: "theme-cyan" },
-  { id: "certifications", category: "career", icon: Award, tag: "Verified", title: "Certifications", desc: "Industry-recognized certificates", details: "Cryptographically verified credentials with tamper-proof QR codes recognized by corporate hiring partners.", theme: "theme-yellow" },
+  { id: "internships", category: "experience", icon: BriefcaseBusiness, tag: "Real Experience", title: "Internships", desc: "Real-world work experience", details: "Work on production sprint cycles, submit pull requests, and earn verified internship credentials for your resume.", theme: "theme-orange" },
+  { id: "events", category: "career", icon: CalendarDays, tag: "Community", title: "Events", desc: "Hackathons, webinars & more", details: "National-level hackathons, tech tech-talks from industry leaders, and weekend coding sprint competitions.", theme: "theme-cyan" },
+  { id: "certifications", category: "career", icon: BadgeCheck, tag: "Verified", title: "Certifications", desc: "Industry-recognized certificates", details: "Cryptographically verified credentials with tamper-proof QR codes recognized by corporate hiring partners.", theme: "theme-yellow" },
   { id: "virtual-labs", category: "experience", icon: Laptop, tag: "Cloud Sandbox", title: "Virtual Labs", desc: "Hands-on practice environments", details: "Instant browser-based coding sandboxes for Python, Java, Linux, and Cloud—zero local software installation needed.", theme: "theme-indigo" }
 ];
 const OFFERING_STATS = [
   { icon: GraduationCap, value: "500+", label: "Courses" }, { icon: Users, value: "50K+", label: "Students" },
-  { icon: Building2, value: "100+", label: "Colleges & Institutions" }, { icon: Award, value: "200+", label: "Industry Experts" },
-  { icon: Briefcase, value: "1K+", label: "Internship Opportunities" }, { icon: Trophy, value: "50+", label: "Events Conducted" }
+  { icon: Building2, value: "100+", label: "Colleges & Institutions" }, { icon: BadgeCheck, value: "200+", label: "Industry Experts" },
+  { icon: BriefcaseBusiness, value: "1K+", label: "Internship Opportunities" }, { icon: Trophy, value: "50+", label: "Events Conducted" }
 ];
 const MISSION_PILLARS = [
   { tag: "Outcome Driven", title: "Bridge Academic-Industry Gap", desc: "We replace outdated passive theory with modern full-stack workflows, system design foundations, and production-level code hygiene.", foot: "Real-world tools, CI/CD, and industry standards" },
@@ -169,7 +169,7 @@ export default function About() {
           <div className="about-hero-grid">
             <div className="about-hero-content">
               <div className="about-hero-eyebrow"><span className="about-eyebrow-line" />ABOUT US</div>
-              <h1 className="about-hero-title">More Than Just <br /><span className="about-hero-highlight">An Institution</span></h1>
+              <h1 className="about-hero-title">More Than Learning <br /><span className="about-hero-highlight">A Journey Toward Your Future</span></h1>
               <p className="about-hero-subtitle">We are TX-PathWing — a community of learners, creators and dreamers, building a better tomorrow.</p>
               <p className="about-hero-desc">At TX-PathWing, we believe education is not just about learning from books, but about growing through experiences. Our platform combines quality learning, mentorship, and a <strong className="about-bold-highlight">vibrant community</strong> to help you build skills, gain confidence, and achieve your goals.</p>
               <div className="about-hero-stats">
@@ -289,42 +289,7 @@ export default function About() {
         </div>
       </section>
 
-      {showOfferingsModal && (
-        <div className="about-modal-backdrop" onClick={() => setShowOfferingsModal(false)}>
-          <div className="about-modal-dialog" onClick={(e) => e.stopPropagation()}>
-            <div className="about-modal-head">
-              <div>
-                <div className="about-offerings-tagline"><span className="about-tagline-bar" /><span className="about-tagline-label">OUR OFFERINGS</span></div>
-                <h2 className="about-modal-title">Explore What You Can Do</h2>
-                <p className="about-modal-subtitle">Everything you need to learn, grow, and become industry ready in one place.</p>
-              </div>
-              <button type="button" className="about-modal-close" onClick={() => setShowOfferingsModal(false)}><X size={20} /></button>
-            </div>
-            <div className="about-modal-body">
-              <div className="about-modal-grid">
-                {ABOUT_OFFERINGS.map((offering) => { const Icon = offering.icon; return (
-                  <div key={offering.id} className={`about-modal-card ${offering.theme}`}>
-                    <div className="about-modal-card-top"><div className="about-offering-tile-icon-box"><Icon size={22} className="about-offering-tile-icon" /></div><span className="about-modal-card-tag">{offering.tag}</span></div>
-                    <h4 className="about-modal-card-title">{offering.title}</h4>
-                    <p className="about-modal-card-desc">{offering.desc}</p>
-                    <p className="about-modal-card-details">{offering.details}</p>
-                  </div>
-                );})}
-              </div>
-              <div className="about-modal-cta">
-                <div>
-                  <h4 className="about-modal-cta-title">Start Your Practical Learning Pathway</h4>
-                  <p className="about-modal-cta-desc">Step through our structured Learn, Practice, Build & Certify roadmap.</p>
-                </div>
-                <div className="about-modal-cta-btns">
-                  <Link to="/learner-journey" className="about-modal-primary-btn" onClick={() => setShowOfferingsModal(false)}><span>Go to Programs</span><ArrowRight size={15} /></Link>
-                  <button type="button" className="about-modal-secondary-btn" onClick={() => setShowOfferingsModal(false)}>Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+     
 
       <section className="about-pillars-section">
         <div className="about-container">
@@ -348,7 +313,7 @@ export default function About() {
       <section className="about-journey-section">
         <div className="about-container">
           <div className="about-section-head">
-            <div className="about-section-eyebrow"><Award className="about-icon-sparkle" /> PROVEN FRAMEWORK</div>
+            <div className="about-section-eyebrow"><BadgeCheck className="about-icon-sparkle" /> PROVEN FRAMEWORK</div>
             <h2 className="about-section-title">Your Blueprint to Tech Success</h2>
             <p className="about-section-subtitle">A compounding step-by-step model designed to take you from fundamentals to confident software engineering.</p>
           </div>
