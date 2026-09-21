@@ -1,290 +1,755 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  Phone,
+  ShieldCheck,
+  User,
+  X,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+
 import "./Login.css";
 
-const Login = () => {
-  const navigate = useNavigate();
+const Login = ({
+  isOpen,
+  onClose,
+  initialView = "login",
+}) => {
+  const [isLogin, setIsLogin] = React.useState(
+    initialView === "login"
+  );
 
-  const [formData, setFormData] = useState({
+  const [form, setForm] = React.useState({
+    full_name: "",
     email: "",
+    phone: "",
     password: "",
+    confirm_password: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] =
+    React.useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const [showConfirmPassword, setShowConfirmPassword] =
+    React.useState(false);
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const [loading, setLoading] =
+    React.useState(false);
+
+  const [errors, setErrors] =
+    React.useState({});
+
+  const [message, setMessage] =
+    React.useState("");
+
+  const [messageType, setMessageType] =
+    React.useState("");
+
+  if (!isOpen) {
+    return null;
+  }
+
+  /* =====================================================
+     CHANGE LOGIN / SIGNUP VIEW
+  ===================================================== */
+
+  const changeView = () => {
+    setIsLogin(!isLogin);
+
+    setErrors({});
+    setMessage("");
+    setMessageType("");
+
+    setShowPassword(false);
+    setShowConfirmPassword(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  /* =====================================================
+     HANDLE INPUT CHANGE
+  ===================================================== */
 
-    console.log("Login Data:", {
-      ...formData,
-      rememberMe,
-    });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    // Add your login API here
+    setForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
 
-    // Example:
-    // navigate("/");
+    setErrors((previous) => ({
+      ...previous,
+      [name]: "",
+    }));
+
+    setMessage("");
+    setMessageType("");
+  };
+
+  /* =====================================================
+     VALIDATE FORM
+  ===================================================== */
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    /* FULL NAME - SIGNUP ONLY */
+
+    if (!isLogin) {
+      const fullName = form.full_name.trim();
+
+      if (!fullName) {
+        newErrors.full_name = "Full name is required";
+      } else if (fullName.length < 3) {
+        newErrors.full_name =
+          "Please enter a valid full name";
+      }
+    }
+
+    /* EMAIL */
+
+    const email = form.email.trim();
+
+    if (!email) {
+      newErrors.email = "Email is required";
+    } else {
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+      if (!emailPattern.test(email)) {
+        newErrors.email =
+          "Please enter a valid email address";
+      }
+    }
+
+    /* PHONE - SIGNUP ONLY */
+
+    if (!isLogin) {
+      const phone = form.phone.trim();
+
+      if (!phone) {
+        newErrors.phone =
+          "Mobile number is required";
+      } else if (!/^[6-9]\d{9}$/.test(phone)) {
+        newErrors.phone =
+          "Please enter a valid 10-digit mobile number";
+      }
+    }
+
+    /* PASSWORD */
+
+    if (!form.password) {
+      newErrors.password =
+        "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password =
+        "Password must be at least 6 characters";
+    }
+
+    /* CONFIRM PASSWORD - SIGNUP ONLY */
+
+    if (!isLogin) {
+      if (!form.confirm_password) {
+        newErrors.confirm_password =
+          "Please confirm your password";
+      } else if (
+        form.password !== form.confirm_password
+      ) {
+        newErrors.confirm_password =
+          "Passwords do not match";
+      }
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /* =====================================================
+     FORM SUBMIT
+  ===================================================== */
+
+  const handleSubmit = (event) => {
+    /*
+      IMPORTANT:
+      Prevent browser from submitting the form
+      and adding values to the URL.
+    */
+    event.preventDefault();
+
+    setMessage("");
+    setMessageType("");
+
+    const isValid = validateForm();
+
+    if (!isValid) {
+      return;
+    }
+
+    /*
+      API LOGIN / SIGNUP REQUEST CAN BE ADDED HERE.
+
+      Example:
+
+      setLoading(true);
+
+      try {
+        // API request
+      } catch (error) {
+        // handle error
+      } finally {
+        setLoading(false);
+      }
+    */
+
+    setMessage(
+      isLogin
+        ? "Login details are valid."
+        : "Account details are valid."
+    );
+
+    setMessageType("success");
+  };
+
+  /* =====================================================
+     INPUT CLASS HELPER
+  ===================================================== */
+
+  const getInputClass = (fieldName) => {
+    return errors[fieldName]
+      ? "login-input-box input-error"
+      : "login-input-box";
   };
 
   return (
-    <div className="login-page">
+    <div className="login-popup">
 
-      {/* Background Decorations */}
-      <div className="login-decoration login-decoration-one"></div>
-      <div className="login-decoration login-decoration-two"></div>
+      {/* =================================================
+          DARK BACKGROUND
+      ================================================= */}
 
-      <div className="login-container">
+      <div
+        className="login-overlay"
+        onClick={onClose}
+      />
 
-        {/* Left Side */}
-        <div className="login-brand-section">
+      {/* =================================================
+          MAIN LOGIN BOX
+      ================================================= */}
 
-          <div className="brand-content">
+      <div className="login-box">
 
-            <div className="brand-logo">
-              TX
+        {/* =================================================
+            CLOSE BUTTON
+        ================================================= */}
+
+        <button
+          type="button"
+          className="login-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <X size={20} />
+        </button>
+
+        {/* =================================================
+            LEFT PART
+        ================================================= */}
+
+        <div className="login-left">
+
+          <div className="background-grid" />
+
+          <div className="glow-top" />
+          <div className="glow-bottom" />
+
+          <span className="floating-dot dot-one" />
+          <span className="floating-dot dot-two" />
+          <span className="floating-dot dot-three" />
+          <span className="floating-dot dot-four" />
+          <span className="floating-dot dot-five" />
+
+          {/* LEFT CONTENT */}
+
+          <div className="login-left-content">
+
+            <div className="login-brand">
+              <ShieldCheck size={27} />
             </div>
 
-            <p className="brand-eyebrow">
-              TX PATHWING
-            </p>
+            <span className="login-tagline">
+              LEARN
+              <span>•</span>
+              GROW
+              <span>•</span>
+              ACHIEVE
+            </span>
 
-            <h1>
-              Your journey
+            <h2>
+              Your learning
               <br />
-              <span>starts here.</span>
-            </h1>
+              journey starts here.
+            </h2>
 
-            <p className="brand-description">
-              Access your learning dashboard, track your progress,
-              build your skills, and move closer to your career goals.
+            <p>
+              Access your courses, track your
+              progress and continue learning
+              from anywhere.
             </p>
 
-            <div className="brand-points">
+          </div>
 
-              <div className="brand-point">
-                <span className="point-icon">✓</span>
-                <span>Continue your learning journey</span>
-              </div>
+          {/* LEARNING VISUAL */}
 
-              <div className="brand-point">
-                <span className="point-icon">✓</span>
-                <span>Track your progress</span>
-              </div>
+          <div className="learning-box">
 
-              <div className="brand-point">
-                <span className="point-icon">✓</span>
-                <span>Build career-ready skills</span>
-              </div>
+            <div className="learning-orbit orbit-large" />
+            <div className="learning-orbit orbit-small" />
 
+            <span className="orbit-dot orbit-dot-one" />
+            <span className="orbit-dot orbit-dot-two" />
+            <span className="orbit-dot orbit-dot-three" />
+
+            <div className="learning-item course-item">
+              <CheckCircle size={15} />
+              <span>Courses</span>
+            </div>
+
+            <div className="learning-item progress-item">
+              <CheckCircle size={15} />
+              <span>Progress</span>
+            </div>
+
+            <div className="learning-item skills-item">
+              <CheckCircle size={15} />
+              <span>Skills</span>
+            </div>
+
+          </div>
+
+          {/* STATS */}
+
+          <div className="login-stats">
+
+            <div className="stat">
+              <strong>10K+</strong>
+              <span>Learners</span>
+            </div>
+
+            <div className="stats-line" />
+
+            <div className="stat">
+              <strong>500+</strong>
+              <span>Courses</span>
+            </div>
+
+            <div className="stats-line" />
+
+            <div className="stat">
+              <strong>24/7</strong>
+              <span>Learning</span>
             </div>
 
           </div>
 
         </div>
 
+        {/* =================================================
+            RIGHT PART
+        ================================================= */}
 
-        {/* Right Side */}
-        <div className="login-form-section">
+        <div
+          className={`login-right ${
+            isLogin
+              ? "login-view"
+              : "signup-view"
+          }`}
+        >
 
-          <div className="login-card">
+          {/* HEADER */}
 
-            {/* Mobile Logo */}
+          <div className="login-header">
+
             <div className="mobile-brand">
-              <div className="mobile-brand-logo">
-                TX
-              </div>
-
-              <span>TX PATHWING</span>
+              <ShieldCheck size={20} />
             </div>
 
+            <span className="login-label">
+              {isLogin
+                ? "WELCOME BACK"
+                : "GET STARTED"}
+            </span>
 
-            {/* Header */}
-            <div className="login-header">
+            <h1>
+              {isLogin
+                ? "Welcome back"
+                : "Create your account"}
+            </h1>
 
-              <p className="login-eyebrow">
-                WELCOME BACK
-              </p>
+            <p>
+              {isLogin
+                ? "Sign in to continue your learning journey."
+                : "Join us and start building your future today."}
+            </p>
 
-              <h2>
-                Sign in to your account
-              </h2>
+          </div>
 
-              <p>
-                Enter your details to continue your journey.
-              </p>
+          {/* MESSAGE */}
 
-            </div>
-
-
-            {/* Form */}
-            <form
-              className="login-form"
-              onSubmit={handleSubmit}
+          {message && (
+            <div
+              className={`login-message ${messageType}`}
             >
+              {messageType === "success" ? (
+                <CheckCircle size={17} />
+              ) : (
+                <X size={17} />
+              )}
 
-              {/* Email */}
-              <div className="form-group">
+              <span>{message}</span>
+            </div>
+          )}
 
-                <label htmlFor="email">
-                  Email address
-                </label>
+          {/* =================================================
+              FORM
+          ================================================= */}
 
-                <div className="input-wrapper">
+          <form
+            className="login-form"
+            onSubmit={handleSubmit}
+            noValidate
+          >
 
-                  <span className="input-icon">
-                    @
-                  </span>
+            {/* FULL NAME */}
+
+            {!isLogin && (
+              <div className="login-field">
+
+                <div
+                  className={getInputClass(
+                    "full_name"
+                  )}
+                >
+
+                  <User
+                    size={18}
+                    className="input-icon"
+                  />
 
                   <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
+                    type="text"
+                    name="full_name"
+                    placeholder="Full name"
+                    value={form.full_name}
                     onChange={handleChange}
-                    required
-                    autoComplete="email"
+                    autoComplete="name"
+                    className={
+                      errors.full_name
+                        ? "has-error"
+                        : ""
+                    }
                   />
 
                 </div>
 
+                {errors.full_name && (
+                  <small className="input-error-message">
+                    {errors.full_name}
+                  </small>
+                )}
+
+              </div>
+            )}
+
+            {/* EMAIL */}
+
+            <div className="login-field">
+
+              <div
+                className={getInputClass("email")}
+              >
+
+                <Mail
+                  size={18}
+                  className="input-icon"
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                  value={form.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  className={
+                    errors.email
+                      ? "has-error"
+                      : ""
+                  }
+                />
+
               </div>
 
+              {errors.email && (
+                <small className="input-error-message">
+                  {errors.email}
+                </small>
+              )}
 
-              {/* Password */}
-              <div className="form-group">
+            </div>
 
-                <div className="password-label-row">
+            {/* PHONE */}
 
-                  <label htmlFor="password">
-                    Password
-                  </label>
+            {!isLogin && (
+              <div className="login-field">
 
-                  <Link
-                    to="/forgot-password"
-                    className="forgot-password"
-                  >
-                    Forgot password?
-                  </Link>
+                <div
+                  className={getInputClass("phone")}
+                >
+
+                  <Phone
+                    size={18}
+                    className="input-icon"
+                  />
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Mobile number"
+                    value={form.phone}
+                    onChange={handleChange}
+                    autoComplete="tel"
+                    maxLength={10}
+                    inputMode="numeric"
+                    className={
+                      errors.phone
+                        ? "has-error"
+                        : ""
+                    }
+                  />
 
                 </div>
 
-                <div className="input-wrapper">
+                {errors.phone && (
+                  <small className="input-error-message">
+                    {errors.phone}
+                  </small>
+                )}
 
-                  <span className="input-icon">
-                    •••
-                  </span>
+              </div>
+            )}
+
+            {/* PASSWORD */}
+
+            <div className="login-field">
+
+              <div
+                className={getInputClass(
+                  "password"
+                )}
+              >
+
+                <Lock
+                  size={18}
+                  className="input-icon"
+                />
+
+                <input
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
+                  name="password"
+                  placeholder="Password"
+                  value={form.password}
+                  onChange={handleChange}
+                  autoComplete={
+                    isLogin
+                      ? "current-password"
+                      : "new-password"
+                  }
+                  className={
+                    errors.password
+                      ? "has-error"
+                      : ""
+                  }
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowPassword(
+                      !showPassword
+                    )
+                  }
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showPassword ? (
+                    <EyeOff size={17} />
+                  ) : (
+                    <Eye size={17} />
+                  )}
+                </button>
+
+              </div>
+
+              {errors.password && (
+                <small className="input-error-message">
+                  {errors.password}
+                </small>
+              )}
+
+            </div>
+
+            {/* FORGOT PASSWORD */}
+
+            {isLogin && (
+              <div className="forgot-password">
+                <Link
+                  to="/forgot-password"
+                  onClick={onClose}
+                >
+                  Forgot password?
+                </Link>
+              </div>
+            )}
+
+            {/* CONFIRM PASSWORD */}
+
+            {!isLogin && (
+              <div className="login-field">
+
+                <div
+                  className={getInputClass(
+                    "confirm_password"
+                  )}
+                >
+
+                  <CheckCircle
+                    size={18}
+                    className="input-icon"
+                  />
 
                   <input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
+                    type={
+                      showConfirmPassword
+                        ? "text"
+                        : "password"
+                    }
+                    name="confirm_password"
+                    placeholder="Confirm password"
+                    value={
+                      form.confirm_password
+                    }
                     onChange={handleChange}
-                    required
-                    autoComplete="current-password"
+                    autoComplete="new-password"
+                    className={
+                      errors.confirm_password
+                        ? "has-error"
+                        : ""
+                    }
                   />
 
                   <button
                     type="button"
                     className="password-toggle"
                     onClick={() =>
-                      setShowPassword((prev) => !prev)
+                      setShowConfirmPassword(
+                        !showConfirmPassword
+                      )
                     }
                     aria-label={
-                      showPassword
-                        ? "Hide password"
-                        : "Show password"
+                      showConfirmPassword
+                        ? "Hide confirm password"
+                        : "Show confirm password"
                     }
                   >
-                    {showPassword ? "Hide" : "Show"}
+                    {showConfirmPassword ? (
+                      <EyeOff size={17} />
+                    ) : (
+                      <Eye size={17} />
+                    )}
                   </button>
 
                 </div>
 
+                {errors.confirm_password && (
+                  <small className="input-error-message">
+                    {errors.confirm_password}
+                  </small>
+                )}
+
               </div>
+            )}
 
+            {/* SUBMIT */}
 
-              {/* Remember Me */}
-              <div className="login-options">
+            <button
+              type="submit"
+              className="login-button"
+              disabled={loading}
+            >
 
-                <label className="remember-me">
+              <span>
+                {loading
+                  ? isLogin
+                    ? "Signing in..."
+                    : "Creating account..."
+                  : isLogin
+                  ? "Sign in"
+                  : "Create account"}
+              </span>
 
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) =>
-                      setRememberMe(e.target.checked)
-                    }
-                  />    
-                  <span className="custom-checkbox"></span>
-                  <span>
-                    Remember me
-                  </span>
-                </label>
-              </div>
-              {/* Login Button */}
-              <button type="submit" className="login-button" >
-                <span>
-                  Sign in
+              {!loading && (
+                <span className="button-arrow">
+                  <ArrowRight size={17} />
                 </span>
-                <span className="login-arrow">
-                  →
-                </span>
-              </button>
-            </form>
-            {/* Divider */}
-            <div className="login-divider">
-              <span></span>
-              <p>OR</p>
-              <span></span>
-            </div>
-            {/* Google Login */}
+              )}
+
+            </button>
+
+          </form>
+
+          {/* SWITCH */}
+
+          <div className="login-switch">
+
+            <span>
+              {isLogin
+                ? "Don't have an account?"
+                : "Already have an account?"}
+            </span>
+
             <button
               type="button"
-              className="google-button"
-              onClick={() => console.log("Google login")}
+              onClick={changeView}
             >
-              <span className="google-icon">
-                G
-              </span>
-              <span>
-                Continue with Google
-              </span>
+              {isLogin
+                ? "Create account"
+                : "Sign in"}
             </button>
-            {/* Signup */}
-            <div className="signup-section">
-              <p>
-                Don't have an account?
-                {" "}
-                <Link to="/register">
-                  Create an account
-                </Link>
-              </p>
-            </div>
-            {/* Footer */}
-            <div className="login-footer">
-              <span>
-                Secure access
-              </span>
-              <span className="footer-dot">  •</span>
-              <span>
-                TX Pathwing
-              </span>
-            </div>
+
           </div>
+
+          {/* SECURITY */}
+
+          <p className="login-security">
+            <ShieldCheck size={14} />
+            Your information is securely protected.
+          </p>
+
         </div>
+
       </div>
     </div>
   );
