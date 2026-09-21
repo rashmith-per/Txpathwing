@@ -4,6 +4,7 @@ import { Route , Routes } from "react-router-dom";
 import { programs, categories } from "./coursesData";
 import Marketplace from "../MarketPlace/MarketPlace";
 import CourseDetail from "../CourseDetails/CourseDetails";
+import { Link } from "lucide-react";
 // =====================================================
 // COURSE CARD
 // =====================================================
