@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Award, BookOpen, TrendingUp, Wrench } from 'lucide-react';
 import './CareersHero.css';
 
 import ctaImage from '../../../../../assets/cta_image.png';
@@ -47,10 +48,10 @@ const benefits = [
 ];
 
 const journey = [
-  ['Learn', 'Follow focused lessons designed around real career paths.', '01', '📘'],
-  ['Practice', 'Apply your knowledge through practical assignments and projects.', '02', '🛠️'],
-  ['Prove', 'Earn certifications and build a portfolio that shows your ability.', '03', '🏅'],
-  ['Grow', 'Use your new profile and skills to move toward better opportunities.', '04', '🚀'],
+  ['Learn', 'Follow focused lessons designed around real career paths.', '01', BookOpen],
+  ['Practice', 'Apply your knowledge through practical assignments and projects.', '02', Wrench],
+  ['Prove', 'Earn certifications and build a portfolio that shows your ability.', '03', Award],
+  ['Grow', 'Use your new profile and skills to move toward better opportunities.', '04', TrendingUp],
 ];
 
 const stories = [
@@ -82,6 +83,13 @@ export default function CareersHero() {
       <section className="hero">
         {/* Left Content */}
         <div className="hero__left">
+          {/*
+          <div className="hero__badge">
+            <span className="hero__badge-dot"></span>
+            Career at TX
+          </div>
+
+          */}
           <h1 className="hero__title">
             Build Your Career.
             <br />
@@ -160,10 +168,9 @@ export default function CareersHero() {
           <p>Everything you need to move from learning to doing with confidence.</p>
         </div>
         <div className="benefit-grid">
-          {benefits.map(([number, title, text, icon]) => (
+          {benefits.map(([number, title, text]) => (
             <article className="benefit-card" key={title}>
               <div className="benefit-card__top">
-                <div className="benefit-card__icon">{icon}</div>
                 <small>{number}</small>
               </div>
               <h3>{title}</h3>
@@ -204,9 +211,11 @@ export default function CareersHero() {
         </div>
         <div className="journey-marquee">
           <div className="journey-grid">
-            {[...journey, ...journey].map(([title, text, number, icon], index) => (
+            {[...journey, ...journey].map(([title, text, number, Icon], index) => (
               <article className="journey-card" key={`${title}-${index}`}>
-                <div className="journey-card__icon">{icon}</div>
+                <div className="journey-card__icon" aria-hidden="true">
+                  <Icon size={22} strokeWidth={2} />
+                </div>
                 <small>{number}</small>
                 <h3>{title}</h3>
                 <p>{text}</p>

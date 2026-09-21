@@ -5,10 +5,10 @@
 .hero-section {
     width: 100%;
 
-    min-height: 720px;
+    min-height: 640px;
 
     padding:
-        34px 0 70px;
+        34px 0 20px;
 
     background: #f6f8fd;
 

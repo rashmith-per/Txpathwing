@@ -318,12 +318,10 @@ body {
 }
 
 .career-section {
-  padding: 92px clamp(24px, 7vw, 120px);
+  padding: 42px clamp(24px, 7vw, 120px);
 }
 
-.career-section--light {
-  background: #f8fbff;
-}
+
 
 .section-heading {
   max-width: 720px;
@@ -397,10 +395,6 @@ body {
 .benefit-card:hover p,
 .benefit-card:hover small {
   color: #ffffff;
-}
-
-.benefit-card:hover .benefit-card__icon {
-  background: rgba(255, 255, 255, 0.2);
 }
 
 .benefit-card:hover .benefit-card__top {
@@ -547,16 +541,6 @@ body {
   letter-spacing: 0.1em;
 }
 
-.benefit-card__icon {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-  background: #e8f2ff;
-  border-radius: 14px;
-  font-size: 23px;
-}
-
 .benefit-card h3,
 .journey-card h3 {
   margin: 28px 0 10px;
@@ -631,35 +615,56 @@ body {
   min-height: 220px;
   padding: 24px;
   overflow: hidden;
-  border-color: #2679b9;
-  background: #187bc6;
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+  border-color: #c7e7fb;
+  background: #ffffff;
+  box-shadow: 0 14px 35px rgba(37, 99, 235, 0.08);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.journey-card:hover {
+  border-color: #55b8f5;
+  background: #55b8f5;
+  box-shadow: 0 18px 38px rgba(37, 149, 226, 0.24);
 }
 
 .journey-card__icon {
   display: grid;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   margin-bottom: 14px;
   place-items: center;
-  background: #8ed4ff;
-  border: 1px solid #b9e5ff;
-  border-radius: 14px;
-  font-size: 23px;
+  color: #2563eb;
+  background: #e8f4ff;
+  border: 1px solid #c7e7fb;
+  border-radius: 12px;
+  transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .journey-card h3 {
   margin-top: 0;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .journey-card p {
-  color: #ffffff;
+  color: #64748b;
 }
 
 .journey-card > small,
 .journey-card__arrow {
   color: #60b9ff;
+}
+
+.journey-card:hover h3,
+.journey-card:hover p,
+.journey-card:hover > small,
+.journey-card:hover .journey-card__arrow {
+  color: #ffffff;
+}
+
+.journey-card:hover .journey-card__icon {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .journey-card__arrow {
