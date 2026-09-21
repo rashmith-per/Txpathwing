@@ -1,6 +1,6 @@
 .blog-page-container {
   min-height: 100vh;
-  background-color: var(--slate-50);
+ background:white;
   font-family: inherit;
 }
 
@@ -785,11 +785,11 @@
 
 /* Newsletter CTA */
 .blog-newsletter-card {
-  margin-top: 4rem;
+  
   background: linear-gradient(to bottom right, var(--blue-50), rgba(238, 242, 255, 0.6), rgba(236, 254, 255, 0.4));
   border: 1px solid var(--blue-100);
   border-radius: 1.5rem;
-  padding: 2rem;
+  padding: 20px 50px 20px;
   text-align: center;
   position: relative;
   overflow: hidden;

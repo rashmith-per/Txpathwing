@@ -1,8 +1,7 @@
 /* Pathwing - 1 Row 2 Cards Only - Exact as Screenshot - No Navbar */
 .mp-page {
   min-height: 100vh;
-  background: #f0f6ff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: white;
 }
  
 .mp-container {

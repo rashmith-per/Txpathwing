@@ -1,11 +1,11 @@
 .faq-section {
-  background-color: #ffffff;
-  padding: 2.5rem 0;
+  background-color: white;
+  padding: 20px 0;
 }
 
 @media (min-width: 768px) {
   .faq-section {
-    padding: 4rem 0;
+    padding: 20px 0;
   }
 }
 

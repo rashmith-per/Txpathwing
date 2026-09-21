@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 /* Utilities & Animations */
-.mono-font { font-family: 'JetBrains Mono', monospace !important; }
 
 @keyframes pulseDot {
   0%, 100% { transform: scale(0.9); opacity: 0.85; box-shadow: 0 0 0 0 currentColor; }
@@ -10,8 +8,8 @@
 
 /* Container & Layout */
 .verify-section {
-  padding: 84px 24px;
-  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  background: white;
+  padding: 70px 24px 30px;
   transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -152,7 +150,7 @@
 
 
 /* THEME: OFFICIAL INDIGO */
-.verify-section.theme-indigo { background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 50%, #F5F3FF 100%); border-top: 1px solid #EDE9FE; }
+.verify-section.theme-indigo { background:white;}
 .theme-indigo .top-badge { background: #EEF2FF; border: 1.5px solid #C7D2FE; color: #4338CA; }
 .theme-indigo .badge-shield-dot { background: #4F46E5; color: rgba(79, 70, 229, 0.7); }
 .theme-indigo .main-heading { color: #0F172A; }
