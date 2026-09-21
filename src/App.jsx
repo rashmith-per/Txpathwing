@@ -8,6 +8,8 @@ import About from "./modules/marketing/presentation/pages/About/About";
 import Events from "./modules/marketing/presentation/pages/Events/Events";
 import Marketplace from "./modules/marketing/presentation/pages/MarketPlace/MarketPlace";
 import SignIn from "./modules/marketing/presentation/pages/SignIn/SignIn";
+import Blog from "./modules/marketing/presentation/pages/Blog/Blog";
+import CareersHero from "./modules/marketing/presentation/pages/Careers/Careers";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,8 +29,11 @@ function AppLayout() {
       {!hideLayout && <Header />}
 
       <Routes>
-        <Route path="/events" element={<Events />} />
+        
         <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/careers" element={<CareersHero />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/about" element={<About />} />

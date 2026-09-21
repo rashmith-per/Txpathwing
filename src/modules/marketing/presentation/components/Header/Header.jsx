@@ -36,7 +36,7 @@ const NAV_LINKS = [
 
     label: "Institutions",
 
-    path: "/institutions",
+    
 
   },
 
@@ -44,7 +44,7 @@ const NAV_LINKS = [
 
     label: "Pricing",
 
-    path: "/pricing",
+    
 
   },
 

@@ -1,0 +1,994 @@
+.hero-orbit-visual {
+  position: relative;
+
+  width: min(38vw, 470px);
+  aspect-ratio: 1 / 1;
+
+  overflow: visible;
+
+  pointer-events: auto;
+}
+
+.hero-orbit-glow {
+  position: absolute;
+
+  inset: 22%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(79, 70, 229, 0.3),
+      rgba(14, 116, 144, 0.08) 48%,
+      transparent 72%
+    );
+
+  filter: blur(15px);
+
+  animation: corePulse 6s ease-in-out infinite;
+}
+
+.hero-orbit-ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: var(--ring-size);
+  height: var(--ring-size);
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid var(--ring-color);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 18px var(--ring-glow);
+
+  animation:
+    ringBreath 7s ease-in-out infinite;
+}
+
+
+/* Ring 1 */
+
+.hero-orbit-ring-one {
+  --ring-size: 32%;
+
+  --ring-color: rgba(103, 232, 249, 0.7);
+
+  --ring-glow: rgba(34, 211, 238, 0.18);
+}
+
+
+/* Ring 2 */
+
+.hero-orbit-ring-two {
+  --ring-size: 47%;
+
+  --ring-color: rgba(96, 165, 250, 0.62);
+
+  --ring-glow: rgba(59, 130, 246, 0.16);
+
+  animation-delay: -2s;
+}
+
+
+/* Ring 3 */
+
+.hero-orbit-ring-three {
+  --ring-size: 62%;
+
+  --ring-color: rgba(129, 140, 248, 0.58);
+
+  --ring-glow: rgba(99, 102, 241, 0.16);
+
+  border-style: dashed;
+
+  animation-delay: -4s;
+}
+
+
+/* Ring 4 */
+
+.hero-orbit-ring-four {
+  --ring-size: 77%;
+
+  --ring-color: rgba(56, 189, 248, 0.42);
+
+  --ring-glow: rgba(14, 165, 233, 0.14);
+
+  animation-delay: -1s;
+}
+
+
+/* Ring 5 */
+
+.hero-orbit-ring-five {
+  --ring-size: 92%;
+
+  --ring-color: rgba(129, 140, 248, 0.29);
+
+  --ring-glow: rgba(99, 102, 241, 0.1);
+
+  border-style: dashed;
+
+  animation-delay: -3s;
+}
+
+
+/* =========================================================
+   RING ORBIT DOT
+   ========================================================= */
+
+.hero-orbit-ring::after {
+  content: "";
+
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  top: 7%;
+  left: 18%;
+
+  border-radius: 50%;
+
+  background: #67e8f9;
+
+  box-shadow:
+    0 0 12px 3px rgba(103, 232, 249, 0.85);
+}
+
+.hero-network-lines {
+  position: absolute;
+
+  inset: 4%;
+
+  pointer-events: none;
+
+  opacity: 0.45;
+}
+
+
+.network-line {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 47%;
+  height: 1px;
+
+  transform-origin: left center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(103, 232, 249, 0.65),
+      transparent
+    );
+}
+
+
+/* Line 1 */
+
+.network-line-one {
+  transform: rotate(26deg);
+}
+
+
+/* Line 2 */
+
+.network-line-two {
+  width: 39%;
+
+  transform: rotate(154deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(167, 139, 250, 0.62),
+      transparent
+    );
+}
+
+
+/* Line 3 */
+
+.network-line-three {
+  width: 42%;
+
+  transform: rotate(218deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(56, 189, 248, 0.55),
+      transparent
+    );
+}
+
+
+/* =========================================================
+   PARTICLES
+   ========================================================= */
+
+.hero-orbit-particles {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+
+.hero-particle {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  display: block;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #67e8f9;
+
+  box-shadow:
+    0 0 14px 4px rgba(103, 232, 249, 0.78);
+
+  animation-name: particleOrbitClockwise;
+
+  animation-duration: 18s;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+}
+
+
+/* Particle 1 */
+
+.particle-one {
+  --particle-radius: clamp(
+    42px,
+    9vw,
+    78px
+  );
+}
+
+
+/* Particle 2 */
+
+.particle-two {
+  --particle-radius: clamp(
+    64px,
+    13vw,
+    112px
+  );
+
+  animation-name: particleOrbitCounter;
+
+  animation-duration: 23s;
+}
+
+
+/* Particle 3 */
+
+.particle-three {
+  --particle-radius: clamp(
+    82px,
+    17vw,
+    146px
+  );
+
+  animation-duration: 27s;
+
+  animation-delay: -8s;
+}
+
+
+/* Particle 4 */
+
+.particle-four {
+  --particle-radius: clamp(
+    101px,
+    21vw,
+    178px
+  );
+
+  animation-name: particleOrbitCounter;
+
+  animation-duration: 31s;
+
+  animation-delay: -15s;
+}
+
+
+/* Particle 5 */
+
+.particle-five {
+  --particle-radius: clamp(
+    58px,
+    12vw,
+    102px
+  );
+
+  animation-duration: 21s;
+
+  animation-delay: -11s;
+}
+
+
+/* Particle 6 */
+
+.particle-six {
+  --particle-radius: clamp(
+    119px,
+    25vw,
+    212px
+  );
+
+  animation-name: particleOrbitCounter;
+
+  animation-duration: 35s;
+
+  animation-delay: -24s;
+}
+
+
+/* =========================================================
+   CENTER CORE
+   ========================================================= */
+
+.hero-orbit-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 29%;
+  height: 29%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 6;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+    1px solid rgba(147, 197, 253, 0.42);
+
+  border-radius: 50%;
+
+  background:#ffffff;
+    
+
+  box-shadow:
+    0 0 70px rgba(37, 99, 235, 0.28),
+    inset 0 0 30px rgba(124, 58, 237, 0.15);
+
+  animation:
+    corePulse 6s ease-in-out infinite;
+}
+
+
+.hero-orbit-center img {
+  width: 47%;
+  height: 25%;
+
+  object-fit: contain;
+
+  border-radius: 0;
+
+  filter: none;
+}
+
+
+.hero-orbit-center span {
+  margin-top: 0.5rem;
+
+  color:rgba(7, 21, 53, 0.88);
+
+  font-size: 0.83rem;
+
+  font-weight: 800;
+}
+
+
+.hero-orbit-center small {
+  margin-top: 0.1rem;
+
+  color: #8fa4c6;
+
+  font-size: 0.56rem;
+}
+
+
+/* =========================================================
+   COURSE ORBIT LINK
+   ========================================================= */
+
+.hero-orbit-link {
+  --card-orbit-radius:
+    clamp(190px, 22vw, 250px);
+
+  --card-orbit-angle: 0deg;
+
+  --card-orbit-duration: 42s;
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  z-index: 5;
+
+  width: 0;
+  height: 0;
+
+  animation:
+    courseOrbit
+    var(--card-orbit-duration)
+    linear
+    infinite;
+
+  animation-delay:
+    var(--card-orbit-delay, 0s);
+
+  will-change: transform;
+}
+
+
+/* =========================================================
+   COURSE CARD
+   ========================================================= */
+
+.hero-orbit-link .hero-orbit-card {
+  position: relative;
+
+  inset: auto;
+
+  transform:
+    translate(-50%, -50%);
+
+  animation:
+    courseCardCounterRotate
+    var(--card-orbit-duration)
+    linear
+    infinite;
+
+  animation-delay:
+    var(--card-orbit-delay, 0s);
+}
+
+
+/* =========================================================
+   COURSE CARD DESIGN
+   ========================================================= */
+
+.hero-orbit-card {
+  position: absolute;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  width: 7.5rem;
+
+  min-height: 2.9rem;
+
+  padding: 0.5rem 0.55rem;
+
+  border:
+    1px solid rgba(59, 130, 246, 0.34);
+
+  border-radius: 0.85rem;
+
+  background: #ffffff;
+
+  backdrop-filter: blur(14px);
+
+  color:  rgba(5, 18, 51, 0.78);;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  animation:
+    cardFloat 6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CARD ICON
+   ========================================================= */
+
+.hero-orbit-icon {
+  display: grid;
+
+  place-items: center;
+
+  width: 1.8rem;
+  height: 1.8rem;
+
+  flex: 0 0 1.8rem;
+
+  border-radius: 0.6rem;
+
+  color: black;
+
+  background:
+    rgba(37, 99, 235, 0.18);
+}
+
+
+/* =========================================================
+   CARD TEXT
+   ========================================================= */
+
+.hero-card-copy {
+  min-width: 0;
+}
+
+
+.hero-orbit-card strong,
+.hero-orbit-card small {
+  display: block;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+.hero-orbit-card strong {
+  font-size: 0.72rem;
+}
+
+
+.hero-orbit-card small {
+  margin-top: 0.15rem;
+
+  color: #8fa4c6;
+
+  font-size: 0.59rem;
+}
+
+
+/* =========================================================
+   COURSE ORBIT POSITIONS
+   ========================================================= */
+
+.hero-link-python {
+  --card-orbit-angle: 204deg;
+  --card-orbit-delay: -3s;
+}
+
+
+.hero-link-javascript {
+  --card-orbit-angle: 234deg;
+}
+
+
+.hero-link-typescript {
+  --card-orbit-angle: 264deg;
+}
+
+
+.hero-link-html {
+  --card-orbit-angle: 294deg;
+}
+
+
+.hero-link-tailwind {
+  --card-orbit-angle: 324deg;
+}
+
+
+.hero-link-aws {
+  --card-orbit-angle: 354deg;
+}
+
+
+.hero-link-react {
+  --card-orbit-angle: 24deg;
+}
+
+
+.hero-link-node {
+  --card-orbit-angle: 54deg;
+}
+
+
+.hero-link-django {
+  --card-orbit-angle: 84deg;
+}
+
+
+.hero-link-sql {
+  --card-orbit-angle: 114deg;
+}
+
+
+.hero-link-mongo {
+  --card-orbit-angle: 144deg;
+}
+
+
+.hero-link-devops {
+  --card-orbit-angle: 174deg;
+}
+
+
+/* =========================================================
+   TWO CONCENTRIC COURSE ORBITS
+   ========================================================= */
+
+.hero-link-python,
+.hero-link-typescript,
+.hero-link-tailwind,
+.hero-link-react,
+.hero-link-django,
+.hero-link-mongo {
+  --card-orbit-radius:
+    clamp(155px, 18vw, 195px);
+}
+
+
+.hero-link-javascript,
+.hero-link-html,
+.hero-link-aws,
+.hero-link-node,
+.hero-link-sql,
+.hero-link-devops {
+  --card-orbit-radius:
+    clamp(190px, 21vw, 225px);
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.hero-orbit-link:hover,
+.hero-orbit-link:hover .hero-orbit-card {
+  animation-play-state: paused;
+}
+
+
+.hero-orbit-link:hover .hero-orbit-card {
+  transform:
+    translate(-50%, -50%)
+    scale(1.04);
+
+  border-color:
+    rgba(96, 165, 250, 0.7);
+
+  box-shadow:
+    0 18px 45px
+    rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================================================
+   CARD FLOAT
+   ========================================================= */
+
+@keyframes cardFloat {
+  0%,
+  100% {
+    transform:
+      translate(-50%, -50%)
+      rotate(-1deg);
+
+    opacity: 0.92;
+  }
+
+  50% {
+    transform:
+      translate(-50%, -50%)
+      rotate(1deg);
+
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   MAIN COURSE ORBIT
+   ========================================================= */
+
+@keyframes courseOrbit {
+  from {
+    transform:
+      rotate(var(--card-orbit-angle))
+      translateX(var(--card-orbit-radius));
+  }
+
+  to {
+    transform:
+      rotate(
+        calc(
+          var(--card-orbit-angle) + 360deg
+        )
+      )
+      translateX(var(--card-orbit-radius));
+  }
+}
+
+
+/* =========================================================
+   COUNTER ROTATE
+   Keeps cards readable while orbiting.
+   ========================================================= */
+
+@keyframes courseCardCounterRotate {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(
+        calc(
+          0deg - var(--card-orbit-angle)
+        )
+      );
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(
+        calc(
+          0deg
+          - var(--card-orbit-angle)
+          - 360deg
+        )
+      );
+  }
+}
+
+
+/* =========================================================
+   CORE PULSE
+   ========================================================= */
+
+@keyframes corePulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.15);
+  }
+}
+
+
+/* =========================================================
+   RING BREATHING
+   ========================================================= */
+
+@keyframes ringBreath {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   PARTICLE CLOCKWISE
+   ========================================================= */
+
+@keyframes particleOrbitClockwise {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg)
+      translateX(var(--particle-radius));
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg)
+      translateX(var(--particle-radius));
+  }
+}
+
+
+/* =========================================================
+   PARTICLE COUNTER-CLOCKWISE
+   ========================================================= */
+
+@keyframes particleOrbitCounter {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg)
+      translateX(var(--particle-radius));
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg)
+      translateX(var(--particle-radius));
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+  .hero-orbit-visual {
+    width: min(51vw, 390px);
+  }
+
+  .hero-orbit-card {
+    width: 7.2rem;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 699px) {
+  .hero-orbit-visual {
+    width: min(82vw, 320px);
+
+    margin-top: 0.5rem;
+  }
+
+
+  .hero-orbit-link {
+    --card-orbit-radius: 118px;
+
+    --card-orbit-duration: 48s;
+  }
+
+
+  .hero-orbit-card {
+    width: 6.1rem;
+
+    min-height: 2.45rem;
+
+    padding: 0.38rem;
+  }
+
+
+  .hero-orbit-icon {
+    width: 1.55rem;
+    height: 1.55rem;
+
+    flex-basis: 1.55rem;
+  }
+
+
+  .hero-orbit-card strong {
+    font-size: 0.61rem;
+  }
+
+
+  .hero-orbit-card small {
+    font-size: 0.51rem;
+  }
+
+
+  /* Hide some cards on small screens */
+
+  .hero-link-javascript,
+  .hero-link-html,
+  .hero-link-aws,
+  .hero-link-typescript,
+  .hero-link-tailwind,
+  .hero-link-mongo {
+    display: none;
+  }
+
+
+  /* Mobile orbit positions */
+
+  .hero-link-python {
+    --card-orbit-angle: 220deg;
+  }
+
+
+  .hero-link-react {
+    --card-orbit-angle: 40deg;
+  }
+
+
+  .hero-link-node {
+    --card-orbit-angle: 78deg;
+  }
+
+
+  .hero-link-django {
+    --card-orbit-angle: 120deg;
+  }
+
+
+  .hero-link-sql {
+    --card-orbit-angle: 160deg;
+  }
+
+
+  .hero-link-devops {
+    --card-orbit-angle: 200deg;
+  }
+
+
+  .hero-link-python,
+  .hero-link-django,
+  .hero-link-react {
+    --card-orbit-radius: 108px;
+  }
+
+
+  .hero-link-node,
+  .hero-link-sql,
+  .hero-link-devops {
+    --card-orbit-radius: 132px;
+  }
+
+
+  .hero-orbit-center {
+    width: 29%;
+    height: 29%;
+  }
+
+
+  .hero-orbit-ring-five {
+    display: none;
+  }
+
+
+  .hero-particle:nth-child(n + 5) {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-orbit-link,
+  .hero-orbit-link .hero-orbit-card,
+  .hero-orbit-ring,
+  .hero-orbit-center,
+  .hero-orbit-glow,
+  .hero-particle {
+    animation: none;
+  }
+}
