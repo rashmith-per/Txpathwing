@@ -76,19 +76,12 @@ export default function CareersHero() {
   }, [isPaused, active]);
 
   const goTo = (index) => setActive(index);
-  const next = () => setActive((p) => (p + 1) % slides.length);
-  const prev = () => setActive((p) => (p - 1 + slides.length) % slides.length);
 
   return (
     <div className="page">
       <section className="hero">
         {/* Left Content */}
         <div className="hero__left">
-          <div className="hero__badge">
-            <span className="hero__badge-dot"></span>
-            Careers at Tanvox
-          </div>
-
           <h1 className="hero__title">
             Build Your Career.
             <br />
@@ -156,25 +149,13 @@ export default function CareersHero() {
                 />
               ))}
             </div>
-
-            {/* Arrows */}
-            <button className="arrow arrow--left" onClick={prev} aria-label="Previous">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button className="arrow arrow--right" onClick={next} aria-label="Next">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
           </div>
         </div>
       </section>
 
       <section className="career-section career-section--light">
         <div className="section-heading">
-          <span>WHY CHOOSE TANVOX</span>
+          <span>WHY CHOOSE TX-PATHWING</span>
           <h2>A better way to build your career</h2>
           <p>Everything you need to move from learning to doing with confidence.</p>
         </div>
