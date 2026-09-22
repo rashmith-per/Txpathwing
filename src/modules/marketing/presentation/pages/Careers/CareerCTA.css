@@ -1,0 +1,192 @@
+/* Career Bottom Sections & Final CTA Styles */
+
+.careers-bottom-wrapper {
+  position: relative;
+  background: #ffffff;
+}
+
+/* Don't See Your Role */
+.dont-see-role-section {
+  padding: 4.5rem 0 2rem;
+}
+
+.dont-see-role-card {
+  background: #ffffff;
+  border: 1.5px dashed var(--blue-300, #93c5fd);
+  border-radius: var(--radius-2xl, 1rem);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  box-shadow: 0 4px 20px -4px rgba(37, 99, 235, 0.08);
+}
+
+.dont-see-role-content {
+  max-width: 650px;
+}
+
+.dont-see-badge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue-600, #2563eb);
+  background: var(--blue-50, #eff6ff);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full, 9999px);
+  margin-bottom: 0.625rem;
+}
+
+.dont-see-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--slate-900, #0f172a);
+  margin-bottom: 0.5rem;
+}
+
+.dont-see-desc {
+  font-size: 0.9375rem;
+  color: var(--slate-600, #475569);
+  line-height: 1.6;
+}
+
+.dont-see-action {
+  flex-shrink: 0;
+}
+
+.btn-submit-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.8125rem 1.625rem;
+  background: var(--blue-600, #2563eb);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  white-space: nowrap;
+}
+
+.btn-submit-resume:hover {
+  background: var(--blue-700, #1d4ed8);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Final CTA */
+.career-final-cta-section {
+  position: relative;
+  background: linear-gradient(135deg, #070e24 0%, #0d1a42 50%, #08102b 100%);
+  color: #ffffff;
+  padding: 6rem 0 6.5rem;
+  text-align: center;
+  overflow: hidden;
+  margin-top: 3.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.final-cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(99, 102, 241, 0.15) 50%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.final-cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #93c5fd;
+  margin-bottom: 1.25rem;
+  background: rgba(37, 99, 235, 0.18);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.final-cta-headline {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.final-cta-subtext {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 2.25rem;
+}
+
+.final-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.9375rem 2rem;
+  background: var(--blue-600, #2563eb);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+}
+
+.final-cta-button:hover {
+  background: var(--blue-500, #3b82f6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.5);
+}
+
+.final-cta-button svg {
+  transition: transform 0.2s ease;
+}
+
+.final-cta-button:hover svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 850px) {
+  .dont-see-role-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 2.25rem 1.5rem;
+  }
+  .dont-see-action {
+    width: 100%;
+  }
+  .btn-submit-resume {
+    width: 100%;
+    justify-content: center;
+  }
+}
