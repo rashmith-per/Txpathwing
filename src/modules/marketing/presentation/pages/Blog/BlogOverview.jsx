@@ -6,9 +6,9 @@ import {
   Radio,
   Video,
   Users,
-  Briefcase,
-  Calendar,
-  Award,
+  BriefcaseBusiness,
+  CalendarDays,
+  BadgeCheck,
   Laptop,
   GraduationCap,
   Building2,
@@ -39,7 +39,7 @@ const AUDIENCE_CARDS = [
     desc: "Share knowledge and make an impact.",
   },
   {
-    icon: Briefcase,
+    icon: BriefcaseBusiness,
     title: "For Industry Partners",
     desc: "Collaborate, hire talent and grow together.",
   },
@@ -84,7 +84,7 @@ const OFFERING_CARDS = [
   },
   {
     id: "internships",
-    icon: Briefcase,
+    icon: BriefcaseBusiness,
     title: "Internships",
     desc: "Real-world work experience",
     details:
@@ -93,7 +93,7 @@ const OFFERING_CARDS = [
   },
   {
     id: "events",
-    icon: Calendar,
+    icon: CalendarDays,
     title: "Events",
     desc: "Hackathons, webinars & more",
     details:
@@ -102,7 +102,7 @@ const OFFERING_CARDS = [
   },
   {
     id: "certifications",
-    icon: Award,
+    icon: BadgeCheck,
     title: "Certifications",
     desc: "Industry-recognized certificates",
     details:
@@ -137,12 +137,12 @@ const STATS_ITEMS = [
     label: "Colleges & Institutions",
   },
   {
-    icon: Award,
+    icon: BadgeCheck,
     value: "200+",
     label: "Industry Experts",
   },
   {
-    icon: Briefcase,
+    icon: BriefcaseBusiness,
     value: "1K+",
     label: "Internship Opportunities",
   },
@@ -310,7 +310,7 @@ const BlogOverview = () => {
 
                 <div className="tx-modal-pillar-card">
                   <div className="tx-pillar-icon icon-orange">
-                    <Briefcase size={22} />
+                    <BriefcaseBusiness size={22} />
                   </div>
                   <h4>For Industry Partners</h4>
                   <p>

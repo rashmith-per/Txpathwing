@@ -10,6 +10,10 @@ import {
   X,
   Check,
   Sparkles,
+  BrainCircuit,
+  Globe,
+  BriefcaseBusiness,
+  ChartNoAxesCombined,
 } from "lucide-react";
 import SEO from "../../pages/SEO/SEO";
 import { categories, allBlogPosts } from "../../pages/SEO/BlogData";
@@ -68,10 +72,10 @@ const Blog = () => {
       />
 
       {/* ── 1. HERO SECTION ── */}
-      
-      
-      
-      
+
+
+
+
 
       {/* ── 2. TOP ARTICLES SECTION ── */}
       <section className="blog-articles-section">
@@ -80,9 +84,9 @@ const Blog = () => {
           <div className="blog-articles-header">
             <div>
               <h2 className="blog-section-heading">
-               Explore Our <span>Top Articles</span>
+                Explore Our <span>Top Articles</span>
               </h2>
-               {/* Category Navigation Icons */}
+              {/* Category Navigation Icons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -91,7 +95,16 @@ const Blog = () => {
               >
                 <div className="blog-categories-track">
                   {categories.map((cat) => {
-                    const IconComponent = cat.icon;
+                    const IconComponent =
+                      cat.name.toLowerCase().includes("ai")
+                        ? BrainCircuit
+                        : cat.name.toLowerCase().includes("web")
+                          ? Globe
+                        : cat.name.toLowerCase().includes("career")
+                          ? BriefcaseBusiness
+                        : cat.name.toLowerCase().includes("data")
+                          ? ChartNoAxesCombined
+                          : cat.icon;
                     const isActive = activeCategory === cat.id;
 
                     return (
@@ -359,7 +372,7 @@ const Blog = () => {
           </div>
         )}
       </AnimatePresence>
-      
+
     </div>
   );
 };

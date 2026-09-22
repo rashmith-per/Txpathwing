@@ -83,13 +83,6 @@ export default function CareersHero() {
       <section className="hero">
         {/* Left Content */}
         <div className="hero__left">
-          {/*
-          <div className="hero__badge">
-            <span className="hero__badge-dot"></span>
-            Career at TX
-          </div>
-
-          */}
           <h1 className="hero__title">
             Build Your Career.
             <br />
