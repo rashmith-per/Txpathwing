@@ -1,8 +1,8 @@
 .trust-section {
   position: relative;
   overflow: hidden;
-  padding: 110px 24px;
-  background: #f5f7fc;
+  padding: 50px 24px;
+  background: white;
   color: #0b1830;
 }
 
@@ -52,7 +52,7 @@
 
 .trust-heading {
   max-width: 780px;
-  margin: 0 auto 48px;
+  margin: 0 auto 18px;
   text-align: center;
 }
 

@@ -1,8 +1,10 @@
 import React from "react";
 import "./Courses.css";
-import { Link } from "react-router-dom";
+import { Route , Routes } from "react-router-dom";
 import { programs, categories } from "./coursesData";
-
+import Marketplace from "../MarketPlace/MarketPlace";
+import CourseDetail from "../CourseDetails/CourseDetails";
+import { Link } from "lucide-react";
 // =====================================================
 // COURSE CARD
 // =====================================================
@@ -162,10 +164,21 @@ export default function Courses() {
                 your potential
               </h3>
 
-              <Link to="/courses-Details" className="view-courses-btn">
-                <span>View all courses</span>
-                <span className="courses-arrow">→</span>
-              </Link>
+              <Routes>
+
+                {/* Courses catalogue */}
+                <Route
+                  path="/courses-Details"
+                  element={<Marketplace />}
+                />
+
+                {/* Individual course details */}
+                <Route
+                  path="/course/:id"
+                  element={<CourseDetail />}
+                />
+
+              </Routes>
             </div>
           </div>
         </div>
