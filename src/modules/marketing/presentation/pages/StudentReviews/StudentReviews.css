@@ -1,0 +1,457 @@
+
+
+.student-reviews-section {
+  width: 100%;
+  padding: 90px 0;
+
+  background: #ffffff;
+
+  overflow: hidden;
+}
+
+
+.student-reviews-header {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto 50px;
+
+  padding: 0 20px;
+
+  text-align: center;
+}
+
+
+
+.student-reviews-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 19px;
+
+  border: 1px solid #2563eb;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #2563eb;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  margin-bottom: 18px;
+}
+
+
+
+.student-reviews-header h2 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: clamp(38px, 5vw, 58px);
+
+  font-weight: 700;
+
+  line-height: 1.1;
+
+  letter-spacing: -2px;
+}
+
+
+.student-reviews-header p {
+  max-width: 760px;
+
+  margin: 20px auto 0;
+
+  color: #4b5563;
+
+  font-size: 18px;
+
+  line-height: 1.7;
+}
+
+
+.student-reviews-box {
+  width: calc(100% - 64px);
+
+  max-width: 1850px;
+
+  margin: 0 auto;
+
+  padding: 40px 0 25px;
+
+  background: #ffffff;
+
+
+  border-radius: 18px;
+
+  overflow: hidden;
+}
+
+
+.reviews-window {
+  width: 100%;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  scroll-behavior: smooth;
+
+  scroll-snap-type: x proximity;
+
+  scrollbar-width: none;
+
+  padding: 0 35px;
+}
+
+
+
+.reviews-window::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+.reviews-track {
+  display: flex;
+
+  width: max-content;
+
+  gap: 24px;
+}
+
+
+.student-review-card {
+  position: relative;
+
+  flex: 0 0 390px;
+
+  width: 390px;
+
+  min-height: 290px;
+
+  padding: 28px;
+
+  background: #ffffff;
+
+  border: 1px solid #d9e2ef;
+
+  border-radius: 18px;
+
+  scroll-snap-align: start;
+
+  box-shadow:
+    0 8px 25px rgba(17, 24, 39, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+
+.student-review-card:hover {
+  transform: translateY(-5px);
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 15px 35px rgba(37, 99, 235, 0.12);
+}
+
+
+.review-quote-icon {
+  color: #2563eb;
+
+  margin-bottom: 20px;
+}
+
+
+.review-student-info {
+  margin-bottom: 18px;
+}
+
+
+.review-student-info h3 {
+  margin: 0 0 6px;
+
+  color: #111827;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+
+.review-student-info span {
+  color: #2563eb;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+
+
+.review-comment {
+  margin: 0;
+
+  color: #374151;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+
+  font-weight: 400;
+}
+
+
+.review-bottom-quote {
+  position: absolute;
+
+  right: 24px;
+
+  bottom: 20px;
+
+  color: #2563eb;
+
+  opacity: 0.35;
+
+  transform: rotate(180deg);
+}
+
+
+.reviews-bottom {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 70px;
+
+  margin-top: 15px;
+
+  padding: 0 90px;
+}
+
+
+
+.reviews-bottom-text {
+  color: #6b7280;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+
+
+.review-controls {
+  position: absolute;
+
+  right: 28px;
+
+  display: flex;
+
+  gap: 10px;
+}
+
+
+
+.review-control-btn {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 50px;
+
+  height: 50px;
+
+  border-radius: 50%;
+
+  border: 1px solid #cbd5e1;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+
+.review-control-btn:hover:not(:disabled) {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  border-color: #2563eb;
+
+  transform: translateY(-2px);
+}
+
+
+
+.review-control-btn:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+
+  background: #ffffff;
+
+  color: #111827;
+}
+
+
+
+@media (max-width: 1100px) {
+
+  .student-reviews-box {
+    width: calc(100% - 40px);
+  }
+
+
+  .reviews-window {
+    padding: 0 25px;
+  }
+
+
+  .student-review-card {
+    flex-basis: 350px;
+
+    width: 350px;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .student-reviews-section {
+    padding: 65px 0;
+  }
+
+
+  .student-reviews-header {
+    margin-bottom: 35px;
+  }
+
+
+  .student-reviews-header h2 {
+    font-size: 38px;
+
+    letter-spacing: -1.5px;
+  }
+
+
+  .student-reviews-header p {
+    font-size: 15px;
+  }
+
+
+  .student-reviews-box {
+    width: calc(100% - 24px);
+
+    padding-top: 25px;
+
+    border-radius: 16px;
+  }
+
+
+  .reviews-window {
+    padding: 0 18px;
+  }
+
+
+  .student-review-card {
+    flex-basis: 310px;
+
+    width: 310px;
+
+    min-height: 285px;
+
+    padding: 24px;
+  }
+
+
+  .review-comment {
+    font-size: 15px;
+  }
+
+
+  .reviews-bottom {
+    min-height: 75px;
+
+    padding: 0 20px;
+  }
+
+
+  .reviews-bottom-text {
+    font-size: 12px;
+  }
+
+
+  .review-controls {
+    position: static;
+
+    margin-left: auto;
+  }
+
+
+  .review-control-btn {
+    width: 44px;
+
+    height: 44px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .student-reviews-header h2 {
+    font-size: 32px;
+  }
+
+
+  .student-reviews-badge {
+    font-size: 11px;
+
+    padding: 8px 15px;
+  }
+
+
+  .student-review-card {
+    flex-basis: 285px;
+
+    width: 285px;
+
+    min-height: 290px;
+  }
+
+
+  .reviews-bottom {
+    justify-content: space-between;
+  }
+
+}
