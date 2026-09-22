@@ -1,0 +1,151 @@
+/* Career Teams Styles */
+
+.career-teams-section {
+  padding: 5.5rem 0;
+  background: var(--slate-50, #f8fafc);
+  border-top: 1px solid var(--slate-200, #e2e8f0);
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.team-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200, #e2e8f0);
+  border-radius: var(--radius-xl, 0.75rem);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue-300, #93c5fd);
+  box-shadow: 0 14px 28px -6px rgba(37, 99, 235, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+.team-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 0.875rem;
+}
+
+.team-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-lg, 0.5rem);
+  background: var(--blue-50, #eff6ff);
+  border: 1px solid var(--blue-200, #bfdbfe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue-600, #2563eb);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.team-card:hover .team-icon-wrapper {
+  background: var(--blue-600, #2563eb);
+  color: #ffffff;
+}
+
+.team-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--slate-900, #0f172a);
+}
+
+.team-desc {
+  font-size: 0.875rem;
+  color: var(--slate-600, #475569);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.team-roles-box {
+  background: var(--slate-50, #f8fafc);
+  border: 1px solid var(--slate-200, #e2e8f0);
+  border-radius: var(--radius-lg, 0.5rem);
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.team-roles-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--slate-400, #94a3b8);
+  margin-bottom: 0.5rem;
+}
+
+.team-roles-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0;
+  margin: 0;
+}
+
+.team-role-item {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700, #334155);
+  display: flex;
+  align-items: center;
+}
+
+.team-role-item::before {
+  content: "•";
+  color: var(--blue-500, #3b82f6);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -0.2em;
+}
+
+.team-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--blue-600, #2563eb);
+  background: var(--blue-50, #eff6ff);
+  border: 1px solid var(--blue-200, #bfdbfe);
+  border-radius: var(--radius-lg, 0.5rem);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.team-view-btn:hover {
+  background: var(--blue-600, #2563eb);
+  color: #ffffff;
+  border-color: var(--blue-600, #2563eb);
+}
+
+.team-view-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.team-view-btn:hover svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+  .teams-grid {
+    grid-template-columns: 1fr;
+  }
+}

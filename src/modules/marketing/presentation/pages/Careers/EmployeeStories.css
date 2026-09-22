@@ -1,0 +1,117 @@
+/* Employee Stories Styles */
+
+.stories-section {
+  padding: 5.5rem 0;
+  background: var(--slate-50, #f8fafc);
+  border-top: 1px solid var(--slate-200, #e2e8f0);
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.story-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200, #e2e8f0);
+  border-radius: var(--radius-xl, 0.75rem);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+.story-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue-300, #93c5fd);
+  box-shadow: 0 12px 24px -4px rgba(37, 99, 235, 0.1);
+}
+
+.story-quote-icon {
+  color: var(--blue-200, #bfdbfe);
+  margin-bottom: 1rem;
+}
+
+.story-text-wrap {
+  margin-bottom: 1.5rem;
+}
+
+.story-placeholder-text {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--slate-600, #475569);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.story-notice {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--slate-400, #94a3b8);
+}
+
+.story-author-row {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--slate-100, #f1f5f9);
+}
+
+.story-avatar-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--blue-50, #eff6ff);
+  border: 1.5px solid var(--blue-200, #bfdbfe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.story-default-avatar {
+  color: var(--blue-500, #3b82f6);
+}
+
+.story-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.story-author-name {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--slate-900, #0f172a);
+}
+
+.story-author-role {
+  font-size: 0.8125rem;
+  color: var(--slate-600, #475569);
+}
+
+.story-author-dept {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--blue-600, #2563eb);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+}

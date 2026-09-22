@@ -1,0 +1,69 @@
+/* =========================================================
+   TX Pathwing - Careers Page Global Component Styles
+   ========================================================= */
+
+.careers-page-main {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: var(--slate-900, #0f172a);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  padding-top: 5rem; /* Offset for fixed navbar */
+}
+
+/* Common Container */
+.careers-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .careers-container {
+    padding: 0 2rem;
+  }
+}
+
+/* Reusable Section Headers */
+.section-header-center {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-600, #2563eb);
+  background: var(--blue-50, #eff6ff);
+  border: 1px solid var(--blue-200, #bfdbfe);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full, 9999px);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.875rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: var(--slate-900, #0f172a);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+  color: var(--slate-600, #475569);
+  line-height: 1.6;
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--blue-500, #3b82f6);
+  outline-offset: 2px;
+}
