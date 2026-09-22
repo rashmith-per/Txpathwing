@@ -11,6 +11,7 @@ import Hero from "../../components/Hero/Hero";
 // import Blog from "../Blog/Blog/Blog";
 import Pricing from "../../components/Pricing/Pricing";
 import HiringPartners from "../../components/HiringPartners/HiringPartner";
+import WhoWeAre from "../../components/WhoWeAre/WhoWeAre";
 
 const Home = () => {
   return (
@@ -18,7 +19,7 @@ const Home = () => {
     <Hero/>
 
       {/* Learner Journey Section */}
-      <LearnerJourney />
+      <WhoWeAre />
 
       {/* Courses Section */}
       <Courses />
