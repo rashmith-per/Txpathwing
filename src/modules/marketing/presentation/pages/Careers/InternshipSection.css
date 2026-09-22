@@ -1,0 +1,210 @@
+/* Internship Section Styles */
+
+.internship-section {
+  padding: 5.5rem 0;
+  background: #ffffff;
+  position: relative;
+}
+
+.internship-card-banner {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  border-radius: var(--radius-2xl, 1rem);
+  padding: 3.5rem 3rem;
+  color: #ffffff;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 3rem;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.internship-card-banner::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.internship-content {
+  position: relative;
+  z-index: 1;
+}
+
+.internship-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #93c5fd;
+  margin-bottom: 1.25rem;
+}
+
+.internship-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.internship-desc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  max-width: 520px;
+  margin-bottom: 1.75rem;
+}
+
+.internship-perks-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.intern-perk-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.perk-icon {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.internship-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-intern-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8125rem 1.5rem;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-intern-primary:hover {
+  background: var(--blue-50, #eff6ff);
+  color: var(--blue-700, #1d4ed8);
+  transform: translateY(-2px);
+}
+
+.btn-intern-primary svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-intern-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-intern-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8125rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-intern-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.internship-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.internship-badge-floating {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-2xl, 1rem);
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  text-align: left;
+}
+
+.rocket-icon {
+  color: #fbbf24;
+  flex-shrink: 0;
+}
+
+.internship-badge-floating strong {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.internship-badge-floating small {
+  display: block;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  .internship-card-banner {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 1.75rem;
+    gap: 2rem;
+  }
+  .internship-visual {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .internship-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-intern-primary,
+  .btn-intern-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

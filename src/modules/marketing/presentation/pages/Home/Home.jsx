@@ -12,6 +12,8 @@ import Hero from "../../components/Hero/Hero";
 import Pricing from "../../components/Pricing/Pricing";
 import HiringPartners from "../../components/HiringPartners/HiringPartner";
 import StudentReviews from "../StudentReviews/StudentReviews";
+import Programtraning from "../../components/ProgramTraning/programtraning";
+
 
 const Home = () => {
   return (
@@ -19,7 +21,8 @@ const Home = () => {
     <Hero/>
 
       {/* Learner Journey Section */}
-
+      
+< Programtraning />
       {/* Courses Section */}
       <Courses />
 
