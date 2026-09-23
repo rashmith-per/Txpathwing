@@ -11,6 +11,7 @@ import Hero from "../../components/Hero/Hero";
 // import Blog from "../Blog/Blog/Blog";
 import Pricing from "../../components/Pricing/Pricing";
 import HiringPartners from "../../components/HiringPartners/HiringPartner";
+import WhoWeAre from "../../components/WhoWeAre/WhoWeAre";
 import StudentReviews from "../StudentReviews/StudentReviews";
 import Programtraning from "../../components/ProgramTraning/programtraning";
 
@@ -21,6 +22,8 @@ const Home = () => {
     <Hero/>
 
       {/* Learner Journey Section */}
+      <WhoWeAre />
+
       
 < Programtraning />
       {/* Courses Section */}

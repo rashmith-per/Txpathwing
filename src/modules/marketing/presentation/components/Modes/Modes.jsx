@@ -6,13 +6,13 @@ import "./Modes.css";
 const Mode = () => {
   const modes = [
     {
-      title: "Online Live",
+      title: "Live",
       desc: "Join instructor-led sessions from anywhere with real-time interaction, discussion and guided learning.",
       icon: <Video size={38} />,
       bgGradient: "linear-gradient(to bottom right, #38bdf8, #2563eb)",
     },
     {
-      title: "Classroom",
+      title: "On-Site",
       desc: "Learn face-to-face with instructors and peers in a focused, structured classroom environment.",
       icon: <School size={38} />,
       bgGradient: "linear-gradient(to bottom right, #22d3ee, #3b82f6)",

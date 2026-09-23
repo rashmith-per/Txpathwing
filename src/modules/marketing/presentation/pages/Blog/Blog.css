@@ -16,40 +16,6 @@
   color: var(--slate-900);
   border-bottom: 1px solid rgba(226, 232, 240, 0.6);
 }
-/*
-.blog-hero-glow-1 {
-  position: absolute;
-  top: -6rem;
-  right: -6rem;
-  width: 550px;
-  height: 550px;
-  
-  border-radius: var(--radius-full);
-  filter: blur(110px);
-}
-
-.blog-hero-glow-2 {
-  position: absolute;
-  top: 25%;
-  left: -7rem;
-  width: 450px;
-  height: 450px;
-  
-  border-radius: var(--radius-full);
-  filter: blur(100px);
-}
-
-.blog-hero-glow-3 {
-  position: absolute;
-  bottom: 0;
-  right: 25%;
-  width: 400px;
-  height: 400px;
-  
-  border-radius: var(--radius-full);
-  filter: blur(120px);
-}
-  */
 
 .blog-hero-grid {
   display: grid;
