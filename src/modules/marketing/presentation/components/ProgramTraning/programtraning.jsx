@@ -62,8 +62,8 @@ const ProgramsSection = () => {
   const intervalRef = useRef(null);
   const progressRef = useRef(null);
 
-  const INTERVAL_DURATION = 3500;
-  const ANIMATION_DURATION = 500;
+  const INTERVAL_DURATION = 2500;
+  const ANIMATION_DURATION = 400;
 
   /* Go to a specific program index */
   const goTo = useCallback(
@@ -72,6 +72,9 @@ const ProgramsSection = () => {
       setAnimating(true);
       setTimeout(() => {
         setActiveIndex(index);
+      }, ANIMATION_DURATION / 2);
+
+      setTimeout(() => {
         setAnimating(false);
       }, ANIMATION_DURATION);
     },
@@ -89,6 +92,9 @@ const ProgramsSection = () => {
       setAnimating(true);
       setTimeout(() => {
         setActiveIndex((prev) => (prev + 1) % programs.length);
+      }, ANIMATION_DURATION / 2);
+
+      setTimeout(() => {
         setAnimating(false);
       }, ANIMATION_DURATION);
     }, INTERVAL_DURATION);
@@ -193,19 +199,46 @@ const ProgramsSection = () => {
             </div>
           </div>
 
-          {/* Right: Image */}
+          {/* Right: Premium Spotlight Glass Stage */}
           <div 
             className="pt-image-area"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="pt-image-wrapper">
-              <img
-                className={`pt-program-img ${animating ? "pt-program-img--exit" : "pt-program-img--enter"}`}
-                src={current.image}
-                alt={current.alt}
-                loading="lazy"
-              />
+            <div className="pt-spotlight-stage">
+              <div className="pt-spotlight-frame">
+                <img
+                  key={current.id}
+                  className={`pt-spotlight-img ${animating ? "pt-spotlight-img--exit" : "pt-spotlight-img--enter"}`}
+                  src={current.image}
+                  alt={current.alt}
+                  loading="lazy"
+                />
+                
+                {/* Gradient Shimmer Overlay */}
+                <div className="pt-spotlight-overlay" />
+
+                {/* Floating Glass Chips Overlay */}
+                <div className="pt-glass-chips">
+                  {programs.map((prog, i) => (
+                    <button
+                      key={prog.id}
+                      className={`pt-glass-chip ${i === activeIndex ? "pt-glass-chip--active" : ""}`}
+                      onClick={() => goTo(i)}
+                      title={prog.title}
+                    >
+                      <span className="pt-chip-num">{prog.id}</span>
+                      <span className="pt-chip-name">{prog.title}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Bottom Category Badge */}
+                <div className="pt-spotlight-badge">
+                  <span className="pt-badge-dot" />
+                  <span>{current.category}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

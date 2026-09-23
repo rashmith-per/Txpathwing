@@ -138,11 +138,8 @@ export default function InternshipsSection() {
   return (
     <section className="internship-section">
       <div className="container">
-        {/* Header Badge */}
-        <div className="eyebrow">
-          <Sparkles size={15} className="eyebrow-sparkle" />
-          <span> INTERNSHIP</span>
-        </div>
+        {/* Category Tag */}
+        <span className="internship-subtitle-tag">INTERNSHIP</span>
 
         {/* Main Section Title */}
         <h2 className="main-title">Learning Progresses Into Practical Experience</h2>
