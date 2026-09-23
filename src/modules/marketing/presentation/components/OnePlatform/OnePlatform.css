@@ -1,942 +1,261 @@
-/* =========================================================
-   TX PATHWING — ONE PLATFORM
-   70% VIEWPORT SECTION
-========================================================= */
-/* =========================================================
-   PURE WHITE BACKGROUND — REMOVE DECORATIONS
-========================================================= */
- 
-.oneplatform-section .bg-orb,
-.oneplatform-section .wave,
-.oneplatform-section .dot-pattern {
-  display: none !important;
-}
-.oneplatform-section {
-  position: relative;
-  margin: 0 auto;
-  height: 550px;
-  min-height: 520px;
- 
- 
-  overflow: hidden;
- 
-  /* CHANGED: COMPLETE BACKGROUND TO WHITE */
-  background: #ffffff;
- 
-  color: #081a35;
- 
-  isolation: isolate;
-}
- 
- 
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
- 
-.oneplatform-container {
-  position: relative;
- 
-  z-index: 5;
- 
+/* OnePlatform.css - FINAL FIX - No blue highlight, proper gradient */
+
+.op-section {
   width: 100%;
-  max-width: 1450px;
- 
-  height: 100%;
- 
-  margin: 0 auto;
-  padding: 0px 50px;
-  display: flex;
- 
-  flex-direction: column;
- 
-  justify-content: center;
+  background: #fcfcff;
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
+  padding: 60px 0 80px;
+  font-family: Inter, system-ui, sans-serif;
+  user-select: none;
+  /* Prevents that blue selection highlight you saw */
 }
- 
- 
-/* =========================================================
-   HEADER
-========================================================= */
- 
-.oneplatform-header {
-  flex-shrink: 0;
- 
+
+.op-section * {
+  user-select: text;
+  /* Allow text selection inside but not the ugly blue block */
+}
+
+.op-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
   text-align: center;
- 
-  margin-bottom: 26px;
 }
- 
- 
-/* =========================================================
-   EYEBROW
-========================================================= */
- 
-.eyebrow {
-  display: flex;
- 
-  align-items: center;
-  justify-content: center;
- 
-  gap: 12px;
- 
-  margin-bottom: 10px;
- 
-  color: #315b88;
- 
-  font-size: 10px;
- 
-  font-weight: 700;
- 
-  letter-spacing: 3.5px;
- 
-  text-transform: uppercase;
-}
- 
-.eyebrow span {
-  width: 25px;
-  height: 1.5px;
- 
-  background: #237fe8;
-}
- 
- 
-/* =========================================================
-   HEADING
-========================================================= */
- 
-.oneplatform-header h2 {
-  margin: 0;
- 
-  color: #081a35;
- 
-  font-family: "Inter", sans-serif;
- 
-  font-size: clamp(36px, 3.2vw, 52px);
- 
-  font-weight: 800;
- 
-  line-height: 1.05;
- 
-  letter-spacing: -2.2px;
-}
- 
-.oneplatform-header h2 span {
-  background:
-    linear-gradient(
-      90deg,
-      #087ff0,
-      #1769df,
-      #4e91ff
-    );
- 
-  -webkit-background-clip: text;
-  background-clip: text;
- 
-  color: transparent;
-}
- 
- 
-/* =========================================================
-   SUBTITLE
-========================================================= */
- 
-.oneplatform-header p {
-  max-width: 760px;
- 
-  margin: 10px auto 0;
- 
-  color: #58708f;
- 
-  font-family: "Inter", sans-serif;
- 
-  font-size: 14px;
- 
-  font-weight: 400;
- 
-  line-height: 1.5;
- 
-  letter-spacing: -0.1px;
-}
- 
- 
-/* =========================================================
-   CARDS GRID
-========================================================= */
- 
-.oneplatform-grid {
-  width: 100%;
- 
-  display: grid;
- 
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
- 
-  gap: 18px;
- 
-  flex-shrink: 0;
-}
- 
- 
-/* =========================================================
-   CARD
-========================================================= */
- 
-.oneplatform-card {
-  position: relative;
- 
-  height: 350px;
- 
-  min-width: 0;
- 
-  padding: 20px 21px;
- 
-  display: flex;
- 
-  flex-direction: column;
- 
-  border-radius: 20px;
- 
-  border: 1px solid
-    rgba(94, 153, 219, 0.23);
- 
-  /* CHANGED: BLACK BOX SHADOW */
-  box-shadow:
-    0 5px 15px
-    rgba(0, 0, 0, 0.18),
- 
-    inset 0 1px 0
-    rgba(255, 255, 255, 0.95);
- 
-  backdrop-filter: blur(18px);
- 
-  overflow: hidden;
- 
-  opacity: 0;
- 
-  transform:
-    translateY(20px)
-    scale(0.98);
- 
-  animation:
-    onePlatformCardIn
-    0.7s
-    cubic-bezier(
-      0.2,
-      0.8,
-      0.2,
-      1
-    )
-    forwards;
- 
-  animation-delay: var(--delay);
- 
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
-}
- 
- 
-/* =========================================================
-   CARD HOVER
-========================================================= */
- 
-.oneplatform-card:hover {
-  transform: translateY(-7px);
- 
-  border-color:
-    rgba(30, 125, 235, 0.4);
- 
-  /* CHANGED: BLACK HOVER SHADOW */
-  box-shadow:
-    0 10px 20px
-    rgba(0, 0, 0, 0.28);
-}
- 
- 
-/* =========================================================
-   CARD GLOW
-========================================================= */
- 
-.oneplatform-card::before {
-  content: "none";
- 
-  position: absolute;
- 
-  width: 170px;
-  height: 170px;
- 
-  top: -95px;
-  right: -75px;
- 
-  border-radius: 50%;
- 
-  background:
-    rgba(35, 132, 240, 0.08);
- 
-  filter: blur(25px);
- 
-  pointer-events: none;
- 
-  transition:
-    transform 0.5s ease;
-}
- 
-.oneplatform-card:hover::before {
-  transform: scale(1.45);
-  content:none;
-}
- 
- 
-/* =========================================================
-   CARD TOP
-========================================================= */
- 
-.card-top {
-  position: relative;
- 
-  z-index: 2;
- 
-  display: flex;
- 
-  align-items: flex-start;
- 
-  justify-content: space-between;
- 
-  margin-bottom: 14px;
-}
- 
- 
-/* =========================================================
-   ICON
-========================================================= */
- 
-.icon-container {
-  width: 53px;
-  height: 53px;
- 
-  display: flex;
- 
-  align-items: center;
-  justify-content: center;
- 
-  border-radius: 15px;
- 
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff,
-      #e5f2ff
-    );
- 
-  border: 1px solid #cee4fa;
- 
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
-}
- 
-.oneplatform-card:hover
-.icon-container {
-  transform:
-    translateY(-3px)
-    rotate(-3deg);
- 
-  box-shadow:
-    0 11px 22px
-    rgba(25, 112, 207, 0.16);
-}
- 
- 
-.icon {
-  font-size: 24px;
- 
-  line-height: 1;
-}
- 
- 
-/* =========================================================
-   CARD NUMBER
-========================================================= */
- 
-.card-number {
-  color:
-    rgba(
-      32,
-      122,
-      225,
-      0.11
-    );
- 
-  font-size: 43px;
- 
-  line-height: 1;
- 
-  font-weight: 800;
- 
-  letter-spacing: -3px;
- 
-  transition:
-    color 0.3s ease;
-}
- 
-.oneplatform-card:hover
-.card-number {
-  color:
-    rgba(
-      32,
-      122,
-      225,
-      0.19
-    );
-}
- 
- 
-/* =========================================================
-   CONTENT
-========================================================= */
- 
-.card-content {
-  position: relative;
- 
-  z-index: 2;
- 
-  flex: 1;
- 
-  min-height: 0;
-}
- 
- 
-/* =========================================================
-   LABEL
-========================================================= */
- 
-.card-label {
-  margin-bottom: 6px;
- 
-  color: #2378c9;
- 
-  font-family: var(--font-primary);
- 
-  font-size: 9px;
- 
-  font-weight: 700;
- 
-  letter-spacing: 2.2px;
- 
-  text-transform: uppercase;
-}
- 
- 
-/* =========================================================
-   TITLE
-========================================================= */
- 
-.card-content h3 {
-  margin: 0 0 7px;
- 
-  color: #081a35;
- 
-  font-family: var(--font-primary);
- 
-  font-size: 18px;
- 
-  line-height: 1.2;
- 
-  font-weight: 800;
- 
-  letter-spacing: -0.4px;
-}
- 
- 
-/* =========================================================
-   DESCRIPTION
-========================================================= */
- 
-.card-description {
-  margin: 0 0 14px;
- 
-  font-family: var(--font-primary);
- 
-  color: #5b718d;
- 
-  font-size: 12px;
- 
-  line-height: 1.45;
-}
- 
- 
-/* =========================================================
-   FEATURES
-========================================================= */
- 
-.feature-list {
-  display: flex;
- 
-  flex-direction: column;
- 
-  gap: 8px;
- 
-  margin: 0;
- 
-  padding: 0;
- 
-  list-style: none;
-}
- 
- 
-.feature-list li {
-  display: flex;
- 
-  align-items: flex-start;
- 
-  gap: 8px;
- 
-  font-family: var(--font-primary);
- 
-  color: #344d6c;
- 
-  font-size: 11.5px;
- 
-  line-height: 1.3;
-}
- 
- 
-/* =========================================================
-   CHECK
-========================================================= */
- 
-.check {
-  flex-shrink: 0;
- 
-  width: 17px;
-  height: 17px;
- 
-  display: flex;
- 
-  align-items: center;
-  justify-content: center;
- 
-  margin-top: -1px;
- 
-  border-radius: 50%;
- 
-  background:
-    linear-gradient(
-      135deg,
-      #1689f9,
-      #1267dd
-    );
- 
-  color: white;
- 
-  font-size: 9px;
- 
-  font-weight: 900;
- 
-  box-shadow:
-    0 3px 8px
-    rgba(20, 111, 224, 0.2);
-}
- 
- 
-/* =========================================================
-   BUTTON
-========================================================= */
- 
-.card-button {
-  position: relative;
- 
-  z-index: 5;
- 
-  width: 100%;
- 
-  min-height: 38px;
- 
-  display: flex;
- 
-  align-items: center;
- 
-  justify-content: space-between;
- 
-  margin-top: 200px;
- 
-  padding:
-    8px 13px;
- 
-  border:
-    1.5px solid #1780ed;
- 
-  border-radius: 11px;
- 
-  background: #ffffff;
- 
-  color: #0875dd;
- 
-  font-family: var(--font-primary);
- 
+
+.op-pill {
+  display: inline-flex;
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #2563eb;
   font-size: 11px;
- 
-  font-weight: 750;
- 
-  cursor: pointer;
- 
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 6px 16px;
+  border-radius: 9999px;
 }
- 
- 
-.card-button:hover {
-  background:
-    linear-gradient(
-      90deg,
-      #087ff0,
-      #1768df
-    );
- 
-  color: #ffffff;
- 
-  transform: translateY(-2px);
- 
-  box-shadow:
-    0 8px 18px
-    rgba(20, 112, 220, 0.2);
+
+.op-heading {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin-top: 20px;
+  user-select: none;
 }
- 
- 
-.button-arrow {
-  font-size: 17px;
- 
-  line-height: 1;
- 
-  transition:
-    transform 0.3s ease;
+
+/* FIXED GRADIENT - No blue background, only gradient text */
+.op-gradient {
+  background: linear-gradient(90deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  /* Important - removes solid color */
+  display: inline-block;
 }
- 
- 
-.card-button:hover
-.button-arrow {
-  transform:
-    translateX(5px);
+
+/* Remove text selection blue background */
+.op-heading::selection,
+.op-gradient::selection {
+  background: transparent;
+  -webkit-text-fill-color: #6366f1;
 }
- 
-/* =========================================================
-   PURE WHITE BACKGROUND — REMOVE DECORATIONS
-========================================================= */
- 
-.oneplatform-section .bg-orb,
-.oneplatform-section .wave,
-.oneplatform-section .dot-pattern {
-  display: none !important;
+
+.op-sub {
+  font-size: 16px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-top: 16px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
 }
- 
- 
-/* =========================================================
-   SIDE TEXT
-========================================================= */
- 
-.side-note {
-  position: absolute;
- 
-  z-index: 4;
- 
-  display: flex;
- 
-  flex-direction: column;
- 
-  color: #2684df;
- 
-  font-size: 12px;
- 
-  line-height: 1.35;
- 
-  font-weight: 600;
- 
-  font-style: italic;
- 
-  opacity: 0.75;
- 
-  pointer-events: none;
-}
- 
- 
-/* LEFT */
- 
-.left-note {
-  left: 25px;
- 
-  top: 20%;
- 
+
+.op-grid {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   text-align: left;
+  align-items: stretch;
 }
- 
- 
-/* RIGHT */
- 
-.right-note {
-  right: 25px;
- 
-  top: 20%;
- 
-  text-align: right;
+
+@media (max-width: 1024px) {
+  .op-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .op-heading {
+    font-size: 36px;
+  }
 }
- 
- 
-.side-note b {
-  margin-top: 4px;
- 
-  color: #167de7;
- 
-  font-size: 20px;
- 
-  font-style: normal;
+
+@media (max-width: 640px) {
+  .op-grid {
+    grid-template-columns: 1fr;
+  }
 }
- 
- 
-/* =========================================================
-   PAPER PLANE
-========================================================= */
- 
-.paper-plane {
+
+.op-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.op-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.op-img-wrap {
+  height: 160px;
+  position: relative;
+  flex-shrink: 0;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.op-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.op-card:hover .op-img {
+  transform: scale(1.05);
+}
+
+.op-ghost {
   position: absolute;
- 
-  z-index: 3;
- 
-  right: 35px;
- 
-  bottom: 35px;
- 
-  color: #1680ed;
- 
-  font-size: 32px;
- 
- 
-  opacity: 0.75;
- 
-  animation:
-    planeFloat
-    3s
-    ease-in-out
-    infinite;
- 
+  top: 14px;
+  right: 14px;
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.op-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(to top, #fff 10%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
   pointer-events: none;
 }
- 
- 
-/* =========================================================
-   ANIMATIONS
-========================================================= */
- 
-@keyframes onePlatformCardIn {
- 
-  0% {
-    opacity: 0;
- 
-    transform:
-      translateY(20px)
-      scale(0.98);
-  }
- 
-  100% {
-    opacity: 1;
- 
-    transform:
-      translateY(0)
-      scale(1);
-  }
- 
+
+.op-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
 }
- 
- 
-@keyframes planeFloat {
- 
-  0%,
-  100% {
-    transform:
-      translate(0, 0)
-      rotate(225deg);
-  }
- 
-  50% {
-    transform:
-      translate(-7px, -8px)
-      rotate(220deg);
-  }
- 
+
+.op-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
- 
- 
-/* =========================================================
-   LAPTOP
-========================================================= */
- 
-@media (max-width: 1200px) {
- 
-  .oneplatform-section {
-    height: 70vh;
- 
-    min-height: 500px;
- 
-  }
- 
-  .oneplatform-grid {
-    gap: 14px;
-  }
- 
- 
-  .oneplatform-card {
-    height: 315px;
- 
-    padding:
-      18px;
-  }
- 
- 
-  .side-note {
-    display: none;
-  }
- 
- 
-  .paper-plane {
-    display: none;
-  }
- 
+
+.op-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
- 
- 
-/* =========================================================
-   TABLET
-========================================================= */
- 
-@media (max-width: 900px) {
- 
-  .oneplatform-section {
-    height: auto;
- 
-    min-height: 70vh;
- 
-    padding:
-      55px 25px 40px;
-  }
- 
- 
-  .oneplatform-container {
-    height: auto;
-  }
- 
- 
-  .oneplatform-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
- 
-    gap: 16px;
-  }
- 
- 
-  .oneplatform-card {
-    height: 340px;
-  }
- 
+
+.op-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #2563eb;
 }
- 
- 
-/* =========================================================
-   MOBILE
-========================================================= */
- 
-@media (max-width: 600px) {
- 
-  .oneplatform-section {
-    height: auto;
- 
-    min-height: 70vh;
- 
-    padding:
-      45px 16px 35px;
-  }
- 
- 
-  .oneplatform-header {
-    margin-bottom: 25px;
-  }
- 
- 
-  .eyebrow {
-    font-size: 8px;
- 
-    letter-spacing: 2px;
- 
-    gap: 7px;
-  }
- 
- 
-  .eyebrow span {
-    width: 16px;
-  }
- 
- 
-  .oneplatform-header h2 {
-    font-size: 33px;
- 
-    letter-spacing: -1.3px;
-  }
- 
- 
-  .oneplatform-header p {
-    font-size: 12.5px;
- 
-    line-height: 1.5;
-  }
- 
- 
-  .oneplatform-grid {
-    grid-template-columns: 1fr;
- 
-    gap: 15px;
-  }
- 
- 
-  .oneplatform-card {
-    height: auto;
- 
-    min-height: 350px;
- 
-    padding: 21px;
-  }
- 
- 
-  .card-content h3 {
-    font-size: 20px;
-  }
- 
- 
-  .feature-list li {
-    font-size: 12px;
-  }
- 
- 
-  .bottom-tagline {
-    margin-top: 22px;
-  }
- 
- 
-  .bottom-tagline span {
-    width: 25px;
-  }
- 
- 
-  .bottom-tagline p {
-    font-size: 7px;
- 
-    letter-spacing: 1.5px;
-  }
- 
- 
-  .dot-pattern {
-    display: none;
-  }
- 
+
+.op-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 9px;
+  line-height: 1.2;
 }
- 
+
+.op-desc {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-top: 6px;
+  min-height: 38px;
+}
+
+.op-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.op-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.op-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #2563eb;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.op-btn {
+  margin-top: auto;
+  width: 100%;
+  height: 38px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #0f172a;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.op-btn:hover {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}

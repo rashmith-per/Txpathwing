@@ -1,203 +1,121 @@
 import React from "react";
 import "./OnePlatform.css";
-const oneplatform = [
+
+const cards = [
   {
-    number: "01",
-    icon: "👤",
+    id: "01",
     label: "INDIVIDUALS",
+    icon: "◑",
     title: "Learners & Job Seekers",
-    description:
-      "Gain skills, get certified, and start your IT career with confidence.",
-    features: [
-      "Buy single courses or subscribe",
-      "AI tutor on every lesson",
-      "Verifiable certificate wallet",
-      "Job matching from day one",
+    desc: "Learn in-demand skills, earn certificates, and get hired by top companies.",
+    bullets: [
+      "Industry-vetted courses",
+      "Verified skill certificates",
+      "Direct hiring pipelines",
+      "1:1 career mentorship",
     ],
-    button: "See the learner console",
-    accent: "blue",
+    btn: "See the learner console →",
+    img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&q=80",
   },
   {
-    number: "02",
-    icon: "🎓",
+    id: "02",
     label: "COLLEGES",
+    icon: "⌖",
     title: "Institutions",
-    description:
-      "Own tenant, domain and branding with industry-ready curriculum.",
-    features: [
-      "Bulk-import students by department",
-      "Industry-academia curriculum",
-      "Placement drive management",
-      "Track learning outcomes",
+    desc: "Launch your own branded LMS with student and placement analytics.",
+    bullets: [
+      "White-label LMS & catalog",
+      "Placement analytics dashboard",
+      "Faculty co-teaching tools",
+      "Accredited certification stack",
     ],
-    button: "See the institution console",
-    accent: "sky",
+    btn: "Explore for institutions →",
+    img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&h=400&fit=crop&q=80",
   },
   {
-    number: "03",
-    icon: "🏢",
+    id: "03",
     label: "COMPANIES",
+    icon: "⬢",
     title: "Corporate L&D",
-    description:
-      "Build job-ready talent pipelines for your organization.",
-    features: [
-      "Mandatory & compliance training",
-      "Department dashboards for managers",
-      "Skill paths mapped to job families",
-      "Completion reports for audit",
+    desc: "Upskill workforce with role-based paths, SSO, and ROI reporting.",
+    bullets: [
+      "Role-based learning paths",
+      "Skills gap & ROI reporting",
+      "SSO & HRMS integrations",
+      "Custom corporate academies",
     ],
-    button: "See the corporate console",
-    accent: "indigo",
+    btn: "View corporate solutions →",
+    img: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=400&fit=crop&q=80",
   },
   {
-    number: "04",
-    icon: "👥",
+    id: "04",
     label: "CREATORS",
+    icon: "✦",
     title: "Instructors",
-    description:
-      "Share your expertise and make an impact at scale.",
-    features: [
-      "AI-assisted course authoring",
-      "Set your own price and cohorts",
-      "Transparent revenue split",
-      "Monthly payouts with statements",
+    desc: "Monetize expertise with 85% revenue share and global distribution.",
+    bullets: [
+      "85% revenue share model",
+      "Drag & drop course builder",
+      "Global learner distribution",
+      "Live cohort & community tools",
     ],
-    button: "See the instructor console",
-    accent: "cyan",
+    btn: "Start teaching today →",
+    img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=400&fit=crop&q=80",
   },
 ];
 
-function OnePlatform() {
+const OnePlatform = () => {
   return (
-    <section className="oneplatform-section">
+    <section className="op-section">
+      <div className="op-container">
+        <div className="op-pill">— WHO RUNS ON TX PATHWING —</div>
 
-     
+        <h2 className="op-heading">
+          One platform,
+          <br />
+         
+        </h2>
 
-      {/* Main container */}
-      <div className="oneplatform-container">
+        <p className="op-sub">
+          Purpose-built for every stakeholder in the learning economy. No compromises,
+          no one-size-fits-all.
+        </p>
 
-        {/* Header */}
-        <div className="oneplatform-header">
-
-          <div className="eyebrow">
-            <span></span>
-            WHO RUNS ON TX PATHWING
-            <span></span>
-          </div>
-
-          <h2>
-            One platform,
-            <span> four commercial relationships</span>
-          </h2>
-
-          <p>
-            Connecting learners, institutions, corporates and instructors
-            to create real career outcomes.
-          </p>
-
-        </div>
-
-        {/* Cards */}
-        <div className="oneplatform-grid">
-
-          {oneplatform.map((item, index) => (
-            <div
-              className={`oneplatform-card ${item.accent}`}
-              key={item.number}
-              style={{
-                "--delay": `${index * 120}ms`,
-              }}
-            >
-
-              {/* Card top */}
-              <div className="card-top">
-
-                <div className="icon-container">
-                  <div className="icon">
-                    {item.icon}
-                  </div>
-                </div>
-
-                <span className="card-number">
-                  {item.number}
-                </span>
-
+        <div className="op-grid">
+          {cards.map((card) => (
+            <div className="op-card" key={card.id}>
+              <div className="op-img-wrap">
+                <img src={card.img} alt={card.title} className="op-img" />
+                <span className="op-ghost">{card.id}</span>
+                <div className="op-fade" />
               </div>
 
-              {/* Card content */}
-              <div className="card-content">
-
-                <div className="card-label">
-                  {item.label}
+              <div className="op-content">
+                <div className="op-label-row">
+                  <span className="op-icon">{card.icon}</span>
+                  <span className="op-label">{card.label}</span>
                 </div>
 
-                <h3>{item.title}</h3>
+                <h3 className="op-title">{card.title}</h3>
+                <p className="op-desc">{card.desc}</p>
 
-                <p className="card-description">
-                  {item.description}
-                </p>
-
-                {/* Features */}
-                <ul className="feature-list">
-
-                  {item.features.map((feature, featureIndex) => (
-                    <li key={featureIndex}>
-
-                      <span className="check">
-                        ✓
-                      </span>
-
-                      <span>
-                        {feature}
-                      </span>
-
+                <ul className="op-bullets">
+                  {card.bullets.map((item, idx) => (
+                    <li key={idx}>
+                      <span className="op-check">✓</span>
+                      {item}
                     </li>
                   ))}
-
                 </ul>
 
+                <button className="op-btn">{card.btn}</button>
               </div>
-
-              {/* CTA */}
-              <button className="card-button">
-
-                <span>{item.button}</span>
-
-                <span className="button-arrow">
-                  →
-                </span>
-
-              </button>
-
             </div>
           ))}
-
         </div>
-       
       </div>
-
-      {/* Floating paper plane */}
-      <div className="paper-plane">
-        ➤
-      </div>
-
-      {/* Side text */}
-      <div className="side-note left-note">
-        <span>Your</span>
-        <span>Career</span>
-        <span>Partner</span>
-        <b>↘</b>
-      </div>
-
-      <div className="side-note right-note">
-        <span>Learn</span>
-        <span>Upskill</span>
-        <span>Get Hired</span>
-        <b>↙</b>
-      </div>
-
     </section>
   );
-}
+};
 
 export default OnePlatform;
