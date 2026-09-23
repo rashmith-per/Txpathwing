@@ -1,9 +1,21 @@
+import softwareDevelopment from "../../../../../assets/marketplaceImages/software-development.png";
+import cloudDevOps from "../../../../../assets/marketplaceImages/cloud-devops.png";
+import aiData from "../../../../../assets/marketplaceImages/ai-data.png";
+import testing from "../../../../../assets/marketplaceImages/testing.png";
+import career from "../../../../../assets/marketplaceImages/career.png";
+
+import reactFullStack from "../../../../../assets/cardImages/MERNstack1.png";
+import pythonFullStack from "../../../../../assets/cardImages/pythonFullStack.png";
+import javaFullStack from "../../../../../assets/cardImages/javaFullStack.png";
+import mernStack from "../../../../../assets/cardImages/MERNstack1.png";
+
+
 export const courses = [
   {
     id: "REACT-FS",
     category: "Software Development",
     level: "Intermediate",
-    title: "React Full Stack Development",
+    title: "Full Stack Development",
     instructor: "Arjun Mehta",
     initials: "AM",
     duration: "14 weeks",
@@ -12,12 +24,15 @@ export const courses = [
     tag2: "Coding labs",
     price: "₹5,499",
     oldPrice: "₹8,999",
+    students: "1,240 students",
+    image: reactFullStack,
   },
+
   {
     id: "PY-FS",
     category: "Software Development",
     level: "Beginner",
-    title: "Python Full Stack with Django & React",
+    title: "Python Full Stack",
     instructor: "Sowmya Iyer",
     initials: "SI",
     duration: "16 weeks",
@@ -26,12 +41,15 @@ export const courses = [
     tag2: "Placement-linked",
     price: "₹6,499",
     oldPrice: "₹9,999",
+    students: "2,100 students",
+    image: pythonFullStack,
   },
+
   {
     id: "JAVA-FS",
     category: "Software Development",
     level: "Intermediate",
-    title: "Java Full Stack — Spring Boot & Microservices",
+    title: "Java Full Stack Development",
     instructor: "Naveen Kulkarni",
     initials: "NK",
     duration: "18 weeks",
@@ -40,12 +58,15 @@ export const courses = [
     tag2: "Placement-linked",
     price: "₹6,999",
     oldPrice: "₹11,999",
+    students: "1,850 students",
+    image: javaFullStack,
   },
+
   {
     id: "AWS-DOP",
     category: "Cloud & DevOps",
     level: "Advanced",
-    title: "AWS DevOps Engineer — Professional Track",
+    title: "AWS DevOps Engineer",
     instructor: "Meera Krishnan",
     initials: "MK",
     duration: "12 weeks",
@@ -54,7 +75,10 @@ export const courses = [
     tag2: "Proctored exam",
     price: "₹6,999",
     oldPrice: "₹10,999",
+    students: "980 students",
+    image: cloudDevOps,
   },
+
   {
     id: "K8S-PRD",
     category: "Cloud & DevOps",
@@ -68,7 +92,10 @@ export const courses = [
     tag2: "Production grade",
     price: "₹5,499",
     oldPrice: "₹8,499",
+    students: "760 students",
+    image: cloudDevOps,
   },
+
   {
     id: "DEVSEC",
     category: "Cloud & DevOps",
@@ -82,7 +109,10 @@ export const courses = [
     tag2: "Case studies",
     price: "₹5,299",
     oldPrice: "₹7,999",
+    students: "640 students",
+    image: cloudDevOps,
   },
+
   {
     id: "ML-PY",
     category: "AI & Data",
@@ -96,7 +126,10 @@ export const courses = [
     tag2: "Capstone",
     price: "₹7,499",
     oldPrice: "₹11,999",
+    students: "2,100 students",
+    image: aiData,
   },
+
   {
     id: "AGENTIC",
     category: "AI & Data",
@@ -106,11 +139,14 @@ export const courses = [
     initials: "RS",
     duration: "8 weeks",
     lessons: "46 lessons",
-    tag1: "New Cohort of 40",
+    tag1: "New Cohort",
     tag2: "Build agents",
     price: "₹8,999",
     oldPrice: "₹13,999",
+    students: "520 students",
+    image: aiData,
   },
+
   {
     id: "SQL-DM",
     category: "AI & Data",
@@ -124,7 +160,10 @@ export const courses = [
     tag2: "Practice set",
     price: "₹1,999",
     oldPrice: "₹3,499",
+    students: "1,430 students",
+    image: aiData,
   },
+
   {
     id: "SEL-AUT",
     category: "Testing",
@@ -138,12 +177,15 @@ export const courses = [
     tag2: "Framework",
     price: "₹3,499",
     oldPrice: "₹5,999",
+    students: "1,520 students",
+    image: testing,
   },
+
   {
     id: "API-PERF",
     category: "Testing",
     level: "Intermediate",
-    title: "API & Performance Testing — Postman + k6",
+    title: "API & Performance Testing — Postman",
     instructor: "Kavitha Reddy",
     initials: "KR",
     duration: "5 weeks",
@@ -151,7 +193,10 @@ export const courses = [
     tag1: "Self paced",
     tag2: "Lab heavy",
     price: "₹2,999",
+    students: "980 students",
+    image: testing,
   },
+
   {
     id: "CAREER-01",
     category: "Career",
@@ -165,7 +210,10 @@ export const courses = [
     tag2: "Mock interviews",
     price: "₹0",
     oldPrice: "₹0",
+    students: "850 students",
+    image: career,
   },
+
   {
     id: "CAREER-02",
     category: "Career",
@@ -179,5 +227,7 @@ export const courses = [
     tag2: "Campus ready",
     price: "₹0",
     oldPrice: "₹0",
+    students: "1,120 students",
+    image: career,
   },
 ];

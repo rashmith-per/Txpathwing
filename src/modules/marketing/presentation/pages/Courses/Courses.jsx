@@ -4,10 +4,8 @@ import { Route , Routes } from "react-router-dom";
 import { programs, categories } from "./coursesData";
 import Marketplace from "../MarketPlace/MarketPlace";
 import CourseDetail from "../CourseDetails/CourseDetails";
-import { Link } from "lucide-react";
-// =====================================================
-// COURSE CARD
-// =====================================================
+import { Link } from "react-router-dom";
+
 
 function CourseCard({ program }) {
   return (
@@ -34,9 +32,6 @@ function CourseCard({ program }) {
   );
 }
 
-// =====================================================
-// CATEGORY ROW
-// =====================================================
 
 function CategoryRow({ category }) {
   const categoryPrograms = programs.filter(
@@ -65,16 +60,11 @@ function CategoryRow({ category }) {
   );
 }
 
-// =====================================================
-// MAIN COURSES COMPONENT
-// =====================================================
 
 export default function Courses() {
   return (
     <section className="courses-section">
       <div className="courses-container">
-
-        {/* HEADER */}
 
         <div className="courses-header">
           <div className="courses-heading">
@@ -164,26 +154,10 @@ export default function Courses() {
                 your potential
               </h3>
 
-              <Routes>
-
-                {/* Courses catalogue */}
-                <Route
-                  path="/courses-Details"
-                  element={<Marketplace />}
-                />
-
-                {/* Individual course details */}
-                <Route
-                  path="/course/:id"
-                  element={<CourseDetail />}
-                />
-
-              </Routes>
+              <Link to="/marketplace" className="view-button">View All Courses</Link>
             </div>
           </div>
         </div>
-
-        {/* CATEGORY ROWS */}
 
         <div className="courses-categories">
           {categories.map((category) => (

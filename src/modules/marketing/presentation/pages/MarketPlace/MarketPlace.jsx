@@ -1,5 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  ShoppingCart,
+  ArrowUpRight,
+} from "lucide-react";
+
 import "./MarketPlace.css";
 import MarketHeroSec from "./MarketHeroSec";
 import { courses } from "./coursesList";
@@ -9,14 +14,33 @@ export default function Marketplace({ onSelectCourse }) {
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState("All");
+
+
   const [activeLevel, setActiveLevel] = useState("All levels");
+
   const [activePrice, setActivePrice] = useState("All");
 
+  const categoryMap = {
+    All: "All",
+    "Software Development": "Software Development",
+    Testing: "Testing",
+    "UI/UX Design": "UI/UX Design",
+    DevOps: "Cloud & DevOps",
+    "AI/ML": "AI & Data",
+    "Data Science": "Data Science",
+    "Soft Skills": "Soft Skills",
+  };
+
+
   const filtered = useMemo(() => {
+
+    const selectedCategory =
+      categoryMap[activeCategory] || activeCategory;
+
     return courses.filter((course) => {
       if (
-        activeCategory !== "All" &&
-        course.category !== activeCategory
+        selectedCategory !== "All" &&
+        course.category !== selectedCategory
       ) {
         return false;
       }
@@ -27,6 +51,7 @@ export default function Marketplace({ onSelectCourse }) {
       ) {
         return false;
       }
+
 
       if (
         activePrice === "Free" &&
@@ -42,25 +67,50 @@ export default function Marketplace({ onSelectCourse }) {
         return false;
       }
 
+
       return true;
     });
-  }, [activeCategory, activeLevel, activePrice]);
+
+  }, [
+    activeCategory,
+    activeLevel,
+    activePrice,
+  ]);
 
   const handleCourseClick = (course) => {
+
     if (onSelectCourse) {
       onSelectCourse(course);
     }
 
-    navigate(`/course/${course.id.toLowerCase()}`);
+    navigate(
+      `/course/${course.id.toLowerCase()}`
+    );
   };
+
+  const handleAddToCart = (event, course) => {
+
+    event.stopPropagation();
+
+    console.log(
+      "Add to cart:",
+      course
+    );
+  };
+
 
   return (
     <div className="mp-page">
-      <div className="mp-container">
 
+      <div className="mp-container">
         <MarketHeroSec />
 
         <section className="mp-hero">
+
+          <div className="mp-hero-accent">
+            EXPLORE • LEARN • BUILD
+          </div>
+
           <h1>
             Buy a course, a practice set,
             <br />
@@ -73,169 +123,236 @@ export default function Marketplace({ onSelectCourse }) {
             <br />
             splits revenue and raises the GST invoice.
           </p>
+
         </section>
 
-        <div className="mp-filters">
+        <div className="marketplace-layout">
 
-          <div className="filter-group">
-            {[
-              "All",
-              "Software Development",
-              "Cloud & DevOps",
-              "AI & Data",
-              "Testing",
-              "Career",
-            ].map((category) => (
-              <button
-                key={category}
-                className={
-                  activeCategory === category
-                    ? "active"
-                    : ""
-                }
-                onClick={() =>
-                  setActiveCategory(category)
-                }
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <aside className="mp-sidebar">
 
-          <div className="filter-divider" />
 
-          <div className="filter-group">
-            {[
-              "All levels",
-              "Beginner",
-              "Intermediate",
-              "Advanced",
-            ].map((level) => (
-              <button
-                key={level}
-                className={
-                  activeLevel === level
-                    ? "active"
-                    : ""
-                }
-                onClick={() =>
-                  setActiveLevel(level)
-                }
-              >
-                {level}
-              </button>
-            ))}
-          </div>
-
-          <div className="filter-divider" />
-
-          <div className="filter-group">
-            {["All", "Free", "Paid"].map((price) => (
-              <button
-                key={price}
-                className={
-                  activePrice === price
-                    ? "active"
-                    : ""
-                }
-                onClick={() =>
-                  setActivePrice(price)
-                }
-              >
-                {price}
-              </button>
-            ))}
-          </div>
-
-        </div>
-
-        <div className="mp-grid-2">
-          {filtered.map((course) => (
-            <div
-              key={course.id}
-              className="course-card-big"
-              onClick={() =>
-                handleCourseClick(course)
-              }
-            >
-              <div className="card-top">
-                <div className="card-top-left">
-                  <span className="code-pill">
-                    {course.id}
-                  </span>
-
-                  <span className="level-pill">
-                    {course.level}
-                  </span>
-                </div>
-              </div>
-
-              <h2 className="card-title">
-                {course.title}
-              </h2>
-
-              <div className="card-instructor">
-                <div className="avatar">
-                  {course.initials}
-                </div>
-
-                <span>
-                  {course.instructor}
-                </span>
-              </div>
-
-              <div className="card-tags">
-                <span>
-                  🕐 {course.duration}
-                </span>
-
-                <span>
-                  📖 {course.lessons}
-                </span>
-
-                <span>
-                  {course.tag1}
-                </span>
-
-                <span>
-                  {course.tag2}
-                </span>
-              </div>
-
-              <div className="card-bottom">
-                <div className="price">
-                  <span className="now">
-                    {course.price}
-                  </span>
-
-                  {course.oldPrice && (
-                    <span className="old">
-                      {course.oldPrice}
-                    </span>
-                  )}
-                </div>
-
-                <div className="arrow-btn">
-                  <button
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      handleCourseClick(course);
-                    }}
-                  >
-                    ↗
-                  </button>
-                </div>
-              </div>
+            <div className="sidebar-title">
+              FILTER CATEGORIES
             </div>
-          ))}
+
+
+            <div className="category-list">
+
+              {[
+                "All",
+                "Software Development",
+                "Testing",
+                "UI/UX Design",
+                "DevOps",
+                "AI/ML",
+                "Data Science",
+                "Soft Skills",
+              ].map((category) => (
+
+                <button
+                  key={category}
+                  type="button"
+                  className={
+                    activeCategory === category
+                      ? "category-button active"
+                      : "category-button"
+                  }
+                  onClick={() =>
+                    setActiveCategory(category)
+                  }
+                >
+                  {category}
+                </button>
+
+              ))}
+
+            </div>
+
+          </aside>
+
+
+          <main className="mp-course-area">
+
+
+            {/* RESULTS */}
+
+            <div className="course-results-header">
+
+              <div className="course-results">
+
+                <span className="results-count">
+                  {filtered.length}
+                </span>
+
+                <span className="results-text">
+                  courses available
+                </span>
+
+              </div>
+
+            </div>
+
+            <div className="mp-course-grid">
+
+              {filtered.map((course) => (
+
+                <article
+                  key={course.id}
+                  className="market-course-card"
+                  onClick={() =>
+                    handleCourseClick(course)
+                  }
+                >
+
+                  <div className="course-image-wrapper">
+
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="course-image"
+                    />
+
+                  </div>
+
+                  <div className="course-card-content">
+
+                    <div className="course-category">
+                      {course.category}
+                    </div>
+
+                    <h2 className="market-course-title">
+                      {course.title}
+                    </h2>
+
+                    <div className="course-meta">
+
+                      <span>
+                        {course.students ||
+                          "1,240 students"}
+                      </span>
+
+                      <span className="meta-dot">
+                        •
+                      </span>
+
+                      <span>
+                        {course.lessons}
+                      </span>
+
+                    </div>
+
+                    <div className="market-price">
+
+                      <span className="current-price">
+                        {course.price}
+                      </span>
+
+                      {course.oldPrice &&
+                        course.oldPrice !== "₹0" && (
+                          <span className="previous-price">
+                            {course.oldPrice}
+                          </span>
+                        )}
+
+                    </div>
+
+
+
+                    <div className="course-actions">
+
+                      <button
+                        type="button"
+                        className="enroll-button"
+                        onClick={(event) => {
+
+                          event.stopPropagation();
+
+                          handleCourseClick(course);
+
+                        }}
+                      >
+                        Enroll
+                      </button>
+
+                      <button
+                        type="button"
+                        className="cart-button"
+                        aria-label="Add to cart"
+                        onClick={(event) =>
+                          handleAddToCart(
+                            event,
+                            course
+                          )
+                        }
+                      >
+                        <ShoppingCart
+                          size={20}
+                          strokeWidth={2}
+                        />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="card-arrow"
+                        aria-label="View course"
+                        onClick={(event) => {
+
+                          event.stopPropagation();
+
+                          handleCourseClick(course);
+
+                        }}
+                      >
+                        <ArrowUpRight
+                          size={18}
+                          strokeWidth={2.2}
+                        />
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              ))}
+
+            </div>
+
+            {filtered.length === 0 && (
+
+              <div className="empty-courses">
+
+                <div className="empty-icon">
+                  🔎
+                </div>
+
+                <h3>
+                  No courses found
+                </h3>
+
+                <p>
+                  Try changing your category,
+                  level or price filter.
+                </p>
+
+              </div>
+
+            )}
+
+          </main>
+
         </div>
 
         <div className="mp-footer">
+
           Showing {filtered.length} of 14 sample courses ·
           full catalogue lists 148.
+
         </div>
 
       </div>
+
     </div>
   );
 }

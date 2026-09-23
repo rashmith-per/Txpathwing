@@ -1,24 +1,14 @@
-/* =========================================================
-   COURSE CATALOGUE
-========================================================= */
-
 .courses-section {
   width: 100%;
   min-height: 100vh;
 
   padding: 18px 12px;
 
-  /* PURE WHITE BACKGROUND */
   background: #ffffff;
 
   overflow: hidden;
   box-sizing: border-box;
 }
-
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
 
 .courses-container {
   width: calc(100% - 80px);
@@ -28,23 +18,15 @@
 
   padding: 30px 26px 34px;
 
-  /* REMOVED OUTER BORDER */
   border: none;
 
-  /* REMOVED ROUNDED OUTER CONTAINER */
   border-radius: 0;
 
-  /* PURE WHITE BACKGROUND */
   background: #ffffff;
 
   box-sizing: border-box;
   overflow: hidden;
 }
-
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 .courses-header {
   display: flex;
@@ -58,21 +40,11 @@
   background: #ffffff;
 }
 
-
-/* =========================================================
-   LEFT HEADING
-========================================================= */
-
 .courses-heading {
   max-width: 780px;
 
   flex: 1;
 }
-
-
-/* =========================================================
-   EYEBROW
-========================================================= */
 
 .eyebrow {
   margin-bottom: 8px;
@@ -85,11 +57,6 @@
 
   letter-spacing: 2.5px;
 }
-
-
-/* =========================================================
-   MAIN TITLE
-========================================================= */
 
 .courses-heading h1 {
   margin: 0;
@@ -109,11 +76,6 @@
   letter-spacing: -2px;
 }
 
-
-/* =========================================================
-   DESCRIPTION
-========================================================= */
-
 .courses-heading p {
   margin: 11px 0 0;
 
@@ -125,12 +87,6 @@
 
   font-weight: 500;
 }
-
-
-/* =========================================================
-   RIGHT SIDE
-   COURSE DISCOVERY
-========================================================= */
 
 .courses-illustration {
   position: relative;
@@ -145,14 +101,8 @@
 
   overflow: hidden;
 
-  /* NO BACKGROUND */
   background: transparent;
 }
-
-
-/* =========================================================
-   COURSE VISUAL
-========================================================= */
 
 .course-visual {
   position: absolute;
@@ -174,11 +124,6 @@
   background: transparent;
 }
 
-
-/* =========================================================
-   COURSE ILLUSTRATION SVG
-========================================================= */
-
 .course-illustration-svg {
   width: 190px;
 
@@ -186,11 +131,6 @@
 
   display: block;
 }
-
-
-/* =========================================================
-   SMALL DECORATIVE DOTS
-========================================================= */
 
 .discovery-dot {
   position: absolute;
@@ -210,13 +150,11 @@
   z-index: 2;
 }
 
-
 .discovery-dot-one {
   left: 128px;
 
   top: 9px;
 }
-
 
 .discovery-dot-two {
   left: 153px;
@@ -229,11 +167,6 @@
 
   opacity: 0.3;
 }
-
-
-/* =========================================================
-   DISCOVERY CONTENT
-========================================================= */
 
 .courses-discovery {
   position: absolute;
@@ -255,11 +188,6 @@
   background: transparent;
 }
 
-
-/* =========================================================
-   DISCOVERY HEADING
-========================================================= */
-
 .courses-discovery h3 {
   margin: 0 0 10px;
 
@@ -278,11 +206,6 @@
 
   letter-spacing: -0.3px;
 }
-
-
-/* =========================================================
-   VIEW ALL COURSES
-========================================================= */
 
 .view-courses-btn {
   display: inline-flex;
@@ -325,7 +248,6 @@
     box-shadow 0.2s ease;
 }
 
-
 .view-courses-btn:hover {
   transform:
     translateY(-2px);
@@ -341,7 +263,6 @@
     );
 }
 
-
 .courses-arrow {
   font-size: 14px;
 
@@ -351,16 +272,10 @@
     transform 0.2s ease;
 }
 
-
 .view-courses-btn:hover .courses-arrow {
   transform:
     translateX(3px);
 }
-
-
-/* =========================================================
-   COURSE CATEGORIES
-========================================================= */
 
 .courses-categories {
   display: flex;
@@ -373,11 +288,6 @@
 
   background: #ffffff;
 }
-
-
-/* =========================================================
-   CATEGORY ROW
-========================================================= */
 
 .category-row {
   position: relative;
@@ -393,11 +303,6 @@
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   SOFTWARE ROW
-========================================================= */
-
 .software-row {
   background:
     linear-gradient(
@@ -406,14 +311,8 @@
       #f7fbff
     );
 
-  /* REMOVED BORDER */
   border: none;
 }
-
-
-/* =========================================================
-   CLOUD ROW
-========================================================= */
 
 .cloud-row {
   background:
@@ -423,14 +322,8 @@
       #f5fffe
     );
 
-  /* REMOVED BORDER */
   border: none;
 }
-
-
-/* =========================================================
-   AI ROW
-========================================================= */
 
 .ai-row {
   background:
@@ -440,14 +333,8 @@
       #fbf8ff
     );
 
-  /* REMOVED BORDER */
   border: none;
 }
-
-
-/* =========================================================
-   MARQUEE VARIABLES
-========================================================= */
 
 .category-row {
   --card-width: 225px;
@@ -461,11 +348,6 @@
     );
 }
 
-
-/* =========================================================
-   MARQUEE VIEWPORT
-========================================================= */
-
 .marquee-wrapper {
   position: relative;
 
@@ -477,11 +359,6 @@
 
   isolation: isolate;
 }
-
-
-/* =========================================================
-   SIDE FADE
-========================================================= */
 
 .marquee-wrapper::before,
 .marquee-wrapper::after {
@@ -500,11 +377,6 @@
   pointer-events: none;
 }
 
-
-/* =========================================================
-   LEFT SIDE FADE
-========================================================= */
-
 .marquee-wrapper::before {
   left: 0;
 
@@ -516,11 +388,6 @@
     );
 }
 
-
-/* =========================================================
-   RIGHT SIDE FADE
-========================================================= */
-
 .marquee-wrapper::after {
   right: 0;
 
@@ -531,11 +398,6 @@
       rgba(247, 251, 255, 0)
     );
 }
-
-
-/* =========================================================
-   MOVING TRACK
-========================================================= */
 
 .marquee-track {
   display: flex;
@@ -559,11 +421,6 @@
   backface-visibility: hidden;
 }
 
-
-/* =========================================================
-   REPEATED GROUP
-========================================================= */
-
 .marquee-group {
   display: flex;
 
@@ -580,16 +437,10 @@
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   SOFTWARE
-========================================================= */
-
 .move-left-to-right {
   animation-name:
     moveSoftwareLeftToRight;
 }
-
 
 @keyframes moveSoftwareLeftToRight {
 
@@ -612,16 +463,10 @@
   }
 }
 
-
-/* =========================================================
-   CLOUD
-========================================================= */
-
 .move-right-to-left {
   animation-name:
     moveCloudRightToLeft;
 }
-
 
 @keyframes moveCloudRightToLeft {
 
@@ -644,16 +489,10 @@
   }
 }
 
-
-/* =========================================================
-   AI
-========================================================= */
-
 .ai-row .move-left-to-right {
   animation-name:
     moveAILeftToRight;
 }
-
 
 @keyframes moveAILeftToRight {
 
@@ -676,19 +515,9 @@
   }
 }
 
-
-/* =========================================================
-   HOVER PAUSE
-========================================================= */
-
 .marquee-wrapper:hover .marquee-track {
   animation-play-state: paused;
 }
-
-
-/* =========================================================
-   COURSE CARD
-========================================================= */
 
 .course-card {
   position: relative;
@@ -734,11 +563,6 @@
     background 0.25s ease;
 }
 
-
-/* =========================================================
-   CARD HOVER
-========================================================= */
-
 .course-card:hover {
   transform:
     translateY(-3px);
@@ -769,11 +593,6 @@
       0.12
     );
 }
-
-
-/* =========================================================
-   COURSE ICON
-========================================================= */
 
 .course-icon {
   width: 46px;
@@ -810,11 +629,6 @@
     border-color 0.25s ease;
 }
 
-
-/* =========================================================
-   ICON IMAGE
-========================================================= */
-
 .course-icon img {
   width: 30px;
 
@@ -827,11 +641,6 @@
   transition:
     transform 0.25s ease;
 }
-
-
-/* =========================================================
-   ICON HOVER
-========================================================= */
 
 .course-card:hover .course-icon {
   transform:
@@ -850,16 +659,10 @@
     );
 }
 
-
 .course-card:hover .course-icon img {
   transform:
     scale(1.08);
 }
-
-
-/* =========================================================
-   FALLBACK ICON
-========================================================= */
 
 .icon-fallback::before {
   content: "✦";
@@ -871,11 +674,6 @@
   font-weight: 700;
 }
 
-
-/* =========================================================
-   COURSE CONTENT
-========================================================= */
-
 .course-card-content {
   min-width: 0;
 
@@ -883,11 +681,6 @@
 
   overflow: hidden;
 }
-
-
-/* =========================================================
-   COURSE TITLE
-========================================================= */
 
 .course-card h3 {
   margin: 0;
@@ -916,19 +709,9 @@
     color 0.2s ease;
 }
 
-
-/* =========================================================
-   TITLE HOVER
-========================================================= */
-
 .course-card:hover h3 {
   color: #5144b7;
 }
-
-
-/* =========================================================
-   COURSE META
-========================================================= */
 
 .course-card p {
   margin: 5px 0 0;
@@ -942,15 +725,9 @@
   white-space: nowrap;
 }
 
-
 .course-card p span {
   color: #9aa3b8;
 }
-
-
-/* =========================================================
-   LARGE DESKTOP
-========================================================= */
 
 @media (min-width: 1400px) {
 
@@ -961,11 +738,6 @@
   }
 }
 
-
-/* =========================================================
-   SMALL DESKTOP / TABLET
-========================================================= */
-
 @media (max-width: 1100px) {
 
   .courses-container {
@@ -975,16 +747,13 @@
       27px 22px 31px;
   }
 
-
   .courses-heading h1 {
     font-size: 42px;
   }
 
-
   .courses-heading p {
     font-size: 14px;
   }
-
 
   .courses-illustration {
     width: 300px;
@@ -996,13 +765,11 @@
     transform-origin: right center;
   }
 
-
   .category-row {
     --card-width: 215px;
 
     --card-gap: 12px;
   }
-
 
   .course-card {
     height: 82px;
@@ -1010,11 +777,6 @@
     min-height: 82px;
   }
 }
-
-
-/* =========================================================
-   TABLET
-========================================================= */
 
 @media (max-width: 850px) {
 
@@ -1025,11 +787,9 @@
       25px 18px 29px;
   }
 
-
   .courses-header {
     margin-bottom: 23px;
   }
-
 
   .courses-heading h1 {
     font-size: 37px;
@@ -1037,11 +797,9 @@
     letter-spacing: -1.5px;
   }
 
-
   .courses-heading p {
     font-size: 13px;
   }
-
 
   .courses-illustration {
     width: 260px;
@@ -1055,20 +813,17 @@
     transform-origin: right center;
   }
 
-
   .category-row {
     --card-width: 205px;
 
     --card-gap: 12px;
   }
 
-
   .course-card {
     height: 82px;
 
     min-height: 82px;
   }
-
 
   .course-icon {
     width: 44px;
@@ -1078,18 +833,12 @@
     flex-basis: 44px;
   }
 
-
   .course-icon img {
     width: 28px;
 
     height: 28px;
   }
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media (max-width: 650px) {
 
@@ -1100,14 +849,12 @@
     background: #ffffff;
   }
 
-
   .courses-container {
     width: 100%;
 
     padding:
       22px 12px 26px;
 
-    /* KEEP COMPLETELY WHITE */
     background: #ffffff;
 
     border: none;
@@ -1115,11 +862,9 @@
     border-radius: 0;
   }
 
-
   .courses-header {
     margin-bottom: 21px;
   }
-
 
   .courses-heading {
     width: 100%;
@@ -1127,13 +872,11 @@
     max-width: 100%;
   }
 
-
   .eyebrow {
     font-size: 10px;
 
     letter-spacing: 2px;
   }
-
 
   .courses-heading h1 {
     font-size: 31px;
@@ -1141,23 +884,19 @@
     letter-spacing: -1.3px;
   }
 
-
   .courses-heading p {
     font-size: 13px;
 
     line-height: 1.45;
   }
 
-
   .courses-illustration {
     display: none;
   }
 
-
   .courses-categories {
     gap: 12px;
   }
-
 
   .category-row {
     --card-width: 195px;
@@ -1169,7 +908,6 @@
 
     border-radius: 15px;
   }
-
 
   .course-card {
     height: 78px;
@@ -1183,7 +921,6 @@
     border-radius: 12px;
   }
 
-
   .course-icon {
     width: 42px;
 
@@ -1194,18 +931,15 @@
     border-radius: 9px;
   }
 
-
   .course-icon img {
     width: 27px;
 
     height: 27px;
   }
 
-
   .course-card h3 {
     font-size: 12.5px;
   }
-
 
   .course-card p {
     margin-top: 4px;
@@ -1213,17 +947,11 @@
     font-size: 9.5px;
   }
 
-
   .course-card:hover {
     transform:
       translateY(-2px);
   }
 }
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
 
 @media (max-width: 420px) {
 
@@ -1236,23 +964,19 @@
     border: none;
   }
 
-
   .courses-heading h1 {
     font-size: 28px;
   }
 
-
   .courses-heading p {
     font-size: 12px;
   }
-
 
   .category-row {
     --card-width: 185px;
 
     --card-gap: 10px;
   }
-
 
   .course-card {
     height: 75px;
@@ -1262,7 +986,6 @@
     border-radius: 11px;
   }
 
-
   .course-icon {
     width: 40px;
 
@@ -1271,28 +994,20 @@
     flex-basis: 40px;
   }
 
-
   .course-icon img {
     width: 26px;
 
     height: 26px;
   }
 
-
   .course-card h3 {
     font-size: 12px;
   }
-
 
   .course-card p {
     font-size: 9px;
   }
 }
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1301,7 +1016,6 @@
 
     transform: none !important;
   }
-
 
   .course-card,
   .course-icon,
@@ -1312,11 +1026,6 @@
   }
 }
 
-
-/* =========================================================
-   PREVENT PAGE HORIZONTAL SCROLL
-========================================================= */
-
 html,
 body {
   max-width: 100%;
@@ -1324,9 +1033,24 @@ body {
   background: #ffffff;
 }
 
-
 #root {
   max-width: 100%;
 
   background: #ffffff;
+}
+
+.view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  color: #ffffff;
+  background: #3f3f91;
+  border: 1px solid #3f3f91;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
