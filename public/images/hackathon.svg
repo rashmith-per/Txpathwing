@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d0e8ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#bg)" rx="12"/>
+  <!-- Laptop -->
+  <rect x="80" y="45" width="140" height="90" rx="8" fill="#1e3a5f" stroke="#2a6cb8" stroke-width="2"/>
+  <rect x="90" y="55" width="120" height="70" rx="4" fill="#0d2137"/>
+  <!-- Code lines -->
+  <rect x="100" y="65" width="40" height="4" rx="2" fill="#4fc3f7"/>
+  <rect x="145" y="65" width="25" height="4" rx="2" fill="#81c784"/>
+  <rect x="105" y="75" width="55" height="4" rx="2" fill="#ff8a65"/>
+  <rect x="110" y="85" width="35" height="4" rx="2" fill="#ce93d8"/>
+  <rect x="150" y="85" width="20" height="4" rx="2" fill="#4fc3f7"/>
+  <rect x="105" y="95" width="45" height="4" rx="2" fill="#81c784"/>
+  <rect x="100" y="105" width="30" height="4" rx="2" fill="#ff8a65"/>
+  <!-- Laptop base -->
+  <rect x="65" y="135" width="170" height="8" rx="4" fill="#1e3a5f"/>
+  <!-- Trophy -->
+  <rect x="210" y="90" width="30" height="25" rx="3" fill="#ffd54f"/>
+  <rect x="220" y="82" width="10" height="10" rx="5" fill="#ffd54f"/>
+  <rect x="215" y="115" width="20" height="4" rx="2" fill="#ffc107"/>
+  <!-- Stars -->
+  <circle cx="60" cy="60" r="4" fill="#ffd54f"/>
+  <circle cx="250" cy="50" r="3" fill="#4fc3f7"/>
+  <circle cx="45" cy="110" r="3" fill="#ce93d8"/>
+  <!-- Clock -->
+  <circle cx="260" cy="140" r="15" fill="none" stroke="#2a6cb8" stroke-width="2"/>
+  <line x1="260" y1="140" x2="260" y2="130" stroke="#2a6cb8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="260" y1="140" x2="268" y2="143" stroke="#2a6cb8" stroke-width="2" stroke-linecap="round"/>
+</svg>

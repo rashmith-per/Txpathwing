@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8fff0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d0f5e0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#bg)" rx="12"/>
+  <!-- Whiteboard -->
+  <rect x="90" y="30" width="120" height="80" rx="6" fill="#ffffff" stroke="#1db36a" stroke-width="2"/>
+  <rect x="100" y="42" width="50" height="4" rx="2" fill="#1db36a"/>
+  <rect x="100" y="52" width="80" height="4" rx="2" fill="#b2dfdb"/>
+  <rect x="100" y="62" width="60" height="4" rx="2" fill="#b2dfdb"/>
+  <rect x="100" y="72" width="70" height="4" rx="2" fill="#b2dfdb"/>
+  <rect x="100" y="82" width="40" height="4" rx="2" fill="#b2dfdb"/>
+  <!-- Board stand -->
+  <rect x="145" y="110" width="10" height="25" fill="#795548"/>
+  <rect x="130" y="132" width="40" height="5" rx="2" fill="#795548"/>
+  <!-- Person 1 -->
+  <circle cx="60" cy="105" r="12" fill="#1db36a"/>
+  <rect x="48" y="120" width="24" height="35" rx="8" fill="#1db36a"/>
+  <!-- Raised hand -->
+  <line x1="72" y1="125" x2="82" y2="105" stroke="#1db36a" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="82" cy="102" r="4" fill="#1db36a"/>
+  <!-- Person 2 -->
+  <circle cx="240" cy="105" r="12" fill="#26a69a"/>
+  <rect x="228" y="120" width="24" height="35" rx="8" fill="#26a69a"/>
+  <!-- Notebook -->
+  <rect x="222" y="140" width="16" height="12" rx="2" fill="#ffffff" stroke="#26a69a" stroke-width="1.5"/>
+  <line x1="226" y1="144" x2="234" y2="144" stroke="#b2dfdb" stroke-width="1"/>
+  <line x1="226" y1="148" x2="232" y2="148" stroke="#b2dfdb" stroke-width="1"/>
+  <!-- Decorative elements -->
+  <circle cx="40" cy="50" r="4" fill="#81c784"/>
+  <circle cx="270" cy="45" r="3" fill="#26a69a"/>
+  <circle cx="265" cy="165" r="4" fill="#1db36a" opacity="0.5"/>
+  <!-- Light bulb -->
+  <circle cx="150" y="20" r="8" fill="#ffd54f" opacity="0.8"/>
+  <rect x="148" y="26" width="5" height="6" rx="1" fill="#ffc107"/>
+</svg>

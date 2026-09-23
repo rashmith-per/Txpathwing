@@ -1,0 +1,575 @@
+/* =========================================
+   Programs Showcase — Main Section
+   ========================================= */
+
+.pt-showcase {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 40px 30px 50px;
+  background: #ffffff;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+
+/* =========================================
+   Container
+   ========================================= */
+
+.pt-showcase-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+
+.pt-showcase-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.pt-tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  margin-bottom: 22px;
+  color: #50658b;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.pt-tagline-dot {
+  color: #2563eb;
+  font-size: 18px;
+}
+
+.pt-showcase-title {
+  margin: 0;
+  color: #10234b;
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.pt-showcase-title span {
+  background: linear-gradient(90deg, #087df5, #315de9, #7139df);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pt-showcase-subtitle {
+  margin: 16px auto 0;
+  max-width: 600px;
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   Showcase Body — 3 Column Layout
+   ========================================= */
+
+.pt-showcase-body {
+  display: grid;
+  grid-template-columns: 210px 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  min-height: 360px;
+}
+
+/* =========================================
+   Left: Indicators
+   ========================================= */
+
+.pt-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pt-indicator {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pt-indicator:hover {
+  background: #f0f4ff;
+}
+
+.pt-indicator--active {
+  background: #f0f6ff;
+}
+
+.pt-indicator-num {
+  font-family: "Inter", monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #cbd5e1;
+  min-width: 24px;
+  transition: color 0.3s ease;
+}
+
+.pt-indicator--active .pt-indicator-num {
+  color: #2563eb;
+}
+
+.pt-indicator-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+  transition: color 0.3s ease;
+}
+
+.pt-indicator--active .pt-indicator-label {
+  color: #1e293b;
+}
+
+/* Progress bar under active indicator */
+.pt-progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 3px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.pt-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2563eb, #7139df);
+  border-radius: 2px;
+}
+
+.pt-progress-bar--running {
+  animation: pt-fill 3.5s linear forwards;
+}
+
+.pt-progress-bar--paused {
+  animation: pt-fill 3.5s linear forwards;
+  animation-play-state: paused;
+}
+
+@keyframes pt-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   Center: Text Content
+   ========================================= */
+
+.pt-text-area {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+}
+
+.pt-text-content {
+  width: 100%;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.pt-text-content--enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pt-text-content--exit {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.pt-number {
+  display: block;
+  font-family: "Inter", monospace;
+  font-size: 42px;
+  font-weight: 800;
+  color: #2563eb;
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -2px;
+}
+
+.pt-category {
+  display: inline-block;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.pt-program-title {
+  margin: 0 0 14px;
+  color: #0f2b5b;
+  font-size: clamp(24px, 2.5vw, 34px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pt-program-desc {
+  margin: 0 0 20px;
+  color: #3b4c6b;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.pt-program-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pt-duration-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #2563eb;
+  border: none;
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.pt-clock-svg {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.pt-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: transparent;
+  border: 2px solid #2563eb;
+  border-radius: 50px;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.pt-explore-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.pt-arrow-svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+
+.pt-explore-btn:hover .pt-arrow-svg {
+  transform: translateX(4px);
+}
+
+/* =========================================
+   Right: Image Area
+   ========================================= */
+
+.pt-image-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pt-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f1f5f9;
+  box-shadow: 0 20px 60px rgba(30, 50, 100, 0.1);
+}
+
+.pt-program-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pt-program-img--enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pt-program-img--exit {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+/* Hover zoom on image */
+.pt-image-wrapper:hover .pt-program-img--enter {
+  transform: scale(1.04);
+}
+
+/* =========================================
+   Mobile Dots (hidden on desktop)
+   ========================================= */
+
+.pt-dots {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.pt-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.pt-dot--active {
+  background: #2563eb;
+  border-color: #2563eb;
+  transform: scale(1.2);
+}
+
+.pt-dot:hover {
+  border-color: #2563eb;
+}
+
+/* =========================================
+   Responsive: Tablet (≤ 1024px)
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .pt-showcase {
+    padding: 60px 24px 70px;
+  }
+
+  .pt-showcase-body {
+    grid-template-columns: 160px 1fr 1fr;
+    gap: 28px;
+    min-height: 380px;
+  }
+
+  .pt-indicator-label {
+    display: none;
+  }
+
+  .pt-indicator {
+    justify-content: center;
+    padding: 12px 14px;
+  }
+
+  .pt-indicator-num {
+    min-width: auto;
+  }
+
+  .pt-number {
+    font-size: 40px;
+  }
+
+  .pt-program-title {
+    font-size: 28px;
+  }
+
+  .pt-program-desc {
+    font-size: 15px;
+  }
+
+  .pt-image-wrapper {
+    border-radius: 20px;
+  }
+}
+
+/* =========================================
+   Responsive: Small Tablet (≤ 768px)
+   ========================================= */
+
+@media (max-width: 768px) {
+  .pt-showcase {
+    padding: 50px 20px 60px;
+  }
+
+  .pt-showcase-header {
+    margin-bottom: 40px;
+  }
+
+  .pt-showcase-subtitle {
+    font-size: 15px;
+  }
+
+  .pt-showcase-subtitle br {
+    display: none;
+  }
+
+  .pt-showcase-body {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: auto;
+  }
+
+  /* Hide side indicators on mobile */
+  .pt-indicators {
+    display: none;
+  }
+
+  /* Show dots on mobile */
+  .pt-dots {
+    display: flex;
+  }
+
+  .pt-text-area {
+    min-height: auto;
+    order: 1;
+  }
+
+  .pt-image-area {
+    order: 2;
+  }
+
+  .pt-number {
+    font-size: 36px;
+  }
+
+  .pt-program-title {
+    font-size: 26px;
+  }
+
+  .pt-program-desc {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  .pt-image-wrapper {
+    border-radius: 18px;
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* =========================================
+   Responsive: Mobile (≤ 480px)
+   ========================================= */
+
+@media (max-width: 480px) {
+  .pt-showcase {
+    padding: 40px 16px 50px;
+  }
+
+  .pt-showcase-header {
+    margin-bottom: 30px;
+  }
+
+  .pt-tagline {
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .pt-showcase-title {
+    font-size: 32px;
+  }
+
+  .pt-showcase-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .pt-number {
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+
+  .pt-category {
+    font-size: 10px;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+  }
+
+  .pt-program-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .pt-program-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+
+  .pt-duration-badge {
+    padding: 8px 16px;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .pt-clock-svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .pt-image-wrapper {
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .pt-dots {
+    margin-top: 24px;
+    gap: 8px;
+  }
+
+  .pt-dot {
+    width: 10px;
+    height: 10px;
+  }
+}

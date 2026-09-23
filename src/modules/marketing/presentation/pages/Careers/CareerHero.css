@@ -1,0 +1,315 @@
+/* Career Hero Styles */
+
+.career-hero-section {
+  position: relative;
+  background: #fff;
+ 
+  padding: 0 0 4rem;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 540px;
+  display: flex;
+  align-items: flex-start;
+}
+.career-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Left Column */
+.career-hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.career-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(12, 132, 162, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:  rgb(3, 3, 53);
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow-sparkle {
+  color: #60a5fa;
+}
+
+.career-hero-title {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: rgb(3, 3, 53);
+  margin-bottom: 1.25rem;
+}
+
+.career-hero-gradient {
+  background: rgb(16, 93, 195);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.career-hero-description {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+  color: rgb(50, 47, 47);
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+
+.career-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--blue-600, #2563eb);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+.btn-hero-primary:hover {
+  background: var(--blue-500, #3b82f6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+.btn-hero-primary svg {
+  transition: transform 0.2s ease;
+}
+
+.btn-hero-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  color:rgb(48, 39, 39);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--radius-lg, 0.5rem);
+  border: 1px solid rgba(8, 8, 8, 0.18);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-hero-secondary:hover {
+  background:  var(--blue-600, #2563eb);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.career-hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.hero-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #111213;
+}
+
+.hero-stat-icon {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+/* Right Column */
+.career-hero-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-visual-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+}
+
+.hero-img-frame {
+  position: relative;
+  border-radius: var(--radius-2xl, 1rem);
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0d1b3e;
+}
+
+.hero-workplace-img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hero-visual-wrapper:hover .hero-workplace-img {
+  transform: scale(1.02);
+}
+
+.hero-img-overlay-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 14, 36, 0.8) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Floating Tech Cards */
+.floating-tech-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floating-tech-card {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full, 9999px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #f8fafc;
+  animation: gentleFloat 5s ease-in-out infinite;
+}
+
+.tech-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #60a5fa;
+}
+
+.tech-card-java {
+  top: 15px;
+  left: -20px;
+  animation-delay: 0s;
+}
+.tech-card-java .tech-icon-box { color: #f87171; }
+
+.tech-card-react {
+  top: 30%;
+  right: -25px;
+  animation-delay: 1.2s;
+}
+.tech-card-react .tech-icon-box { color: #38bdf8; }
+
+.tech-card-python {
+  bottom: 25px;
+  left: -15px;
+  animation-delay: 2.4s;
+}
+.tech-card-python .tech-icon-box { color: #fbbf24; }
+
+.tech-card-aiml {
+  top: 60%;
+  left: -25px;
+  animation-delay: 3.6s;
+}
+.tech-card-aiml .tech-icon-box { color: #a78bfa; }
+
+.tech-card-cloud {
+  bottom: 60px;
+  right: -20px;
+  animation-delay: 1.8s;
+}
+.tech-card-cloud .tech-icon-box { color: #34d399; }
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .career-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .career-hero-right {
+    order: -1;
+  }
+  .hero-visual-wrapper {
+    max-width: 420px;
+  }
+  .hero-workplace-img {
+    height: 320px;
+  }
+}
+
+@media (max-width: 640px) {
+  .career-hero-section {
+    padding: 5rem 0 3.5rem;
+    min-height: auto;
+  }
+  .career-hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .floating-tech-card {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
+  .tech-card-java { left: 5px; top: 10px; }
+  .tech-card-react { right: 5px; }
+  .tech-card-python { left: 5px; bottom: 10px; }
+  .tech-card-aiml { left: 5px; top: 50%; }
+  .tech-card-cloud { right: 5px; bottom: 40px; }
+}
