@@ -193,44 +193,6 @@ export default function WhoWeAre() {
                 </div>
             </section>
 
-            <section className="offerings-section">
-                <div className="offerings-container">
-                    <div className="offerings-intro">
-                        <div className="section-badge">
-                            WHAT WE OFFER
-                        </div>
-
-                        <h2>Our Core Offerings</h2>
-
-                       
-                    </div>
-
-                    <div className="offerings-grid">
-                        {offerings.map((item) => (
-                            <div
-                                className="offering-card"
-                                key={item.title}
-                            >
-                                <div className="offering-icon">
-                                    <img
-                                        src={item.icon}
-                                        alt={item.title}
-                                    />
-                                </div>
-
-                                <h3>{item.title}</h3>
-
-                                <p>{item.description}</p>
-
-                                <button>
-                                    Learn more
-                                    <ArrowRight size={16} />
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
         </>
     );
 }
