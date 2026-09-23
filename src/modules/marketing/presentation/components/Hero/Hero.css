@@ -1,41 +1,18 @@
-/* =========================================================
-   HERO SECTION
-========================================================= */
-
 .hero-section {
     width: 100%;
-
-    min-height: 640px;
-
-    padding:
-        34px 0 20px;
-
+    height: 640px;
     background: #f6f8fd;
-
     overflow: hidden;
-
     box-sizing: border-box;
 }
 
 
-/* =========================================================
-   HERO CONTAINER
-========================================================= */
-
 .hero-container {
 
-    width:
-        min(
-            1400px,
-            calc(100% - 120px)
-        );
-
+    width: min(  1400px, calc(100% - 120px) );
     min-height: 610px;
-
     margin: 0 auto;
-
     display: grid;
-
     grid-template-columns:
         minmax(0, 1fr)
         minmax(480px, 0.95fr);

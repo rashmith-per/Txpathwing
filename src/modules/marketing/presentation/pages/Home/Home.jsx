@@ -15,23 +15,28 @@ import WhoWeAre from "../../components/WhoWeAre/WhoWeAre";
 import StudentReviews from "../StudentReviews/StudentReviews";
 import Programtraning from "../../components/ProgramTraning/programtraning";
 import InternshipSection from "../../components/Internship/Internship";
+import Contact from "../Contact/ContactForm";
 
 const Home = () => {
   return (
     <>
-    <Hero/>
+      <Hero />
 
-      {/* Learner Journey Section */}
+      <Mode />
+
+      {/* who we are Section */}
       <WhoWeAre />
+      {/* Delivery Modes Section */}
+      <OnePlatform />
 
-      
-< Programtraning />
-< InternshipSection/>
+      < Programtraning />
+
+      < InternshipSection/>
+
       {/* Courses Section */}
       <Courses />
 
       {/* Delivery Modes Section */}
-      <Mode />
       <OnePlatform />
       
 
