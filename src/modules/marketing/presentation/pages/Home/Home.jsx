@@ -13,7 +13,7 @@ import Pricing from "../../components/Pricing/Pricing";
 import HiringPartners from "../../components/HiringPartners/HiringPartner";
 import StudentReviews from "../StudentReviews/StudentReviews";
 import Programtraning from "../../components/ProgramTraning/programtraning";
-
+import InternshipSection from "../../components/Internship/Internship";
 
 const Home = () => {
   return (
@@ -23,22 +23,23 @@ const Home = () => {
       {/* Learner Journey Section */}
       
 < Programtraning />
+< InternshipSection/>
       {/* Courses Section */}
       <Courses />
 
       {/* Delivery Modes Section */}
       <Mode />
       <OnePlatform />
-      <TrustSection />
+      
 
        {/* One Platform */}
       
-      <HiringPartners />
+      <HiringPartners /> 
 
       {/* CTA / Credential Verification */}
       <CTA />
 
-      <Pricing />
+ 
       <StudentReviews/>
 
       {/* FAQ Section */}

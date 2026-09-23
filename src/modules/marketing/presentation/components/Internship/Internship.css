@@ -1,0 +1,329 @@
+/* =========================================
+   INTERNSHIPS SECTION - EXACT DESIGN MATCH
+   ========================================= */
+
+.internship-section {
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #FFFFFF;
+  padding: 70px 20px 80px;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.container {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Header Elements */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border: 1.5px solid #BFDBFE;
+  color: #2563EB;
+  font-family: 'Space Grotesk', 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.eyebrow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.18);
+  border-color: #93C5FD;
+}
+
+.eyebrow-sparkle {
+  color: #2563EB;
+}
+
+.main-title {
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 800;
+  color: #1E293B;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px 0;
+}
+
+.intro-50 {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #475569;
+  max-width: 780px;
+  margin: 0 auto 44px auto;
+  font-weight: 500;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  text-align: left;
+}
+
+/* Individual Card */
+.intern-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.intern-card.popular {
+  border: 2px solid #2563EB;
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.15);
+  transform: translateY(-4px);
+}
+
+.intern-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.12);
+  border-color: #93C5FD;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  min-height: 28px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.badge-blue-light {
+  background: #E8F1FF;
+  color: #2563EB;
+}
+
+.badge-blue-solid {
+  background: #2563EB;
+  color: #FFFFFF;
+}
+
+.popular-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #E8F1FF;
+  font-size: 10px;
+  font-weight: 800;
+  color: #2563EB;
+  letter-spacing: 0.06em;
+}
+
+.popular-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2563EB;
+}
+
+/* Title & Icon Row */
+.title-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #2563EB;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.intern-card:hover .icon-box {
+  transform: scale(1.08);
+}
+
+.title-info h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0 0 5px 0;
+  line-height: 1.25;
+}
+
+.title-info p {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Perks List */
+.perks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 26px;
+  flex: 1;
+}
+
+.perk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.perk-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #F0F6FF;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.perk-text {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.perk-dot {
+  margin-left: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2563EB;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* CTA Wrap */
+.cta-wrap {
+  margin-top: auto;
+}
+
+.cta-btn {
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.cta-btn.primary {
+  background: linear-gradient(90deg, #2563EB, #1D4ED8);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+}
+
+.cta-btn.primary:hover {
+  background: linear-gradient(90deg, #1D4ED8, #1E40AF);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.4);
+}
+
+.cta-btn.secondary {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: #2563EB;
+}
+
+.cta-btn.secondary:hover {
+  border-color: #2563EB;
+  background: #F8FAFF;
+}
+
+.cta-note {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.note-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #93C5FD;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 450px;
+  }
+
+  .intern-card.popular {
+    transform: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .internship-section {
+    padding: 50px 16px 60px;
+  }
+
+  .main-title {
+    font-size: 24px;
+  }
+
+  .intro-50 {
+    font-size: 12.5px;
+  }
+}
