@@ -25,14 +25,6 @@ const NAV_LINKS = [
   },
 
   {
-    label: "Institutions",
-  },
-
-  {
-    label: "Pricing",
-  },
-
-  {
     label: "Blog",
     path: "/blog",
   },
