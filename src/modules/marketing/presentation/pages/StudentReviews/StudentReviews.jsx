@@ -202,7 +202,7 @@ function StudentReviews() {
 
                 <Quote
                   className="review-quote-icon"
-                  size={38}
+                  size={28}
                 />
 
                 {/* Student */}

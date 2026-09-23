@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./CourseDetails.css";
+import "./CourseDetails.css"; 
 
 const coursesData = {
   "react-fs": { code: "REACT-FS", title: "React Full Stack Development", instructor: "Arjun Mehta", role: "Ex-Meta, 8 years React", weeks: "14 weeks", lessons: "96 lessons", level: "Intermediate", price: "₹5,499", oldPrice: "₹8,999", rating: "4.9", reviews: "1,240", emoji: "⚛️", about: "Master modern React with Next.js 14, Tailwind, Node.js. Build production apps.", syllabus: [{m:"Module 1", t:"React Fundamentals", topics:["JSX & Components","Props & State","Hooks","Router"], d:"2 weeks"}, {m:"Module 2", t:"Advanced React", topics:["Context","React Query","Performance","Testing"], d:"3 weeks"}, {m:"Module 3", t:"Next.js & Full Stack", topics:["App Router","Server Components","API Routes","Prisma"], d:"4 weeks"}, {m:"Module 4", t:"Production", topics:["Vercel CI/CD","Auth & Payments","Socket.io","Capstone"], d:"5 weeks"}], projects:["E-commerce Store","Real-time Chat","SaaS Dashboard"], skills:["React","Next.js","Tailwind","Node.js","PostgreSQL","TypeScript"] },

@@ -17,14 +17,11 @@ function BannerCarousel() {
     bannerImages[0],
   ];
 
-  // Start at actual first image
   const [currentSlide, setCurrentSlide] = useState(1);
 
   const [isTransitioning, setIsTransitioning] = useState(true);
 
-  /*
-    Automatic sliding
-  */
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => prev + 1);
@@ -33,27 +30,19 @@ function BannerCarousel() {
     return () => clearInterval(interval);
   }, []);
 
-  /*
-    When reaching cloned slides,
-    silently move to the real slide.
-  */
   const handleTransitionEnd = () => {
-    // We reached cloned first image
+
     if (currentSlide === slides.length - 1) {
       setIsTransitioning(false);
       setCurrentSlide(1);
     }
 
-    // We reached cloned last image
     if (currentSlide === 0) {
       setIsTransitioning(false);
       setCurrentSlide(bannerImages.length);
     }
   };
 
-  /*
-    Re-enable animation after instant reposition
-  */
   useEffect(() => {
     if (!isTransitioning) {
       requestAnimationFrame(() => {
@@ -64,23 +53,14 @@ function BannerCarousel() {
     }
   }, [isTransitioning]);
 
-  /*
-    Previous button
-  */
   const handlePrevious = () => {
     setCurrentSlide((prev) => prev - 1);
   };
 
-  /*
-    Next button
-  */
   const handleNext = () => {
     setCurrentSlide((prev) => prev + 1);
   };
 
-  /*
-    Dot position
-  */
   const activeDot =
     currentSlide === 0
       ? bannerImages.length - 1
@@ -90,8 +70,6 @@ function BannerCarousel() {
 
   return (
     <section className="banner-carousel">
-
-      {/* SLIDER */}
       <div className="banner-window">
 
         <div
@@ -114,7 +92,6 @@ function BannerCarousel() {
           ))}
         </div>
 
-        {/* PREVIOUS */}
         <button
           className="banner-arrow banner-prev"
           onClick={handlePrevious}
@@ -122,7 +99,6 @@ function BannerCarousel() {
           ‹
         </button>
 
-        {/* NEXT */}
         <button
           className="banner-arrow banner-next"
           onClick={handleNext}
@@ -132,7 +108,6 @@ function BannerCarousel() {
 
       </div>
 
-      {/* DOTS */}
       <div className="banner-dots">
         {bannerImages.map((_, index) => (
           <button
