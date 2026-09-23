@@ -66,6 +66,55 @@
   transform: scale(1.05);
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
 }
+/*online-offline-button*/
+.online-offline{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+  animation: showHeading 0.6s ease 0.25s both;
+}
+
+.online-offline button {
+  padding: 10px 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 100px;
+  background: #ffffff;
+  color: #64748b;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+ 
+}
+
+.online-offline button:hover {
+  color: #2a59c6;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.online-offline button.selected {
+  background: #3468e2;
+  color: #ffffff;
+  border-color: #0f172a;
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+}
+/*event-box*/
+.event-box  {
+  width: 100%;
+  min-height: 430px;
+  min-width: 1100px;
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+            
 
 /* EVENTS GRID */
 
@@ -73,6 +122,45 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+}
+
+/* EMPTY STATE */
+
+.event-box {
+  grid-column: 1 / -1;
+  width: min(100%, 640px);
+  min-height: 220px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+
+.no-events {
+  width: 100%;
+}
+
+.no-events h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.no-events p {
+  max-width: 420px;
+  margin: 8px auto 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 /* EVENT CARD */
