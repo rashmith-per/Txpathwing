@@ -73,7 +73,7 @@ const OnePlatform = () => {
         <h2 className="op-heading">
           One platform,
           <br />
-          <span className="op-gradient">four commercial relationships</span>
+         
         </h2>
 
         <p className="op-sub">
