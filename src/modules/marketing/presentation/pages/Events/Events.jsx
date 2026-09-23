@@ -93,13 +93,13 @@ const events = [
   {
     id: 7,
     type: "industrial",
-    mode: "industrial",
+    mode: "online",
     img: bootcampImg,
     badge: "INDUSTRIAL TRAINING",
     date: "30 Days",
     title: "Full Stack Industrial Training",
     desc: "Industry-focused training with real-time projects, coding practice and mentor guidance.",
-    meta: "🏢 Hyderabad • Industrial Training",
+    meta: "🌐 Online • Live Mentor",
     s1: "Live Projects",
     s2: "Certificate",
     btn: "Apply Now",
@@ -107,13 +107,13 @@ const events = [
   {
     id: 8,
     type: "industrial",
-    mode: "industrial",
+    mode: "offline",
     img: workshopImg,
     badge: "INDUSTRIAL TRAINING",
     date: "45 Days",
     title: "AI & Data Science Industrial Training",
     desc: "Hands-on industrial training covering Python, machine learning, data analysis and projects.",
-    meta: "🏢 Hyderabad • Industrial Training",
+    meta: "🏢 Hyderabad • Offline",
     s1: "Real Projects",
     s2: "Mentor Support",
     btn: "Apply Now",
@@ -121,34 +121,14 @@ const events = [
 ];
 
 export default function Events() {
-  const [filter, setFilter] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [modeFilter, setModeFilter] = useState(null);
 
   const filteredEvents = events.filter((event) => {
-    if (filter === "all") {
-      return true;
-    }
+    const matchesType = typeFilter === "all" || event.type === typeFilter;
+    const matchesMode = !modeFilter || event.mode === modeFilter;
 
-    if (
-      filter === "hackathon" ||
-      filter === "bootcamp" ||
-      filter === "workshop"
-    ) {
-      return event.type === filter;
-    }
-
-    if (filter === "online") {
-      return event.mode === "online";
-    }
-
-    if (filter === "offline") {
-      return event.mode === "offline";
-    }
-
-    if (filter === "industrial") {
-      return event.mode === "industrial";
-    }
-
-    return true;
+    return matchesType && matchesMode;
   });
 
   return (
@@ -163,109 +143,115 @@ export default function Events() {
 
       <div className="event-filters">
         <button
-          onClick={() => setFilter("all")}
-          className={filter === "all" ? "selected" : ""}
+          onClick={() => setTypeFilter("all")}
+          className={typeFilter === "all" ? "selected" : ""}
         >
           All Events
         </button>
 
         <button
-          onClick={() => setFilter("hackathon")}
-          className={filter === "hackathon" ? "selected" : ""}
+          onClick={() => setTypeFilter("hackathon")}
+          className={typeFilter === "hackathon" ? "selected" : ""}
         >
           Hackathons
         </button>
 
         <button
-          onClick={() => setFilter("bootcamp")}
-          className={filter === "bootcamp" ? "selected" : ""}
+          onClick={() => setTypeFilter("bootcamp")}
+          className={typeFilter === "bootcamp" ? "selected" : ""}
         >
           Bootcamps
         </button>
 
         <button
-          onClick={() => setFilter("workshop")}
-          className={filter === "workshop" ? "selected" : ""}
+          onClick={() => setTypeFilter("workshop")}
+          className={typeFilter === "workshop" ? "selected" : ""}
         >
           Workshops
         </button>
 
         <button
-          onClick={() => setFilter("online")}
-          className={filter === "online" ? "selected" : ""}
-        >
-          Online
-        </button>
-
-        <button
-          onClick={() => setFilter("offline")}
-          className={filter === "offline" ? "selected" : ""}
-        >
-          Offline
-        </button>
-
-        <button
-          onClick={() => setFilter("industrial")}
-          className={filter === "industrial" ? "selected" : ""}
+          onClick={() => setTypeFilter("industrial")}
+          className={typeFilter === "industrial" ? "selected" : ""}
         >
           Industrial Training
         </button>
       </div>
 
-      <div className="event-list">
-        {filteredEvents.length > 0 ? (
-          filteredEvents.map((event, index) => (
-            <div
-              key={event.id}
-              className="event-card"
-              style={{
-                animationDelay: `${index * 0.08}s`,
-              }}
-            >
-              <div className="event-image">
-                <img src={event.img} alt={event.title} />
+      <div className="online-offline">
+        <button
+          onClick={() => setModeFilter("online")}
+          className={modeFilter === "online" ? "selected" : ""}
+        >
+          Online
+        </button>
 
-                <div className="event-type">
-                  {event.badge}
-                </div>
-
-                <div className="event-date">
-                  {event.date}
-                </div>
-              </div>
-
-              <div className="event-details">
-                <h3>{event.title}</h3>
-
-                <p className="event-description">
-                  {event.desc}
-                </p>
-
-                <div className="event-info">
-                  {event.meta}
-                </div>
-
-                <div className="event-stats">
-                  <span>{event.s1}</span>
-                  <span>{event.s2}</span>
-                </div>
-
-                <button className="event-action">
-                  {event.btn}
-                </button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="no-events">
-            <h3>No events found</h3>
-            <p>
-              There are currently no events available in this category.
-            </p>
-          </div>
-        )}
+        <button
+          onClick={() => setModeFilter("offline")}
+          className={modeFilter === "offline" ? "selected" : ""}
+        >
+          Offline
+        </button>
       </div>
 
+      
+        <div className="event-list">
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event, index) => (
+              <div
+                key={event.id}
+                className="event-card"
+                style={{
+                  animationDelay: `${index * 0.08}s`,
+                }}
+              >
+                <div className="event-image">
+                  <img src={event.img} alt={event.title} />
+
+                  <div className="event-type">
+                    {event.badge}
+                  </div>
+
+                  <div className="event-date">
+                    {event.date}
+                  </div>
+                </div>
+
+                <div className="event-details">
+                  <h3>{event.title}</h3>
+
+                  <p className="event-description">
+                    {event.desc}
+                  </p>
+
+                  <div className="event-info">
+                    {event.meta}
+                  </div>
+
+                  <div className="event-stats">
+                    <span>{event.s1}</span>
+                    <span>{event.s2}</span>
+                  </div>
+
+                  <button className="event-action">
+                    {event.btn}
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="event-box">
+            <div className="no-events">
+              <h3>No events found</h3>
+              <p>
+                There are currently no events available in this category.
+              </p>
+            </div>
+            </div>
+          )}
+        </div>
+
+    
     </div>
   );
 }
