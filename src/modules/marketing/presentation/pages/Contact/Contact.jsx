@@ -215,9 +215,6 @@ const Organization = () => {
           ))}
         </div>
       </section>
-
-      <section className="form-section">
-      </section>
       <ContactForm />
 
     </main>
