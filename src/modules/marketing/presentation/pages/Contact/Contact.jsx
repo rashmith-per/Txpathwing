@@ -1,5 +1,6 @@
 import React from "react";
 import "./Contact.css";
+import ContactForm from "./ContactForm";
 
 const pathwayData = [
   {
@@ -217,6 +218,8 @@ const Organization = () => {
 
       <section className="form-section">
       </section>
+      <ContactForm />
+
     </main>
   );
 };

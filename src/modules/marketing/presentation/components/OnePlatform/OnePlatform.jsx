@@ -71,7 +71,7 @@ const OnePlatform = () => {
         <div className="op-pill">— WHO RUNS ON TX PATHWING —</div>
 
         <h2 className="op-heading">
-          One platform,
+          One platform
           <br />
          
         </h2>

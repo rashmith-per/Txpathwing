@@ -1,0 +1,203 @@
+.organization-form {
+  width: 100%;
+}
+
+/* ---------- Form Grid ---------- */
+
+.organization-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+  row-gap: 18px;
+  width: 100%;
+}
+
+/* ---------- Field ---------- */
+
+.organization-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.organization-field label {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: #344054;
+}
+
+/* ---------- Inputs ---------- */
+
+.organization-field input,
+.organization-field select {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+
+  border: 1px solid #d9e1e8;
+  border-radius: 9px;
+
+  outline: none;
+  background: #ffffff;
+
+  color: #263548;
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+/* Placeholder */
+
+.organization-field input::placeholder {
+  color: #a0aab5;
+  opacity: 1;
+}
+
+/* Hover */
+
+.organization-field input:hover,
+.organization-field select:hover {
+  border-color: #c3ced9;
+}
+
+/* Focus */
+
+.organization-field input:focus,
+.organization-field select:focus {
+  border-color: #1d5f9e;
+  background: #ffffff;
+
+  box-shadow: 0 0 0 3px rgba(29, 95, 158, 0.09);
+}
+
+/* Select */
+
+.organization-field select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* ---------- Address ---------- */
+
+.organization-address {
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid #edf0f3;
+}
+
+.organization-section-title {
+  margin-bottom: 18px;
+
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+
+  color: #182433;
+}
+
+/* ---------- Footer ---------- */
+
+.organization-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-top: 30px;
+}
+
+/* ---------- Submit ---------- */
+
+.organization-submit {
+  min-width: 162px;
+  height: 48px;
+
+  padding: 0 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #1d5f9e;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 5px 15px rgba(29, 95, 158, 0.18);
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.organization-submit:hover {
+  background: #164d82;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 20px rgba(29, 95, 158, 0.22);
+}
+
+.organization-submit:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .organization-form-grid {
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+
+  .organization-field input,
+  .organization-field select {
+    height: 50px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .organization-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .organization-address {
+    margin-top: 22px;
+    padding-top: 20px;
+  }
+
+  .organization-section-title {
+    margin-bottom: 16px;
+  }
+
+  .organization-field input,
+  .organization-field select {
+    height: 48px;
+  }
+
+  .organization-form-footer {
+    margin-top: 24px;
+  }
+
+  .organization-submit {
+    width: 100%;
+  }
+}
