@@ -1,89 +1,85 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Contact.css";
+
+const pathwayData = [
+  {
+    number: "01",
+    title: "Organization",
+    description: "Connect your organization with TX Pathwing.",
+    className: "pathway-step-one",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 8h3a1 1 0 0 1 1 1v12M2 21h20M8 7h4M8 11h4M8 15h4" />
+      </svg>
+    )
+  },
+  {
+    number: "02",
+    title: "Collaboration",
+    description: "Identify meaningful areas for partnership.",
+    className: "pathway-step-two",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8.5 12.5 6 15a3 3 0 0 0 4.24 4.24l2.12-2.12M15.5 11.5 18 9a3 3 0 0 0-4.24-4.24l-2.12 2.12M9 15l6-6M7 8H4a2 2 0 0 0-2 2v2M17 16h3a2 2 0 0 0 2-2v-2" />
+      </svg>
+    )
+  },
+  {
+    number: "03",
+    title: "Training",
+    description: "Support industry-focused learning initiatives.",
+    className: "pathway-step-three",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m3 9 9-4 9 4-9 4-9-4Z" />
+        <path d="M7 11v5c0 2 2.2 4 5 4s5-2 5-4v-5M21 10v5" />
+      </svg>
+    )
+  },
+  {
+    number: "04",
+    title: "Internship",
+    description: "Create opportunities for practical exposure.",
+    className: "pathway-step-four",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+        <path d="M14 3v5h5M8 12h8M8 16h6" />
+      </svg>
+    )
+  },
+  {
+    number: "05",
+    title: "Talent",
+    description: "Connect with developing technology professionals.",
+    className: "pathway-step-five",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="9" cy="8" r="3" />
+        <circle cx="17" cy="9" r="2.5" />
+        <path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M15 15c3 0 6 1.8 6 5" />
+      </svg>
+    )
+  },
+  {
+    number: "06",
+    title: "Industry",
+    description: "Build lasting industry connections.",
+    className: "pathway-step-six",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 20V10M10 20V6M16 20V12M22 20V3" />
+        <path d="M2 20h21" />
+      </svg>
+    )
+  }
+];
 
 const Organization = () => {
   return (
     <main className="organization-page">
-
-      {/* Hero Section */}
-      <section className="organization-hero">
-        <div className="organization-hero-content">
-
-          <span className="organization-label">
-            LEARNERS, ORGANIZATIONS & COMPANY PATHWAY
-          </span>
-
-          <h1>
-            Partner with <span>TX Pathwing</span>
-          </h1>
-
-          <p>
-            Build meaningful connections between your organization,
-            emerging talent, and the future of technology.
-          </p>
-
-          <div className="organization-hero-actions">
-
-            {/* Goes directly to Organization form */}
-            <Link
-              to="/contact?type=organization"
-              className="primary-action"
-            >
-              Partner With Us
-            </Link>
-
-            {/* Goes directly to Company/Enquiry form */}
-            <Link
-              to="/contact?type=company"
-              className="secondary-action"
-            >
-              Make an Enquiry
-            </Link>
-
-          </div>
-        </div>
-
-        <div className="organization-hero-visual">
-          <div className="hero-circle hero-circle-one"></div>
-          <div className="hero-circle hero-circle-two"></div>
-
-          <div className="hero-people-card">
-
-            <div className="hero-person">
-              <span>👨‍💻</span>
-            </div>
-
-            <div className="hero-person hero-person-middle">
-              <span>👩‍💼</span>
-            </div>
-
-            <div className="hero-person">
-              <span>👨‍🎓</span>
-            </div>
-
-            <div className="hero-connection-line"></div>
-
-          </div>
-
-          <div className="hero-floating-card hero-company-card">
-            <strong>Companies</strong>
-            <span>Industry Connections</span>
-          </div>
-
-          <div className="hero-floating-card hero-talent-card">
-            <strong>Talent</strong>
-            <span>Skilled Learners</span>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Organization Information */}
       <section className="organization-information">
-
         <div className="organization-section-heading">
-
           <span className="organization-section-label">
             WHO WE CONNECT
           </span>
@@ -101,11 +97,9 @@ const Organization = () => {
             initiatives, and explore meaningful opportunities for
             collaboration.
           </p>
-
         </div>
 
         <div className="organization-information-grid">
-
           <article className="information-card">
             <div className="information-icon">01</div>
 
@@ -149,15 +143,11 @@ const Organization = () => {
               and hiring connections.
             </p>
           </article>
-
         </div>
       </section>
 
-      {/* Institutional Pathway */}
       <section className="institutional-pathway">
-
         <div className="organization-section-heading centered-heading">
-
           <span className="organization-section-label">
             INDUSTRIAL PATHWAY
           </span>
@@ -172,140 +162,61 @@ const Organization = () => {
             Connect organizations with learners through a structured
             journey from collaboration to real-world industry exposure.
           </p>
-
         </div>
 
-        <div className="pathway-full">
+        <div className="pathway-roadmap">
+          <svg
+            className="pathway-roadmap-line"
+            viewBox="0 0 1200 440"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              className="pathway-line-base"
+              d="M 92 105
+                 C 150 105, 180 315, 290 315
+                 C 390 315, 405 105, 510 105
+                 C 610 105, 625 315, 730 315
+                 C 830 315, 850 105, 955 105
+                 C 1060 105, 1080 315, 1140 315"
+            />
 
-          <div className="pathway-line"></div>
+            <path
+              className="pathway-line-flow"
+              d="M 92 105
+                 C 150 105, 180 315, 290 315
+                 C 390 315, 405 105, 510 105
+                 C 610 105, 625 315, 730 315
+                 C 830 315, 850 105, 955 105
+                 C 1060 105, 1080 315, 1140 315"
+            />
+          </svg>
 
-          <div className="pathway-step">
-            <div className="pathway-number">01</div>
-            <h3>Organization</h3>
-            <p>
-              Connect your organization with TX Pathwing.
-            </p>
-          </div>
+          {pathwayData.map((step) => (
+            <article
+              key={step.number}
+              className={`pathway-card ${step.className}`}
+            >
+              <div className="pathway-card-icon">
+                {step.icon}
+              </div>
 
-          <div className="pathway-step">
-            <div className="pathway-number">02</div>
-            <h3>Collaboration</h3>
-            <p>
-              Identify meaningful areas for partnership.
-            </p>
-          </div>
+              <div className="pathway-card-content">
+                <span className="pathway-card-number">
+                  {step.number}
+                </span>
 
-          <div className="pathway-step">
-            <div className="pathway-number">03</div>
-            <h3>Training</h3>
-            <p>
-              Support industry-focused learning initiatives.
-            </p>
-          </div>
+                <h3>{step.title}</h3>
 
-          <div className="pathway-step">
-            <div className="pathway-number">04</div>
-            <h3>Internship</h3>
-            <p>
-              Create opportunities for practical exposure.
-            </p>
-          </div>
-
-          <div className="pathway-step">
-            <div className="pathway-number">05</div>
-            <h3>Talent</h3>
-            <p>
-              Connect with developing technology professionals.
-            </p>
-          </div>
-
-          <div className="pathway-step">
-            <div className="pathway-number">06</div>
-            <h3>Industry</h3>
-            <p>
-              Build lasting industry connections.
-            </p>
-          </div>
-
+                <p>{step.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Contact / Enquiry */}
-      <section className="organization-contact" id="enquiry">
-
-        <div className="contact-content">
-
-          <span className="organization-section-label">
-            LET'S CONNECT
-          </span>
-
-          <h2>
-            Let's Build the
-            <br />
-            <span>Connection</span>
-          </h2>
-
-          <p>
-            Are you an organization, company, institution, or industry
-            professional looking to collaborate with TX Pathwing?
-          </p>
-
-          <p>
-            Let's explore how we can work together.
-          </p>
-
-          <div className="contact-actions">
-
-            {/* General contact */}
-            <Link to="/contact?type=student">
-              Contact Us
-            </Link>
-
-            {/* Organization */}
-            <Link to="/contact?type=organization">
-              Partner With Us
-            </Link>
-
-            {/* Company enquiry */}
-            <Link to="/contact?type=company">
-              Make an Enquiry
-            </Link>
-
-          </div>
-
-        </div>
-
-        <div className="contact-side">
-
-          <div className="contact-side-circle"></div>
-
-          <div className="contact-message-card">
-
-            <span className="contact-message-icon">
-              ✦
-            </span>
-
-            <h3>
-              Have an idea
-              <br />
-              for collaboration?
-            </h3>
-
-            <p>
-              Tell us about your organization and let's
-              explore the possibilities together.
-            </p>
-
-            <Link to="/contact?type=organization">
-              Start a Conversation →
-            </Link>
-
-          </div>
-
-        </div>
-
+      <section className="form-section">
       </section>
-
     </main>
   );
 };
