@@ -1,14 +1,8 @@
 import { memo, useMemo } from "react";
 import "./SkillsOrbit.css";
 import skillsData from "./skillsData";
-
-// Import your logo
 import logo1 from "../../../../../assets/tx-icon.jpg"
-
 function SkillsOrbit() {
-  /* =========================================================
-     BACKGROUND STARS
-  ========================================================== */
 
   const stars = useMemo(() => {
     return Array.from({ length: 90 }, (_, i) => ({
@@ -28,10 +22,6 @@ function SkillsOrbit() {
 
   return (
     <div className="orbit-wrapper">
-
-      {/* =====================================================
-          BACKGROUND STARS
-      ====================================================== */}
 
       <div className="stars">
         {stars.map((star) => (
@@ -75,28 +65,11 @@ function SkillsOrbit() {
       </div>
 
 
-      {/* =====================================================
-          SCENE
-      ====================================================== */}
-
       <div className="scene">
-
-        {/* =================================================
-            CENTER GLOW
-        ================================================== */}
 
         <div className="center-glow" />
 
-
-        {/* =================================================
-            CENTER CIRCLE
-        ================================================== */}
-
         <div className="center-circle">
-
-          {/* =================================================
-              LOGO
-          ================================================== */}
 
           <div className="center-logo-wrapper">
 
@@ -108,39 +81,15 @@ function SkillsOrbit() {
 
           </div>
 
-
-          {/* =================================================
-              BRAND TEXT
-          ================================================== */}
-
           <div className="center-brand">
             TX PATHWAY
           </div>
-
-
-          {/* =================================================
-              DIVIDER
-          ================================================== */}
 
           <div className="center-divider" />
 
         </div>
 
-
-        {/* =================================================
-            ORBIT RINGS
-        ================================================== */}
-
         {skillsData.map((ring, ringIndex) => {
-
-          /*
-            Use direction from skillsData.
-
-            If direction is not present:
-
-            even ring = clockwise
-            odd ring  = anticlockwise
-          */
 
           const direction =
             ring.direction ||
@@ -166,10 +115,6 @@ function SkillsOrbit() {
                 animationDuration: `${speed}s`,
               }}
             >
-
-              {/* =================================================
-                  SKILLS
-              ================================================== */}
 
               {ring.skills.map((skill, skillIndex) => {
 
