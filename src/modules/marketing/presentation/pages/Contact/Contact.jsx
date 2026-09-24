@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Contact.css";
+import ContactForm from "./ContactForm";
 
 const Organization = () => {
   return (
@@ -305,6 +306,7 @@ const Organization = () => {
         </div>
 
       </section>
+      <ContactForm />
 
     </main>
   );

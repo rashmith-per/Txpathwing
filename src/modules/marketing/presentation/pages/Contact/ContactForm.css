@@ -1,3 +1,7 @@
+/* =================================
+   Contact Section
+================================= */
+
 .contact-section {
   width: 100%;
   padding: 90px 7%;
@@ -5,22 +9,23 @@
 }
 
 
-/* ================================
-   Contact Heading
-================================ */
+/* =================================
+   Heading
+================================= */
 
 .contact-heading {
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto 42px;
   text-align: center;
 }
 
 .contact-heading .section-label {
   display: inline-block;
-  margin-bottom: 15px;
+  margin-bottom: 14px;
 
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
+
   letter-spacing: 2px;
   text-transform: uppercase;
 
@@ -34,6 +39,8 @@
   line-height: 1.15;
   font-weight: 700;
 
+  letter-spacing: -0.8px;
+
   color: #182433;
 }
 
@@ -42,153 +49,309 @@
 }
 
 .contact-heading p {
-  max-width: 680px;
-  margin: 22px auto 0;
+  max-width: 620px;
+
+  margin: 20px auto 0;
 
   font-size: 16px;
-  line-height: 1.8;
+  line-height: 1.7;
 
   color: #667085;
 }
 
 
-/* ================================
-   Contact Button
-================================ */
+/* =================================
+   Inquiry Options
+================================= */
 
-.contact-action {
-  position: relative;
+.inquiry-options {
+  width: 100%;
+  max-width: 650px;
 
-  display: flex;
-  justify-content: center;
-
-  margin-bottom: 40px;
-}
-
-.contact-button {
-  padding: 14px 32px;
-
-  border: none;
-  border-radius: 7px;
-
-  background: #1d5f9e;
-  color: #ffffff;
-
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition: background 0.3s ease,
-              transform 0.3s ease;
-}
-
-.contact-button:hover {
-  background: #164d82;
-  transform: translateY(-2px);
-}
-
-
-/* ================================
-   Contact Options
-================================ */
-
-.contact-options {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-
-  width: 190px;
-
-  transform: translateX(-50%);
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
 
-  padding: 8px;
+  gap: 14px;
+}
+
+
+/* =================================
+   Inquiry Option
+================================= */
+
+.inquiry-option {
+  position: relative;
+
+  width: 100%;
+  min-height: 78px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 16px 20px;
+
+  border: 1px solid #e0e6ec;
+  border-radius: 14px;
 
   background: #ffffff;
 
-  border: 1px solid #e4e9ef;
-  border-radius: 10px;
-
-  box-shadow: 0 12px 30px rgba(20, 45, 70, 0.12);
-
-  z-index: 20;
-}
-
-.contact-options button {
-  width: 100%;
-  padding: 12px 14px;
-
-  border: none;
-  border-radius: 6px;
-
-  background: transparent;
-  color: #263548;
+  color: #182433;
 
   font-family: inherit;
-  font-size: 14px;
-  font-weight: 500;
 
   text-align: left;
 
   cursor: pointer;
 
-  transition: background 0.2s ease,
-              color 0.2s ease;
+  box-shadow:
+    0 4px 15px rgba(24, 36, 51, 0.04);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
-.contact-options button:hover {
-  background: #edf5fc;
-  color: #1d5f9e;
+.inquiry-option:hover {
+  border-color: #1d5f9e;
+
+  background: #f8fbfe;
+
+  box-shadow:
+    0 10px 28px rgba(29, 95, 158, 0.10);
+
+  transform: translateY(-2px);
 }
 
 
-/* ================================
-   Contact Form Area
-================================ */
+/* =================================
+   Radio
+================================= */
 
-.contact-form-area {
-  max-width: 900px;
+.inquiry-radio {
+  width: 22px;
+  height: 22px;
 
-  margin: 20px auto 0;
-  padding: 40px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 16px;
+
+  border: 2px solid #aeb9c5;
+
+  border-radius: 50%;
 
   background: #ffffff;
 
-  border: 1px solid #e3e8ee;
-  border-radius: 16px;
+  transition: border-color 0.25s ease;
+}
 
-  box-shadow: 0 12px 35px rgba(20, 45, 70, 0.07);
+.inquiry-option:hover .inquiry-radio {
+  border-color: #1d5f9e;
+}
+
+.inquiry-radio-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #1d5f9e;
+
+  opacity: 0;
+
+  transform: scale(0.5);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.inquiry-option:hover .inquiry-radio-dot {
+  opacity: 1;
+  transform: scale(1);
 }
 
 
-/* ================================
-   Selected Contact Type
-================================ */
+/* =================================
+   Inquiry Content
+================================= */
 
-.selected-type {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
+.inquiry-content {
+  flex: 1;
 
-  border-bottom: 1px solid #e7ebef;
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
 }
 
-.selected-type span {
+.inquiry-content strong {
+  font-size: 16px;
+  font-weight: 650;
+
+  color: #182433;
+}
+
+.inquiry-content small {
+  font-size: 13px;
+  font-weight: 400;
+
+  color: #7a8795;
+}
+
+
+/* =================================
+   Arrow
+================================= */
+
+.inquiry-arrow {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f1f6fa;
+
+  color: #1d5f9e;
+
+  font-size: 18px;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.inquiry-option:hover .inquiry-arrow {
+  background: #e5f0f8;
+
+  transform: translateX(3px);
+}
+
+
+/* =================================
+   MODAL OVERLAY
+================================= */
+
+.contact-modal-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  background:
+    rgba(15, 27, 40, 0.58);
+
+  backdrop-filter: blur(6px);
+
+  animation: overlayShow 0.25s ease;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* =================================
+   MODAL
+================================= */
+
+.contact-modal {
+  width: 100%;
+  max-width: 850px;
+
+  max-height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 30px 80px rgba(10, 30, 50, 0.25);
+
+  animation: modalShow 0.3s ease;
+}
+
+@keyframes modalShow {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* =================================
+   Modal Header
+================================= */
+
+.contact-modal-header {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 28px 32px 24px;
+
+  border-bottom: 1px solid #edf0f3;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f8fbfe 100%
+    );
+}
+
+.modal-label {
   display: block;
+
   margin-bottom: 7px;
 
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+
+  letter-spacing: 1.7px;
 
   color: #1d5f9e;
 }
 
-.selected-type h3 {
+.contact-modal-header h3 {
   margin: 0;
 
   font-size: 26px;
@@ -197,129 +360,95 @@
   color: #182433;
 }
 
+.contact-modal-header p {
+  margin: 7px 0 0;
 
-/* ================================
-   Form
-================================ */
+  font-size: 13px;
+  line-height: 1.5;
 
-.contact-form {
-  width: 100%;
+  color: #7a8795;
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
 
-.form-group {
+/* =================================
+   Close Button
+================================= */
+
+.modal-close-button {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-  margin-bottom: 20px;
-}
+  margin-left: 20px;
 
-.form-group label {
-  margin-bottom: 8px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: #263548;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  height: 48px;
-
-  padding: 0 14px;
-
-  border: 1px solid #d8e0e8;
-  border-radius: 7px;
-
-  outline: none;
+  border: 1px solid #e1e7ed;
+  border-radius: 50%;
 
   background: #ffffff;
-  color: #263548;
 
-  font-family: inherit;
-  font-size: 14px;
-
-  transition: border-color 0.2s ease,
-              box-shadow 0.2s ease;
-}
-
-.form-group input::placeholder {
-  color: #9aa6b2;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #1d5f9e;
-
-  box-shadow: 0 0 0 3px rgba(29, 95, 158, 0.08);
-}
-
-
-/* ================================
-   Address
-================================ */
-
-.address-section {
-  margin-top: 15px;
-  padding-top: 25px;
-
-  border-top: 1px solid #e7ebef;
-}
-
-.address-section h3 {
-  margin: 0 0 22px;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  color: #182433;
-}
-
-
-/* ================================
-   Submit Button
-================================ */
-
-.submit-button {
-  margin-top: 10px;
-
-  min-width: 130px;
-  padding: 13px 28px;
-
-  border: none;
-  border-radius: 7px;
-
-  background: #1d5f9e;
-  color: #ffffff;
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
+  color: #526273;
 
   cursor: pointer;
 
-  transition: background 0.3s ease,
-              transform 0.3s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.submit-button:hover {
-  background: #164d82;
-  transform: translateY(-2px);
+.modal-close-button:hover {
+  border-color: #1d5f9e;
+
+  background: #edf5fc;
+
+  color: #1d5f9e;
+
+  transform: rotate(90deg);
 }
 
 
-/* ================================
+/* =================================
+   Modal Body
+================================= */
+
+.contact-modal-body {
+  overflow-y: auto;
+
+  padding: 30px 32px 32px;
+}
+
+
+/* =================================
+   Scrollbar
+================================= */
+
+.contact-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact-modal-body::-webkit-scrollbar-track {
+  background: #f5f7f9;
+}
+
+.contact-modal-body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+
+  background: #c8d2dc;
+}
+
+
+/* =================================
    Tablet
-================================ */
+================================= */
 
 @media (max-width: 768px) {
+
   .contact-section {
     padding: 70px 5%;
   }
@@ -328,21 +457,28 @@
     font-size: 36px;
   }
 
-  .contact-form-area {
-    padding: 30px;
+  .contact-modal {
+    max-width: 95%;
+    max-height: 92vh;
   }
 
-  .form-row {
-    gap: 15px;
+  .contact-modal-header {
+    padding: 24px;
   }
+
+  .contact-modal-body {
+    padding: 25px;
+  }
+
 }
 
 
-/* ================================
+/* =================================
    Mobile
-================================ */
+================================= */
 
 @media (max-width: 468px) {
+
   .contact-section {
     padding: 55px 20px;
   }
@@ -355,35 +491,69 @@
     font-size: 14px;
   }
 
-  .contact-button {
-    width: 100%;
-    max-width: 220px;
+  .inquiry-options {
+    gap: 11px;
   }
 
-  .contact-options {
-    width: 220px;
-  }
+  .inquiry-option {
+    min-height: 70px;
 
-  .contact-form-area {
-    padding: 25px 18px;
+    padding: 13px 15px;
+
     border-radius: 12px;
   }
 
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 0;
+  .inquiry-content strong {
+    font-size: 15px;
   }
 
-  .selected-type h3 {
-    font-size: 23px;
+  .inquiry-content small {
+    font-size: 11px;
   }
 
-  .form-group input,
-  .form-group select {
-    height: 46px;
+  .inquiry-radio {
+    width: 20px;
+    height: 20px;
+
+    margin-right: 12px;
   }
 
-  .submit-button {
-    width: 100%;
+  .inquiry-arrow {
+    width: 30px;
+    height: 30px;
   }
+
+  .contact-modal-overlay {
+    padding: 12px;
+  }
+
+  .contact-modal {
+    max-width: 100%;
+
+    max-height: 94vh;
+
+    border-radius: 16px;
+  }
+
+  .contact-modal-header {
+    padding: 20px;
+  }
+
+  .contact-modal-header h3 {
+    font-size: 21px;
+  }
+
+  .contact-modal-header p {
+    font-size: 12px;
+  }
+
+  .modal-close-button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .contact-modal-body {
+    padding: 22px 18px 25px;
+  }
+
 }

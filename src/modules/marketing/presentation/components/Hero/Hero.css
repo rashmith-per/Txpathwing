@@ -38,6 +38,7 @@
     position: relative;
 
     z-index: 2;
+    margin-left: 80px;
 }
 
 
@@ -89,12 +90,7 @@
 
     color: #080f22;
 
-    font-size:
-        clamp(
-            54px,
-            5.35vw,
-            78px
-        );
+    font-size: clamp(54px,5.35vw,78px);
 
     line-height: 0.99;
 

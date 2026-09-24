@@ -1,0 +1,105 @@
+.company-form {
+  width: 100%;
+}
+
+.company-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.company-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.company-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #344054;
+}
+
+.company-field input,
+.company-field select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d9e1e8;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #263548;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.company-field input::placeholder {
+  color: #a0aab5;
+}
+
+.company-field input:hover,
+.company-field select:hover {
+  border-color: #b8c5d1;
+}
+
+.company-field input:focus,
+.company-field select:focus {
+  border-color: #1d5f9e;
+  box-shadow: 0 0 0 3px rgba(29, 95, 158, 0.09);
+}
+
+.company-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.company-submit {
+  min-width: 162px;
+  height: 48px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 8px;
+  background: #1d5f9e;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(29, 95, 158, 0.18);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.company-submit:hover {
+  background: #164d82;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(29, 95, 158, 0.22);
+}
+
+@media (max-width: 600px) {
+  .company-form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .company-field input,
+  .company-field select {
+    height: 46px;
+  }
+
+  .company-form-footer {
+    margin-top: 24px;
+  }
+
+  .company-submit {
+    width: 100%;
+  }
+}

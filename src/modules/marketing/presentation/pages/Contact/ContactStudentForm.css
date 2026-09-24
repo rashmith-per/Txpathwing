@@ -1,0 +1,188 @@
+.student-form {
+  width: 100%;
+}
+
+
+/* ================================
+   Grid
+================================ */
+
+.student-form-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px 20px;
+}
+
+
+/* ================================
+   Field
+================================ */
+
+.student-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+/* ================================
+   Label
+================================ */
+
+.student-field label {
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #344054;
+}
+
+
+/* ================================
+   Input / Select
+================================ */
+
+.student-field input,
+.student-field select {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 14px;
+
+  border: 1px solid #d9e1e8;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #263548;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.student-field input::placeholder {
+  color: #a0aab5;
+}
+
+.student-field input:hover,
+.student-field select:hover {
+  border-color: #b8c5d1;
+}
+
+.student-field input:focus,
+.student-field select:focus {
+  border-color: #1d5f9e;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(29, 95, 158, 0.09);
+}
+
+
+/* ================================
+   Address
+================================ */
+
+.student-address {
+  border-top: 1px solid #edf0f3;
+}
+
+.student-section-title {
+  margin-bottom: 18px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #182433;
+}
+
+
+/* ================================
+   Footer
+================================ */
+
+.student-form-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 28px;
+}
+
+
+/* ================================
+   Submit
+================================ */
+
+.student-submit {
+  min-width: 150px;
+
+  padding: 13px 22px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #1d5f9e;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px rgba(29, 95, 158, 0.18);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.student-submit:hover {
+  background: #164d82;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 8px 20px rgba(29, 95, 158, 0.22);
+}
+
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 600px) {
+
+  .student-form-grid {
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+  }
+
+  .student-field input,
+  .student-field select {
+    height: 46px;
+  }
+
+  .student-form-footer {
+    margin-top: 24px;
+  }
+
+  .student-submit {
+    width: 100%;
+  }
+
+}

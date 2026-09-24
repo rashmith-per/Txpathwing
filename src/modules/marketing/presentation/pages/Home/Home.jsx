@@ -35,12 +35,6 @@ const Home = () => {
 
       {/* Courses Section */}
       <Courses />
-
-      {/* Delivery Modes Section */}
-      <OnePlatform />
-      
-
-       {/* One Platform */}
       
       <HiringPartners /> 
 
