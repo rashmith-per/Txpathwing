@@ -1,28 +1,20 @@
 .organization-page {
- 
   overflow: hidden;
-  background:white;
+  background: #ffffff;
   color: #172033;
 }
- 
+
 .organization-page *,
 .organization-page *::before,
 .organization-page *::after {
   box-sizing: border-box;
 }
- 
-.organization-page a {
-  text-decoration: none;
-}
- 
 
- 
 .organization-section-heading {
   margin-bottom: 55px;
 }
- 
-.organization-section-label,
-.organization-label {
+
+.organization-section-label {
   display: block;
   margin-bottom: 16px;
   color: #1769e0;
@@ -31,264 +23,83 @@
   letter-spacing: 1.8px;
   text-align: center;
 }
- 
+
 .organization-section-heading h2 {
-  text-align: center;
+  margin: 0 0 18px;
   color: #172033;
   font-size: clamp(34px, 4vw, 52px);
   line-height: 1.12;
   font-weight: 750;
+  text-align: center;
 }
- 
+
 .organization-section-heading h2 span {
   color: #1769e0;
 }
- 
+
 .organization-section-heading p {
-  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
   color: #657084;
   font-size: 17px;
   line-height: 1.75;
+  text-align: center;
 }
- 
+
 .centered-heading {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
- 
-.centered-heading p {
-  margin-left: auto;
-  margin-right: auto;
-}
- 
-  
-.organization-hero {
-  position: relative;
-  min-height: 550px;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  align-items: center;
-  gap: 40px;
-  padding: 100px 8%;
-  background:
-    radial-gradient(
-      circle at 85% 20%,
-      rgba(23, 105, 224, 0.10),
-      transparent 32%
-    ),
-    linear-gradient(
-      135deg,
-      #f8fbff 0%,
-      #ffffff 65%
-    );
-}
- 
-.organization-hero-content {
-  position: relative;
-  z-index: 3;
-  max-width: 650px;
-}
- 
-.organization-hero-content h1 {
-  margin: 0 0 24px;
-  color: #172033;
-  font-size: clamp(46px, 5.5vw, 76px);
-  line-height: 1.03;
-  letter-spacing: -2.5px;
-  font-weight: 800;
-}
- 
-.organization-hero-content h1 span {
-  color: #1769e0;
-}
- 
-.organization-hero-content p {
-  max-width: 600px;
-  margin: 0 0 35px;
-  color: #5f6b7c;
-  font-size: 19px;
-  line-height: 1.7;
-}
- 
-.organization-hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
- 
-.primary-action,
-.secondary-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 52px;
-  padding: 0 25px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  transition: 0.25s ease;
-}
- 
-.primary-action {
-  color: #ffffff;
-  background: #1769e0;
-  box-shadow: 0 10px 25px rgba(23, 105, 224, 0.20);
-}
- 
-.primary-action:hover {
-  transform: translateY(-2px);
-  background: #0e58c5;
-}
- 
-.secondary-action {
-  color: #1769e0;
-  border: 1px solid #cddcf3;
-  background: #ffffff;
-}
- 
-.secondary-action:hover {
-  border-color: #1769e0;
-  background: #f4f8ff;
-}
- 
- 
-/* =========================================
-   HERO VISUAL
-========================================= */
- 
-.organization-hero-visual {
-  position: relative;
-  min-height: 460px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
- 
-.hero-circle {
-  position: absolute;
-  border-radius: 50%;
-}
- 
-.hero-circle-one {
-  width: 390px;
-  height: 390px;
-  background: #eaf3ff;
-}
- 
-.hero-circle-two {
-  width: 280px;
-  height: 280px;
-  border: 1px solid rgba(23, 105, 224, 0.16);
-  background: #f8fbff;
-}
- 
-.hero-people-card {
-  position: relative;
-  z-index: 2;
-  width: 310px;
-  height: 310px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border: 1px solid rgba(23, 105, 224, 0.12);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 25px 60px rgba(35, 72, 120, 0.12);
-}
- 
-.hero-person {
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #eef5ff;
-  font-size: 32px;
-}
- 
-.hero-person-middle {
-  width: 88px;
-  height: 88px;
-  background: #dcecff;
-  transform: translateY(-22px);
-}
- 
-.hero-connection-line {
-  position: absolute;
-  width: 185px;
-  height: 1px;
-  top: 50%;
-  background: #bcd4f5;
-  z-index: -1;
-}
- 
-.hero-floating-card {
-  position: absolute;
-  z-index: 4;
-  min-width: 170px;
-  padding: 16px 19px;
-  border: 1px solid #e0e8f3;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 15px 35px rgba(36, 69, 112, 0.10);
-}
- 
-.hero-floating-card strong {
-  display: block;
-  margin-bottom: 4px;
-  color: #172033;
-  font-size: 15px;
-}
- 
-.hero-floating-card span {
-  color: #718096;
-  font-size: 12px;
-}
- 
-.hero-company-card {
-  top: 65px;
-  left: 0;
-}
- 
-.hero-talent-card {
-  right: 0;
-  bottom: 65px;
-}
- 
- 
-/* =========================================
-   ORGANIZATION INFORMATION
-========================================= */
- 
+
 .organization-information {
   padding: 30px 8%;
 }
- 
+
 .organization-information-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
- 
+
 .information-card {
   min-height: 250px;
   padding: 30px;
   border: 1px solid #e3eaf3;
   border-radius: 16px;
   background: #ffffff;
-  transition: 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  animation-duration: 1.2s;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
- 
+
+.information-card:nth-child(1) {
+  animation-name: card-one-enter;
+}
+
+.information-card:nth-child(2) {
+  animation-name: card-two-enter;
+}
+
+.information-card:nth-child(3) {
+  animation-name: card-three-enter;
+}
+
+.information-card:nth-child(4) {
+  animation-name: card-four-enter;
+}
+
 .information-card:hover {
   border-color: #c7daf5;
   transform: translateY(-5px);
   box-shadow: 0 18px 40px rgba(36, 69, 112, 0.08);
 }
- 
+
 .information-icon {
   width: 45px;
   height: 45px;
@@ -302,570 +113,506 @@
   font-size: 12px;
   font-weight: 800;
 }
- 
+
 .information-card h3 {
   margin: 0 0 12px;
   color: #172033;
   font-size: 21px;
 }
- 
+
 .information-card p {
   margin: 0;
   color: #687487;
   font-size: 14px;
   line-height: 1.75;
 }
- 
- 
-/* =========================================
-   INSTITUTIONAL PATHWAY
-========================================= */
- 
+
+@keyframes card-one-enter {
+  0% {
+    transform: translateX(calc(31.5vw + 7.5px));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-two-enter {
+  0% {
+    transform: translateX(calc(10.5vw + 2.5px));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-three-enter {
+  0% {
+    transform: translateX(calc(-10.5vw - 2.5px));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes card-four-enter {
+  0% {
+    transform: translateX(calc(-31.5vw - 7.5px));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .institutional-pathway {
-  padding: 20px 8% 70px;
-  background: WHITE;
+  padding: 70px 6% 100px;
+  background: #ffffff;
 }
- 
-.pathway-full {
+
+.institutional-pathway .organization-section-heading {
+  margin-bottom: 65px;
+}
+
+.pathway-roadmap {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
-  max-width: 1300px;
-  margin: 80px auto 0;
+  width: min(1250px, 100%);
+  height: 450px;
+  margin: 0 auto;
 }
- 
-.pathway-line {
+
+.pathway-roadmap-line {
   position: absolute;
-  top: 30px;
-  left: 7%;
-  right: 7%;
-  height: 2px;
-  background: #cbdcf4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+  pointer-events: none;
 }
- 
-.pathway-step {
-  position: relative;
-  z-index: 2;
-  text-align: center;
+
+.pathway-line-base {
+  fill: none;
+  stroke: #d9e8fb;
+  stroke-width: 5;
+  stroke-linecap: round;
 }
- 
-.pathway-number {
-  width: 60px;
-  height: 60px;
+
+.pathway-line-flow {
+  fill: none;
+  stroke: #70a9f7;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 9 13;
+  animation: pathway-flow 2.5s linear infinite;
+}
+
+@keyframes pathway-flow {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+
+.pathway-card {
+  position: absolute;
+  z-index: 3;
+  width: 255px;
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid rgba(222, 231, 244, 0.95);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 15px 35px rgba(44, 82, 128, 0.10);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.pathway-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #c7daf5;
+  box-shadow: 0 22px 45px rgba(44, 82, 128, 0.16);
+}
+
+.pathway-card-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 22px;
-  border: 5px solid #f7faff;
   border-radius: 50%;
-  color: #ffffff;
-  background: #1769e0;
+}
+
+.pathway-card-icon svg {
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pathway-card-content {
+  min-width: 0;
+}
+
+.pathway-card-number {
+  display: block;
+  margin-bottom: 2px;
   font-size: 12px;
   font-weight: 800;
 }
- 
-.pathway-number:hover {
-  background: white;
-  border:2px solid blue;
-  color:blue;
-}
- 
-.pathway-step h3 {
-  margin: 0 0 9px;
+
+.pathway-card h3 {
+  margin: 0 0 6px;
   color: #172033;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 750;
 }
- 
-.pathway-step p {
+
+.pathway-card p {
   margin: 0;
   color: #718096;
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.55;
 }
- 
- 
-/* =========================================
-   PARTNERSHIP SECTION
-========================================= */
- 
-.partnership-section {
-  padding: 110px 8%;
+
+.pathway-step-one {
+  top: 40px;
+  left: 0;
 }
- 
-.partnership-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+
+.pathway-step-two {
+  top: 250px;
+  left: 18%;
 }
- 
-.partnership-card {
-  position: relative;
+
+.pathway-step-three {
+  top: 40px;
+  left: 39%;
+}
+
+.pathway-step-four {
+  top: 250px;
+  left: 56%;
+}
+
+.pathway-step-five {
+  top: 40px;
+  left: 79%;
+}
+
+.pathway-step-six {
+  top: 250px;
+  right: -2%;
+}
+
+.pathway-step-one .pathway-card-icon {
+  color: #1769e0;
+  background: #eaf3ff;
+}
+
+.pathway-step-one .pathway-card-number {
+  color: #1769e0;
+}
+
+.pathway-step-two .pathway-card-icon {
+  color: #16b86a;
+  background: #e9fbf2;
+}
+
+.pathway-step-two .pathway-card-number {
+  color: #16b86a;
+}
+
+.pathway-step-three .pathway-card-icon {
+  color: #8064df;
+  background: #f1edff;
+}
+
+.pathway-step-three .pathway-card-number {
+  color: #8064df;
+}
+
+.pathway-step-four .pathway-card-icon {
+  color: #f49a27;
+  background: #fff4e5;
+}
+
+.pathway-step-four .pathway-card-number {
+  color: #f49a27;
+}
+
+.pathway-step-five .pathway-card-icon {
+  color: #ec4f83;
+  background: #fff0f6;
+}
+
+.pathway-step-five .pathway-card-number {
+  color: #ec4f83;
+}
+
+.pathway-step-six .pathway-card-icon {
+  color: #12b8b5;
+  background: #e9fbfb;
+}
+
+.pathway-step-six .pathway-card-number {
+  color: #12b8b5;
+}
+
+.form-section {
   min-height: 300px;
-  padding: 35px;
-  border: 1px solid #e1e8f1;
-  border-radius: 16px;
-  background: #ffffff;
-  transition: 0.25s ease;
+  padding: 60px 8%;
 }
- 
-.partnership-card:hover {
-  border-color: #bfd4f2;
-  transform: translateY(-5px);
-  box-shadow: 0 18px 45px rgba(34, 68, 111, 0.09);
-}
- 
-.partnership-number {
-  display: block;
-  margin-bottom: 45px;
-  color: #1769e0;
-  font-size: 13px;
-  font-weight: 800;
-}
- 
-.partnership-card h3 {
-  max-width: 270px;
-  margin: 0 0 14px;
-  color: #172033;
-  font-size: 22px;
-  line-height: 1.25;
-}
- 
-.partnership-card p {
-  margin: 0 0 25px;
-  color: #687487;
-  font-size: 14px;
-  line-height: 1.75;
-}
- 
-.partnership-card a {
-  color: #1769e0;
-  font-size: 14px;
-  font-weight: 700;
-}
- 
-.partnership-card a:hover {
-  color: #0e58c5;
-}
- 
- 
-/* =========================================
-   CONTACT SECTION
-========================================= */
- 
-.organization-contact {
-  position: relative;
-  min-height: 480px;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: center;
-  gap: 60px;
-  margin:auto;
-  border-radius: 30px;
-  padding: 0px 8%;
-  width: 80%;
-  overflow: hidden;
-  background:linear-gradient( 45deg,#102b52 50%,  #2c80f6);
-}
- 
-.contact-content {
-  position: relative;
-  z-index: 3;
-}
- 
-.organization-contact .section-label {
-  color: #73a9f5;
-}
- 
-.organization-contact h2 {
-  margin: 0 0 24px;
-  color: #ffffff;
-  font-size: clamp(42px, 5vw, 65px);
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-}
- 
-.organization-contact h2 span {
-  color: #69a5f5;
-}
- 
-.organization-contact p {
-  max-width: 620px;
-  margin: 0 0 9px;
-  color: #c3d1e3;
-  font-size: 17px;
-  line-height: 1.7;
-}
- 
-.contact-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 35px;
-}
- 
-.contact-actions a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 50px;
-  padding: 0 20px;
-  border: 1px solid rgba(255, 255, 255, 0.20);
-  border-radius: 7px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 14px;
-  font-weight: 700;
-  transition: 0.25s ease;
-}
- 
-.contact-actions a:first-child {
-  border-color: #1769e0;
-  background: #1769e0;
-}
- 
-.contact-actions a:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.15);
-}
- 
- 
-/* =========================================
-   CONTACT VISUAL
-========================================= */
- 
-.contact-side {
-  position: relative;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
- 
-.contact-side-circle {
-  position: absolute;
-  width: 390px;
-  height: 390px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-}
- 
-.contact-side-circle::before {
-  content: "";
-  position: absolute;
-  inset: 45px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 50%;
-}
- 
-.contact-message-card {
-  position: relative;
-  z-index: 2;
-  width: 300px;
-  padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-}
- 
-.contact-message-icon {
-  display: block;
-  margin-bottom: 25px;
-  color: #69a5f5;
-  font-size: 28px;
-}
- 
-.contact-message-card h3 {
-  margin: 0 0 15px;
-  color: #ffffff;
-  font-size: 25px;
-  line-height: 1.2;
-}
- 
-.contact-message-card p {
-  margin: 0 0 20px;
-  color: #b7c7db;
-  font-size: 13px;
-  line-height: 1.7;
-}
- 
-.contact-message-card a {
-  color: #69a5f5;
-  font-size: 13px;
-  font-weight: 700;
-}
- 
- 
-/* =========================================
-   LAPTOP
-========================================= */
- 
+
 @media (max-width: 1100px) {
- 
-  .organization-hero {
-    padding: 80px 6%;
-  }
- 
   .organization-information,
-  .institutional-pathway,
-  .partnership-section {
+  .institutional-pathway {
     padding-left: 6%;
     padding-right: 6%;
   }
- 
+
   .organization-information-grid {
     grid-template-columns: repeat(2, 1fr);
   }
- 
-  .pathway-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 55px;
+
+  .pathway-roadmap {
+    height: 650px;
   }
- 
-  .pathway-line {
+
+  .pathway-roadmap-line {
     display: none;
   }
- 
-  .partnership-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .pathway-card {
+    width: calc(50% - 15px);
   }
- 
-  .organization-contact {
-    padding-left: 6%;
-    padding-right: 6%;
+
+  .pathway-step-one {
+    top: 0;
+    left: 0;
+  }
+
+  .pathway-step-two {
+    top: 130px;
+    left: auto;
+    right: 0;
+  }
+
+  .pathway-step-three {
+    top: 260px;
+    left: 0;
+  }
+
+  .pathway-step-four {
+    top: 390px;
+    left: auto;
+    right: 0;
+  }
+
+  .pathway-step-five {
+    top: 520px;
+    left: 0;
+  }
+
+  .pathway-step-six {
+    top: 650px;
+    right: 0;
   }
 }
- 
- 
-/* =========================================
-   TABLET
-========================================= */
- 
+
 @media (max-width: 768px) {
- 
-  .organization-hero {
-    min-height: auto;
-    grid-template-columns: 1fr;
-    padding: 75px 6% 90px;
-  }
- 
-  .organization-hero-content {
-    text-align: center;
-    margin: auto;
-  }
- 
-  .organization-hero-content p {
-    margin-left: auto;
-    margin-right: auto;
-  }
- 
-  .organization-hero-actions {
-    justify-content: center;
-  }
- 
-  .organization-hero-visual {
-    min-height: 400px;
-  }
- 
   .organization-information,
-  .institutional-pathway,
-  .partnership-section {
-    padding-top: 80px;
-    padding-bottom: 80px;
+  .institutional-pathway {
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
- 
+
   .organization-section-heading {
     margin-bottom: 40px;
   }
- 
-  .pathway-wrapper {
+
+  .organization-information-grid {
     grid-template-columns: repeat(2, 1fr);
   }
- 
-  .organization-contact {
-    grid-template-columns: 1fr;
-    padding-top: 75px;
-    padding-bottom: 75px;
-    text-align: center;
+
+  .institutional-pathway .organization-section-heading {
+    margin-bottom: 45px;
   }
- 
-  .organization-contact p {
-    margin-left: auto;
-    margin-right: auto;
+
+  .pathway-roadmap {
+    height: 780px;
   }
- 
-  .contact-actions {
-    justify-content: center;
+
+  .pathway-card {
+    width: 80%;
+    min-height: 105px;
   }
-}
- 
- 
-/* =========================================
-   MOBILE
-========================================= */
- 
-@media (max-width: 468px) {
- 
-  .organization-hero {
-    padding: 60px 20px 70px;
-  }
- 
-  .organization-hero-content h1 {
-    font-size: 43px;
-    letter-spacing: -1.5px;
-  }
- 
-  .organization-hero-content p {
-    font-size: 16px;
-  }
- 
-  .organization-hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
- 
-  .primary-action,
-  .secondary-action {
-    width: 100%;
-  }
- 
-  .organization-hero-visual {
-    min-height: 340px;
-  }
- 
-  .hero-circle-one {
-    width: 280px;
-    height: 280px;
-  }
- 
-  .hero-circle-two {
-    width: 210px;
-    height: 210px;
-  }
- 
-  .hero-people-card {
-    width: 250px;
-    height: 250px;
-  }
- 
-  .hero-person {
-    width: 52px;
-    height: 52px;
-    font-size: 23px;
-  }
- 
-  .hero-person-middle {
-    width: 67px;
-    height: 67px;
-  }
- 
-  .hero-floating-card {
-    min-width: 125px;
-    padding: 12px;
-  }
- 
-  .hero-company-card {
-    top: 25px;
+
+  .pathway-step-one {
+    top: 0;
     left: 0;
   }
- 
-  .hero-talent-card {
+
+  .pathway-step-two {
+    top: 135px;
     right: 0;
-    bottom: 25px;
   }
- 
+
+  .pathway-step-three {
+    top: 270px;
+    left: 0;
+  }
+
+  .pathway-step-four {
+    top: 405px;
+    right: 0;
+  }
+
+  .pathway-step-five {
+    top: 540px;
+    left: 0;
+  }
+
+  .pathway-step-six {
+    top: 675px;
+    right: 0;
+  }
+}
+
+@media (max-width: 468px) {
   .organization-information,
-  .institutional-pathway,
-  .partnership-section {
+  .institutional-pathway {
     padding-left: 20px;
     padding-right: 20px;
   }
- 
+
   .organization-section-heading h2 {
     font-size: 35px;
   }
- 
+
   .organization-section-heading p {
     font-size: 15px;
   }
- 
+
   .organization-information-grid {
     grid-template-columns: 1fr;
   }
- 
+
   .information-card {
-    min-height: auto;
+    min-height: 250px;
   }
- 
-  .pathway-wrapper {
-    grid-template-columns: 1fr;
-    gap: 35px;
+
+  .pathway-roadmap {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-left: 12px;
   }
- 
-  .pathway-step {
-    text-align: left;
-    display: grid;
-    grid-template-columns: 55px 1fr;
-    column-gap: 15px;
+
+  .pathway-roadmap-line {
+    display: block;
+    top: 0;
+    left: 32px;
+    width: 4px;
+    height: 100%;
+    overflow: visible;
   }
- 
-  .pathway-number {
-    grid-row: span 2;
-    margin: 0;
-    width: 55px;
-    height: 55px;
+
+  .pathway-line-base,
+  .pathway-line-flow {
+    display: none;
   }
- 
-  .pathway-step h3 {
-    align-self: end;
-    margin-bottom: 5px;
+
+  .pathway-roadmap::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    bottom: 25px;
+    left: 30px;
+    width: 3px;
+    border-radius: 10px;
+    background: #d9e8fb;
   }
- 
-  .pathway-step p {
-    align-self: start;
+
+  .pathway-roadmap::after {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    width: 3px;
+    height: 100px;
+    border-radius: 10px;
+    background: #70a9f7;
+    animation: mobile-pathway-flow 2.5s linear infinite;
   }
- 
-  .partnership-grid {
-    grid-template-columns: 1fr;
+
+  .pathway-card {
+    position: relative;
+    inset: auto;
+    width: calc(100% - 45px);
+    margin-left: 45px;
   }
- 
-  .partnership-card {
-    min-height: auto;
-    padding: 28px;
+
+  .pathway-card::before {
+    content: "";
+    position: absolute;
+    left: -19px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #70a9f7;
   }
- 
-  .partnership-number {
-    margin-bottom: 30px;
+
+  .pathway-card-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
   }
- 
-  .organization-contact {
+
+  .pathway-card h3 {
+    font-size: 16px;
+  }
+
+  .pathway-card p {
+    font-size: 12px;
+  }
+
+  .form-section {
     padding-left: 20px;
     padding-right: 20px;
   }
- 
-  .organization-contact h2 {
-    font-size: 42px;
+}
+
+@keyframes mobile-pathway-flow {
+  from {
+    transform: translateY(0);
   }
- 
-  .contact-actions {
-    flex-direction: column;
+
+  to {
+    transform: translateY(500px);
   }
- 
-  .contact-actions a {
-    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .information-card,
+  .pathway-line-flow,
+  .pathway-roadmap::after {
+    animation: none;
   }
- 
-  .contact-side {
-    min-height: 340px;
-  }
- 
-  .contact-side-circle {
-    width: 300px;
-    height: 300px;
-  }
- 
-  .contact-message-card {
-    width: 270px;
+
+  .pathway-card {
+    transition: none;
   }
 }
