@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses as marketCourses } from "../MarketPlace/coursesList";
 import "./CourseDetails.css";
-
+ 
 const extendedCoursesData = {
   "react-fs": {
     code: "REACT-FS",
@@ -301,22 +301,22 @@ const extendedCoursesData = {
     skills: ["Aptitude", "Logical Reasoning", "Communication", "Campus Hiring"]
   }
 };
-
+ 
 export default function CourseDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-
+ 
   const cleanId = (id || "").toLowerCase();
-
+ 
   // Try direct lookup
   let course = extendedCoursesData[cleanId];
-
+ 
   // Fallback match using coursesList array if not in dictionary directly
   if (!course) {
     const marketMatch = marketCourses.find(
       (c) => (c.id || "").toLowerCase() === cleanId
     );
-
+ 
     if (marketMatch) {
       course = {
         code: marketMatch.id,
@@ -343,7 +343,7 @@ export default function CourseDetail() {
       };
     }
   }
-
+ 
   if (!course) {
     return (
       <div className="detail-notfound">
@@ -353,7 +353,7 @@ export default function CourseDetail() {
       </div>
     );
   }
-
+ 
   return (
     <div className="detail-page">
       <div className="detail-breadcrumb">
@@ -364,20 +364,20 @@ export default function CourseDetail() {
         >
           ← Back to Courses
         </button>
-
+ 
         <span className="crumb">
           Marketplace &gt; {course.category || "Course"} &gt; {course.code}
         </span>
       </div>
-
+ 
       <div className="detail-layout">
         <div className="detail-main">
           <div className="detail-badge">
             {course.code} • {course.level}
           </div>
-
+ 
           <h1 className="detail-title">{course.title}</h1>
-
+ 
           <div className="detail-instructor">
             <div className="avatar">{course.emoji}</div>
             <div>
@@ -390,9 +390,9 @@ export default function CourseDetail() {
               <span>⭐ {course.rating} ({course.reviews})</span>
             </div>
           </div>
-
+ 
           <p className="detail-about">{course.about}</p>
-
+ 
           <div className="detail-skills">
             {course.skills.map((skill) => (
               <span key={skill} className="skill-pill">
@@ -400,7 +400,7 @@ export default function CourseDetail() {
               </span>
             ))}
           </div>
-
+ 
           <h2 className="section-title">Syllabus — {course.code} Track</h2>
           <div className="syllabus-list">
             {course.syllabus.map((mod, i) => (
@@ -420,7 +420,7 @@ export default function CourseDetail() {
               </div>
             ))}
           </div>
-
+ 
           <h2 className="section-title">Capstone Projects</h2>
           <div className="projects-list">
             {course.projects.map((p, i) => (
@@ -431,7 +431,7 @@ export default function CourseDetail() {
             ))}
           </div>
         </div>
-
+ 
         <div className="detail-sidebar">
           <div className="buy-card">
             <div className="buy-price">
@@ -443,26 +443,26 @@ export default function CourseDetail() {
                 </>
               )}
             </div>
-
+ 
             <button type="button" className="buy-btn">
               Enroll Now — {course.price}
             </button>
             <button type="button" className="cart-btn">
               Add to Cart
             </button>
-
+ 
             <div className="buy-features">
               <div>✓ Lifetime Access to Course Labs</div>
               <div>✓ Certificate + Placement Support</div>
               <div>✓ Live Mentor Doubt Sessions</div>
               <div>✓ GST Invoice Included</div>
             </div>
-
+ 
             <div className="trust">
               🔒 Secure payment by Pathwing • 7 day money-back guarantee
             </div>
           </div>
-
+ 
           <div className="info-card">
             <h4>This Course Includes</h4>
             <div>📹 {course.lessons} videos & lectures</div>
