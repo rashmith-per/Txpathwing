@@ -103,7 +103,6 @@ export default function Marketplace() {
         );
       }
 
-      navigate("/cart");
     } catch (error) {
       localStorage.setItem(
         "cart",

@@ -19,6 +19,7 @@ import CareersHero from "./modules/marketing/presentation/pages/Careers/Careers"
 import Organization from "./modules/marketing/presentation/pages/Contact/Contact";
 import Cart from "./modules/marketing/presentation/pages/Cart/Cart";
 import CourseDetail from "./modules/marketing/presentation/pages/CourseDetails/CourseDetails";
+import Login from "./modules/marketing/presentation/components/Login/Login";
 
 // Add this import only when Checkout.jsx exists
 // import Checkout from "./modules/marketing/presentation/pages/Checkout/Checkout";
@@ -57,7 +58,7 @@ function AppLayout() {
         <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Organization/>}/>
-        <Route path="/login" element={<SignIn />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/contact" element={<Organization />} />
 
