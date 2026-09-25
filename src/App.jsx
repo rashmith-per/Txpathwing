@@ -17,6 +17,7 @@ import Marketplace from "./modules/marketing/presentation/pages/MarketPlace/Mark
 import Blog from "./modules/marketing/presentation/pages/Blog/Blog";
 import CareersHero from "./modules/marketing/presentation/pages/Careers/Careers";
 import Organization from "./modules/marketing/presentation/pages/Contact/Contact";
+import Cart from "./modules/marketing/presentation/pages/Cart/Cart";
 import CourseDetail from "./modules/marketing/presentation/pages/CourseDetails/CourseDetails";
 
 // Add this import only when Checkout.jsx exists
@@ -55,6 +56,9 @@ function AppLayout() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Organization/>}/>
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/cart" element={<Cart/>} />
         <Route path="/contact" element={<Organization />} />
 
         {/* Checkout - enable when Checkout.jsx exists */}

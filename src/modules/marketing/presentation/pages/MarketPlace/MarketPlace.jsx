@@ -1,9 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ShoppingCart,
-  ArrowUpRight,
-} from "lucide-react";
 
 import "./MarketPlace.css";
 import MarketHeroSec from "./MarketHeroSec";
@@ -35,9 +31,7 @@ export default function Marketplace() {
     "Soft Skills": "Soft Skills",
   };
 
-
   const filtered = useMemo(() => {
-
     const selectedCategory =
       categoryMap[activeCategory] || activeCategory;
 
@@ -56,7 +50,6 @@ export default function Marketplace() {
         return false;
       }
 
-
       if (
         activePrice === "Free" &&
         course.price !== "₹0"
@@ -71,15 +64,9 @@ export default function Marketplace() {
         return false;
       }
 
-
       return true;
     });
-
-  }, [
-    activeCategory,
-    activeLevel,
-    activePrice,
-  ]);
+  }, [activeCategory, activeLevel, activePrice]);
 
   const handleCourseClick = (course) => {
     const isLoggedIn =
@@ -97,15 +84,48 @@ export default function Marketplace() {
   };
 
   const handleAddToCart = (event, course) => {
-
     event.stopPropagation();
 
-    console.log(
-      "Add to cart:",
-      course
-    );
-  };
+    try {
+      const existingCart = JSON.parse(
+        localStorage.getItem("cart") || "[]"
+      );
 
+      const cart = Array.isArray(existingCart)
+        ? existingCart
+        : [];
+
+      const alreadyInCart = cart.some(
+        (item) => item.id === course.id
+      );
+
+      if (!alreadyInCart) {
+        const updatedCart = [...cart, course];
+
+        localStorage.setItem(
+          "cart",
+          JSON.stringify(updatedCart)
+        );
+
+        window.dispatchEvent(
+          new Event("cartUpdated")
+        );
+      }
+
+      navigate("/cart");
+    } catch (error) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([course])
+      );
+
+      window.dispatchEvent(
+        new Event("cartUpdated")
+      );
+
+      navigate("/cart");
+    }
+  };
 
   return (
     <div className="mp-page">
@@ -126,7 +146,6 @@ export default function Marketplace() {
         <MarketHeroSec />
 
         <section className="mp-hero">
-
           <div className="mp-hero-accent">
             EXPLORE • LEARN • BUILD
           </div>
@@ -143,21 +162,15 @@ export default function Marketplace() {
             <br />
             splits revenue and raises the GST invoice.
           </p>
-
         </section>
 
         <div className="marketplace-layout">
-
           <aside className="mp-sidebar">
-
-
             <div className="sidebar-title">
               FILTER CATEGORIES
             </div>
 
-
             <div className="category-list">
-
               {[
                 "All",
                 "Software Development",
@@ -168,7 +181,6 @@ export default function Marketplace() {
                 "Data Science",
                 "Soft Skills",
               ].map((category) => (
-
                 <button
                   key={category}
                   type="button"
@@ -183,23 +195,13 @@ export default function Marketplace() {
                 >
                   {category}
                 </button>
-
               ))}
-
             </div>
-
           </aside>
 
-
           <main className="mp-course-area">
-
-
-            {/* RESULTS */}
-
             <div className="course-results-header">
-
               <div className="course-results">
-
                 <span className="results-count">
                   {filtered.length}
                 </span>
@@ -207,15 +209,11 @@ export default function Marketplace() {
                 <span className="results-text">
                   courses available
                 </span>
-
               </div>
-
             </div>
 
             <div className="mp-course-grid">
-
               {filtered.map((course) => (
-
                 <article
                   key={course.id}
                   className="market-course-card"
@@ -223,19 +221,15 @@ export default function Marketplace() {
                     handleCourseClick(course)
                   }
                 >
-
                   <div className="course-image-wrapper">
-
                     <img
                       src={course.image}
                       alt={course.title}
                       className="course-image"
                     />
-
                   </div>
 
                   <div className="course-card-content">
-
                     <div className="course-category">
                       {course.category}
                     </div>
@@ -245,7 +239,6 @@ export default function Marketplace() {
                     </h2>
 
                     <div className="course-meta">
-
                       <span>
                         {course.students ||
                           "1,240 students"}
@@ -258,11 +251,9 @@ export default function Marketplace() {
                       <span>
                         {course.lessons}
                       </span>
-
                     </div>
 
                     <div className="market-price">
-
                       <span className="current-price">
                         {course.price}
                       </span>
@@ -273,13 +264,9 @@ export default function Marketplace() {
                             {course.oldPrice}
                           </span>
                         )}
-
                     </div>
 
-
-
                     <div className="course-actions">
-
                       <button
                         type="button"
                         className="enroll-button"
@@ -294,7 +281,7 @@ export default function Marketplace() {
                       <button
                         type="button"
                         className="cart-button"
-                        aria-label="Add to cart"
+                        aria-label={`Add ${course.title} to cart`}
                         onClick={(event) =>
                           handleAddToCart(
                             event,
@@ -302,44 +289,16 @@ export default function Marketplace() {
                           )
                         }
                       >
-                        <ShoppingCart
-                          size={20}
-                          strokeWidth={2}
-                        />
+                        Add to cart
                       </button>
-
-                      <button
-                        type="button"
-                        className="card-arrow"
-                        aria-label="View course"
-                        onClick={(event) => {
-
-                          event.stopPropagation();
-
-                          handleCourseClick(course);
-
-                        }}
-                      >
-                        <ArrowUpRight
-                          size={18}
-                          strokeWidth={2.2}
-                        />
-                      </button>
-
                     </div>
-
                   </div>
-
                 </article>
-
               ))}
-
             </div>
 
             {filtered.length === 0 && (
-
               <div className="empty-courses">
-
                 <div className="empty-icon">
                   🔎
                 </div>
@@ -352,24 +311,16 @@ export default function Marketplace() {
                   Try changing your category,
                   level or price filter.
                 </p>
-
               </div>
-
             )}
-
           </main>
-
         </div>
 
         <div className="mp-footer">
-
-          Showing {filtered.length} of 14 sample courses ·
-          full catalogue lists 148.
-
+          Showing {filtered.length} of 14 sample courses · full
+          catalogue lists 148.
         </div>
-
       </div>
-
     </div>
   );
 }
