@@ -1,62 +1,48 @@
 import { useState, useEffect } from "react";
-
 import txIcon from "../../../../../assets/tx-icon.jpg";
-
 import { Link, useLocation } from "react-router-dom";
-
 import Login from "../Login/Login";
-
 import "./Header.css";
+import { ShoppingCart } from "lucide-react";
 
 const NAV_LINKS = [
   {
     label: "Home",
     path: "/",
   },
-
   {
     label: "About us",
     path: "/about",
   },
-
   {
     label: "Events",
     path: "/events",
   },
-
   {
     label: "Careers",
     path: "/careers",
   },
-
   {
     label: "Explore",
     path: "/marketplace",
   },
-
   {
     label: "Blog",
     path: "/blog",
   },
-
   {
     label: "Contact",
     path: "/contact",
   },
-
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Login popup state
   const [loginOpen, setLoginOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const location = useLocation();
-
-  /* Header scroll effect */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,8 +56,6 @@ export default function Header() {
     };
   }, []);
 
-  /* Prevent page scrolling when mobile menu is open */
-
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
 
@@ -80,26 +64,64 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  /* Check active page */
+  const updateCartCount = () => {
+    try {
+      const savedCart = JSON.parse(
+        localStorage.getItem("cart") || "[]"
+      );
+
+      setCartCount(
+        Array.isArray(savedCart)
+          ? savedCart.length
+          : 0
+      );
+    } catch {
+      setCartCount(0);
+    }
+  };
+
+  useEffect(() => {
+    updateCartCount();
+
+    window.addEventListener(
+      "cartUpdated",
+      updateCartCount
+    );
+
+    window.addEventListener(
+      "storage",
+      updateCartCount
+    );
+
+    return () => {
+      window.removeEventListener(
+        "cartUpdated",
+        updateCartCount
+      );
+
+      window.removeEventListener(
+        "storage",
+        updateCartCount
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    updateCartCount();
+  }, [location.pathname]);
 
   const isActive = (path) => {
     return location.pathname === path;
   };
 
-  /* Close mobile menu */
-
   const closeMenu = () => {
     setMenuOpen(false);
   };
-
-  /* Open login popup */
 
   const openLogin = () => {
     closeMenu();
     setLoginOpen(true);
   };
-
-  /* Close login popup */
 
   const closeLogin = () => {
     setLoginOpen(false);
@@ -107,49 +129,63 @@ export default function Header() {
 
   return (
     <>
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
-
-      <header className={`header${scrolled ? " scrolled" : ""}`}>
+      <header
+        className={`header${
+          scrolled ? " scrolled" : ""
+        }`}
+      >
         <div className="nav-container">
 
-          {/* LOGO */}
-
-          <Link className="brand" to="/" onClick={closeMenu}>
-            <img src={txIcon} alt="Tx Pathwing" />
+          <Link
+            className="brand"
+            to="/"
+            onClick={closeMenu}
+          >
+            <img
+              src={txIcon}
+              alt="Tx Pathwing"
+            />
           </Link>
-
-          {/* =================================================
-              DESKTOP NAVIGATION
-          ================================================= */}
 
           <ul className="nav-links">
             {NAV_LINKS.map((item) => (
               <li key={item.label}>
-                {item.path ? (
-                  <Link
-                    className={`nav-link${
-                      isActive(item.path) ? " active" : ""
-                    }`}
-                    to={item.path}
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <span className="nav-link">
-                    {item.label}
-                  </span>
-                )}
+                <Link
+                  className={`nav-link${
+                    isActive(item.path)
+                      ? " active"
+                      : ""
+                  }`}
+                  to={item.path}
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
 
-          {/* =================================================
-              DESKTOP SIGN IN
-          ================================================= */}
-
           <div className="nav-actions">
+
+            <Link
+              to="/cart"
+              className="header-cart"
+              aria-label={`Shopping cart with ${cartCount} items`}
+            >
+              <ShoppingCart
+                className="header-cart-icon"
+                size={25}
+                strokeWidth={2.2}
+              />
+
+              {cartCount > 0 && (
+                <span className="cart-badge">
+                  {cartCount > 99
+                    ? "99+"
+                    : cartCount}
+                </span>
+              )}
+            </Link>
+
             <button
               type="button"
               className="btn-signin"
@@ -157,46 +193,53 @@ export default function Header() {
             >
               Sign in
             </button>
+
           </div>
 
-          {/* =================================================
-              MOBILE MENU BUTTON
-          ================================================= */}
-
           <button
-            className={`hamburger${menuOpen ? " open" : ""}`}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className={`hamburger${
+              menuOpen ? " open" : ""
+            }`}
+            aria-label={
+              menuOpen
+                ? "Close menu"
+                : "Open menu"
+            }
             aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((value) => !value)}
+            onClick={() =>
+              setMenuOpen((value) => !value)
+            }
           >
             <span></span>
             <span></span>
             <span></span>
           </button>
+
         </div>
       </header>
 
-      {/* =====================================================
-          DARK OVERLAY
-      ===================================================== */}
-
       <div
-        className={`scrim${menuOpen ? " open" : ""}`}
+        className={`scrim${
+          menuOpen ? " open" : ""
+        }`}
         onClick={closeMenu}
       />
 
-      {/* =====================================================
-          MOBILE MENU
-      ===================================================== */}
-
-      <div className={`mobile-panel${menuOpen ? " open" : ""}`}>
-
-        {/* MOBILE MENU HEADER */}
-
+      <div
+        className={`mobile-panel${
+          menuOpen ? " open" : ""
+        }`}
+      >
         <div className="mobile-panel-head">
 
-          <Link to="/" onClick={closeMenu}>
-            <img src={txIcon} alt="Tx Pathwing" />
+          <Link
+            to="/"
+            onClick={closeMenu}
+          >
+            <img
+              src={txIcon}
+              alt="Tx Pathwing"
+            />
           </Link>
 
           <button
@@ -216,44 +259,27 @@ export default function Header() {
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
+
         </div>
 
-        {/* =================================================
-            MOBILE NAVIGATION
-        ================================================= */}
-
         <nav className="mobile-navigation">
-
           {NAV_LINKS.map((item) => (
-            item.path ? (
-              <Link
-                key={item.label}
-                className={`mobile-link${
-                  isActive(item.path) ? " active" : ""
-                }`}
-                to={item.path}
-                onClick={closeMenu}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                key={item.label}
-                className="mobile-link"
-              >
-                {item.label}
-              </span>
-            )
+            <Link
+              key={item.label}
+              className={`mobile-link${
+                isActive(item.path)
+                  ? " active"
+                  : ""
+              }`}
+              to={item.path}
+              onClick={closeMenu}
+            >
+              {item.label}
+            </Link>
           ))}
-
         </nav>
 
-        {/* =================================================
-            MOBILE SIGN IN
-        ================================================= */}
-
         <div className="mobile-actions">
-
           <button
             type="button"
             className="btn-signin"
@@ -261,13 +287,8 @@ export default function Header() {
           >
             Sign in
           </button>
-
         </div>
       </div>
-
-      {/* =====================================================
-          LOGIN POPUP
-      ===================================================== */}
 
       <Login
         isOpen={loginOpen}

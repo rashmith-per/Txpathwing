@@ -11,6 +11,7 @@ import SignIn from "./modules/marketing/presentation/pages/SignIn/SignIn";
 import Blog from "./modules/marketing/presentation/pages/Blog/Blog";
 import CareersHero from "./modules/marketing/presentation/pages/Careers/Careers";
 import Organization from "./modules/marketing/presentation/pages/Contact/Contact";
+import Cart from "./modules/marketing/presentation/pages/Cart/Cart";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -40,6 +41,7 @@ function AppLayout() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Organization/>}/>
         <Route path="/login" element={<SignIn />} />
+        <Route path="/cart" element={<Cart/>} />
       </Routes>
 
       {!hideLayout && <Footer />}
