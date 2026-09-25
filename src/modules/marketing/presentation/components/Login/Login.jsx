@@ -13,12 +13,14 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+
 import "./Login.css";
 
 const Login = ({
   isOpen,
   onClose,
   initialView = "login",
+  onLoginSuccess,
 }) => {
   const [isLogin, setIsLogin] = React.useState(
     initialView === "login"
@@ -174,11 +176,6 @@ const Login = ({
   ===================================================== */
 
   const handleSubmit = (event) => {
-    /*
-      IMPORTANT:
-      Prevent browser from submitting the form
-      and adding values to the URL.
-    */
     event.preventDefault();
 
     setMessage("");
@@ -190,28 +187,12 @@ const Login = ({
       return;
     }
 
-    /*
-      API LOGIN / SIGNUP REQUEST CAN BE ADDED HERE.
+    if (isLogin) {
+      onLoginSuccess();
+      return;
+    }
 
-      Example:
-
-      setLoading(true);
-
-      try {
-        // API request
-      } catch (error) {
-        // handle error
-      } finally {
-        setLoading(false);
-      }
-    */
-
-    setMessage(
-      isLogin
-        ? "Login details are valid."
-        : "Account details are valid."
-    );
-
+    setMessage("Account details are valid.");
     setMessageType("success");
   };
 
@@ -363,11 +344,10 @@ const Login = ({
         ================================================= */}
 
         <div
-          className={`login-right ${
-            isLogin
-              ? "login-view"
-              : "signup-view"
-          }`}
+          className={`login-right ${isLogin
+            ? "login-view"
+            : "signup-view"
+            }`}
         >
 
           {/* HEADER */}
@@ -706,8 +686,8 @@ const Login = ({
                     ? "Signing in..."
                     : "Creating account..."
                   : isLogin
-                  ? "Sign in"
-                  : "Create account"}
+                    ? "Sign in"
+                    : "Create account"}
               </span>
 
               {!loading && (
