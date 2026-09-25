@@ -26,6 +26,15 @@ const Login = ({
     initialView === "login"
   );
 
+  React.useEffect(() => {
+    if (isOpen) {
+      setIsLogin(initialView === "login");
+      setErrors({});
+      setMessage("");
+      setMessageType("");
+    }
+  }, [isOpen, initialView]);
+
   const [form, setForm] = React.useState({
     full_name: "",
     email: "",
@@ -188,12 +197,21 @@ const Login = ({
     }
 
     if (isLogin) {
-      onLoginSuccess();
+      localStorage.setItem("isLoggedIn", "true");
+      if (form.email) {
+        localStorage.setItem("userEmail", form.email);
+      }
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
       return;
     }
 
-    setMessage("Account details are valid.");
+    // Registration success -> automatically switch to Sign In view
+    localStorage.setItem("userEmail", form.email);
+    setMessage("Account created successfully! Please sign in with your password to continue.");
     setMessageType("success");
+    setIsLogin(true);
   };
 
   /* =====================================================

@@ -69,18 +69,9 @@ export default function Marketplace() {
   }, [activeCategory, activeLevel, activePrice]);
 
   const handleCourseClick = (course) => {
-    const isLoggedIn =
-      localStorage.getItem("isLoggedIn") === "true";
-
     const coursePath = `/course/${course.id.toLowerCase()}`;
-
-    if (!isLoggedIn) {
-      setRedirectTo(coursePath);
-      setLoginOpen(true);
-      return;
-    }
-
-    navigate(coursePath);
+    setSelectedCourse(coursePath);
+    setLoginOpen(true);
   };
 
   const handleAddToCart = (event, course) => {
@@ -131,6 +122,7 @@ export default function Marketplace() {
     <div className="mp-page">
       <Login
         isOpen={loginOpen}
+        initialView="signup"
         onClose={() => setLoginOpen(false)}
         onLoginSuccess={() => {
           setIsLoggedIn(true);
