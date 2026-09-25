@@ -22,7 +22,7 @@ const Home = () => {
     <>
       <Hero />
 
-      <Mode />
+      
 
       {/* who we are Section */}
       <WhoWeAre />
@@ -30,6 +30,8 @@ const Home = () => {
       <OnePlatform />
 
       < Programtraning />
+
+      <Mode />
 
       < InternshipSection/>
 

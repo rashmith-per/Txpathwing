@@ -32,11 +32,14 @@ const benefits = [
 const Mode = () => {
   return (
     <section className="benefits-strip">
+      <div className="Mode-Header"><span>Modes We Train</span></div>
       <div className="benefits-container">
         {benefits.map((benefit, index) => {
           const Icon = benefit.icon;
 
           return (
+          <>
+            
             <React.Fragment key={benefit.title}>
               <div className={`benefit-item ${benefit.className}`}>
                 <div className="benefit-icon">
@@ -52,6 +55,7 @@ const Mode = () => {
                 <div className="benefit-divider" />
               )}
             </React.Fragment>
+            </>
           );
         })}
       </div>
