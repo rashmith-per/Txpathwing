@@ -4,13 +4,21 @@ import { useNavigate } from "react-router-dom";
 import "./MarketPlace.css";
 import MarketHeroSec from "./MarketHeroSec";
 import { courses } from "./coursesList";
+import Login from "../../components/Login/Login";
 
-export default function Marketplace({ onSelectCourse }) {
+
+export default function Marketplace() {
   const navigate = useNavigate();
 
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeLevel, setActiveLevel] = useState("All levels");
   const [activePrice, setActivePrice] = useState("All");
+
+  // Login popup state
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [redirectTo, setRedirectTo] = useState("/");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   const categoryMap = {
     All: "All",
@@ -61,11 +69,18 @@ export default function Marketplace({ onSelectCourse }) {
   }, [activeCategory, activeLevel, activePrice]);
 
   const handleCourseClick = (course) => {
-    if (onSelectCourse) {
-      onSelectCourse(course);
+    const isLoggedIn =
+      localStorage.getItem("isLoggedIn") === "true";
+
+    const coursePath = `/course/${course.id.toLowerCase()}`;
+
+    if (!isLoggedIn) {
+      setRedirectTo(coursePath);
+      setLoginOpen(true);
+      return;
     }
 
-    navigate(`/course/${course.id.toLowerCase()}`);
+    navigate(coursePath);
   };
 
   const handleAddToCart = (event, course) => {
@@ -114,6 +129,19 @@ export default function Marketplace({ onSelectCourse }) {
 
   return (
     <div className="mp-page">
+      <Login
+        isOpen={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onLoginSuccess={() => {
+          setIsLoggedIn(true);
+          setLoginOpen(false);
+
+          if (selectedCourse) {
+            navigate(selectedCourse);
+          }
+        }}
+      />
+
       <div className="mp-container">
         <MarketHeroSec />
 
@@ -247,7 +275,7 @@ export default function Marketplace({ onSelectCourse }) {
                           handleCourseClick(course);
                         }}
                       >
-                        Enroll
+                        View Details
                       </button>
 
                       <button
