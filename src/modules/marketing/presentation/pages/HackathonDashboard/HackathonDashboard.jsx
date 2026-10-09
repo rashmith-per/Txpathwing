@@ -15,7 +15,7 @@ import {
   CheckCircle2
 } from "lucide-react";
 import Overview from "./Overview";
-import Teams from "./Teams";
+import Teams from "./teams";
 import Round1 from "./Round1";
 import Round2 from "./Round2";
 import Round3 from "./Round3";
