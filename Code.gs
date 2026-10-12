@@ -1,96 +1,15 @@
-/**
- * TX Hackathon Event Management - Google Apps Script
- * Spreadsheet ID: 1za1RkfrjAvHIIqYFEoyW-xwMuBcDL0tvuYo5lTDbszA
- * Main Sheet: pathwing
- */
+const SPREADSHEET_ID = "1Bm0cZhzV07vcYRrcU38Vng5Jmde_ihSPZGhj4Cohfms";
+const MAIN_SHEET_NAME = "Sheet1";
+const ROUND1_SHEET_NAME = "Round1";
+const ROUND2_SHEET_NAME = "Round2";
+const ROUND3_SHEET_NAME = "Round3";
 
-const SPREADSHEET_ID = "1za1RkfrjAvHIIqYFEoyW-xwMuBcDL0tvuYo5lTDbszA";
-const MAIN_SHEET_NAME = "pathwing";
-
-const HEADERS = [
-  "registrationId",
-  "submittedAt",
-  "Participant Type",
-  "Team Lead Details",
-  "Team Member 1 Details",
-  "Team Member 2 Details",
-  "Team Member 3 Details",
-  "Team Member 4 Details",
-  "Team Member 5 Details",
-  "Team Member 6 Details",
-  "Student Details",
-  "Technology & Skills",
-  "Challenge Selection",
-  "Project Idea",
-  "Previous Experience",
-  "Institution",
-  "Declaration & Consent",
-  "Attendance",
-  "AttendanceAt",
-  "Team Verified",
-  "Team Verified At",
-  "Round 1 Status",
-  "Round 1 Details",
-  "Round 1 Evaluated At",
-  "Round 2 Status",
-  "Round 2 Details",
-  "Round 2 Evaluated At",
-  "Round 3 Status",
-  "Round 3 Details",
-  "Round 3 Evaluated At",
-  "Final Status",
-  "Final Updated At"
-];
-
-function setupSheet() {
-  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let sheet = spreadsheet.getSheetByName(MAIN_SHEET_NAME);
-
-  if (!sheet) {
-    sheet = spreadsheet.insertSheet(MAIN_SHEET_NAME);
-  }
-
-  sheet.clear();
-
-  sheet
-    .getRange(1, 1, 1, HEADERS.length)
-    .setValues([HEADERS]);
-
-  sheet.setFrozenRows(1);
-
-  const headerRange = sheet.getRange(
-    1,
-    1,
-    1,
-    HEADERS.length
-  );
-
-  headerRange.setFontWeight("bold");
-  headerRange.setBackground("#1e3a8a");
-  headerRange.setFontColor("#ffffff");
-  headerRange.setHorizontalAlignment("center");
-
-  sheet.autoResizeColumns(
-    1,
-    HEADERS.length
-  );
-
-  return jsonResponse({
-    status: "success",
-    message: "New hackathon sheet structure created successfully.",
-    sheet: MAIN_SHEET_NAME,
-    columns: HEADERS
-  });
-}
-
+/* =========================================================
+   GET REQUEST
+========================================================= */
 function doGet(e) {
   try {
-    const action =
-      e &&
-      e.parameter &&
-      e.parameter.action
-        ? e.parameter.action
-        : "";
+    const action = e && e.parameter ? e.parameter.action : "";
 
     if (action === "getTeams") {
       return getTeams();
@@ -100,436 +19,73 @@ function doGet(e) {
       return getRound1Teams();
     }
 
+    if (action === "getRound2") {
+      return getRound2Teams();
+    }
+
+    if (action === "getRound3") {
+      return getRound3Teams();
+    }
+
+    if (action === "backfillRound2") {
+      return backfillRound2MissingData();
+    }
+
+    if (action === "backfillRound3") {
+      return backfillRound3MissingData();
+    }
+
+    if (action === "saveAttendance") {
+      return saveAttendance({
+        registrationId: e.parameter.registrationId,
+        attendance: e.parameter.attendance
+      });
+    }
+
+    if (action === "saveRound1Evaluation") {
+      return saveRound1Evaluation({
+        registrationId: e.parameter.registrationId,
+        innovation: e.parameter.innovation,
+        technical: e.parameter.technical,
+        presentation: e.parameter.presentation,
+        total: e.parameter.total,
+        comments: e.parameter.comments,
+        status: e.parameter.status
+      });
+    }
+
+    if (action === "saveRound2Evaluation") {
+      return saveRound2Evaluation({
+        registrationId: e.parameter.registrationId,
+        innovation: e.parameter.innovation,
+        technical: e.parameter.technical,
+        presentation: e.parameter.presentation,
+        total: e.parameter.total,
+        comments: e.parameter.comments,
+        status: e.parameter.status
+      });
+    }
+
+    if (action === "saveRound3Evaluation") {
+      return saveRound3Evaluation({
+        registrationId: e.parameter.registrationId,
+        innovation: e.parameter.innovation,
+        technical: e.parameter.technical,
+        presentation: e.parameter.presentation,
+        total: e.parameter.total,
+        comments: e.parameter.comments,
+        status: e.parameter.status
+      });
+    }
+
     return jsonResponse({
       status: "success",
       message: "Hackathon API is running"
     });
-
   } catch (error) {
     return jsonResponse({
       status: "error",
       message: error.message
-    });
-  }
-}
-
-function doPost(e) {
-  try {
-    const data = parseRequest(e);
-
-    if (!data || !data.action) {
-      throw new Error("Action is required.");
-    }
-
-    switch (data.action) {
-      case "register":
-        return saveRegistration(data);
-
-      case "saveAttendance":
-      case "updateAttendance":
-        return saveAttendance(data);
-
-      case "updateTeamVerification":
-        return updateTeamVerification(data);
-
-      case "saveRound1Evaluation":
-      case "updateRound1":
-        return saveRoundEvaluation(data, 1);
-
-      case "updateRound2":
-        return saveRoundEvaluation(data, 2);
-
-      case "updateRound3":
-        return saveRoundEvaluation(data, 3);
-
-      case "updateFinalStatus":
-        return updateFinalStatus(data);
-
-      default:
-        throw new Error(
-          "Unknown action: " +
-          data.action
-        );
-    }
-
-  } catch (error) {
-    return jsonResponse({
-      status: "error",
-      message: error.message
-    });
-  }
-}
-
-function parseRequest(e) {
-  if (
-    e &&
-    e.parameter &&
-    e.parameter.formData
-  ) {
-    return JSON.parse(
-      e.parameter.formData
-    );
-  }
-
-  if (
-    e &&
-    e.postData &&
-    e.postData.contents
-  ) {
-    return JSON.parse(
-      e.postData.contents
-    );
-  }
-
-  if (
-    e &&
-    e.parameter
-  ) {
-    const data = {};
-
-    Object.keys(e.parameter).forEach(
-      function(key) {
-        data[key] = e.parameter[key];
-      }
-    );
-
-    return data;
-  }
-
-  throw new Error(
-    "No request data received."
-  );
-}
-
-function getSheet() {
-  const spreadsheet =
-    SpreadsheetApp.openById(
-      SPREADSHEET_ID
-    );
-
-  let sheet =
-    spreadsheet.getSheetByName(
-      MAIN_SHEET_NAME
-    );
-
-  if (!sheet) {
-    sheet =
-      spreadsheet.insertSheet(
-        MAIN_SHEET_NAME
-      );
-
-    sheet
-      .getRange(
-        1,
-        1,
-        1,
-        HEADERS.length
-      )
-      .setValues([HEADERS]);
-
-    sheet.setFrozenRows(1);
-  }
-
-  return sheet;
-}
-
-function saveRegistration(data) {
-  if (!data.data) {
-    throw new Error(
-      "Registration data is missing."
-    );
-  }
-
-  const sheet = getSheet();
-
-  const lock =
-    LockService.getScriptLock();
-
-  lock.waitLock(10000);
-
-  try {
-    const registrationId =
-      String(
-        data.registrationId ||
-        data.data.registrationId ||
-        generateRegistrationId()
-      ).trim();
-
-    if (!registrationId) {
-      throw new Error(
-        "Registration ID is required."
-      );
-    }
-
-    const values =
-      sheet
-        .getDataRange()
-        .getValues();
-
-    const headers = values[0];
-
-    const registrationColumn =
-      headers.indexOf(
-        "registrationId"
-      );
-
-    for (
-      let i = 1;
-      i < values.length;
-      i++
-    ) {
-      const existingId =
-        String(
-          values[i][
-            registrationColumn
-          ] || ""
-        )
-          .trim()
-          .toLowerCase();
-
-      if (
-        existingId ===
-        registrationId.toLowerCase()
-      ) {
-        return jsonResponse({
-          status: "error",
-          message:
-            "Registration ID already exists.",
-          registrationId:
-            registrationId
-        });
-      }
-    }
-
-    const form =
-      data.data || {};
-
-    const participantType =
-      form.participantType || "";
-
-    const lead =
-      participantType === "individual"
-        ? (
-            form.student ||
-            form.lead ||
-            form.teamLead ||
-            {}
-          )
-        : (
-            form.lead ||
-            form.teamLead ||
-            {}
-          );
-
-    const members =
-      form.members ||
-      form.teamMembers ||
-      [];
-
-    const rowData = {};
-
-    rowData.registrationId =
-      registrationId;
-
-    rowData.submittedAt =
-      new Date();
-
-    rowData["Participant Type"] =
-      participantType;
-
-    rowData["Team Lead Details"] =
-      stringifyObject(lead);
-
-    for (
-      let i = 0;
-      i < 6;
-      i++
-    ) {
-      rowData[
-        "Team Member " +
-        (i + 1) +
-        " Details"
-      ] =
-        members[i]
-          ? stringifyObject(
-              members[i]
-            )
-          : "";
-    }
-
-    if (
-      participantType ===
-      "individual"
-    ) {
-      rowData["Student Details"] =
-        stringifyObject(
-          form.student || lead
-        );
-    } else {
-      rowData["Student Details"] =
-        "";
-    }
-
-    rowData["Technology & Skills"] =
-      stringifyObject(
-        form.technology || {}
-      );
-
-    rowData["Challenge Selection"] =
-      stringifyObject(
-        form.challenge || {}
-      );
-
-    rowData["Project Idea"] =
-      stringifyObject(
-        form.idea || {}
-      );
-
-    rowData["Previous Experience"] =
-      stringifyObject(
-        form.experience || {}
-      );
-
-    rowData["Institution"] =
-      stringifyObject(
-        form.institution || {}
-      );
-
-    rowData["Declaration & Consent"] =
-      stringifyObject(
-        form.declaration || {}
-      );
-
-    rowData["Attendance"] =
-      "Pending";
-
-    rowData["AttendanceAt"] =
-      "";
-
-    rowData["Team Verified"] =
-      "No";
-
-    rowData["Team Verified At"] =
-      "";
-
-    rowData["Round 1 Status"] =
-      "Not Started";
-
-    rowData["Round 1 Details"] =
-      "";
-
-    rowData["Round 1 Evaluated At"] =
-      "";
-
-    rowData["Round 2 Status"] =
-      "Not Started";
-
-    rowData["Round 2 Details"] =
-      "";
-
-    rowData["Round 2 Evaluated At"] =
-      "";
-
-    rowData["Round 3 Status"] =
-      "Not Started";
-
-    rowData["Round 3 Details"] =
-      "";
-
-    rowData["Round 3 Evaluated At"] =
-      "";
-
-    rowData["Final Status"] =
-      "Pending";
-
-    rowData["Final Updated At"] =
-      "";
-
-    const newRow =
-      headers.map(function(header) {
-        return rowData[header] !== undefined
-          ? rowData[header]
-          : "";
-      });
-
-    sheet.appendRow(newRow);
-
-    SpreadsheetApp.flush();
-
-    return jsonResponse({
-      status: "success",
-      message:
-        "Registration saved successfully.",
-      registrationId:
-        registrationId
-    });
-
-  } finally {
-    lock.releaseLock();
-  }
-}
-
-function getTeams() {
-  const sheet =
-    getSheet();
-
-  const values =
-    sheet
-      .getDataRange()
-      .getValues();
-
-  if (
-    values.length < 2
-  ) {
-    return jsonResponse({
-      status: "success",
-      teams: []
-    });
-  }
-
-  const headers =
-    values[0];
-
-  const teams =
-    values
-      .slice(1)
-      .filter(function(row) {
-        return row.some(function(value) {
-          return (
-            String(value || "")
-              .trim() !== ""
-          );
-        });
-      })
-      .map(function(row, index) {
-        return buildDashboardTeam(
-          headers,
-          row,
-          index + 2
-        );
-      });
-
-  return jsonResponse({
-    status: "success",
-    teams: teams
-  });
-}
-
-function getRound1Teams() {
-  const sheet =
-    getSheet();
-
-  const values =
-    sheet
-      .getDataRange()
-      .getValues();
-
-  if (
-    values.length < 2
-  ) {
-    return jsonResponse({
-      status: "success",
-      round1: []
     });
   }
 
@@ -1038,666 +594,77 @@ function saveAttendance(data) {
   });
 }
 
-function updateTeamVerification(data) {
-  if (!data.registrationId) {
-    throw new Error(
-      "Registration ID is required."
-    );
-  }
-
-  const sheet =
-    getSheet();
-
-  const values =
-    sheet
-      .getDataRange()
-      .getValues();
-
-  const headers =
-    values[0];
-
-  const rowNumber =
-    findRowByRegistrationId(
-      values,
-      headers,
-      data.registrationId
-    );
-
-  if (
-    rowNumber === -1
-  ) {
-    throw new Error(
-      "Registration not found."
-    );
-  }
-
-  const verified =
-    normalize(
-      data.verified
-    ) === "yes" ||
-    normalize(
-      data.verified
-    ) === "true" ||
-    normalize(
-      data.verified
-    ) === "verified"
-      ? "Yes"
-      : "No";
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    "Team Verified",
-    verified
-  );
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    "Team Verified At",
-    new Date()
-  );
-
-  return jsonResponse({
-    status: "success",
-    message:
-      "Team verification updated successfully.",
-    registrationId:
-      data.registrationId,
-    verified:
-      verified
-  });
-}
-
-function saveRoundEvaluation(
-  data,
-  round
-) {
-  if (!data.registrationId) {
-    throw new Error(
-      "Registration ID is required."
-    );
-  }
-
-  const sheet =
-    getSheet();
-
-  const values =
-    sheet
-      .getDataRange()
-      .getValues();
-
-  const headers =
-    values[0];
-
-  const rowNumber =
-    findRowByRegistrationId(
-      values,
-      headers,
-      data.registrationId
-    );
-
-  if (
-    rowNumber === -1
-  ) {
-    throw new Error(
-      "Registration not found."
-    );
-  }
-
-  const decision =
-    normalizeDecision(
-      data.status ||
-      data.decision
-    );
-
-  const details = {
-    decision:
-      decision,
-
-    understanding:
-      numberOrBlank(
-        data.understanding
-      ),
-
-    relevance:
-      numberOrBlank(
-        data.relevance
-      ),
-
-    innovation:
-      numberOrBlank(
-        data.innovation
-      ),
-
-    feasibility:
-      numberOrBlank(
-        data.feasibility
-      ),
-
-    technical:
-      numberOrBlank(
-        data.technical
-      ),
-
-    total:
-      numberOrBlank(
-        data.total
-      ),
-
-    comments:
-      data.comments ||
-      data.remarks ||
-      "",
-
-    evaluatedAt:
-      new Date()
-  };
-
-  const statusColumn =
-    "Round " +
-    round +
-    " Status";
-
-  const detailsColumn =
-    "Round " +
-    round +
-    " Details";
-
-  const evaluatedColumn =
-    "Round " +
-    round +
-    " Evaluated At";
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    statusColumn,
-    decision
-  );
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    detailsColumn,
-    JSON.stringify(
-      details
-    )
-  );
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    evaluatedColumn,
-    new Date()
-  );
-
-  if (
-    round === 3
-  ) {
-    if (
-      decision ===
-      "Qualified"
-    ) {
-      setCell(
-        sheet,
-        rowNumber,
-        headers,
-        "Final Status",
-        "Finalist"
-      );
-
-      setCell(
-        sheet,
-        rowNumber,
-        headers,
-        "Final Updated At",
-        new Date()
-      );
-    }
-
-    if (
-      decision ===
-      "Not Qualified"
-    ) {
-      setCell(
-        sheet,
-        rowNumber,
-        headers,
-        "Final Status",
-        "Not Selected"
-      );
-
-      setCell(
-        sheet,
-        rowNumber,
-        headers,
-        "Final Updated At",
-        new Date()
-      );
-    }
-  }
+/* =========================================================
+   POST REQUEST
 
   SpreadsheetApp.flush();
 
   return jsonResponse({
     status: "success",
-    message:
-      "Round " +
-      round +
-      " evaluation saved successfully.",
-    registrationId:
-      data.registrationId,
-    round:
-      round,
-    decision:
-      decision
+    message: "Round3 evaluation saved successfully."
   });
 }
 
-function updateFinalStatus(data) {
-  if (!data.registrationId) {
-    throw new Error(
-      "Registration ID is required."
-    );
-  }
-
-  const sheet =
-    getSheet();
-
-  const values =
-    sheet
-      .getDataRange()
-      .getValues();
-
-  const headers =
-    values[0];
-
-  const rowNumber =
-    findRowByRegistrationId(
-      values,
-      headers,
-      data.registrationId
-    );
-
-  if (
-    rowNumber === -1
-  ) {
-    throw new Error(
-      "Registration not found."
-    );
-  }
-
-  let status =
-    data.finalStatus ||
-    data.status ||
-    "Pending";
-
-  status =
-    String(status)
-      .trim();
-
-  if (
-    normalize(status) ===
-    "qualified"
-  ) {
-    status =
-      "Finalist";
-  }
-
-  if (
-    normalize(status) ===
-    "selected"
-  ) {
-    status =
-      "Finalist";
-  }
-
-  if (
-    normalize(status) ===
-    "rejected"
-  ) {
-    status =
-      "Not Selected";
-  }
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    "Final Status",
-    status
-  );
-
-  setCell(
-    sheet,
-    rowNumber,
-    headers,
-    "Final Updated At",
-    new Date()
-  );
-
-  return jsonResponse({
-    status: "success",
-    message:
-      "Final status updated successfully.",
-    registrationId:
-      data.registrationId,
-    finalStatus:
-      status
-  });
-}
-
-function findRowByRegistrationId(
-  values,
-  headers,
-  registrationId
-) {
-  const column =
-    headers.indexOf(
-      "registrationId"
-    );
-
-  if (
-    column === -1
-  ) {
-    return -1;
-  }
-
-  const target =
-    String(
-      registrationId
-    )
-      .trim()
-      .toLowerCase();
-
-  for (
-    let i = 1;
-    i < values.length;
-    i++
-  ) {
-    const current =
-      String(
-        values[i][column] || ""
-      )
-        .trim()
-        .toLowerCase();
-
-    if (
-      current === target
-    ) {
-      return i + 1;
-    }
-  }
-
-  return -1;
-}
-
-function getCell(
-  headers,
-  row,
-  columnName
-) {
-  const index =
-    headers.indexOf(
-      columnName
-    );
-
-  if (
-    index === -1
-  ) {
-    return "";
-  }
-
-  return row[index] !== undefined
-    ? row[index]
-    : "";
-}
-
-function setCell(
-  sheet,
-  rowNumber,
-  headers,
-  columnName,
-  value
-) {
-  const column =
-    headers.indexOf(
-      columnName
-    );
-
-  if (
-    column === -1
-  ) {
-    throw new Error(
-      "Column not found: " +
-      columnName
-    );
-  }
-
-  sheet
-    .getRange(
-      rowNumber,
-      column + 1
-    )
-    .setValue(value);
-}
-
-function stringifyObject(object) {
-  if (
-    object === null ||
-    object === undefined
-  ) {
-    return "";
-  }
-
-  if (
-    typeof object !==
-    "object"
-  ) {
-    return String(object);
-  }
-
-  if (
-    Array.isArray(object) &&
-    object.length === 0
-  ) {
-    return "";
-  }
-
-  return JSON.stringify(
-    object
-  );
-}
-
-function parseStoredObject(value) {
-  if (
-    value === null ||
-    value === undefined ||
-    value === ""
-  ) {
-    return {};
-  }
-
-  if (
-    typeof value ===
-    "object"
-  ) {
-    return value;
-  }
-
-  try {
-    const parsed =
-      JSON.parse(
-        String(value)
-      );
-
-    if (
-      parsed &&
-      typeof parsed ===
-      "object"
-    ) {
-      return parsed;
-    }
-  } catch (_) {}
-
-  return {};
-}
-
-function formatDetails(object) {
-  if (
-    !object ||
-    typeof object !==
-    "object"
-  ) {
-    return String(
-      object || ""
-    );
-  }
-
-  return Object.keys(object)
-    .map(function(key) {
-      const value =
-        object[key];
-
-      if (
-        Array.isArray(value)
-      ) {
-        return (
-          key +
-          ": " +
-          value.join(", ")
-        );
-      }
-
-      if (
-        value !== null &&
-        typeof value ===
-        "object"
-      ) {
-        return (
-          key +
-          ": " +
-          JSON.stringify(value)
-        );
-      }
-
-      return (
-        key +
-        ": " +
-        String(
-          value ?? ""
-        )
-      );
-    })
-    .join(" | ");
-}
-
-function extractRemarks(value) {
-  if (!value) {
-    return "";
-  }
-
-  const parsed =
-    parseStoredObject(
-      value
-    );
-
-  if (
-    parsed.comments
-  ) {
-    return parsed.comments;
+/* =========================================================
+   BACKFILL MISSING FIELDS IN ROUND 2 SHEET
   }
 
   return "";
 }
 
-function normalize(value) {
-  return String(
-    value ?? ""
-  )
-    .trim()
-    .toLowerCase()
-    .replace(
-      /[\s_-]+/g,
-      ""
+function extractTeamLeadValue(headers, row) {
+  return extractFieldValue(headers, row, [
+    "Team Lead",
+    "Team Lead Name",
+    "Team Leader",
+    "Lead Name",
+    "Full Name",
+    "lead_fullName",
+    "student_fullName",
+    "lead_name",
+    "student_name"
+  ]);
+}
+
+function extractFieldValue(headers, row, keys) {
+  for (let key of keys) {
+    const targetNorm = key.toLowerCase().replace(/[\s_-]+/g, "");
+    for (let i = 0; i < headers.length; i++) {
+      const hNorm = String(headers[i]).trim().toLowerCase().replace(/[\s_-]+/g, "");
+      if (hNorm === targetNorm && row[i] !== undefined && row[i] !== null && String(row[i]).trim() !== "") {
+        return row[i];
+      }
+    }
+  }
+  return "";
+}
+
+function findRegistrationColumn(headers) {
+  const possibleNames = [
+    "Registration ID", "RegistrationID", "registrationId", "registration_id",
+    "Registration_Id", "Registration_ID", "ID", "Id", "id", "Team ID", "TeamID", "teamId"
+  ];
+
+  for (const name of possibleNames) {
+    const index = headers.findIndex(
+      (header) => String(header).trim().toLowerCase() === name.toLowerCase()
     );
+    if (index !== -1) return index;
+  }
+  return 0;
 }
 
-function normalizeDecision(value) {
-  const normalized =
-    normalize(value);
-
-  if (
-    normalized ===
-    "qualified" ||
-    normalized ===
-    "pass" ||
-    normalized ===
-    "yes"
-  ) {
-    return "Qualified";
+function findRegistrationId(headers, row, rowNumber) {
+  const column = findRegistrationColumn(headers);
+  const value = row[column];
+  if (value !== undefined && value !== null && String(value).trim() !== "") {
+    return String(value).trim();
   }
-
-  if (
-    normalized ===
-    "notqualified" ||
-    normalized ===
-    "fail" ||
-    normalized ===
-    "no" ||
-    normalized ===
-    "eliminated"
-  ) {
-    return "Not Qualified";
-  }
-
-  return "Eligible";
-}
-
-function numberOrBlank(value) {
-  if (
-    value === undefined ||
-    value === null ||
-    value === ""
-  ) {
-    return "";
-  }
-
-  const number =
-    Number(value);
-
-  return Number.isNaN(
-    number
-  )
-    ? ""
-    : number;
-}
-
-function generateRegistrationId() {
-  return (
-    "TX2026-" +
-    Utilities.formatDate(
-      new Date(),
-      Session.getScriptTimeZone(),
-      "yyyyMMdd-HHmmss"
-    )
-  );
+  return "ROW-" + rowNumber;
 }
 
 function jsonResponse(data) {
-  return ContentService
-    .createTextOutput(
-      JSON.stringify(data)
-    )
-    .setMimeType(
-      ContentService
-        .MimeType
-        .JSON
-    );
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(
+    ContentService.MimeType.JSON
+  );
 }

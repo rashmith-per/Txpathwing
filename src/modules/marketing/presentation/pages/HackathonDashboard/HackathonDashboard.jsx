@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Round1 from "./Round1";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -19,66 +20,50 @@ import Teams from "./teams";
 import Round1 from "./Round1";
 import Round2 from "./Round2";
 import Round3 from "./Round3";
-import {
-  getTeams,
-  getRegistrationId,
-  getTeamName,
-  getTeamLead,
-  getCollege,
-  getProjectTitle,
-  getAttendance,
-  getRoundStatus,
-  getFinalStatus,
-  getJudgeRemarks
-} from "./HackethonApi";
-import "./HackathonDashboard.css";
+import Reports from "./Reports";
+import txIcon from "../../../../../assets/tx-icon.jpg";
+import { getRound1Teams, getRound2Teams, getRound3Teams } from "./HackethonApi";
 
 const HackathonDashboard = () => {
   const [active, setActive] = useState("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [teams, setTeams] = useState([]);
+  const [badges, setBadges] = useState({ round1: 0, round2: 0, round3: 0 });
 
   const navigate = useNavigate();
 
-  const loadData = async () => {
+  const updateBadges = async () => {
     try {
-      const data = await getTeams();
-      setTeams(Array.isArray(data) ? data : []);
-    } catch (_) {}
+      const [r1Res, r2Res, r3Res] = await Promise.all([
+        getRound1Teams().catch(() => []),
+        getRound2Teams().catch(() => []),
+        getRound3Teams().catch(() => [])
+      ]);
+
+      setBadges({
+        round1: Array.isArray(r1Res) ? r1Res.length : 0,
+        round2: Array.isArray(r2Res) ? r2Res.length : 0,
+        round3: Array.isArray(r3Res) ? r3Res.length : 0
+      });
+    } catch (e) {
+      console.warn("Failed to update sidebar badges:", e);
+    }
   };
 
   useEffect(() => {
-    loadData();
+    updateBadges();
 
-    const handleUpdate = () => {
-      loadData();
+    const handleDataChange = () => {
+      updateBadges();
     };
 
-    window.addEventListener("attendanceUpdated", handleUpdate);
-    window.addEventListener("registrationUpdated", handleUpdate);
-    window.addEventListener("round1Updated", handleUpdate);
-    window.addEventListener("round2Updated", handleUpdate);
-    window.addEventListener("round3Updated", handleUpdate);
+    window.addEventListener("hackathon_attendance_changed", handleDataChange);
+    window.addEventListener("hackathon_evaluation_changed", handleDataChange);
 
     return () => {
-      window.removeEventListener("attendanceUpdated", handleUpdate);
-      window.removeEventListener("registrationUpdated", handleUpdate);
-      window.removeEventListener("round1Updated", handleUpdate);
-      window.removeEventListener("round2Updated", handleUpdate);
-      window.removeEventListener("round3Updated", handleUpdate);
+      window.removeEventListener("hackathon_attendance_changed", handleDataChange);
+      window.removeEventListener("hackathon_evaluation_changed", handleDataChange);
     };
   }, []);
-
-  const r1Badge = teams.filter((t) => getAttendance(t) === "Present").length;
-  const r2Badge = teams.filter((t) => {
-    const s = getRoundStatus(t, 2);
-    return s === "Eligible" || s === "Qualified" || s === "Not Qualified";
-  }).length;
-  const r3Badge = teams.filter((t) => {
-    const s = getRoundStatus(t, 3);
-    return s === "Eligible" || s === "Qualified" || s === "Not Qualified";
-  }).length;
-  const finalistsCount = teams.filter((t) => getFinalStatus(t) === "Finalist").length;
 
   const navItems = [
     {
@@ -88,47 +73,43 @@ const HackathonDashboard = () => {
     },
     {
       id: "teams",
-      label: "Team Verification",
-      icon: UserCheck
+      label: "Teams",
+      icon: Users
     },
     {
       id: "round1",
       label: "Round 1",
       icon: Timer,
-      badge: r1Badge,
+      badge: badges.round1,
       color: "violet"
     },
     {
       id: "round2",
       label: "Round 2",
       icon: BarChart3,
-      badge: r2Badge,
+      badge: badges.round2,
       color: "amber"
     },
     {
       id: "round3",
       label: "Round 3",
       icon: Trophy,
-      badge: r3Badge,
+      badge: badges.round3,
       color: "emerald"
     },
     {
       id: "reports",
-      label: "Final Results",
-      icon: FileBarChart,
-      badge: finalistsCount,
-      color: "emerald"
+      label: "Reports",
+      icon: FileBarChart
     }
   ];
-
-  const finalistTeams = teams.filter((t) => getFinalStatus(t) === "Finalist");
 
   return (
     <div className="hackathon-dashboard-wrapper">
       <aside className={`hd-sidebar ${mobileOpen ? "hd-sidebar-open" : ""}`}>
         <div className="hd-sidebar-header">
           <div className="hd-logo">
-            <Sparkles size={20} />
+            <img src={txIcon} alt="TX Logo" style={{ width: "28px", height: "28px", objectFit: "contain", borderRadius: "4px" }} />
           </div>
 
           <div className="hd-brand">
@@ -158,8 +139,16 @@ const HackathonDashboard = () => {
                 <Icon className="hd-nav-icon" />
                 <span className="hd-nav-label">{item.label}</span>
 
-                {item.badge !== undefined && item.badge > 0 && (
-                  <span className={`hd-badge hd-badge-${item.color} ${isActive ? "hd-badge-active" : ""}`}>
+                <span className="hd-nav-label">
+                  {item.label}
+                </span>
+
+                {typeof item.badge === "number" && item.badge > 0 && (
+                  <span
+                    className={`hd-badge hd-badge-${item.color} ${
+                      isActive ? "hd-badge-active" : ""
+                    }`}
+                  >
                     {item.badge}
                   </span>
                 )}
@@ -207,6 +196,31 @@ const HackathonDashboard = () => {
             <Round1 />
           </div>
         )}
+        {active === "round2" && (
+  <div className="hd-content">
+    <Round2 />
+  </div>
+)}
+
+{active === "round3" && (
+  <div className="hd-content">
+    <Round3 />
+  </div>
+)}
+
+        {active === "reports" && (
+          <div className="hd-content">
+            <Reports />
+          </div>
+        )}
+
+        {active !== "dashboard" &&
+          active !== "teams" &&
+          active !== "round1" &&
+          active !== "round2" &&
+          active !== "round3" &&
+          active !== "reports" && (
+            <div className="hd-empty-wrapper">
 
         {active === "round2" && (
           <div className="hd-content">
