@@ -36,12 +36,6 @@ export function getRound3Teams() {
   return fetchSheetData("getRound3", "round3");
 }
 
-// API: Retrieve all teams directly from Google Sheets
-export async function getTeams() {
-  const data = await fetchWithRetry(`${API_URL}?action=getTeams&t=${Date.now()}`, {
-    method: "GET",
-    redirect: "follow"
-  });
 export function getLocalAttendanceMap() {
   try {
     return JSON.parse(localStorage.getItem("tx_hackathon_attendance") || "{}");

@@ -4,13 +4,12 @@ import {
   UserCheck,
   UserX,
   Clock3,
-  Timer,
-  CheckCircle2,
   Trophy,
   Medal,
+  Award,
   RefreshCw,
-  XCircle,
-  Sparkles
+  CheckCircle2,
+  XCircle
 } from "lucide-react";
 import {
   getTeams,
@@ -251,7 +250,7 @@ const Overview = () => {
       <div className="overview-section-title">
         <div>
           <h2>Evaluation Progress</h2>
-          <p>Real-time qualification status across rounds</p>
+          <p>Current qualification status by round</p>
         </div>
       </div>
 
@@ -295,14 +294,13 @@ const Overview = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Registration ID</th>
+                  <th>Registration No</th>
                   <th>Team Lead</th>
                   <th>Attendance</th>
                   <th>Action</th>
                   <th>Round 1</th>
                   <th>Round 2</th>
                   <th>Round 3</th>
-                  <th>Final Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -319,11 +317,11 @@ const Overview = () => {
                   const r3Status = getR3Status(registration);
 
                   return (
-                    <tr key={regId || index}>
+                    <tr key={registration || index}>
                       <td>{index + 1}</td>
                       <td>
                         <span className="registration-number">
-                          {regId}
+                          {registration || `REG-${index + 1}`}
                         </span>
                       </td>
                       <td>
