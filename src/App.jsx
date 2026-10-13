@@ -26,7 +26,7 @@ import Signin from "./modules/marketing/presentation/components/Login/signin";
 import RegistrationForm from "./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm";
 import Events from "./modules/marketing/presentation/pages/Events/Events.jsx";
 
-// Hackathon Dashboard
+// Hackathon Dashboard (Preserved 100%)
 import HackathonDashboard from "./modules/marketing/presentation/pages/HackathonDashboard/HackathonDashboard.jsx";
 // Student Dashboard (with Sidebar + Assessments + Certificates)
 import Dashboard from "./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard.jsx";
@@ -87,8 +87,8 @@ function AppLayout() {
           element={<Organization />}
         />
 
+        {/* Existing Login / Signin */}
         <Route path="/login" element={<Login />} />
-
         <Route path="/Signin" element={<Signin />} />
 
         <Route
@@ -102,7 +102,7 @@ function AppLayout() {
         />
 
         {/* =====================================
-            HACKATHON ADMIN DASHBOARD
+            HACKATHON ADMIN DASHBOARD (PRESERVED)
             ===================================== */}
         <Route
           path="/hackathon-dashboard"

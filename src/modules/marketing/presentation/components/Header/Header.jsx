@@ -41,8 +41,29 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    () => localStorage.getItem("isLoggedIn") === "true"
+  );
+  const [isAdmin, setIsAdmin] = useState(
+    () => localStorage.getItem("isAdmin") === "true"
+  );
 
   const location = useLocation();
+
+  const checkAuth = () => {
+    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+    setIsAdmin(localStorage.getItem("isAdmin") === "true");
+  };
+
+  useEffect(() => {
+    checkAuth();
+    window.addEventListener("authChanged", checkAuth);
+    window.addEventListener("storage", checkAuth);
+    return () => {
+      window.removeEventListener("authChanged", checkAuth);
+      window.removeEventListener("storage", checkAuth);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -186,13 +207,22 @@ export default function Header() {
               )}
             </Link>
 
-            <button
-              type="button"
-              className="btn-signin"
-              onClick={openLogin}
-            >
-              Sign in
-            </button>
+            {isLoggedIn ? (
+              <Link
+                to={isAdmin ? "/hackathon-dashboard" : "/dashboard"}
+                className="btn-signin"
+              >
+                {isAdmin ? "Admin Portal" : "Dashboard"}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className="btn-signin"
+                onClick={openLogin}
+              >
+                Sign in
+              </button>
+            )}
 
           </div>
 
@@ -280,13 +310,23 @@ export default function Header() {
         </nav>
 
         <div className="mobile-actions">
-          <button
-            type="button"
-            className="btn-signin"
-            onClick={openLogin}
-          >
-            Sign in
-          </button>
+          {isLoggedIn ? (
+            <Link
+              to={isAdmin ? "/hackathon-dashboard" : "/dashboard"}
+              className="btn-signin"
+              onClick={closeMenu}
+            >
+              {isAdmin ? "Admin Portal" : " Dashboard"}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="btn-signin"
+              onClick={openLogin}
+            >
+              Sign in
+            </button>
+          )}
         </div>
       </div>
 

@@ -1,136 +1,95 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import txIcon from "../../../../../../assets/tx-icon.jpg";
-import Assessments from "../Assessments/Assessments";
-import Certificates from "../Certificates/Certificates";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Sparkles } from "lucide-react";
+
+import { useStudentAuth } from "./hooks/useStudentAuth";
+import { useStudentCourses } from "./hooks/useStudentCourses";
+import { useStudentStats } from "./hooks/useStudentStats";
+
+import DashboardSidebar from "./components/DashboardSidebar";
+import DashboardHeader from "./components/DashboardHeader";
+import WelcomeHero from "./components/WelcomeHero";
+import StatsCards from "./components/StatsCards";
+import ContinueLearning from "./components/ContinueLearning";
+import RecommendedSection from "./components/RecommendedSection";
+import SkillProfileSection from "./components/SkillProfileSection";
+import ComingUpSection from "./components/ComingUpSection";
+import AchievementsSection from "./components/AchievementsSection";
+import AIAssistantTab from "./components/AIAssistantTab";
+import CodingLabTab from "./components/CodingLabTab";
+import CareersTab from "./components/CareersTab";
+
+import MyCourses from "../MyCourses/MyCourses";
+import VideoPlayer from "./VideoPlayer";
 import "./Dashboard.css";
 
-export default function Dashboard() {
+export default function StudentDashboard() {
+  const navigate = useNavigate();
   const location = useLocation();
 
-  // Determine initial tab based on URL path
-  const getTabFromPath = (pathname) => {
-    if (pathname.includes("assessments")) return "assessments";
-    if (pathname.includes("certificates")) return "certificates";
-    return "dashboard";
-  };
+  // Custom Modular Hooks
+  const { userProfile, logout } = useStudentAuth();
+  const {
+    enrollments,
+    filteredEnrollments,
+    recommendedCourses,
+    searchQuery,
+    setSearchQuery,
+    courseFilter,
+    setCourseFilter,
+    enrollInCourse,
+    updateProgress,
+  } = useStudentCourses();
+  const { activeCoursesCount, streakDays, learningHours } = useStudentStats(enrollments);
 
-  const [activeTab, setActiveTab] = useState(() => getTabFromPath(location.pathname));
-
-  useEffect(() => {
-    if (location.pathname.includes("assessments")) {
-      setActiveTab("assessments");
-    } else if (location.pathname.includes("certificates")) {
-      setActiveTab("certificates");
-    }
+  // Tab State & Deep Link Routing
+  const getInitialTab = useCallback(() => {
+    const path = location.pathname;
+    if (path.includes("courses")) return "My courses";
+    if (path.includes("coding-lab")) return "Coding lab";
+    if (path.includes("ai-assistant")) return "AI assistant";
+    if (path.includes("careers")) return "Careers";
+    return "Dashboard";
   }, [location.pathname]);
 
-  return (
-    <div className="student-dashboard-layout">
-      {/* Left Sidebar with all Student Dashboard topics */}
-      <aside className="student-sidebar">
-        {/* Top Brand & Role Switcher */}
-        <div className="sidebar-brand-area">
-          <div className="pathwing-logo">
-            <img src={txIcon} alt="" className="tx-sidebar-logo-img" />
-            <span className="logo-text">Pathwing</span>
-          </div>
+  const [activeTab, setActiveTab] = useState(getInitialTab);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeVideoCourse, setActiveVideoCourse] = useState(null);
+  const [toastMessage, setToastMessage] = useState("");
 
-          <div className="signed-in-box">
-            <label className="signed-in-label">SIGNED IN AS</label>
-            <select className="signed-in-select" defaultValue="student">
-              <option value="student">Student — Aditya R.</option>
-            </select>
-          </div>
-        </div>
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
+  }, []);
 
-        {/* Navigation Menu Items */}
-        <nav className="sidebar-nav-menu">
-          <div className="nav-group">
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "dashboard" ? "active" : ""}`}
-              onClick={() => setActiveTab("dashboard")}
-            >
-              <span>Dashboard</span>
-            </button>
+  // Synchronize Tab with Location
+  useEffect(() => {
+    setActiveTab(getInitialTab());
+  }, [getInitialTab]);
 
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "my-courses" ? "active" : ""}`}
-              onClick={() => setActiveTab("my-courses")}
-            >
-              <span>My courses</span>
-              <span className="nav-badge">4</span>
-            </button>
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    setMobileMenuOpen(false);
+    if (tabName === "Dashboard") navigate("/dashboard");
+    else if (tabName === "My courses") navigate("/dashboard/courses");
+    else if (tabName === "AI assistant") navigate("/dashboard/ai-assistant");
+    else if (tabName === "Coding lab") navigate("/dashboard/coding-lab");
+    else if (tabName === "Careers") navigate("/dashboard/careers");
+  };
 
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "ai-assistant" ? "active" : ""}`}
-              onClick={() => setActiveTab("ai-assistant")}
-            >
-              <span>AI assistant</span>
-            </button>
+  const handleResumeLesson = (courseObj) => {
+    const target = courseObj || enrollments[0];
+    if (typeof target === "string") {
+      const found = enrollments.find(
+        (e) => e.courseId === target || e.id === target || e.courseCode === target
+      );
+      setActiveVideoCourse(found || enrollments[0]);
+    } else {
+      setActiveVideoCourse(target);
+    }
+  };
 
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "coding-lab" ? "active" : ""}`}
-              onClick={() => setActiveTab("coding-lab")}
-            >
-              <span>Coding lab</span>
-              <span className="nav-badge">2</span>
-            </button>
-          </div>
-
-          <div className="nav-group">
-            <span className="nav-section-title">PROGRESS</span>
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "assessments" ? "active" : ""}`}
-              onClick={() => setActiveTab("assessments")}
-            >
-              <span>Assessments</span>
-              <span className="nav-badge">1</span>
-            </button>
-
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "certificates" ? "active" : ""}`}
-              onClick={() => setActiveTab("certificates")}
-            >
-              <span>Certificates</span>
-              <span className="nav-badge">3</span>
-            </button>
-          </div>
-
-          <div className="nav-group">
-            <span className="nav-section-title">NEXT</span>
-            <button
-              type="button"
-              className={`sidebar-nav-item ${activeTab === "careers" ? "active" : ""}`}
-              onClick={() => setActiveTab("careers")}
-            >
-              <span>Careers</span>
-              <span className="nav-badge">14</span>
-            </button>
-          </div>
-        </nav>
-
-        {/* Bottom User Profile */}
-        <div className="sidebar-user-footer">
-          <div className="user-avatar-badge">AR</div>
-          <div className="user-meta">
-            <div className="user-name">Aditya Reddy</div>
-            <div className="user-tenant">Tenant: KITSW · Learner Pro</div>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area: ONLY opens Assessments or Certificates when clicked */}
-      <main className="student-main-content">
-        {activeTab === "assessments" && <Assessments />}
-        {activeTab === "certificates" && <Certificates />}
-      </main>
-    </div>
-  );
-}
+  const handleQuickEnroll = (course) => {
+    const res = enrollInCourse(course);
+    showToast(res.message);
+  };
