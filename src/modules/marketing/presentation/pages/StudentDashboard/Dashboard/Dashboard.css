@@ -1,169 +1,214 @@
-/* Sidebar container */
-.dashboard-sidebar {
-  width: 288px;
-  min-width: 288px;
-  height: 100vh;
+/* ==========================================================================
+   STUDENT DASHBOARD LAYOUT & SIDEBAR CSS
+   ========================================================================== */
+
+.student-dashboard-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #0f172a;
+}
+
+/* Left Sidebar */
+.student-sidebar {
+  width: 245px;
+  min-width: 245px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border-right: 1px solid #dce2eb;
-  border-top: 3px solid #111827;
-  color: #344256;
-  font-family: Inter, Arial, sans-serif;
-  box-sizing: border-box;
+  justify-content: space-between;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
-/* Brand */
-.sidebar-brand {
+.sidebar-brand-area {
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.pathwing-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 15px 22px 18px;
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.brand-symbol {
-  font-size: 23px;
-  font-weight: 900;
-  font-style: italic;
-  letter-spacing: -5px;
-  color: #3859cf;
-  margin-right: 3px;
+.tx-sidebar-logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
 }
 
-.brand-name {
-  font-size: 22px;
+.logo-text {
+  font-size: 19px;
   font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.7px;
+  color: #0f172a;
+  letter-spacing: -0.02em;
 }
 
-/* Student selector */
-.sidebar-student-selector {
-  padding: 4px 20px 17px;
-  border-bottom: 1px solid #dce2eb;
+.signed-in-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.sidebar-student-selector label {
-  display: block;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: #78869a;
-  margin-bottom: 8px;
-}
-
-.sidebar-student-selector select {
-  width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 1px solid #c6d0df;
-  border-radius: 12px;
-  background: #eff3f9;
-  color: #172235;
-  font-size: 14px;
+.signed-in-label {
+  font-size: 10.5px;
   font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.signed-in-select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
   outline: none;
   cursor: pointer;
 }
 
-/* Navigation area */
-.sidebar-navigation {
+/* Navigation Menu */
+.sidebar-nav-menu {
   flex: 1;
-  padding: 23px 11px 18px;
+  padding: 14px 12px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.sidebar-group {
-  margin-bottom: 22px;
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.sidebar-section-title {
-  margin: 10px 11px 10px;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  color: #78869a;
+.nav-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
 }
 
 .sidebar-nav-item {
-  width: 100%;
-  min-height: 46px;
-  padding: 0 12px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
   border: none;
-  border-radius: 11px;
   background: transparent;
-  color: #405066;
-  font-size: 15px;
+  border-radius: 9px;
+  font-size: 14px;
   font-weight: 500;
-  text-align: left;
+  color: #334155;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  text-align: left;
+  transition: all 0.15s ease;
 }
 
 .sidebar-nav-item:hover {
-  background: #f3f5fb;
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 .sidebar-nav-item.active {
-  background: #e8edff;
-  color: #2e50bc;
+  background-color: #eef2ff;
+  color: #2563eb;
   font-weight: 700;
 }
 
-.sidebar-count {
-  color: #63738a;
+.nav-badge {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  color: #64748b;
 }
 
-/* Profile footer */
-.sidebar-profile {
-  min-height: 101px;
-  padding: 17px 20px;
+.sidebar-nav-item.active .nav-badge {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+/* Bottom User Footer */
+.sidebar-user-footer {
+  padding: 16px 18px;
+  border-top: 1px solid #e2e8f0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
-  border-top: 1px solid #dce2eb;
-  box-sizing: border-box;
+  background-color: #ffffff;
 }
 
-.profile-avatar {
+.user-avatar-badge {
   width: 38px;
   height: 38px;
-  min-width: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 11px;
-  background: #2850c8;
+  border-radius: 10px;
+  background-color: #2563eb;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.profile-details {
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.user-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-tenant {
+  font-size: 11.5px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Main Content Area */
+.student-main-content {
+  flex: 1;
   min-width: 0;
+  min-height: 100vh;
+  background-color: #ffffff;
+  overflow-x: hidden;
 }
 
-.profile-name {
-  margin: 0 0 5px;
-  color: #111827;
-  font-size: 14px;
-  font-weight: 750;
-}
+@media (max-width: 900px) {
+  .student-dashboard-layout {
+    flex-direction: column;
+  }
 
-.profile-description {
-  margin: 0;
-  color: #78869a;
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-/* Smaller screens */
-@media (max-width: 768px) {
-  .dashboard-sidebar {
-    width: 288px;
-    min-width: 288px;
+  .student-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
   }
 }
