@@ -1,96 +1,213 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Sparkles } from "lucide-react";
+
+import { useStudentAuth } from "./hooks/useStudentAuth";
+import { useStudentCourses } from "./hooks/useStudentCourses";
+import { useStudentStats } from "./hooks/useStudentStats";
+
+import DashboardSidebar from "./components/DashboardSidebar";
+import DashboardHeader from "./components/DashboardHeader";
+import WelcomeHero from "./components/WelcomeHero";
+import StatsCards from "./components/StatsCards";
+import ContinueLearning from "./components/ContinueLearning";
+import RecommendedSection from "./components/RecommendedSection";
+import SkillProfileSection from "./components/SkillProfileSection";
+import ComingUpSection from "./components/ComingUpSection";
+import AchievementsSection from "./components/AchievementsSection";
+import AIAssistantTab from "./components/AIAssistantTab";
+import CodingLabTab from "./components/CodingLabTab";
+import CareersTab from "./components/CareersTab";
+
+import MyCourses from "../MyCourses/MyCourses";
+import VideoPlayer from "./VideoPlayer";
 import "./Dashboard.css";
 
-const DashboardNavbar = () => {
-  const [activeItem, setActiveItem] = useState("Dashboard");
-  const [student, setStudent] = useState("Student — Aditya R.");
+export default function StudentDashboard() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const navigation = [
-    {
-      section: "LEARN",
-      items: [
-        { name: "Dashboard", path: "/student/dashboard" },
-        { name: "My courses", path: "/student/courses", count: 4 },
-        { name: "AI assistant", path: "/student/ai-assistant" },
-        { name: "Coding lab", path: "/student/coding-lab", count: 2 },
-      ],
-    },
-    {
-      section: "PROGRESS",
-      items: [
-        { name: "Assessments", path: "/student/assessments", count: 1 },
-        { name: "Certificates", path: "/student/certificates", count: 3 },
-      ],
-    },
-    {
-      section: "NEXT",
-      items: [
-        { name: "Careers", path: "/student/careers", count: 14 },
-      ],
-    },
-  ];
+  // Custom Modular Hooks
+  const { userProfile, logout } = useStudentAuth();
+  const {
+    enrollments,
+    filteredEnrollments,
+    recommendedCourses,
+    searchQuery,
+    setSearchQuery,
+    courseFilter,
+    setCourseFilter,
+    enrollInCourse,
+    updateProgress,
+  } = useStudentCourses();
+  const { activeCoursesCount, streakDays, learningHours } = useStudentStats(enrollments);
+
+  // Tab State & Deep Link Routing
+  const getInitialTab = useCallback(() => {
+    const path = location.pathname;
+    if (path.includes("courses")) return "My courses";
+    if (path.includes("coding-lab")) return "Coding lab";
+    if (path.includes("ai-assistant")) return "AI assistant";
+    if (path.includes("careers")) return "Careers";
+    return "Dashboard";
+  }, [location.pathname]);
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeVideoCourse, setActiveVideoCourse] = useState(null);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToast = useCallback((msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
+  }, []);
+
+  // Synchronize Tab with Location
+  useEffect(() => {
+    setActiveTab(getInitialTab());
+  }, [getInitialTab]);
+
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    setMobileMenuOpen(false);
+    if (tabName === "Dashboard") navigate("/dashboard");
+    else if (tabName === "My courses") navigate("/dashboard/courses");
+    else if (tabName === "AI assistant") navigate("/dashboard/ai-assistant");
+    else if (tabName === "Coding lab") navigate("/dashboard/coding-lab");
+    else if (tabName === "Careers") navigate("/dashboard/careers");
+  };
+
+  const handleResumeLesson = (courseObj) => {
+    const target = courseObj || enrollments[0];
+    if (typeof target === "string") {
+      const found = enrollments.find(
+        (e) => e.courseId === target || e.id === target || e.courseCode === target
+      );
+      setActiveVideoCourse(found || enrollments[0]);
+    } else {
+      setActiveVideoCourse(target);
+    }
+  };
+
+  const handleQuickEnroll = (course) => {
+    const res = enrollInCourse(course);
+    showToast(res.message);
+  };
 
   return (
-    <aside className="dashboard-sidebar">
-      {/* Brand */}
-      <div className="sidebar-brand">
-        <span className="brand-symbol">///</span>
-        <span className="brand-name">Pathwing</span>
-      </div>
-
-      {/* Student selector */}
-      <div className="sidebar-student-selector">
-        <label htmlFor="student-select">SIGNED IN AS</label>
-
-        <select
-          id="student-select"
-          value={student}
-          onChange={(e) => setStudent(e.target.value)}
-        >
-          <option>Student — Aditya R.</option>
-          <option>Student — Demo User</option>
-        </select>
-      </div>
-
-      {/* Navigation */}
-      <nav className="sidebar-navigation">
-        {navigation.map((group) => (
-          <div className="sidebar-group" key={group.section}>
-            <p className="sidebar-section-title">{group.section}</p>
-
-            {group.items.map((item) => (
-              <button
-                type="button"
-                key={item.name}
-                className={`sidebar-nav-item ${
-                  activeItem === item.name ? "active" : ""
-                }`}
-                onClick={() => setActiveItem(item.name)}
-              >
-                <span>{item.name}</span>
-
-                {item.count !== undefined && (
-                  <span className="sidebar-count">{item.count}</span>
-                )}
-              </button>
-            ))}
-          </div>
-        ))}
-      </nav>
-
-      {/* Profile footer */}
-      <div className="sidebar-profile">
-        <div className="profile-avatar">AR</div>
-
-        <div className="profile-details">
-          <p className="profile-name">Aditya Reddy</p>
-          <p className="profile-description">
-            Tenant: KITSW · Learner Pro
-          </p>
+    <div className="dashboard-root-layout">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="dashboard-toast">
+          <Sparkles size={16} color="#3b82f6" /> {toastMessage}
         </div>
-      </div>
-    </aside>
-  );
-};
+      )}
 
-export default DashboardNavbar;
+      {/* Video Player Modal */}
+      {activeVideoCourse && (
+        <VideoPlayer
+          course={activeVideoCourse}
+          onClose={() => setActiveVideoCourse(null)}
+          onProgressUpdate={(pct) => {
+            updateProgress(activeVideoCourse.courseId || activeVideoCourse.id, pct);
+            showToast("Lesson progress updated!");
+          }}
+        />
+      )}
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="dashboard-mobile-overlay"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Fixed Sidebar */}
+      <DashboardSidebar
+        userProfile={userProfile}
+        activeTab={activeTab}
+        onTabClick={handleTabClick}
+        enrollmentsCount={enrollments.length}
+        mobileOpen={mobileMenuOpen}
+        onCloseMobile={() => setMobileMenuOpen(false)}
+        onLogout={logout}
+      />
+
+      {/* Main Viewport */}
+      <div className="dashboard-viewport">
+        {/* Fixed Header */}
+        <DashboardHeader
+          activeTab={activeTab}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onOpenMobile={() => setMobileMenuOpen(true)}
+        />
+
+        {/* Scrollable Main Content */}
+        <main className="dashboard-content-scroll">
+          {activeTab === "My courses" && (
+            <MyCourses onResumeCourse={handleResumeLesson} />
+          )}
+
+          {activeTab === "AI assistant" && (
+            <AIAssistantTab userName={userProfile.name} />
+          )}
+
+          {activeTab === "Coding lab" && (
+            <CodingLabTab onOpenSandbox={() => showToast("Launching sandbox environment...")} />
+          )}
+
+          {activeTab === "Careers" && <CareersTab />}
+
+          {activeTab === "Dashboard" && (
+            <>
+              {/* Welcome Banner */}
+              <WelcomeHero
+                userName={userProfile.name}
+                streakDays={streakDays}
+                learningHours={learningHours}
+                activeCoursesCount={activeCoursesCount}
+                lastCourse={enrollments[0]}
+                onResume={handleResumeLesson}
+              />
+
+              {/* Statistics Metric Cards */}
+              <StatsCards
+                activeCoursesCount={activeCoursesCount}
+                learningHours={learningHours}
+                streakDays={streakDays}
+              />
+
+              {/* Main Content Grid */}
+              <div className="dashboard-main-grid">
+                {/* Primary Column */}
+                <div className="main-column">
+                  <ContinueLearning
+                    enrollments={filteredEnrollments}
+                    courseFilter={courseFilter}
+                    onFilterChange={setCourseFilter}
+                    onResume={handleResumeLesson}
+                  />
+
+                  <RecommendedSection
+                    recommendedCourses={recommendedCourses}
+                    onEnroll={handleQuickEnroll}
+                    onViewDetails={(id) => navigate(`/course/${id.toLowerCase()}`)}
+                  />
+                </div>
+
+                {/* Secondary Column */}
+                <div className="sidebar-column">
+                  <SkillProfileSection />
+                  <ComingUpSection />
+                  <AchievementsSection />
+                </div>
+              </div>
+            </>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}

@@ -22,7 +22,7 @@ const ADMIN_EMAIL = "tanvoxadmin@gmail.com";
 const ADMIN_PASSWORD = "tanvox12340";
 
 const Login = ({
-  isOpen,
+  isOpen = true,
   onClose,
   initialView = "login",
   onLoginSuccess,
@@ -30,6 +30,14 @@ const Login = ({
   onAdminLogin,
 }) => {
   const navigate = useNavigate();
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate("/");
+    }
+  };
 
   const [isLogin, setIsLogin] = React.useState(
     initialView === "login"
@@ -50,6 +58,21 @@ const Login = ({
   const [errors, setErrors] = React.useState({});
   const [message, setMessage] = React.useState("");
   const [messageType, setMessageType] = React.useState("");
+
+  // ==========================================
+  // AUTO-REDIRECT IF ALREADY AUTHENTICATED
+  // ==========================================
+  React.useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const isAdmin = localStorage.getItem("isAdmin") === "true";
+    if (isLoggedIn && !onClose) {
+      if (isAdmin) {
+        navigate("/hackathon-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
+    }
+  }, [navigate, onClose]);
 
   // ==========================================
   // RESET WHEN POPUP OPENS
@@ -200,6 +223,9 @@ const Login = ({
         localStorage.setItem("userEmail", email);
         localStorage.setItem("isAdmin", "true");
 
+        window.dispatchEvent(new Event("authChanged"));
+        window.dispatchEvent(new Event("storage"));
+
         // Close login popup
         if (onClose) {
           onClose();
@@ -223,9 +249,19 @@ const Login = ({
       localStorage.setItem("userEmail", email);
       localStorage.removeItem("isAdmin");
 
+      window.dispatchEvent(new Event("authChanged"));
+      window.dispatchEvent(new Event("storage"));
+
+      if (onClose) {
+        onClose();
+      }
+
       if (onLoginSuccess) {
         onLoginSuccess();
       }
+
+      // Open Student Dashboard
+      navigate("/dashboard");
 
       return;
     }
@@ -234,6 +270,12 @@ const Login = ({
     // SIGNUP
     // ==========================================
     localStorage.setItem("userEmail", email);
+    if (form.full_name && form.full_name.trim()) {
+      localStorage.setItem("userName", form.full_name.trim());
+    }
+    if (form.phone && form.phone.trim()) {
+      localStorage.setItem("userPhone", form.phone.trim());
+    }
 
     setMessage(
       "Account created successfully! Please sign in."
@@ -272,7 +314,7 @@ const Login = ({
       {/* OVERLAY */}
       <div
         className="login-overlay"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* LOGIN BOX */}
@@ -282,7 +324,7 @@ const Login = ({
         <button
           type="button"
           className="login-close"
-          onClick={onClose}
+          onClick={handleClose}
         >
           <X size={20} />
         </button>

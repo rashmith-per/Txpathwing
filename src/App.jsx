@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -26,8 +26,9 @@ import Signin from "./modules/marketing/presentation/components/Login/signin";
 import RegistrationForm from "./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm";
 import Events from "./modules/marketing/presentation/pages/Events/Events.jsx";
 
-// Hackathon Dashboard
+// Hackathon Dashboard (Preserved 100%)
 import HackathonDashboard from "./modules/marketing/presentation/pages/HackathonDashboard/HackathonDashboard.jsx";
+
 // Student Dashboard
 import Dashboard from "./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard.jsx";
 
@@ -44,15 +45,17 @@ function ScrollToTop() {
 function AppLayout() {
   const location = useLocation();
 
-  // Don't show normal website Header/Footer on admin dashboard
-  const isHackathonDashboard =
-    location.pathname === "/hackathon-dashboard";
+  // Don't show marketing website Header/Footer on full application dashboards
+  const isDedicatedAppLayout =
+    location.pathname === "/hackathon-dashboard" ||
+    location.pathname.startsWith("/dashboard") ||
+    location.pathname.startsWith("/student");
 
   return (
     <>
       <ScrollToTop />
 
-      {!isHackathonDashboard && <Header />}
+      {!isDedicatedAppLayout && <Header />}
 
       <Routes>
         {/* Home */}
@@ -83,8 +86,8 @@ function AppLayout() {
           element={<Organization />}
         />
 
+        {/* Existing Login / Signin */}
         <Route path="/login" element={<Login />} />
-
         <Route path="/Signin" element={<Signin />} />
 
         <Route
@@ -98,24 +101,23 @@ function AppLayout() {
         />
 
         {/* =====================================
-            HACKATHON ADMIN DASHBOARD
+            HACKATHON ADMIN DASHBOARD (PRESERVED)
             ===================================== */}
         <Route
           path="/hackathon-dashboard"
           element={<HackathonDashboard />}
         />
-        {/* Student Dashboard routes */}
-        <Route path="/dashboard" element={<Dashboard />}/>
-        {/* Checkout - enable when Checkout.jsx exists */}
-        {/*
-        <Route
-          path="/checkout/:id"
-          element={<Checkout />}
-        />
-        */}
+
+        {/* =====================================
+            STUDENT DASHBOARD
+            ===================================== */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/student" element={<Dashboard />} />
+        <Route path="/student/*" element={<Dashboard />} />
       </Routes>
 
-      {!isHackathonDashboard && <Footer />}
+      {!isDedicatedAppLayout && <Footer />}
     </>
   );
 }

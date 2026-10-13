@@ -70,8 +70,13 @@ export default function Marketplace() {
 
   const handleCourseClick = (course) => {
     const coursePath = `/course/${course.id.toLowerCase()}`;
-    setSelectedCourse(coursePath);
-    setLoginOpen(true);
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (loggedIn) {
+      navigate(coursePath);
+    } else {
+      setSelectedCourse(coursePath);
+      setLoginOpen(true);
+    }
   };
 
   const handleAddToCart = (event, course) => {

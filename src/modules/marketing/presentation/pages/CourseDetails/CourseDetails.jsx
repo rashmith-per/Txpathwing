@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses as marketCourses } from "../MarketPlace/coursesList";
 import "./CourseDetails.css";
@@ -343,7 +343,7 @@ export default function CourseDetail() {
       };
     }
   }
- 
+
   if (!course) {
     return (
       <div className="detail-notfound">
@@ -353,6 +353,31 @@ export default function CourseDetail() {
       </div>
     );
   }
+
+  const [enrolledSuccess, setEnrolledSuccess] = useState(false);
+  const enrolledCourses = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
+  const isEnrolled = enrolledCourses.some(
+    (e) => (e.id || "").toLowerCase() === cleanId || (e.code || "").toLowerCase() === cleanId
+  );
+
+  const handleEnroll = () => {
+    const current = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
+    if (!current.some((e) => (e.id || "").toLowerCase() === cleanId)) {
+      current.push({
+        id: cleanId,
+        code: course.code,
+        title: course.title,
+        price: course.price,
+        category: course.category,
+        instructor: course.instructor,
+        progress: 0,
+        currentModule: course.syllabus?.[0]?.t ? `Module 1: ${course.syllabus[0].t}` : "Module 1",
+      });
+      localStorage.setItem("enrolledCourses", JSON.stringify(current));
+    }
+    setEnrolledSuccess(true);
+    setTimeout(() => navigate("/dashboard"), 600);
+  };
  
   return (
     <div className="detail-page">
@@ -444,10 +469,16 @@ export default function CourseDetail() {
               )}
             </div>
  
-            <button type="button" className="buy-btn"
-            onClick={() => navigate("/dashboard")}
+            <button
+              type="button"
+              className="buy-btn"
+              onClick={isEnrolled ? () => navigate("/dashboard") : handleEnroll}
             >
-              Enroll Now — {course.price}
+              {enrolledSuccess
+                ? "Enrolled Successfully! Loading..."
+                : isEnrolled
+                ? "Already Enrolled ✓ Go to Dashboard"
+                : `Enroll Now — ${course.price}`}
             </button>
             <button type="button" className="cart-btn">
               Add to Cart
