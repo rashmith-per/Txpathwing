@@ -8,6 +8,8 @@ import {
   Briefcase,
   LogOut,
   X,
+  ClipboardCheck,
+  Award,
 } from "lucide-react";
 
 export default function DashboardSidebar({
@@ -27,6 +29,13 @@ export default function DashboardSidebar({
         { name: "My courses", icon: BookOpen, count: enrollmentsCount || 2 },
         { name: "AI assistant", icon: Bot },
         { name: "Coding lab", icon: Code2, count: 3 },
+      ],
+    },
+    {
+      section: "PROGRESS",
+      items: [
+        { name: "Assessments", icon: ClipboardCheck, count: 6 },
+        { name: "Certificates", icon: Award, count: 3 },
       ],
     },
     {
