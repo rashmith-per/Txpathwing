@@ -30,6 +30,8 @@ import Events from "./modules/marketing/presentation/pages/Events/Events.jsx";
 import HackathonDashboard from "./modules/marketing/presentation/pages/HackathonDashboard/HackathonDashboard.jsx";
 // Student Dashboard (with Sidebar + Assessments + Certificates)
 import Dashboard from "./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard.jsx";
+import Assessments from "./modules/marketing/presentation/pages/StudentDashboard/Assessments/Assessments.jsx";
+import Certificates from "./modules/marketing/presentation/pages/StudentDashboard/Certificates/Certificates.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -49,8 +51,8 @@ function AppLayout() {
     location.pathname.startsWith("/hackathon-dashboard") ||
     location.pathname.startsWith("/dashboard") ||
     location.pathname.startsWith("/student") ||
-    location.pathname.startsWith("/assessments") ||
-    location.pathname.startsWith("/certificates");
+    location.pathname.toLowerCase().startsWith("/assessments") ||
+    location.pathname.toLowerCase().startsWith("/certificates");
 
   return (
     <>
@@ -108,21 +110,24 @@ function AppLayout() {
           path="/hackathon-dashboard"
           element={<HackathonDashboard />}
         />
-        {/* Student Dashboard routes (Sidebar with all topics; opens Assessments or Certificates when clicked) */}
+        {/* Student Dashboard routes (Sidebar with all topics; opens tabs or deep links) */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/student" element={<Dashboard />} />
         <Route path="/student/*" element={<Dashboard />} />
         <Route path="/student-dashboard" element={<Dashboard />} />
+        <Route path="/student-dashboard/*" element={<Dashboard />} />
+
         <Route path="/assessments" element={<Dashboard />} />
-        <Route path="/student/assessments" element={<Dashboard />} />
+        <Route path="/assessments/*" element={<Dashboard />} />
+        <Route path="/Assessments" element={<Dashboard />} />
+        <Route path="/Assessments/*" element={<Dashboard />} />
+
         <Route path="/certificates" element={<Dashboard />} />
-        <Route path="/student/certificates" element={<Dashboard />} />
-        {/* Checkout - enable when Checkout.jsx exists */}
-        {/*
-        <Route
-          path="/checkout/:id"
-          element={<Checkout />}
-        />
-        */}
+        <Route path="/certificates/*" element={<Dashboard />} />
+        <Route path="/Certificates" element={<Dashboard />} />
+        <Route path="/Certificates/*" element={<Dashboard />} />
+
       </Routes>
 
       {!hideHeaderFooter && <Footer />}

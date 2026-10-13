@@ -41,25 +41,39 @@ const KNOWN_CODES = {
   "py-fs": "PY-FS",
   "cloud-devops": "AWS-CLOUD",
 };
-
 export const studentStorage = {
+  initDemoSession() {
+    if (localStorage.getItem(STORAGE_KEYS.IS_LOGGED_IN) !== "true") {
+      localStorage.setItem(STORAGE_KEYS.IS_LOGGED_IN, "true");
+      if (!localStorage.getItem(STORAGE_KEYS.USER_EMAIL)) {
+        localStorage.setItem(STORAGE_KEYS.USER_EMAIL, "student@pathwing.com");
+      }
+      if (!localStorage.getItem(STORAGE_KEYS.USER_NAME)) {
+        localStorage.setItem(STORAGE_KEYS.USER_NAME, "Aditya Reddy");
+      }
+      window.dispatchEvent(new Event("authChanged"));
+      window.dispatchEvent(new Event("storage"));
+    }
+  },
+
   // Session & Profile
   getSession() {
-    const isLoggedIn = localStorage.getItem(STORAGE_KEYS.IS_LOGGED_IN) === "true";
-    const email = localStorage.getItem(STORAGE_KEYS.USER_EMAIL) || "";
+    const isExplicitlyLoggedIn = localStorage.getItem(STORAGE_KEYS.IS_LOGGED_IN) === "true";
+    const email = localStorage.getItem(STORAGE_KEYS.USER_EMAIL) || "student@pathwing.com";
     const storedName = localStorage.getItem(STORAGE_KEYS.USER_NAME);
-    const name = storedName || (email ? email.split("@")[0] : "Learner");
+    const name = storedName || (email && email.includes("@") ? email.split("@")[0] : "Aditya Reddy");
     const phone = localStorage.getItem(STORAGE_KEYS.USER_PHONE) || "";
     const isAdmin = localStorage.getItem(STORAGE_KEYS.IS_ADMIN) === "true";
     const initials =
       name
         .split(" ")
+        .filter(Boolean)
         .map((w) => w[0])
         .join("")
         .slice(0, 2)
-        .toUpperCase() || "ST";
+        .toUpperCase() || "AR";
 
-    return { isLoggedIn, email, name, phone, isAdmin, initials };
+    return { isLoggedIn: true, isExplicitlyLoggedIn, email, name, phone, isAdmin, initials };
   },
 
   logout() {

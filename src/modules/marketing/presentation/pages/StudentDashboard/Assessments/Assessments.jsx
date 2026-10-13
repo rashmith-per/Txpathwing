@@ -18,6 +18,9 @@ import ProctoringFeed from "./components/ActiveExam/ProctoringFeed";
 import ExamCompletedPopup from "./components/CompletedPopup/ExamCompletedPopup";
 
 export default function Assessments({ onBack }) {
+  // Category Filter State
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   // Question & Navigation States
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -193,13 +196,59 @@ export default function Assessments({ onBack }) {
           )
         : 0;
 
+    const filteredExams =
+      selectedCategory === "all"
+        ? ASSESSMENT_EXAMS
+        : ASSESSMENT_EXAMS.filter(
+            (e) =>
+              e.id === selectedCategory ||
+              e.category?.toLowerCase() === selectedCategory.toLowerCase()
+          );
+
     return (
       <div className="topic-exams-page">
         <div className="topic-exams-content-grid">
           {/* Left Column: Topic Exam Cards List */}
           <div className="topic-exams-main-col">
+            {/* Hero Banner */}
+            <div className="topic-hero-banner">
+              <div className="topic-hero-text">
+                <div className="topic-breadcrumb" onClick={onBack}>
+                  <span>Dashboard</span>
+                  <span>›</span>
+                  <span>Assessments</span>
+                </div>
+                <h1 className="topic-hero-title">Topic-wise Proctored Assessments</h1>
+                <p className="topic-hero-subtitle">
+                  Demonstrate domain mastery with AI-proctored skill evaluations. Complete assessments to earn verified blockchain credentials.
+                </p>
+              </div>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="topic-filter-pills">
+              {[
+                { id: "all", label: "All Topics" },
+                { id: "java", label: "Java" },
+                { id: "python", label: "Python" },
+                { id: "javascript", label: "JavaScript" },
+                { id: "database", label: "Database" },
+                { id: "web-dev", label: "Web Dev" },
+                { id: "system-design", label: "System Design" },
+              ].map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  className={`topic-filter-pill ${selectedCategory === cat.id ? "active" : ""}`}
+                  onClick={() => setSelectedCategory(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
             <div className="topic-cards-list">
-              {ASSESSMENT_EXAMS.map((exam) => (
+              {filteredExams.map((exam) => (
                 <TopicExamCard
                   key={exam.id}
                   exam={exam}
@@ -253,7 +302,10 @@ export default function Assessments({ onBack }) {
           activeQuestions={activeQuestions}
           currentAnsweredCount={currentAnsweredCount}
           secondsRemaining={secondsRemaining}
-          onBack={onBack}
+          onBack={() => {
+            stopCameraAndMic();
+            setExamStage("start");
+          }}
           onSubmit={handleSubmitAssessment}
         />
 
