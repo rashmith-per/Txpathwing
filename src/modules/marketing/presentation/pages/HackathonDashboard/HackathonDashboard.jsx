@@ -270,32 +270,6 @@ const HackathonDashboard = () => {
           active !== "reports" && (
             <div className="hd-empty-wrapper">
 
-        {active === "round2" && (
-  <div className="hd-content">
-    <Round2 />
-  </div>
-)}
-
-{active === "round3" && (
-  <div className="hd-content">
-    <Round3 />
-  </div>
-)}
-
-        {active === "reports" && (
-          <div className="hd-content">
-            <Reports />
-          </div>
-        )}
-
-        {active !== "dashboard" &&
-          active !== "teams" &&
-          active !== "round1" &&
-          active !== "round2" &&
-          active !== "round3" &&
-          active !== "reports" && (
-            <div className="hd-empty-wrapper">
-
               <div className="hd-empty-box">
 
                 <div className="hd-empty-icon">

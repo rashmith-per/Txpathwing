@@ -1,96 +1,136 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import txIcon from "../../../../../../assets/tx-icon.jpg";
+import Assessments from "../Assessments/Assessments";
+import Certificates from "../Certificates/Certificates";
 import "./Dashboard.css";
 
-const DashboardNavbar = () => {
-  const [activeItem, setActiveItem] = useState("Dashboard");
-  const [student, setStudent] = useState("Student — Aditya R.");
+export default function Dashboard() {
+  const location = useLocation();
 
-  const navigation = [
-    {
-      section: "LEARN",
-      items: [
-        { name: "Dashboard", path: "/student/dashboard" },
-        { name: "My courses", path: "/student/courses", count: 4 },
-        { name: "AI assistant", path: "/student/ai-assistant" },
-        { name: "Coding lab", path: "/student/coding-lab", count: 2 },
-      ],
-    },
-    {
-      section: "PROGRESS",
-      items: [
-        { name: "Assessments", path: "/student/assessments", count: 1 },
-        { name: "Certificates", path: "/student/certificates", count: 3 },
-      ],
-    },
-    {
-      section: "NEXT",
-      items: [
-        { name: "Careers", path: "/student/careers", count: 14 },
-      ],
-    },
-  ];
+  // Determine initial tab based on URL path
+  const getTabFromPath = (pathname) => {
+    if (pathname.includes("assessments")) return "assessments";
+    if (pathname.includes("certificates")) return "certificates";
+    return "dashboard";
+  };
+
+  const [activeTab, setActiveTab] = useState(() => getTabFromPath(location.pathname));
+
+  useEffect(() => {
+    if (location.pathname.includes("assessments")) {
+      setActiveTab("assessments");
+    } else if (location.pathname.includes("certificates")) {
+      setActiveTab("certificates");
+    }
+  }, [location.pathname]);
 
   return (
-    <aside className="dashboard-sidebar">
-      {/* Brand */}
-      <div className="sidebar-brand">
-        <span className="brand-symbol">///</span>
-        <span className="brand-name">Pathwing</span>
-      </div>
-
-      {/* Student selector */}
-      <div className="sidebar-student-selector">
-        <label htmlFor="student-select">SIGNED IN AS</label>
-
-        <select
-          id="student-select"
-          value={student}
-          onChange={(e) => setStudent(e.target.value)}
-        >
-          <option>Student — Aditya R.</option>
-          <option>Student — Demo User</option>
-        </select>
-      </div>
-
-      {/* Navigation */}
-      <nav className="sidebar-navigation">
-        {navigation.map((group) => (
-          <div className="sidebar-group" key={group.section}>
-            <p className="sidebar-section-title">{group.section}</p>
-
-            {group.items.map((item) => (
-              <button
-                type="button"
-                key={item.name}
-                className={`sidebar-nav-item ${
-                  activeItem === item.name ? "active" : ""
-                }`}
-                onClick={() => setActiveItem(item.name)}
-              >
-                <span>{item.name}</span>
-
-                {item.count !== undefined && (
-                  <span className="sidebar-count">{item.count}</span>
-                )}
-              </button>
-            ))}
+    <div className="student-dashboard-layout">
+      {/* Left Sidebar with all Student Dashboard topics */}
+      <aside className="student-sidebar">
+        {/* Top Brand & Role Switcher */}
+        <div className="sidebar-brand-area">
+          <div className="pathwing-logo">
+            <img src={txIcon} alt="" className="tx-sidebar-logo-img" />
+            <span className="logo-text">Pathwing</span>
           </div>
-        ))}
-      </nav>
 
-      {/* Profile footer */}
-      <div className="sidebar-profile">
-        <div className="profile-avatar">AR</div>
-
-        <div className="profile-details">
-          <p className="profile-name">Aditya Reddy</p>
-          <p className="profile-description">
-            Tenant: KITSW · Learner Pro
-          </p>
+          <div className="signed-in-box">
+            <label className="signed-in-label">SIGNED IN AS</label>
+            <select className="signed-in-select" defaultValue="student">
+              <option value="student">Student — Aditya R.</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </aside>
-  );
-};
 
-export default DashboardNavbar;
+        {/* Navigation Menu Items */}
+        <nav className="sidebar-nav-menu">
+          <div className="nav-group">
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "dashboard" ? "active" : ""}`}
+              onClick={() => setActiveTab("dashboard")}
+            >
+              <span>Dashboard</span>
+            </button>
+
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "my-courses" ? "active" : ""}`}
+              onClick={() => setActiveTab("my-courses")}
+            >
+              <span>My courses</span>
+              <span className="nav-badge">4</span>
+            </button>
+
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "ai-assistant" ? "active" : ""}`}
+              onClick={() => setActiveTab("ai-assistant")}
+            >
+              <span>AI assistant</span>
+            </button>
+
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "coding-lab" ? "active" : ""}`}
+              onClick={() => setActiveTab("coding-lab")}
+            >
+              <span>Coding lab</span>
+              <span className="nav-badge">2</span>
+            </button>
+          </div>
+
+          <div className="nav-group">
+            <span className="nav-section-title">PROGRESS</span>
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "assessments" ? "active" : ""}`}
+              onClick={() => setActiveTab("assessments")}
+            >
+              <span>Assessments</span>
+              <span className="nav-badge">1</span>
+            </button>
+
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "certificates" ? "active" : ""}`}
+              onClick={() => setActiveTab("certificates")}
+            >
+              <span>Certificates</span>
+              <span className="nav-badge">3</span>
+            </button>
+          </div>
+
+          <div className="nav-group">
+            <span className="nav-section-title">NEXT</span>
+            <button
+              type="button"
+              className={`sidebar-nav-item ${activeTab === "careers" ? "active" : ""}`}
+              onClick={() => setActiveTab("careers")}
+            >
+              <span>Careers</span>
+              <span className="nav-badge">14</span>
+            </button>
+          </div>
+        </nav>
+
+        {/* Bottom User Profile */}
+        <div className="sidebar-user-footer">
+          <div className="user-avatar-badge">AR</div>
+          <div className="user-meta">
+            <div className="user-name">Aditya Reddy</div>
+            <div className="user-tenant">Tenant: KITSW · Learner Pro</div>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main Content Area: ONLY opens Assessments or Certificates when clicked */}
+      <main className="student-main-content">
+        {activeTab === "assessments" && <Assessments />}
+        {activeTab === "certificates" && <Certificates />}
+      </main>
+    </div>
+  );
+}
