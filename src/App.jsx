@@ -28,8 +28,7 @@ import Events from "./modules/marketing/presentation/pages/Events/Events.jsx";
 
 // Hackathon Dashboard (Preserved 100%)
 import HackathonDashboard from "./modules/marketing/presentation/pages/HackathonDashboard/HackathonDashboard.jsx";
-
-// Student Dashboard
+// Student Dashboard (with Sidebar + Assessments + Certificates)
 import Dashboard from "./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard.jsx";
 
 function ScrollToTop() {
@@ -45,17 +44,19 @@ function ScrollToTop() {
 function AppLayout() {
   const location = useLocation();
 
-  // Don't show marketing website Header/Footer on full application dashboards
-  const isDedicatedAppLayout =
-    location.pathname === "/hackathon-dashboard" ||
+  // Don't show normal website Header/Footer on dashboards (Hackathon, Student, Assessments, or Certificates)
+  const hideHeaderFooter =
+    location.pathname.startsWith("/hackathon-dashboard") ||
     location.pathname.startsWith("/dashboard") ||
-    location.pathname.startsWith("/student");
+    location.pathname.startsWith("/student") ||
+    location.pathname.startsWith("/assessments") ||
+    location.pathname.startsWith("/certificates");
 
   return (
     <>
       <ScrollToTop />
 
-      {!isDedicatedAppLayout && <Header />}
+      {!hideHeaderFooter && <Header />}
 
       <Routes>
         {/* Home */}
@@ -107,17 +108,24 @@ function AppLayout() {
           path="/hackathon-dashboard"
           element={<HackathonDashboard />}
         />
-
-        {/* =====================================
-            STUDENT DASHBOARD
-            ===================================== */}
+        {/* Student Dashboard routes (Sidebar with all topics; opens Assessments or Certificates when clicked) */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/*" element={<Dashboard />} />
-        <Route path="/student" element={<Dashboard />} />
         <Route path="/student/*" element={<Dashboard />} />
+        <Route path="/student-dashboard" element={<Dashboard />} />
+        <Route path="/assessments" element={<Dashboard />} />
+        <Route path="/student/assessments" element={<Dashboard />} />
+        <Route path="/certificates" element={<Dashboard />} />
+        <Route path="/student/certificates" element={<Dashboard />} />
+        {/* Checkout - enable when Checkout.jsx exists */}
+        {/*
+        <Route
+          path="/checkout/:id"
+          element={<Checkout />}
+        />
+        */}
       </Routes>
 
-      {!isDedicatedAppLayout && <Footer />}
+      {!hideHeaderFooter && <Footer />}
     </>
   );
 }
