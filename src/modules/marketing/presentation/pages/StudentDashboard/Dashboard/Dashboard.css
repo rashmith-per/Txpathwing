@@ -81,6 +81,20 @@
   color: var(--primary-blue);
 }
 
+.brand-logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.brand-link:hover .brand-logo-img {
+  transform: scale(1.06);
+}
+
 .brand-name,
 .logo-text {
   font-size: 20px;

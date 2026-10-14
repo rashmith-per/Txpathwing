@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import txIcon from "../../../../../../../assets/tx-icon.jpg";
 import {
   LayoutDashboard,
   BookOpen,
@@ -48,8 +49,8 @@ export default function DashboardSidebar({
     <aside className={`dashboard-sidebar ${mobileOpen ? "open" : ""}`}>
       {/* Brand */}
       <div className="sidebar-brand">
-        <Link to="/" className="brand-link">
-          <span className="brand-symbol">///</span>
+        <Link to="/" className="brand-link" title="Return to Home">
+          <img src={txIcon} alt="TX Pathwing" className="brand-logo-img" />
           <span className="brand-name">Pathwing</span>
         </Link>
         <button
