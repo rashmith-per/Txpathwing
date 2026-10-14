@@ -142,7 +142,7 @@ export default function TrustSection() {
             <h3>Security that grows with your platform.</h3>
             <p>
               Give instructors, learners, and institutions the confidence to
-              build and learn with TXhub.
+              build and learn with TX-Pathwing.
             </p>
           </div>
 

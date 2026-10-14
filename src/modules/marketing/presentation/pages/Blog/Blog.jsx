@@ -67,7 +67,7 @@ const Blog = () => {
   return (
     <div className="blog-page-container">
       <SEO
-        title="Blog & Tech Articles | TXhub"
+        title="Blog & Tech Articles | TX-Pathwing"
         description="Actionable insights, expert tutorials, and career guidance in AI, Web Development, Cloud, and Software Engineering."
       />
 
