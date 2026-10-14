@@ -2,12 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, keywords, ogImage, ogType, canonicalUrl }) => {
-  const siteTitle = "TXhub - Elite Learning Platform";
-  const fullTitle = title ? `${title} | TXhub` : siteTitle;
-  const defaultDescription = "TXhub is the elite learning platform for software development, testing, data science, and more. Transform your career with industry-leading courses.";
+  const siteTitle = "TX-Pathwing - Elite Learning Platform";
+  const fullTitle = title ? `${title} | TX-Pathwing` : siteTitle;
+  const defaultDescription = "TX-Pathwing is the elite learning platform for software development, testing, data science, and more. Transform your career with industry-leading courses.";
   const metaDescription = description || defaultDescription;
-  const metaKeywords = keywords || "learning platform, software development, testing, data science, coding, career growth, TXhub";
-  const siteUrl = "https://txhub.in";
+  const metaKeywords = keywords || "learning platform, software development, testing, data science, coding, career growth, TX-Pathwing";
+  const siteUrl = "https://txpathwing.com";
   const fullCanonicalUrl = canonicalUrl ? `${siteUrl}${canonicalUrl}` : siteUrl;
 
   return (
