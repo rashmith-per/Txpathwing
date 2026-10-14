@@ -377,3 +377,26 @@
     padding: 20px;
   }
 }
+
+@media (max-width: 360px) {
+  .cart-header h1 {
+    font-size: 24px;
+  }
+
+  .cart-course-image-wrapper {
+    height: 150px;
+  }
+
+  .cart-course-details h2 {
+    font-size: 16px;
+  }
+
+  .summary-total strong {
+    font-size: 20px;
+  }
+
+  .checkout-button {
+    height: 44px;
+    font-size: 13px;
+  }
+}

@@ -433,93 +433,32 @@
 @media (max-width: 768px) {
   .organization-information,
   .institutional-pathway {
-    padding-top: 70px;
-    padding-bottom: 70px;
-  }
- 
-  .organization-section-heading {
-    margin-bottom: 40px;
-  }
- 
-  .organization-information-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
- 
-  .institutional-pathway .organization-section-heading {
-    margin-bottom: 45px;
-  }
- 
-  .pathway-roadmap {
-    height: 780px;
-  }
- 
-  .pathway-card {
-    width: 80%;
-    min-height: 105px;
-  }
- 
-  .pathway-step-one {
-    top: 0;
-    left: 0;
-  }
- 
-  .pathway-step-two {
-    top: 135px;
-    right: 0;
-  }
- 
-  .pathway-step-three {
-    top: 270px;
-    left: 0;
-  }
- 
-  .pathway-step-four {
-    top: 405px;
-    right: 0;
-  }
- 
-  .pathway-step-five {
-    top: 540px;
-    left: 0;
-  }
- 
-  .pathway-step-six {
-    top: 675px;
-    right: 0;
-  }
-}
- 
-@media (max-width: 468px) {
-  .organization-information,
-  .institutional-pathway {
+    padding-top: 45px;
+    padding-bottom: 45px;
     padding-left: 20px;
     padding-right: 20px;
   }
- 
-  .organization-section-heading h2 {
-    font-size: 35px;
+
+  .organization-section-heading {
+    margin-bottom: 35px;
   }
- 
-  .organization-section-heading p {
-    font-size: 15px;
-  }
- 
+
   .organization-information-grid {
     grid-template-columns: 1fr;
   }
- 
-  .information-card {
-    min-height: 250px;
+
+  .institutional-pathway .organization-section-heading {
+    margin-bottom: 35px;
   }
- 
+
   .pathway-roadmap {
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    padding-left: 12px;
+    gap: 20px;
+    padding-left: 8px;
   }
- 
+
   .pathway-roadmap-line {
     display: block;
     top: 0;
@@ -528,12 +467,12 @@
     height: 100%;
     overflow: visible;
   }
- 
+
   .pathway-line-base,
   .pathway-line-flow {
     display: none;
   }
- 
+
   .pathway-roadmap::before {
     content: "";
     position: absolute;
@@ -544,7 +483,7 @@
     border-radius: 10px;
     background: #d9e8fb;
   }
- 
+
   .pathway-roadmap::after {
     content: "";
     position: absolute;
@@ -556,14 +495,14 @@
     background: #70a9f7;
     animation: mobile-pathway-flow 2.5s linear infinite;
   }
- 
+
   .pathway-card {
     position: relative;
     inset: auto;
     width: calc(100% - 45px);
     margin-left: 45px;
   }
- 
+
   .pathway-card::before {
     content: "";
     position: absolute;
@@ -574,24 +513,64 @@
     background: #ffffff;
     border: 3px solid #70a9f7;
   }
- 
+
   .pathway-card-icon {
     flex-basis: 44px;
     width: 44px;
     height: 44px;
   }
- 
+
   .pathway-card h3 {
     font-size: 16px;
   }
- 
+
   .pathway-card p {
     font-size: 12px;
   }
- 
+
   .form-section {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+
+@media (max-width: 468px) {
+  .organization-section-heading h2 {
+    font-size: clamp(26px, 7vw, 32px);
+  }
+
+  .organization-section-heading p {
+    font-size: 14px;
+  }
+
+  .information-card {
+    min-height: auto;
+    padding: 22px 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .organization-information,
+  .institutional-pathway,
+  .form-section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .pathway-card {
+    width: calc(100% - 40px);
+    margin-left: 40px;
+    padding: 14px 16px;
+  }
+
+  .pathway-card-icon {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .pathway-card h3 {
+    font-size: 15px;
   }
 }
  

@@ -20,6 +20,12 @@
   padding: 0 1.5rem;
 }
 
+@media (max-width: 768px) {
+  .careers-page-main {
+    padding-top: 1rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .careers-container {
     padding: 0 2rem;

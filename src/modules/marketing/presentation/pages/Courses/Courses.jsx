@@ -70,6 +70,10 @@ export default function Courses() {
               Industry-aligned programs. Practical learning. Real career
               outcomes.
             </p>
+
+            <Link to="/marketplace" className="view-button view-button-mobile">
+              View All Courses →
+            </Link>
           </div>
 
           <div className="courses-illustration">

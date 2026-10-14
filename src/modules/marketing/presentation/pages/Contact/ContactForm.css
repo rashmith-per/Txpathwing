@@ -557,3 +557,21 @@
   }
 
 }
+
+@media (max-width: 360px) {
+  .contact-section {
+    padding: 30px 12px;
+  }
+
+  .contact-heading h2 {
+    font-size: 24px;
+  }
+
+  .inquiry-option {
+    padding: 10px 12px;
+  }
+
+  .inquiry-arrow {
+    display: none;
+  }
+}

@@ -684,9 +684,14 @@
     gap: 7px;
   }
 
-  .event-filters button {
+  .event-filters button,
+  .online-offline button {
     padding: 7px 14px;
     font-size: 12px;
+  }
+
+  .events-heading h1 {
+    font-size: 26px;
   }
 
   .event-card-container {

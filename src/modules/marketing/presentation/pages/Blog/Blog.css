@@ -1156,3 +1156,38 @@
 .blog-modal-close-action-btn:hover {
   background-color: var(--blue-700);
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 480px) {
+  .blog-hero-title {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+
+  .blog-hero-content {
+    padding: 0.75rem 1rem 2rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .blog-hero-title {
+    font-size: 1.6rem;
+  }
+
+  .blog-modal-title {
+    font-size: 1.25rem;
+  }
+}
+
+
+@media (min-width: 320px) {
+  .blog-section-heading {
+    font-size: 20px;
+  }
+  .blog-categories-nav{
+    display: grid;
+    grid-template-columns: repeat(1, 3fr);
+
+  }
+  
+
+}

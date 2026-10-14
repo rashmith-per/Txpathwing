@@ -55,10 +55,18 @@ function AboutOrbitAnimation() {
     return () => { if (animRef.current) cancelAnimationFrame(animRef.current); if (hiredTimerRef.current) clearTimeout(hiredTimerRef.current); };
   }, []);
 
+  const isSmallMobile = windowWidth < 400;
   const isMobile = windowWidth < 768, isTablet = windowWidth >= 768 && windowWidth < 1200;
-  const stageSize = isMobile ? 340 : isTablet ? 410 : 490;
-  const radius = Math.round(stageSize * 0.365);
-  const nodeSize = isMobile ? 44 : isTablet ? 48 : 52, hubSize = isMobile ? 74 : isTablet ? 84 : 94;
+  const stageSize = isSmallMobile
+    ? Math.max(220, Math.min(270, windowWidth - 50))
+    : isMobile
+    ? Math.min(320, windowWidth - 40)
+    : isTablet
+    ? 410
+    : 490;
+  const radius = Math.round(stageSize * 0.34);
+  const nodeSize = isSmallMobile ? 34 : isMobile ? 40 : isTablet ? 48 : 52;
+  const hubSize = isSmallMobile ? 56 : isMobile ? 66 : isTablet ? 84 : 94;
   const viewBoxSize = 520, centerCoord = viewBoxSize / 2, svgRadius = 190;
   const activeNodeIdx = Math.floor(progress * ORBIT_NODES.length + 0.18);
   const headAngleRad = (-90 + progress * 360) * (Math.PI / 180);
@@ -81,18 +89,18 @@ function AboutOrbitAnimation() {
             const rad = (-90 + item.angle) * (Math.PI / 180);
             const x = Math.cos(rad) * radius, y = Math.sin(rad) * radius;
             const isActive = idx <= activeNodeIdx, isCurrent = idx === activeNodeIdx;
-            const pillDist = radius + (isMobile ? 32 : 42);
+            const pillDist = radius + (isSmallMobile ? 22 : isMobile ? 28 : 42);
             const pillX = Math.cos(rad) * pillDist, pillY = Math.sin(rad) * pillDist;
             return (
               <div key={item.label} className="about-orbit-node-anchor" style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`, zIndex: isActive ? 3 : 2 }}>
                 <div className={`about-orbit-node-bubble ${isActive ? "is-active" : ""} ${isCurrent && isActive ? "is-current" : ""}`} style={{ width: nodeSize, height: nodeSize }}>
-                  <span className="about-orbit-emoji" style={{ fontSize: isMobile ? 18 : 22, filter: isActive ? "brightness(1.08) saturate(1.05)" : "saturate(0.85) brightness(1.05)" }}>{item.emoji}</span>
+                  <span className="about-orbit-emoji" style={{ fontSize: isSmallMobile ? 15 : isMobile ? 18 : 22, filter: isActive ? "brightness(1.08) saturate(1.05)" : "saturate(0.85) brightness(1.05)" }}>{item.emoji}</span>
                   <div className="about-orbit-node-badge" style={{ opacity: isActive ? 1 : 0, transform: isActive ? "scale(1)" : "scale(0.4)" }}>
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                   </div>
                 </div>
                 <div className="about-orbit-pill-anchor" style={{ transform: `translate(calc(-50% + ${pillX - x}px), calc(-50% + ${pillY - y}px))`, zIndex: 4 }}>
-                  <div className={`about-orbit-pill ${isActive ? "is-active" : ""}`} style={{ fontSize: isMobile ? 11 : 12 }}>{item.short}</div>
+                  <div className={`about-orbit-pill ${isActive ? "is-active" : ""}`} style={{ fontSize: isSmallMobile ? 9 : isMobile ? 11 : 12 }}>{item.short}</div>
                 </div>
               </div>
             );

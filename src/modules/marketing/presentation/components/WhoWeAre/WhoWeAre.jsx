@@ -141,9 +141,9 @@ export default function WhoWeAre() {
     const navigate = useNavigate();
     return (
         <>
-            <section className="hero-section">
-                <div className="hero-container">
-                    <div className="hero-content">
+            <section className="who-section">
+                <div className="who-container">
+                    <div className="who-content">
                         <h1>
                             Empowering People.
                             <br />
@@ -152,7 +152,7 @@ export default function WhoWeAre() {
                             <span>Building Future Talent.</span>
                         </h1>
 
-                        <p className="hero-description">
+                        <p className="who-description">
                             TX-Pathwing is a complete learning and career
                             platform that provides LMS solutions to
                             organizations and helps individuals gain
@@ -160,7 +160,7 @@ export default function WhoWeAre() {
                             through internships, and job opportunities.
                         </p>
 
-                        <div className="hero-actions">
+                        <div className="who-actions">
                             <button className="primary-button"
                             onClick={()=>navigate("/events")}>
                                 Explore Our Ecosystem
@@ -174,8 +174,8 @@ export default function WhoWeAre() {
                         </div>
                     </div>
 
-                    <div className="hero-visual-area">
-                        <div className="hero-solution-grid">
+                    <div className="who-visual-area">
+                        <div className="who-solution-grid">
                             <SolutionCard
                                 type="organization"
                                 title="For Organizations"

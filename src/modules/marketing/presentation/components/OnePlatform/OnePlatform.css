@@ -93,8 +93,46 @@
 }
 
 @media (max-width: 640px) {
+  .op-section {
+    padding: 24px 0;
+  }
+
+  .op-container {
+    padding: 0 16px;
+  }
+
+  .op-heading {
+    font-size: clamp(26px, 7vw, 34px);
+    margin-top: 14px;
+  }
+
+  .op-sub {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
   .op-grid {
     grid-template-columns: 1fr;
+    margin-top: 32px;
+    gap: 16px;
+  }
+
+  .op-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .op-heading {
+    font-size: 24px;
+  }
+
+  .op-title {
+    font-size: 15px;
+  }
+
+  .op-content {
+    padding: 12px;
   }
 }
 
