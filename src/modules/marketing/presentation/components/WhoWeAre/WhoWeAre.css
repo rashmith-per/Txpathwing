@@ -21,6 +21,7 @@
     grid-template-columns: .95fr 1.45fr;
     align-items: center;
     gap: 45px;
+    padding-top: 60px;
 }
 
 .who-content {
