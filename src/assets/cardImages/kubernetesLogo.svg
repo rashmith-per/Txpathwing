@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#f8f9fa"/>
+  <g transform="translate(400, 400)">
+    <!-- Outer Blue Wheel -->
+    <circle r="250" fill="#326CE5"/>
+    <circle r="185" fill="#ffffff"/>
+    <circle r="150" fill="#326CE5"/>
+    <!-- Hub -->
+    <circle r="75" fill="#ffffff"/>
+    <circle r="50" fill="#326CE5"/>
+    <!-- 7 Spokes -->
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(51.4)"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(102.8)"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(154.2)"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(205.6)"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(257)"/>
+    <rect x="-14" y="-235" width="28" height="170" fill="#ffffff" rx="10" transform="rotate(308.4)"/>
+  </g>
+</svg>

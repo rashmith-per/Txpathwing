@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Clock, Calendar, Users } from "lucide-react";
 
 import "./MarketPlace.css";
 import MarketHeroSec from "./MarketHeroSec";
@@ -235,18 +236,24 @@ export default function Marketplace() {
                     </h2>
 
                     <div className="course-meta">
-                      <span>
-                        {course.students ||
-                          "1,240 students"}
-                      </span>
-
-                      <span className="meta-dot">
-                        •
-                      </span>
-
-                      <span>
-                        {course.lessons}
-                      </span>
+                      {course.duration && (
+                        <div className="course-meta-row">
+                          <Clock size={16} className="course-meta-icon" />
+                          <span>Duration: {course.duration}</span>
+                        </div>
+                      )}
+                      {course.lessons && (
+                        <div className="course-meta-row">
+                          <Calendar size={16} className="course-meta-icon" />
+                          <span>Schedule: {course.lessons}</span>
+                        </div>
+                      )}
+                      {course.students && (
+                        <div className="course-meta-row">
+                          <Users size={16} className="course-meta-icon" />
+                          <span>{course.students}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="market-price">

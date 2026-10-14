@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#f8f9fa"/>
+  <g transform="translate(400, 400)">
+    <!-- Postman Orange Circle -->
+    <circle r="220" fill="#FF6C37"/>
+    <!-- Stylized Spaceman Paper Plane Silhouette -->
+    <g fill="#ffffff" transform="scale(1.1) translate(-5, 0)">
+      <path d="M-120 -40 L90 -120 L20 70 L-25 15 Z"/>
+      <path d="M20 70 L75 125 L90 -120 Z"/>
+      <circle cx="-50" cy="-80" r="22"/>
+    </g>
+  </g>
+</svg>
