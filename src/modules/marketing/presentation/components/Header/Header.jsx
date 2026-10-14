@@ -226,24 +226,46 @@ export default function Header() {
 
           </div>
 
-          <button
-            className={`hamburger${
-              menuOpen ? " open" : ""
-            }`}
-            aria-label={
-              menuOpen
-                ? "Close menu"
-                : "Open menu"
-            }
-            aria-expanded={menuOpen}
-            onClick={() =>
-              setMenuOpen((value) => !value)
-            }
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+          <div className="mobile-header-actions">
+            <Link
+              to="/cart"
+              className="header-cart header-cart-mobile"
+              aria-label={`Shopping cart with ${cartCount} items`}
+            >
+              <ShoppingCart
+                className="header-cart-icon"
+                size={22}
+                strokeWidth={2.2}
+              />
+
+              {cartCount > 0 && (
+                <span className="cart-badge">
+                  {cartCount > 99
+                    ? "99+"
+                    : cartCount}
+                </span>
+              )}
+            </Link>
+
+            <button
+              className={`hamburger${
+                menuOpen ? " open" : ""
+              }`}
+              aria-label={
+                menuOpen
+                  ? "Close menu"
+                  : "Open menu"
+              }
+              aria-expanded={menuOpen}
+              onClick={() =>
+                setMenuOpen((value) => !value)
+              }
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
 
         </div>
       </header>
@@ -307,6 +329,13 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          <Link
+            className={`mobile-link${isActive("/cart") ? " active" : ""}`}
+            to="/cart"
+            onClick={closeMenu}
+          >
+            Cart {cartCount > 0 ? `(${cartCount})` : ""}
+          </Link>
         </nav>
 
         <div className="mobile-actions">

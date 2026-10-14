@@ -1833,3 +1833,39 @@
 .float-2 { animation: floatY 4.6s ease-in-out infinite 0.4s; }
 .float-3 { animation: floatY 5s ease-in-out infinite 0.8s; }
 .float-4 { animation: floatY 3.8s ease-in-out infinite 1.2s; }
+
+/* Responsive adjustments for mobile */
+@media (max-width: 480px) {
+  .lj-sticky-sidebar {
+    padding: 24px 16px;
+  }
+
+  .lj-section-header {
+    padding: 20px 16px;
+  }
+
+  .lj-section-header .lj-main-title,
+  .lj-main-title {
+    font-size: clamp(24px, 7vw, 30px);
+  }
+
+  .lj-stage-main-title {
+    font-size: 22px;
+  }
+
+  .lj-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .lj-sticky-sidebar {
+    padding: 18px 12px;
+  }
+
+  .lj-section-header .lj-main-title,
+  .lj-main-title {
+    font-size: 22px;
+  }
+}

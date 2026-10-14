@@ -358,17 +358,33 @@
 
 /* Responsive */
 @media (max-width: 640px) {
+  .resume-modal-overlay {
+    padding: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .resume-modal-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-height: 92vh;
+    max-height: 92dvh;
+    border-radius: 14px;
+  }
+
   .resume-modal-content {
     padding: 1.5rem 1.25rem;
   }
+
   .form-grid-two,
   .form-grid-three {
     grid-template-columns: 1fr;
     gap: 0.875rem;
   }
+
   .form-actions {
     flex-direction: column-reverse;
   }
+
   .resume-cancel-btn,
   .resume-submit-btn {
     width: 100%;

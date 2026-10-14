@@ -697,3 +697,16 @@
     gap: 1rem; 
   } 
 }
+
+@media (max-width: 320px) {
+  .tx-stat-label {
+    font-size: 0.4rem;
+  }
+  .tx-stat-value {
+    font-size: 0.6rem;
+  }
+  .tx-stat-text-wrap{
+    margin: -12px;
+    padding: 0;
+  }
+}

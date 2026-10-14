@@ -1420,6 +1420,8 @@
 
     height:
       calc(100vh - 20px);
+    height:
+      calc(100dvh - 20px);
 
     min-height: 0;
 

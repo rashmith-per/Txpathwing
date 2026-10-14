@@ -429,7 +429,7 @@
 @media (max-width: 480px) {
 
   .student-reviews-header h2 {
-    font-size: 32px;
+    font-size: clamp(26px, 7vw, 32px);
   }
 
 
@@ -441,11 +441,12 @@
 
 
   .student-review-card {
-    flex-basis: 285px;
+    flex-basis: min(285px, calc(100vw - 60px));
 
-    width: 285px;
+    width: min(285px, calc(100vw - 60px));
 
-    min-height: 290px;
+    min-height: 270px;
+    padding: 20px;
   }
 
 
@@ -453,4 +454,39 @@
     justify-content: space-between;
   }
 
+}
+
+@media (max-width: 360px) {
+  .student-reviews-section {
+    padding: 45px 0;
+  }
+
+  .student-reviews-header h2 {
+    font-size: 24px;
+  }
+
+  .student-reviews-header p {
+    font-size: 13px;
+    margin-top: 14px;
+  }
+
+  .student-review-card {
+    flex-basis: 245px;
+    width: 245px;
+    padding: 16px;
+    min-height: 250px;
+  }
+
+  .review-student-info h3 {
+    font-size: 16px;
+  }
+
+  .review-comment {
+    font-size: 13px;
+  }
+
+  .review-control-btn {
+    width: 38px;
+    height: 38px;
+  }
 }

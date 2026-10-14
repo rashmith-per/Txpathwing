@@ -111,6 +111,7 @@
 @media (max-width: 768px) {
   .banner-window {
     height: 200px;
+    margin: 20px auto 0;
   }
 
   .banner-arrow {
@@ -135,6 +136,8 @@
 @media (max-width: 480px) {
   .banner-window {
     height: 170px;
+    margin: 15px auto 0;
+    border-radius: 12px;
   }
 
   .banner-arrow {
@@ -149,5 +152,11 @@
 
   .banner-next {
     right: 4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .banner-window {
+    height: 145px;
   }
 }

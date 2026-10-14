@@ -85,7 +85,8 @@
  
 /* Marquee - no box, big logos */
 .marquee-wrapper {
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   position: relative;
   padding: 0.75rem 0;
@@ -156,7 +157,6 @@
   text-align: center;
 }
  
-/* Responsive */
 @media (max-width: 1024px) {
   .hiring-heading { font-size: 48px; }
   .logo-img { height: 42px; max-width: 160px; }
@@ -164,11 +164,18 @@
 }
  
 @media (max-width: 640px) {
-  .hiring-heading { font-size: 36px; }
+  .hiring-heading { font-size: clamp(26px, 7vw, 36px); }
   .hiring-badge { font-size: 11px; letter-spacing: 0.12em; }
   .logo-img { height: 32px; max-width: 130px; }
-  .marquee { gap: 24px; }
-  .hiring-section { padding: 4rem 0; }
+  .marquee { gap: 20px; }
+  .hiring-section { padding: 2rem 0; }
+  .hiring-subtitle { margin-top: 0.75rem; margin-bottom: 2rem; font-size: 14px; padding: 0 10px; }
+}
+
+@media (max-width: 360px) {
+  .hiring-heading { font-size: 24px; }
+  .logo-img { height: 26px; max-width: 100px; }
+  .marquee { gap: 16px; }
 }
  
  

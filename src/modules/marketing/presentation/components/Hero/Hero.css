@@ -492,10 +492,10 @@
 
 
 /* =========================================
-   TABLET
+   TABLET & MOBILE
 ========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1023px) {
   .hero-section {
     width: 100%;
 
@@ -537,11 +537,14 @@
     padding: 0;
 
     overflow: visible;
+    text-align: center;
   }
 
   .hero-eyebrow {
     width: 100%;
     max-width: 100%;
+
+    justify-content: center;
 
     margin:
       0 0 18px;
@@ -562,14 +565,15 @@
     padding: 0;
 
     font-size: clamp(
-      42px,
-      8vw,
-      60px
+      38px,
+      7vw,
+      56px
     );
 
-    line-height: 1.03;
+    line-height: 1.05;
 
-    letter-spacing: -2.5px;
+    letter-spacing: -2px;
+    text-align: center;
   }
 
   .hero-title-line {
@@ -580,18 +584,18 @@
 
   .hero-description {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 640px !important;
 
     margin:
-      24px 0 0 !important;
+      20px auto 0 !important;
 
     padding: 0 !important;
 
-    font-size: 16px;
+    font-size: 15px;
 
     line-height: 1.65;
 
-    text-align: left !important;
+    text-align: center !important;
 
     position: static !important;
 
@@ -600,7 +604,7 @@
 
   .hero-actions {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 440px !important;
 
     display: flex;
 
@@ -611,7 +615,7 @@
     gap: 10px;
 
     margin:
-      25px 0 0 !important;
+      24px auto 0 !important;
 
     padding: 0 !important;
   }
@@ -714,6 +718,7 @@
     line-height: 1.04;
 
     letter-spacing: -1.7px;
+    text-align: center;
   }
 
   .hero-title-line {
@@ -730,18 +735,20 @@
     width: 100% !important;
 
     margin:
-      20px 0 0 !important;
+      20px auto 0 !important;
 
     font-size: 14px;
 
     line-height: 1.62;
+
+    text-align: center !important;
   }
 
   .hero-actions {
     width: 100% !important;
 
     margin:
-      21px 0 0 !important;
+      21px auto 0 !important;
 
     gap: 9px;
   }
@@ -830,6 +837,7 @@
     line-height: 1.04;
 
     letter-spacing: -1.4px;
+    text-align: center;
   }
 
   .hero-description {
@@ -915,6 +923,7 @@
     line-height: 1.04;
 
     letter-spacing: -1.1px;
+    text-align: center;
   }
 
   .hero-description {

@@ -41,9 +41,9 @@
 }
 
 .faq-tag {
- margin: 0 0 14px;
+  margin: 0 0 14px;
   color: #315da8;
-  font-size: 5px;
+  font-size: 0.875rem;
   font-weight: 800;
   letter-spacing: 0.1em;
 }
