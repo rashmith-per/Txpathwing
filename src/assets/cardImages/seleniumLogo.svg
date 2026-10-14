@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#f8f9fa"/>
+  <g transform="translate(400, 400)">
+    <!-- Selenium Green Rounded Box -->
+    <rect x="-210" y="-210" width="420" height="420" rx="60" fill="#43B02A"/>
+    <!-- Big White Checkmark -->
+    <path d="M-110 -10 L-30 80 L130 -90" fill="none" stroke="#ffffff" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 'Se' Typography Badge -->
+    <text x="-60" y="160" font-family="Arial, sans-serif" font-size="140" font-weight="900" fill="#ffffff">Se</text>
+  </g>
+</svg>

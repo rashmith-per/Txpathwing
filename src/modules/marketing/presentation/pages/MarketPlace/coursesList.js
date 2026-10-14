@@ -1,16 +1,16 @@
-import softwareDevelopment from "../../../../../assets/marketplaceImages/software-development.png";
-import cloudDevOps from "../../../../../assets/marketplaceImages/cloud-devops.png";
-import aiData from "../../../../../assets/marketplaceImages/ai-data.png";
-import testing from "../../../../../assets/marketplaceImages/testing.png";
-import career from "../../../../../assets/marketplaceImages/career.png";
-import AwsDevops from "../../../../../assets/cardImages/AWS_Develop.png";
-
-
-import reactFullStack from "../../../../../assets/cardImages/MERNstack1.png";
-import pythonFullStack from "../../../../../assets/cardImages/pythonFullStack.png";
-import javaFullStack from "../../../../../assets/cardImages/javaFullStack.png";
-import mernStack from "../../../../../assets/cardImages/MERNstack1.png";
-import Testing from "../../../../../assets/cardImages/Testing.png"
+import fullStackGuide from "../../../../../assets/cardImages/fullStackGuide.jpg";
+import pyFullStackGuide from "../../../../../assets/cardImages/pyFullStackGuide.jpg";
+import javaFullStackGuide from "../../../../../assets/cardImages/javaFullStackGuide.jpg";
+import awsDevopsGuide from "../../../../../assets/cardImages/awsDevopsGuide.jpg";
+import kubernetesGuide from "../../../../../assets/cardImages/kubernetesGuide.jpg";
+import cloudSecurityGuide from "../../../../../assets/cardImages/cloudSecurityGuide.jpg";
+import machineLearningGuide from "../../../../../assets/cardImages/machineLearningGuide.jpg";
+import agenticAiGuide from "../../../../../assets/cardImages/agenticAiGuide.jpg";
+import sqlDataModellingGuide from "../../../../../assets/cardImages/sqlDataModellingGuide.jpg";
+import seleniumGuide from "../../../../../assets/cardImages/seleniumGuide.jpg";
+import apiPerformanceGuide from "../../../../../assets/cardImages/apiPerformanceGuide.jpg";
+import interviewPrepGuide from "../../../../../assets/cardImages/interviewPrepGuide.jpg";
+import campusAptitudeGuide from "../../../../../assets/cardImages/campusAptitudeGuide.jpg";
 
 export const courses = [
   {
@@ -27,7 +27,7 @@ export const courses = [
     price: "₹5,499",
     oldPrice: "₹8,999",
     students: "1,240 students",
-    image: reactFullStack,
+    image: fullStackGuide,
   },
 
   {
@@ -44,7 +44,7 @@ export const courses = [
     price: "₹6,499",
     oldPrice: "₹9,999",
     students: "2,100 students",
-    image: pythonFullStack,
+    image: pyFullStackGuide,
   },
 
   {
@@ -61,7 +61,7 @@ export const courses = [
     price: "₹6,999",
     oldPrice: "₹11,999",
     students: "1,850 students",
-    image: javaFullStack,
+    image: javaFullStackGuide,
   },
 
   {
@@ -78,7 +78,7 @@ export const courses = [
     price: "₹6,999",
     oldPrice: "₹10,999",
     students: "980 students",
-    image: AwsDevops,
+    image: awsDevopsGuide,
   },
 
   {
@@ -95,7 +95,7 @@ export const courses = [
     price: "₹5,499",
     oldPrice: "₹8,499",
     students: "760 students",
-    image: cloudDevOps,
+    image: kubernetesGuide,
   },
 
   {
@@ -112,7 +112,7 @@ export const courses = [
     price: "₹5,299",
     oldPrice: "₹7,999",
     students: "640 students",
-    image: cloudDevOps,
+    image: cloudSecurityGuide,
   },
 
   {
@@ -129,7 +129,7 @@ export const courses = [
     price: "₹7,499",
     oldPrice: "₹11,999",
     students: "2,100 students",
-    image: aiData,
+    image: machineLearningGuide,
   },
 
   {
@@ -146,7 +146,7 @@ export const courses = [
     price: "₹8,999",
     oldPrice: "₹13,999",
     students: "520 students",
-    image: aiData,
+    image: agenticAiGuide,
   },
 
   {
@@ -163,7 +163,7 @@ export const courses = [
     price: "₹1,999",
     oldPrice: "₹3,499",
     students: "1,430 students",
-    image: aiData,
+    image: sqlDataModellingGuide,
   },
 
   {
@@ -180,7 +180,7 @@ export const courses = [
     price: "₹3,499",
     oldPrice: "₹5,999",
     students: "1,520 students",
-    image: Testing,
+    image: seleniumGuide,
   },
 
   {
@@ -196,7 +196,7 @@ export const courses = [
     tag2: "Lab heavy",
     price: "₹2,999",
     students: "980 students",
-    image: testing,
+    image: apiPerformanceGuide,
   },
 
   {
@@ -213,7 +213,7 @@ export const courses = [
     price: "₹0",
     oldPrice: "₹0",
     students: "850 students",
-    image: career,
+    image: interviewPrepGuide,
   },
 
   {
@@ -230,6 +230,6 @@ export const courses = [
     price: "₹0",
     oldPrice: "₹0",
     students: "1,120 students",
-    image: career,
+    image: campusAptitudeGuide,
   },
 ];

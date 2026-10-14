@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <rect width="800" height="800" fill="#f8f9fa"/>
+  <g transform="translate(400, 400)">
+    <!-- Briefcase Main Body -->
+    <rect x="-200" y="-90" width="400" height="260" rx="35" fill="#1e293b"/>
+    <!-- Handle -->
+    <path d="M-80 -90 V-155 C-80 -185 80 -185 80 -155 V-90" fill="none" stroke="#0ea5e9" stroke-width="24" stroke-linecap="round"/>
+    <!-- Contrast Band -->
+    <rect x="-200" y="-10" width="400" height="40" fill="#0ea5e9"/>
+    <!-- Gold Star Clasp -->
+    <circle cx="0" cy="10" r="45" fill="#f59e0b"/>
+    <path fill="#ffffff" d="M0 -15 L4.6 -2.6 L18.4 -2.6 L7.3 5.5 L11.5 18.5 L0 10.4 L-11.5 18.5 L-7.3 5.5 L-18.4 -2.6 L-4.6 -2.6 Z"/>
+  </g>
+</svg>

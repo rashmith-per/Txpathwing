@@ -163,12 +163,12 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background: #ffffff;
-  border: 1px solid #dfe8f5;
-  border-radius: 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 14px;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.035);
+  box-shadow: 0 6px 22px rgba(15, 23, 42, 0.05);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -176,21 +176,28 @@
 }
 
 .market-course-card:hover {
-  transform: translateY(-4px);
-  border-color: #c8daf8;
-  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.1);
+  transform: translateY(-5px);
+  border-color: #2563eb;
+  box-shadow:
+    0 16px 36px rgba(37, 99, 235, 0.12),
+    0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
 .course-image-wrapper {
   width: 100%;
-  height: 165px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 165px;
+  border-radius: 18px;
   overflow: hidden;
-  background: #f1f5f9;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
 }
 
 .course-image {
   width: 100%;
   height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.4s ease;
 }
@@ -203,110 +210,128 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 17px 18px;
+  padding: 16px 4px 4px;
 }
 
 .course-category {
-  margin-bottom: 7px;
-  color: #2563eb;
+  margin-bottom: 9px;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  width: fit-content;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 750;
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.04em;
 }
 
 .market-course-title {
-  min-height: 46px;
+  min-height: 48px;
   margin: 0;
-  color: #17243b;
+  color: #0f172a;
   font-size: 17px;
   line-height: 1.35;
-  font-weight: 750;
+  font-weight: 800;
   letter-spacing: -0.01em;
 }
 
 .course-meta {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 8px;
-  color: #71829b;
-  font-size: 12px;
-  font-weight: 500;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 550;
+  color: #1e293b;
 }
 
-.meta-dot {
-  color: #cbd5e1;
+.course-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.course-meta-icon {
+  color: #2563eb;
+  flex-shrink: 0;
 }
 
 .market-price {
   display: flex;
   align-items: baseline;
-  gap: 7px;
-  margin-top: 11px;
-  padding-top: 11px;
-  border-top: 1px solid #edf1f5;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
 }
 
 .current-price {
-  color: #111d31;
-  font-size: 18px;
+  color: #0f172a;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.015em;
 }
 
 .previous-price {
-  color: #94a3b8;
-  font-size: 11px;
+  color: #64748b;
+  font-size: 12px;
   text-decoration: line-through;
 }
 
 .course-actions {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .enroll-button {
   flex: 1;
-  height: 45px;
+  height: 48px;
   border: none;
-  border-radius: 13px;
-  background: #3b82f6;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: #ffffff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 750;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.28);
   transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 .enroll-button:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.42);
 }
 
 .cart-button {
-  height: 45px;
-  width: 120px;
-  border: none;
-  border-radius: 13px;
-  background: #3b82f6;
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 750;
+  height: 48px;
+  padding: 0 16px;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
   transition:
     background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
     transform 0.2s ease;
 }
 
 .cart-button:hover {
   background: #2563eb;
-  transform: translateY(-1px);
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-2px);
 }
 
 .empty-courses {
@@ -352,7 +377,8 @@
   }
 
   .course-image-wrapper {
-    height: 165px;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -371,11 +397,12 @@
   }
 
   .course-image-wrapper {
-    height: 155px;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 
   .course-card-content {
-    padding: 15px;
+    padding: 14px 4px 4px;
   }
 
   .market-course-title {
@@ -399,7 +426,8 @@
   }
 
   .course-image-wrapper {
-    height: 150px;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 
   .mp-hero h1 {
