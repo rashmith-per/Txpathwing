@@ -279,6 +279,7 @@
   transition: all 0.2s;
   background-color: #ffffff;
   border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 20px;
   color: var(--slate-700);
   box-shadow: var(--shadow-sm);
 }
@@ -514,7 +515,7 @@
 
 .blog-card {
   background-color: #ffffff;
-  border-radius: var(--radius-2xl);
+  border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);

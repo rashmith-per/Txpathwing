@@ -2,9 +2,6 @@
 
 .open-positions-section {
   padding: 5.5rem 0;
-  background: var(--slate-50, #f8fafc);
-  border-top: 1px solid var(--slate-200, #e2e8f0);
-  border-bottom: 1px solid var(--slate-200, #e2e8f0);
   position: relative;
 }
 

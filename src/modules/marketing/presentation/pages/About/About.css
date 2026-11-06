@@ -822,7 +822,7 @@
 }
 
 .about-tagline-label {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1449,7 +1449,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: 0.08em;
   color: #2563EB;

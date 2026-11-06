@@ -89,7 +89,7 @@ export default function Hero() {
             <span className="hero-title-line">
               <HeroWord>to</HeroWord>
               <HeroWord highlight>first</HeroWord>
-              <HeroWord highlight>offer,</HeroWord>
+              <HeroWord highlight>offer</HeroWord>
               <HeroWord>on</HeroWord>
             </span>
 
