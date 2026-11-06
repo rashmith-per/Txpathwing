@@ -62,7 +62,7 @@
 
   overflow: hidden;
 
-  border-radius: 30px;
+  border-radius: 32px;
 
   background: #ffffff;
 
@@ -1608,4 +1608,47 @@
   .login-close {
     transition: none;
   }
+}
+
+
+/* =========================================================
+   BACK BUTTON & ROLE PILL EXTENSIONS
+========================================================= */
+
+.login-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 0 10px 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+  width: fit-content;
+}
+
+.login-back-button:hover {
+  color: #2563eb;
+  transform: translateX(-2px);
+}
+
+.login-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 9px;
+  width: fit-content;
+}
+
+.login-message {
+  line-height: 1.45;
+  word-break: break-word;
 }

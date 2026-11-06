@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
   useLocation,
+  useNavigate,
+  useSearchParams,
 } from "react-router-dom";
 
 import Header from "./modules/marketing/presentation/components/Header/Header";
@@ -20,8 +22,10 @@ import Organization from "./modules/marketing/presentation/pages/Contact/Contact
 import Cart from "./modules/marketing/presentation/pages/Cart/Cart";
 import CourseDetail from "./modules/marketing/presentation/pages/CourseDetails/CourseDetails";
 
+import DashboardSelectionModal from "./modules/marketing/presentation/components/DashboardSelection/DashboardSelectionModal";
 import Login from "./modules/marketing/presentation/components/Login/Login";
 import Signin from "./modules/marketing/presentation/components/Login/signin";
+import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
 
 import RegistrationForm from "./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm";
 import Events from "./modules/marketing/presentation/pages/Events/Events.jsx";
@@ -52,10 +56,71 @@ function ScrollToTop() {
   return null;
 }
 
+/**
+ * Dedicated LoginPage wrapper component for direct /login or /signin access
+ * Immediately pops up "WELCOME TO PATHWING PORTAL" over the page
+ */
+function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const portalParam =
+    searchParams.get("portal") || searchParams.get("role") || "";
+
+  const [selectionOpen, setSelectionOpen] = useState(!portalParam);
+  const [loginOpen, setLoginOpen] = useState(Boolean(portalParam));
+  const [selectedRole, setSelectedRole] = useState(portalParam || "student");
+
+  useEffect(() => {
+    if (portalParam) {
+      setSelectedRole(portalParam);
+      setSelectionOpen(false);
+      setLoginOpen(true);
+    } else {
+      setSelectionOpen(true);
+      setLoginOpen(false);
+    }
+  }, [portalParam]);
+
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    setSelectionOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleBackToSelection = () => {
+    setLoginOpen(false);
+    setSelectionOpen(true);
+  };
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <Home />
+      {/* WELCOME TO PATHWING PORTAL SELECTION POPUP */}
+      <DashboardSelectionModal
+        isOpen={selectionOpen}
+        onClose={handleClose}
+        onSelectRole={handleSelectRole}
+      />
+      {/* PARTICULAR ROLE SIGN-IN POPUP */}
+      <Login
+        isOpen={loginOpen}
+        selectedRole={selectedRole}
+        onClose={handleClose}
+        onBack={handleBackToSelection}
+      />
+    </>
+  );
+}
+
 function AppLayout() {
   const location = useLocation();
 
-  // Don't show normal website Header/Footer on dashboards (Hackathon, Student, Assessments, Certificates, Admin, Instructor, or Institution)
+  // Don't show normal website Header/Footer on dashboards
   const hideHeaderFooter =
     location.pathname.startsWith("/hackathon-dashboard") ||
     location.pathname.startsWith("/dashboard") ||
@@ -87,86 +152,257 @@ function AppLayout() {
 
         {/* Other pages */}
         <Route path="/events" element={<Events />} />
-
         <Route path="/careers" element={<CareersHero />} />
-
         <Route path="/blog" element={<Blog />} />
-
-        <Route
-          path="/learner-journey"
-          element={<LearnerJourney />}
-        />
-
+        <Route path="/learner-journey" element={<LearnerJourney />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Organization />} />
 
-        <Route
-          path="/contact"
-          element={<Organization />}
-        />
+        {/* Login & Signin Routes with Immediate Popup */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/Signin" element={<LoginPage />} />
 
-        {/* Existing Login / Signin */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/Signin" element={<Signin />} />
-
-        <Route
-          path="/cart"
-          element={<Cart />}
-        />
-
-        <Route
-          path="/registration"
-          element={<RegistrationForm />}
-        />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/registration" element={<RegistrationForm />} />
 
         {/* =====================================
             HACKATHON ADMIN DASHBOARD (PRESERVED)
             ===================================== */}
         <Route
           path="/hackathon-dashboard"
-          element={<HackathonDashboard />}
+          element={
+            <ProtectedRoute allowedRole="hackathon_admin">
+              <HackathonDashboard />
+            </ProtectedRoute>
+          }
         />
-        {/* Student Dashboard routes (Sidebar with all topics; opens tabs or deep links) */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/*" element={<Dashboard />} />
-        <Route path="/student" element={<Dashboard />} />
-        <Route path="/student/*" element={<Dashboard />} />
-        <Route path="/student-dashboard" element={<Dashboard />} />
-        <Route path="/student-dashboard/*" element={<Dashboard />} />
-
-        <Route path="/assessments" element={<Dashboard />} />
-        <Route path="/assessments/*" element={<Dashboard />} />
-        <Route path="/Assessments" element={<Dashboard />} />
-        <Route path="/Assessments/*" element={<Dashboard />} />
-
-        <Route path="/certificates" element={<Dashboard />} />
-        <Route path="/certificates/*" element={<Dashboard />} />
-        <Route path="/Certificates" element={<Dashboard />} />
-        <Route path="/Certificates/*" element={<Dashboard />} />
 
         {/* =====================================
-            PLATFORM ADMIN DASHBOARD
+            STUDENT DASHBOARD (PROTECTED)
             ===================================== */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/*" element={<AdminDashboard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-dashboard"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/assessments"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assessments/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Assessments"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Assessments/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/certificates"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/certificates/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Certificates"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Certificates/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
         {/* =====================================
-            INSTRUCTOR DASHBOARD
+            PLATFORM ADMIN DASHBOARD (PROTECTED)
             ===================================== */}
-        <Route path="/instructor" element={<InstructorDashboard />} />
-        <Route path="/instructor/*" element={<InstructorDashboard />} />
-        <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
-        <Route path="/instructor-dashboard/*" element={<InstructorDashboard />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
         {/* =====================================
-            INSTITUTION DASHBOARD
+            INSTRUCTOR DASHBOARD (PROTECTED)
             ===================================== */}
-        <Route path="/institution" element={<InstitutionDashboard />} />
-        <Route path="/institution/*" element={<InstitutionDashboard />} />
-        <Route path="/institution-dashboard" element={<InstitutionDashboard />} />
-        <Route path="/institution-dashboard/*" element={<InstitutionDashboard />} />
+        <Route
+          path="/instructor"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor/*"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor-dashboard"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* =====================================
+            INSTITUTION DASHBOARD (PROTECTED)
+            ===================================== */}
+        <Route
+          path="/institution"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution/*"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution-dashboard"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       {!hideHeaderFooter && <Footer />}
