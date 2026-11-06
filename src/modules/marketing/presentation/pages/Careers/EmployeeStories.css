@@ -1,9 +1,8 @@
 /* Employee Stories Styles */
 
 .stories-section {
-  padding: 5.5rem 0;
-  background: var(--slate-50, #f8fafc);
-  border-top: 1px solid var(--slate-200, #e2e8f0);
+  padding: 2.5rem 0;
+ 
 }
 
 .stories-grid {
