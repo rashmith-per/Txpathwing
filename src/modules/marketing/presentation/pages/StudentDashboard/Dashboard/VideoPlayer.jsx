@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import {
   Play,
   Pause,
@@ -11,19 +11,13 @@ import {
   CheckCircle,
   X,
   Clock,
-  RotateCcw,
   ListVideo,
 } from "lucide-react";
+import { getCourseByIdOrCode, DEMO_VIDEOS } from "./services/courseCatalogue.data";
+import { studentApi } from "./services/studentApi";
 import "./VideoPlayer.css";
 
-const DEMO_VIDEOS = [
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-];
-
-const DEFAULT_PLAYLIST = [
+const FALLBACK_PLAYLIST = [
   { id: "les-1", title: "1.1 Introduction to Course Architecture", duration: "14:20", durationSec: 860, videoUrl: DEMO_VIDEOS[0] },
   { id: "les-2", title: "1.2 Core Components & State Design", duration: "18:45", durationSec: 1125, videoUrl: DEMO_VIDEOS[1] },
   { id: "les-3", title: "2.1 Advanced Implementation Patterns", duration: "22:10", durationSec: 1330, videoUrl: DEMO_VIDEOS[2] },
@@ -31,24 +25,57 @@ const DEFAULT_PLAYLIST = [
 ];
 
 export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
-  const courseId = course?.id || course?.code || "react-fs";
-  const courseTitle = course?.title || "Full Stack Development";
-  const currentModule = course?.currentModule || "Module 1: Foundations & Architecture";
+  const rawId = course?.courseId || course?.id || course?.code || "java-fs";
+  const courseData = useMemo(() => getCourseByIdOrCode(rawId), [rawId]);
 
-  // Load saved progress
-  const getSavedProgress = () => {
-    try {
-      const all = JSON.parse(localStorage.getItem("courseProgress") || "{}");
-      return all[courseId] || { lastLessonId: DEFAULT_PLAYLIST[0].id, lessons: {}, position: 0 };
-    } catch {
-      return { lastLessonId: DEFAULT_PLAYLIST[0].id, lessons: {}, position: 0 };
+  const courseId = courseData?.id || rawId.toLowerCase();
+  const courseTitle = courseData?.title || course?.title || "Enrolled Course";
+  const currentModule = courseData?.modules?.[0]?.title ? `Module 1: ${courseData.modules[0].title}` : (course?.currentModule || "Module 1");
+
+  // Construct real syllabus playlist from course modules and topics
+  const playlist = useMemo(() => {
+    if (!courseData || !Array.isArray(courseData.modules) || courseData.modules.length === 0) {
+      return FALLBACK_PLAYLIST;
     }
-  };
 
-  const [savedData, setSavedData] = useState(getSavedProgress);
+    const items = [];
+    courseData.modules.forEach((mod, modIdx) => {
+      (mod.topics || []).forEach((topic, topIdx) => {
+        items.push({
+          id: topic.id,
+          title: `M${mod.moduleNumber || modIdx + 1}.${topIdx + 1} ${topic.title}`,
+          rawTitle: topic.title,
+          moduleTitle: `Module ${mod.moduleNumber || modIdx + 1}: ${mod.title}`,
+          duration: topic.duration || "45 mins",
+          durationSec: topic.durationSec || 2700,
+          videoUrl: topic.videoUrl || DEMO_VIDEOS[(modIdx + topIdx) % DEMO_VIDEOS.length],
+          skills: topic.skills || [],
+        });
+      });
+    });
+
+    return items.length > 0 ? items : FALLBACK_PLAYLIST;
+  }, [courseData]);
+
+  // Load saved topic progress from studentApi
+  const [topicProgress, setTopicProgress] = useState(() => {
+    const all = studentApi.getAllTopicProgress();
+    return all[courseId] || { lastAccessedTopicId: null, topics: {} };
+  });
+
+  // Determine initial active topic
   const [activeLesson, setActiveLesson] = useState(() => {
-    const init = getSavedProgress();
-    return DEFAULT_PLAYLIST.find((l) => l.id === init.lastLessonId) || DEFAULT_PLAYLIST[0];
+    if (course?.selectedTopicId) {
+      const found = playlist.find((p) => p.id === course.selectedTopicId);
+      if (found) return found;
+    }
+    const all = studentApi.getAllTopicProgress();
+    const cProg = all[courseId];
+    if (cProg?.lastAccessedTopicId) {
+      const found = playlist.find((p) => p.id === cProg.lastAccessedTopicId);
+      if (found) return found;
+    }
+    return playlist[0];
   });
 
   const [isPlaying, setIsPlaying] = useState(false);
@@ -65,64 +92,43 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   const videoRef = useRef(null);
   const playerContainerRef = useRef(null);
 
-  // Restore playback position on active lesson change
+  // Restore playback on active lesson change
   useEffect(() => {
     setIsPlaying(false);
-    const pos = savedData?.lessons?.[activeLesson.id]?.position || 0;
-    setCurrentTime(pos);
+    setCurrentTime(0);
     if (videoRef.current) {
-      videoRef.current.currentTime = pos;
+      videoRef.current.currentTime = 0;
       videoRef.current.playbackRate = playbackRate;
     }
-  }, [activeLesson.id]);
+    studentApi.setLastAccessedTopic(courseId, activeLesson.id);
+  }, [activeLesson.id, courseId, playbackRate]);
 
-  // Save progress
+  // Save progress handler
   const saveProgress = useCallback(
-    (completed = false) => {
-      if (!videoRef.current) return;
-      const pos = Math.round(videoRef.current.currentTime);
-      const total = Math.round(videoRef.current.duration || activeLesson.durationSec || 600);
-
+    async (markCompleted = false) => {
       try {
-        const all = JSON.parse(localStorage.getItem("courseProgress") || "{}");
-        const cProg = all[courseId] || { lastLessonId: activeLesson.id, lessons: {} };
-        const prev = cProg.lessons?.[activeLesson.id] || {};
-
-        const isDone = completed || prev.completed || (total > 0 && pos / total >= 0.92);
-
-        cProg.lastLessonId = activeLesson.id;
-        cProg.position = pos;
-        if (!cProg.lessons) cProg.lessons = {};
-        cProg.lessons[activeLesson.id] = { position: pos, duration: total, completed: isDone };
-
-        // Overall progress percentage
-        const completedCount = Object.values(cProg.lessons).filter((l) => l.completed).length;
-        const progressPct = Math.min(100, Math.round((completedCount / DEFAULT_PLAYLIST.length) * 100));
-        cProg.progressPercent = progressPct;
-
-        all[courseId] = cProg;
-        localStorage.setItem("courseProgress", JSON.stringify(all));
-
-        // Update enrolledCourses in localStorage
-        const enrollments = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
-        const updatedEnrollments = enrollments.map((e) => {
-          if ((e.id || "").toLowerCase() === courseId.toLowerCase() || (e.code || "").toLowerCase() === courseId.toLowerCase()) {
-            return { ...e, progress: progressPct };
-          }
-          return e;
+        const status = markCompleted ? "completed" : "in-progress";
+        const res = await studentApi.updateTopicProgress({
+          courseId,
+          topicId: activeLesson.id,
+          status,
         });
-        localStorage.setItem("enrolledCourses", JSON.stringify(updatedEnrollments));
 
-        setSavedData(cProg);
+        // Update local state
+        const all = studentApi.getAllTopicProgress();
+        setTopicProgress(all[courseId] || {});
+
         setSavedIndicator(true);
         setTimeout(() => setSavedIndicator(false), 2000);
 
-        if (onProgressUpdate) onProgressUpdate(progressPct);
+        if (onProgressUpdate && res?.metrics) {
+          onProgressUpdate(res.metrics.overallProgressPercent);
+        }
       } catch (err) {
-        console.warn("Failed to save progress:", err);
+        console.warn("Failed to save topic progress:", err);
       }
     },
-    [activeLesson, courseId, onProgressUpdate]
+    [activeLesson.id, courseId, onProgressUpdate]
   );
 
   const handleTimeUpdate = () => {
@@ -133,11 +139,6 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   const handleLoadedMetadata = () => {
     if (!videoRef.current) return;
     setDuration(videoRef.current.duration);
-    const pos = savedData?.lessons?.[activeLesson.id]?.position || 0;
-    if (pos > 0 && pos < videoRef.current.duration - 5) {
-      videoRef.current.currentTime = pos;
-      setCurrentTime(pos);
-    }
   };
 
   const togglePlay = () => {
@@ -197,21 +198,21 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
     }
   };
 
-  const currentIdx = DEFAULT_PLAYLIST.findIndex((l) => l.id === activeLesson.id);
+  const currentIdx = playlist.findIndex((l) => l.id === activeLesson.id);
   const hasPrev = currentIdx > 0;
-  const hasNext = currentIdx < DEFAULT_PLAYLIST.length - 1;
+  const hasNext = currentIdx < playlist.length - 1;
 
   const handlePrev = () => {
     if (hasPrev) {
       saveProgress(false);
-      setActiveLesson(DEFAULT_PLAYLIST[currentIdx - 1]);
+      setActiveLesson(playlist[currentIdx - 1]);
     }
   };
 
   const handleNext = () => {
     if (hasNext) {
       saveProgress(false);
-      setActiveLesson(DEFAULT_PLAYLIST[currentIdx + 1]);
+      setActiveLesson(playlist[currentIdx + 1]);
     }
   };
 
@@ -227,7 +228,8 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
     return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   };
 
-  const isCurrentLessonCompleted = Boolean(savedData?.lessons?.[activeLesson.id]?.completed);
+  const isCurrentLessonCompleted =
+    topicProgress?.topics?.[activeLesson.id]?.status === "completed";
 
   return (
     <div className="player-modal-backdrop">
@@ -235,10 +237,12 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
         {/* Header */}
         <header className="player-top-nav">
           <div className="player-course-meta">
-            <span className="player-tag">COURSE LESSON</span>
+            <span className="player-tag">SYLLABUS LESSON</span>
             <div>
               <h3 className="player-heading">{courseTitle}</h3>
-              <p className="player-subheading">{currentModule} • {activeLesson.title}</p>
+              <p className="player-subheading">
+                {activeLesson.moduleTitle || currentModule} • {activeLesson.rawTitle || activeLesson.title}
+              </p>
             </div>
           </div>
 
@@ -250,7 +254,7 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
               onClick={() => setPlaylistOpen((v) => !v)}
             >
               <ListVideo size={16} />
-              <span>{playlistOpen ? "Hide Playlist" : "Show Playlist"}</span>
+              <span>{playlistOpen ? "Hide Playlist" : "Show Syllabus"}</span>
             </button>
             <button
               type="button"
@@ -281,7 +285,7 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
               />
 
               <div className="player-demo-badge">
-                <span>Demo Lesson Stream</span> • Pathwing Player
+                <span>Interactive Learning Stream</span> • TX-Pathwing LMS
               </div>
             </div>
 
@@ -311,11 +315,11 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
                     {isPlaying ? <Pause size={18} /> : <Play size={18} fill="#ffffff" />}
                   </button>
 
-                  <button type="button" className="ctrl-action-btn" onClick={handlePrev} disabled={!hasPrev} title="Previous">
+                  <button type="button" className="ctrl-action-btn" onClick={handlePrev} disabled={!hasPrev} title="Previous Topic">
                     <SkipBack size={17} />
                   </button>
 
-                  <button type="button" className="ctrl-action-btn" onClick={handleNext} disabled={!hasNext} title="Next">
+                  <button type="button" className="ctrl-action-btn" onClick={handleNext} disabled={!hasNext} title="Next Topic">
                     <SkipForward size={17} />
                   </button>
 
@@ -348,6 +352,7 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
                     >
                       {playbackRate}x
                     </button>
+
                     {speedMenuOpen && (
                       <div className="speed-menu">
                         {[0.75, 1, 1.25, 1.5, 2].map((r) => (
@@ -367,10 +372,10 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
                   <button
                     type="button"
                     className={`mark-done-btn ${isCurrentLessonCompleted ? "done" : ""}`}
-                    onClick={() => saveProgress(true)}
+                    onClick={() => saveProgress(!isCurrentLessonCompleted)}
                   >
                     <CheckCircle size={15} />
-                    <span>{isCurrentLessonCompleted ? "Completed ✓" : "Mark Complete"}</span>
+                    <span>{isCurrentLessonCompleted ? "Topic Completed ✓" : "Mark as Completed"}</span>
                   </button>
 
                   <button type="button" className="ctrl-action-btn" onClick={toggleFullscreen}>
@@ -382,10 +387,29 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
 
             {/* Lesson details description */}
             <div className="player-lesson-info-box">
-              <h4>{activeLesson.title}</h4>
+              <h4>{activeLesson.rawTitle || activeLesson.title}</h4>
               <p>
-                In this lesson, you will master the architectural components and foundational principles for modern web development.
+                In this topic, you will master the concepts, code implementations, and design patterns required for enterprise full stack development.
               </p>
+              {activeLesson.skills?.length > 0 && (
+                <div style={{ marginTop: "10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                  {activeLesson.skills.map((s) => (
+                    <span
+                      key={s}
+                      style={{
+                        background: "#eff6ff",
+                        color: "#2563eb",
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        padding: "2px 8px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -393,14 +417,14 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
           {playlistOpen && (
             <aside className="player-playlist-panel">
               <div className="playlist-title-bar">
-                <h5>Course Modules & Lessons</h5>
-                <span>{DEFAULT_PLAYLIST.length} Lessons</span>
+                <h5>Syllabus Topics</h5>
+                <span>{playlist.length} Topics</span>
               </div>
 
               <div className="playlist-items-scroll">
-                {DEFAULT_PLAYLIST.map((les, idx) => {
+                {playlist.map((les, idx) => {
                   const isCurrent = les.id === activeLesson.id;
-                  const isDone = Boolean(savedData?.lessons?.[les.id]?.completed);
+                  const isDone = topicProgress?.topics?.[les.id]?.status === "completed";
 
                   return (
                     <button
@@ -414,9 +438,9 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
                     >
                       <div className="playlist-row-status">
                         {isDone ? (
-                          <CheckCircle size={16} className="text-emerald" />
+                          <CheckCircle size={16} color="#10b981" />
                         ) : isCurrent ? (
-                          <Play size={14} className="text-blue" fill="#2563eb" />
+                          <Play size={14} color="#2563eb" fill="#2563eb" />
                         ) : (
                           <span className="circle-dot">{idx + 1}</span>
                         )}

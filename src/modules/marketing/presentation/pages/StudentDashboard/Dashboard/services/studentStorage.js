@@ -1,7 +1,11 @@
 /**
- * Student Dashboard Storage Service
+ * Student Dashboard Storage & Session Service
  * Encapsulates localStorage interactions, session management, and enrollment persistence.
+ * Delegates to studentApi for unified syllabus topic progress and dynamic calculations.
  */
+
+import { studentApi } from "./studentApi";
+import { getCourseByIdOrCode } from "./courseCatalogue.data";
 
 const STORAGE_KEYS = {
   IS_LOGGED_IN: "isLoggedIn",
@@ -90,38 +94,62 @@ export const studentStorage = {
 
   // Enrollments
   getEnrolledCourses() {
+    studentApi.init();
+    const allProgress = studentApi.getAllTopicProgress();
+    let rawList = [];
+
     try {
       const stored = JSON.parse(localStorage.getItem(STORAGE_KEYS.ENROLLED_COURSES) || "[]");
       if (Array.isArray(stored) && stored.length > 0) {
-        return stored.map((item) => {
-          const rawId = item.courseId || item.id || item.code?.toLowerCase() || "course";
-          const cleanId = rawId.toLowerCase();
-          const resolvedCode =
-            (item.courseCode && item.courseCode !== "COURSE" ? item.courseCode : null) ||
-            (item.code && item.code !== "COURSE" ? item.code : null) ||
-            KNOWN_CODES[cleanId] ||
-            cleanId.toUpperCase();
+        rawList = stored;
+      } else {
+        rawList = DEFAULT_ENROLLMENTS;
+      }
+    } catch {
+      rawList = DEFAULT_ENROLLMENTS;
+    }
 
+    return rawList
+      .map((item) => {
+        const rawId = item.courseId || item.id || item.code?.toLowerCase() || "course";
+        const course = getCourseByIdOrCode(rawId);
+
+        if (!course) {
           return {
-            courseId: cleanId,
-            courseCode: resolvedCode,
+            courseId: (item.courseId || item.id || "course").toLowerCase(),
+            courseCode: item.courseCode || item.code || "COURSE",
             title: item.title || item.name || "Enrolled Course",
             category: item.category || "Software Development",
             instructor: item.instructor || "Pathwing Faculty",
             currentModule: item.currentModule || "Module 1",
-            progressPercent:
-              item.progressPercent !== undefined
-                ? item.progressPercent
-                : item.progress !== undefined
-                ? item.progress
-                : 0,
+            progressPercent: item.progressPercent || 0,
           };
-        });
-      }
-    } catch {
-      // Fallback on parse failure
-    }
-    return DEFAULT_ENROLLMENTS;
+        }
+
+        const cProg = allProgress[course.id] || allProgress[course.code] || {};
+        const topics = course.modules?.flatMap((m) => m.topics) || [];
+        const completedCount = topics.filter(
+          (t) => cProg.topics?.[t.id]?.status === "completed"
+        ).length;
+        const calcPercent = topics.length > 0 ? Math.round((completedCount / topics.length) * 100) : 0;
+
+        return {
+          courseId: course.id,
+          courseCode: course.code,
+          title: course.title,
+          category: course.category,
+          level: course.level,
+          instructor: course.instructor.name,
+          instructorRole: course.instructor.role,
+          image: course.image,
+          currentModule: item.currentModule || `Module 1: ${course.modules?.[0]?.title || "Fundamentals"}`,
+          progressPercent: calcPercent,
+          completedTopics: completedCount,
+          totalTopics: topics.length,
+          remainingTopics: topics.length - completedCount,
+        };
+      })
+      .filter(Boolean);
   },
 
   enrollCourse(course) {
@@ -136,29 +164,44 @@ export const studentStorage = {
       return { success: false, message: "Already enrolled in this course." };
     }
 
-    const resolvedCode =
-      (course.code && course.code !== "COURSE" ? course.code : null) ||
-      KNOWN_CODES[cleanId] ||
-      cleanId.toUpperCase();
+    const matched = getCourseByIdOrCode(cleanId);
+    const resolvedCode = matched?.code || cleanId.toUpperCase();
+    const resolvedTitle = matched?.title || course.title;
 
     const newCourse = {
       id: cleanId,
       courseId: cleanId,
       code: resolvedCode,
       courseCode: resolvedCode,
-      title: course.title,
+      title: resolvedTitle,
       price: course.price,
-      category: course.category || "Software Development",
-      instructor: course.instructor || "Pathwing Faculty",
+      category: matched?.category || course.category || "Software Development",
+      instructor: matched?.instructor?.name || course.instructor || "Pathwing Faculty",
       progressPercent: 0,
-      currentModule: course.syllabus?.[0]?.t ? `Module 1: ${course.syllabus[0].t}` : "Module 1",
+      currentModule: matched?.modules?.[0]?.title
+        ? `Module 1: ${matched.modules[0].title}`
+        : "Module 1",
     };
 
     const updated = [...current, newCourse];
     localStorage.setItem(STORAGE_KEYS.ENROLLED_COURSES, JSON.stringify(updated));
-    window.dispatchEvent(new Event("storage"));
 
-    return { success: true, course: newCourse, message: `Successfully enrolled in ${course.title}!` };
+    // Initialize progress map
+    const allProgress = studentApi.getAllTopicProgress();
+    allProgress[cleanId] = {
+      lastAccessedTopicId: matched?.modules?.[0]?.topics?.[0]?.id || null,
+      topics: {},
+    };
+    studentApi.saveAllTopicProgress(allProgress);
+
+    window.dispatchEvent(new Event("storage"));
+    window.dispatchEvent(new CustomEvent("enrollmentChanged", { detail: newCourse }));
+
+    return {
+      success: true,
+      course: newCourse,
+      message: `Successfully enrolled in ${resolvedTitle}!`,
+    };
   },
 
   updateCourseProgress(courseId, progressPercent) {

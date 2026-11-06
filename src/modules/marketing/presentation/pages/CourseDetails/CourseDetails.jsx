@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses as marketCourses } from "../MarketPlace/coursesList";
+import { getCourseByIdOrCode } from "../StudentDashboard/Dashboard/services/courseCatalogue.data";
+import { studentStorage } from "../StudentDashboard/Dashboard/services/studentStorage";
 import "./CourseDetails.css";
 
 /* ---------- Compact course builder ----------
@@ -224,7 +226,34 @@ export default function CourseDetail() {
 
   const cleanId = (id || "").toLowerCase();
 
-  let course = extendedCoursesData[cleanId];
+  const matched = getCourseByIdOrCode(cleanId);
+  let course = matched
+    ? {
+        code: matched.code,
+        title: matched.title,
+        category: matched.category,
+        instructor: matched.instructor.name,
+        role: matched.instructor.role,
+        weeks: matched.duration,
+        lessons: matched.lessons,
+        level: matched.level,
+        price: matched.price,
+        oldPrice: matched.oldPrice,
+        rating: matched.rating,
+        reviews: matched.reviews,
+        emoji: matched.emoji,
+        about: matched.description,
+        syllabus: matched.modules.map((m) => ({
+          m: `Module ${m.moduleNumber}`,
+          t: m.title,
+          d: m.duration,
+          topics: m.topics.map((top) => top.title),
+        })),
+        projects: matched.projects,
+        skills: matched.skills,
+      }
+    : extendedCoursesData[cleanId];
+
   if (!course) {
     const m = marketCourses.find((c) => (c.id || "").toLowerCase() === cleanId);
     if (m) course = fromMarket(m);
@@ -241,24 +270,11 @@ export default function CourseDetail() {
   }
 
   const isEnrolled = readEnrolled().some(
-    (e) => (e.id || "").toLowerCase() === cleanId || (e.code || "").toLowerCase() === cleanId
+    (e) => (e.id || "").toLowerCase() === cleanId || (e.code || "").toLowerCase() === cleanId || (e.courseId || "").toLowerCase() === cleanId
   );
 
   const handleEnroll = () => {
-    const current = readEnrolled();
-    if (!current.some((e) => (e.id || "").toLowerCase() === cleanId)) {
-      current.push({
-        id: cleanId,
-        code: course.code,
-        title: course.title,
-        price: course.price,
-        category: course.category,
-        instructor: course.instructor,
-        progress: 0,
-        currentModule: course.syllabus?.[0]?.t ? `Module 1: ${course.syllabus[0].t}` : "Module 1",
-      });
-      localStorage.setItem("enrolledCourses", JSON.stringify(current));
-    }
+    studentStorage.enrollCourse(course);
     setEnrolledSuccess(true);
     setTimeout(() => navigate("/dashboard"), 600);
   };

@@ -1,54 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Play, Search, BookOpen, ArrowRight } from "lucide-react";
+import { studentStorage } from "../Dashboard/services/studentStorage";
 import "./MyCourses.css";
 
-const DEFAULT_COURSES = [
-  {
-    courseId: "aws-dop",
-    courseCode: "AWS-DOP",
-    title: "AWS DevOps Engineer",
-    category: "Cloud & DevOps",
-    instructor: "Meera Krishnan",
-    currentModule: "Module 1",
-    progressPercent: 0,
-  },
-  {
-    courseId: "java-fs",
-    courseCode: "JAVA-FS",
-    title: "Java Full Stack Development",
-    category: "Software Development",
-    instructor: "Naveen Kulkarni",
-    currentModule: "Module 1",
-    progressPercent: 0,
-  },
-];
-
-export default function MyCourses({ onResumeCourse }) {
+export default function MyCourses({ onResumeCourse, onOpenCourseDetails }) {
   const [enrollments, setEnrollments] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
 
   const loadEnrollments = () => {
-    try {
-      const stored = JSON.parse(localStorage.getItem("enrolledCourses") || "[]");
-      if (Array.isArray(stored) && stored.length > 0) {
-        const normalized = stored.map((item) => ({
-          courseId: item.courseId || item.id || item.code?.toLowerCase() || "course",
-          courseCode: item.courseCode || item.code || "COURSE",
-          title: item.title || item.name || "Enrolled Course",
-          category: item.category || "Software Development",
-          instructor: item.instructor || "Pathwing Faculty",
-          currentModule: item.currentModule || "Module 1: Foundations",
-          progressPercent: item.progressPercent !== undefined ? item.progressPercent : (item.progress || 0),
-        }));
-        setEnrollments(normalized);
-      } else {
-        setEnrollments(DEFAULT_COURSES);
-      }
-    } catch {
-      setEnrollments(DEFAULT_COURSES);
-    }
+    const list = studentStorage.getEnrolledCourses();
+    setEnrollments(list);
   };
 
   useEffect(() => {
@@ -56,7 +19,14 @@ export default function MyCourses({ onResumeCourse }) {
 
     const handleStorage = () => loadEnrollments();
     window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
+    window.addEventListener("topicProgressChanged", handleStorage);
+    window.addEventListener("enrollmentChanged", handleStorage);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("topicProgressChanged", handleStorage);
+      window.removeEventListener("enrollmentChanged", handleStorage);
+    };
   }, []);
 
   const filtered = enrollments.filter((course) => {
@@ -64,7 +34,8 @@ export default function MyCourses({ onResumeCourse }) {
       (course.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
       (course.courseCode || "").toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCat =
-      categoryFilter === "All" || (course.category || "").toLowerCase() === categoryFilter.toLowerCase();
+      categoryFilter === "All" ||
+      (course.category || "").toLowerCase() === categoryFilter.toLowerCase();
     return matchesSearch && matchesCat;
   });
 
@@ -75,7 +46,7 @@ export default function MyCourses({ onResumeCourse }) {
         <div className="my-courses-header-titles">
           <h2 className="my-courses-title">My Enrolled Courses</h2>
           <p className="my-courses-subtitle">
-            Track progress, resume video lessons, and prepare for certifications.
+            Track module syllabus progress, resume lessons, and prepare for industry certifications.
           </p>
         </div>
 
@@ -129,14 +100,21 @@ export default function MyCourses({ onResumeCourse }) {
         <div className="my-courses-grid">
           {filtered.map((course) => {
             const pct = course.progressPercent || 0;
+            const isCompleted = pct === 100;
 
             return (
-              <div key={course.courseId} className="my-course-card">
+              <div
+                key={course.courseId}
+                className="my-course-card"
+                onClick={() => onOpenCourseDetails && onOpenCourseDetails(course)}
+                style={{ cursor: "pointer" }}
+                title="Click to view course learning details and complete syllabus"
+              >
                 <div>
                   <div className="my-course-top">
                     <span className="my-course-code-pill">{course.courseCode}</span>
                     <span className="my-course-status">
-                      {pct === 100 ? "Completed ✓" : "In Progress"}
+                      {isCompleted ? "Completed ✓" : "In Progress"}
                     </span>
                   </div>
 
@@ -145,7 +123,8 @@ export default function MyCourses({ onResumeCourse }) {
                   </h3>
 
                   <div className="my-course-module">
-                    {course.currentModule || "Module 1: Foundations"}
+                    <BookOpen size={13} style={{ display: "inline", marginRight: "5px" }} />
+                    {course.currentModule || "Module 1"}
                   </div>
 
                   {/* Progress bar */}
@@ -157,7 +136,10 @@ export default function MyCourses({ onResumeCourse }) {
                     <div className="my-course-progress-track">
                       <div
                         className="my-course-progress-fill"
-                        style={{ width: `${pct}%` }}
+                        style={{
+                          width: `${pct}%`,
+                          background: isCompleted ? "#10b981" : "#2563eb",
+                        }}
                       />
                     </div>
                   </div>
@@ -167,17 +149,25 @@ export default function MyCourses({ onResumeCourse }) {
                   <button
                     type="button"
                     className="my-course-resume-btn"
-                    onClick={() => onResumeCourse && onResumeCourse(course)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onResumeCourse && onResumeCourse(course);
+                    }}
                   >
                     <Play size={15} fill="#ffffff" /> Resume Lesson
                   </button>
 
-                  <Link
-                    to={`/course/${course.courseId.toLowerCase()}`}
+                  <button
+                    type="button"
                     className="my-course-syllabus-link"
+                    style={{ background: "transparent", border: "none", cursor: "pointer" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenCourseDetails && onOpenCourseDetails(course);
+                    }}
                   >
-                    Syllabus
-                  </Link>
+                    Learning Details
+                  </button>
                 </div>
               </div>
             );
