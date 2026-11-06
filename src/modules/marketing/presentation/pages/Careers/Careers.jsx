@@ -110,13 +110,7 @@ const Careers = () => {
       />
 
       {/* 15 & 16. RESUME SUBMISSION & FINAL CTA */}
-      <CareerCTA
-        onSubmitResumeClick={handleOpenGeneralResume}
-        onExploreClick={() => {
-          const el = document.getElementById("open-positions");
-          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }}
-      />
+      
 
       {/* Shared Application / Resume Modal */}
       <ResumeModal
