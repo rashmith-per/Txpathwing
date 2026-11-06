@@ -86,11 +86,7 @@ export default function DashboardHeader({
           )}
         </div>
 
-        {/* Website Link */}
-        <Link to="/" className="website-link-pill" title="Return to Pathwing Main Website">
-          <ExternalLink size={14} />
-          <span>Visit Website</span>
-        </Link>
+       
       </div>
     </header>
   );

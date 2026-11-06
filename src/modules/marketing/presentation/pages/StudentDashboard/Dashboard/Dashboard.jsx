@@ -18,6 +18,8 @@ import AchievementsSection from "./components/AchievementsSection";
 import AIAssistantTab from "./components/AIAssistantTab";
 import CodingLabTab from "./components/CodingLabTab";
 import CareersTab from "./components/CareersTab";
+import CourseLearningDetails from "./components/CourseLearningDetails";
+import RecommendedCourseModal from "./components/RecommendedCourseModal";
 
 import MyCourses from "../MyCourses/MyCourses";
 import Assessments from "../Assessments/Assessments";
@@ -41,8 +43,16 @@ export default function StudentDashboard() {
     setCourseFilter,
     enrollInCourse,
     updateProgress,
+    syncCourses,
   } = useStudentCourses();
   const { activeCoursesCount, streakDays, learningHours } = useStudentStats(enrollments);
+
+  // Deep Link Routing helper for Course Learning Details (/dashboard/learning/:id)
+  const getInitialLearningCourseId = useCallback(() => {
+    const path = location.pathname.toLowerCase();
+    const match = path.match(/\/(?:dashboard|student)\/learn(?:ing)?\/([a-z0-9-_]+)/i);
+    return match ? match[1] : null;
+  }, [location.pathname]);
 
   // Tab State & Deep Link Routing
   const getInitialTab = useCallback(() => {
@@ -60,19 +70,28 @@ export default function StudentDashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeVideoCourse, setActiveVideoCourse] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
+  const [selectedLearningCourseId, setSelectedLearningCourseId] = useState(getInitialLearningCourseId);
+  const [selectedRecommendedCourse, setSelectedRecommendedCourse] = useState(null);
 
   const showToast = useCallback((msg) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(""), 3000);
+    setTimeout(() => setToastMessage(""), 3500);
   }, []);
 
-  // Synchronize Tab with Location
+  // Synchronize Tab and Learning View with Location
   useEffect(() => {
     setActiveTab(getInitialTab());
-  }, [getInitialTab]);
+    const learnId = getInitialLearningCourseId();
+    if (learnId) {
+      setSelectedLearningCourseId(learnId);
+    } else if (!location.pathname.toLowerCase().includes("learn")) {
+      setSelectedLearningCourseId(null);
+    }
+  }, [location.pathname, getInitialTab, getInitialLearningCourseId]);
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+    setSelectedLearningCourseId(null);
     setMobileMenuOpen(false);
     if (tabName === "Dashboard") navigate("/dashboard");
     else if (tabName === "My courses") navigate("/dashboard/courses");
@@ -87,7 +106,7 @@ export default function StudentDashboard() {
     const target = courseObj || enrollments[0];
     if (typeof target === "string") {
       const found = enrollments.find(
-        (e) => e.courseId === target || e.id === target || e.courseCode === target
+        (e) => (e.courseId || e.id || e.courseCode || "").toLowerCase() === target.toLowerCase()
       );
       setActiveVideoCourse(found || enrollments[0]);
     } else {
@@ -95,9 +114,36 @@ export default function StudentDashboard() {
     }
   };
 
+  const handleOpenLearningDetails = (course) => {
+    const cId = (course.courseId || course.id || course.code || course.courseCode || "").toLowerCase();
+    setSelectedLearningCourseId(cId);
+    navigate(`/dashboard/learning/${cId}`);
+  };
+
+  const handleBackFromLearning = () => {
+    setSelectedLearningCourseId(null);
+    navigate("/dashboard");
+  };
+
+  const handleOpenRecommendedDetails = (course) => {
+    setSelectedRecommendedCourse(course);
+  };
+
   const handleQuickEnroll = (course) => {
     const res = enrollInCourse(course);
     showToast(res.message);
+    if (res.success) {
+      syncCourses();
+    }
+  };
+
+  const handleEnrollFromModal = async (course) => {
+    const res = enrollInCourse(course);
+    showToast(res.message);
+    if (res.success) {
+      setSelectedRecommendedCourse(null);
+      syncCourses();
+    }
   };
 
   return (
@@ -116,8 +162,23 @@ export default function StudentDashboard() {
           onClose={() => setActiveVideoCourse(null)}
           onProgressUpdate={(pct) => {
             updateProgress(activeVideoCourse.courseId || activeVideoCourse.id, pct);
+            syncCourses();
             showToast("Lesson progress updated!");
           }}
+        />
+      )}
+
+      {/* Recommended Course Information & Syllabus Modal */}
+      {selectedRecommendedCourse && (
+        <RecommendedCourseModal
+          course={selectedRecommendedCourse}
+          isEnrolled={enrollments.some(
+            (e) =>
+              (e.courseId || e.id || e.courseCode || "").toLowerCase() ===
+              (selectedRecommendedCourse.id || selectedRecommendedCourse.code || "").toLowerCase()
+          )}
+          onClose={() => setSelectedRecommendedCourse(null)}
+          onEnroll={handleEnrollFromModal}
         />
       )}
 
@@ -132,7 +193,7 @@ export default function StudentDashboard() {
       {/* Fixed Sidebar */}
       <DashboardSidebar
         userProfile={userProfile}
-        activeTab={activeTab}
+        activeTab={selectedLearningCourseId ? "My courses" : activeTab}
         onTabClick={handleTabClick}
         enrollmentsCount={enrollments.length}
         mobileOpen={mobileMenuOpen}
@@ -144,7 +205,7 @@ export default function StudentDashboard() {
       <div className="dashboard-viewport">
         {/* Fixed Header */}
         <DashboardHeader
-          activeTab={activeTab}
+          activeTab={selectedLearningCourseId ? "Course Learning" : activeTab}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           onOpenMobile={() => setMobileMenuOpen(true)}
@@ -152,70 +213,86 @@ export default function StudentDashboard() {
 
         {/* Scrollable Main Content */}
         <main className="dashboard-content-scroll">
-          {activeTab === "My courses" && (
-            <MyCourses onResumeCourse={handleResumeLesson} />
-          )}
-
-          {activeTab === "AI assistant" && (
-            <AIAssistantTab userName={userProfile.name} />
-          )}
-
-          {activeTab === "Coding lab" && (
-            <CodingLabTab onOpenSandbox={() => showToast("Launching sandbox environment...")} />
-          )}
-
-          {activeTab === "Careers" && <CareersTab />}
-
-          {activeTab === "Assessments" && (
-            <Assessments onBack={() => handleTabClick("Dashboard")} />
-          )}
-
-          {activeTab === "Certificates" && <Certificates />}
-
-          {activeTab === "Dashboard" && (
+          {/* Dedicated Course Learning Details View */}
+          {selectedLearningCourseId ? (
+            <CourseLearningDetails
+              courseId={selectedLearningCourseId}
+              onBack={handleBackFromLearning}
+              onLaunchTopic={(topicCourse) => setActiveVideoCourse(topicCourse)}
+              showToast={showToast}
+            />
+          ) : (
             <>
-              {/* Welcome Banner */}
-              <WelcomeHero
-                userName={userProfile.name}
-                streakDays={streakDays}
-                learningHours={learningHours}
-                activeCoursesCount={activeCoursesCount}
-                lastCourse={enrollments[0]}
-                onResume={handleResumeLesson}
-              />
+              {activeTab === "My courses" && (
+                <MyCourses
+                  onResumeCourse={handleResumeLesson}
+                  onOpenCourseDetails={handleOpenLearningDetails}
+                />
+              )}
 
-              {/* Statistics Metric Cards */}
-              <StatsCards
-                activeCoursesCount={activeCoursesCount}
-                learningHours={learningHours}
-                streakDays={streakDays}
-              />
+              {activeTab === "AI assistant" && (
+                <AIAssistantTab userName={userProfile.name} />
+              )}
 
-              {/* Main Content Grid */}
-              <div className="dashboard-main-grid">
-                {/* Primary Column */}
-                <div className="main-column">
-                  <ContinueLearning
-                    enrollments={filteredEnrollments}
-                    courseFilter={courseFilter}
-                    onFilterChange={setCourseFilter}
+              {activeTab === "Coding lab" && (
+                <CodingLabTab onOpenSandbox={() => showToast("Launching sandbox environment...")} />
+              )}
+
+              {activeTab === "Careers" && <CareersTab />}
+
+              {activeTab === "Assessments" && (
+                <Assessments onBack={() => handleTabClick("Dashboard")} />
+              )}
+
+              {activeTab === "Certificates" && <Certificates />}
+
+              {activeTab === "Dashboard" && (
+                <>
+                  {/* Welcome Banner */}
+                  <WelcomeHero
+                    userName={userProfile.name}
+                    streakDays={streakDays}
+                    learningHours={learningHours}
+                    activeCoursesCount={activeCoursesCount}
+                    lastCourse={enrollments[0]}
                     onResume={handleResumeLesson}
                   />
 
-                  <RecommendedSection
-                    recommendedCourses={recommendedCourses}
-                    onEnroll={handleQuickEnroll}
-                    onViewDetails={(id) => navigate(`/course/${id.toLowerCase()}`)}
+                  {/* Statistics Metric Cards */}
+                  <StatsCards
+                    activeCoursesCount={activeCoursesCount}
+                    learningHours={learningHours}
+                    streakDays={streakDays}
                   />
-                </div>
 
-                {/* Secondary Column */}
-                <div className="sidebar-column">
-                  <SkillProfileSection />
-                  <ComingUpSection />
-                  <AchievementsSection />
-                </div>
-              </div>
+                  {/* Main Content Grid */}
+                  <div className="dashboard-main-grid">
+                    {/* Primary Column */}
+                    <div className="main-column">
+                      <ContinueLearning
+                        enrollments={filteredEnrollments}
+                        courseFilter={courseFilter}
+                        onFilterChange={setCourseFilter}
+                        onResume={handleResumeLesson}
+                        onOpenDetails={handleOpenLearningDetails}
+                      />
+
+                      <RecommendedSection
+                        recommendedCourses={recommendedCourses}
+                        onEnroll={handleQuickEnroll}
+                        onViewDetails={handleOpenRecommendedDetails}
+                      />
+                    </div>
+
+                    {/* Secondary Column */}
+                    <div className="sidebar-column">
+                      <SkillProfileSection />
+                      <ComingUpSection />
+                      <AchievementsSection />
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
         </main>

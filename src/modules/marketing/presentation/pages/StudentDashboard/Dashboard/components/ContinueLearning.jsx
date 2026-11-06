@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Play } from "lucide-react";
+import { BookOpen, Play, CheckCircle2 } from "lucide-react";
 
 export default function ContinueLearning({
   enrollments = [],
   courseFilter = "All",
   onFilterChange,
   onResume,
+  onOpenDetails,
 }) {
   return (
     <section className="dash-card-section continue-learning-section">
@@ -48,10 +49,16 @@ export default function ContinueLearning({
           enrollments.map((course) => {
             const pct = course.progressPercent || 0;
             const isDone = pct === 100;
-            const syllabusPath = `/course/${(course.courseId || course.id || "course").toLowerCase()}`;
+            const courseKey = course.courseId || course.id;
 
             return (
-              <div key={course.courseId || course.id} className="continue-course-card">
+              <div
+                key={courseKey}
+                className="continue-course-card"
+                onClick={() => onOpenDetails && onOpenDetails(course)}
+                style={{ cursor: "pointer" }}
+                title="Click to open dedicated Course Learning Details"
+              >
                 <div className="course-card-top">
                   <span className="course-code-pill">
                     {course.courseCode || "COURSE"}
@@ -70,13 +77,15 @@ export default function ContinueLearning({
 
                 <div className="course-progress-block">
                   <div className="progress-label-row">
-                    <span className="progress-title">Progress</span>
+                    <span className="progress-title">
+                      Course Progress {course.totalTopics ? `(${course.completedTopics || 0}/${course.totalTopics})` : ""}
+                    </span>
                     <span className="pct-text">{pct}%</span>
                   </div>
                   <div className="progress-bar-track">
                     <div
-                      className="progress-bar-fill"
-                      style={{ width: `${pct}%` }}
+                      className={`progress-bar-fill ${isDone ? "completed" : ""}`}
+                      style={{ width: `${pct}%`, background: isDone ? "#10b981" : "#2563eb" }}
                     />
                   </div>
                 </div>
@@ -85,17 +94,26 @@ export default function ContinueLearning({
                   <button
                     type="button"
                     className="course-resume-btn"
-                    onClick={() => onResume && onResume(course)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onResume && onResume(course);
+                    }}
                   >
                     <Play size={14} fill="#ffffff" />
                     <span>Resume Lesson</span>
                   </button>
-                  <Link
-                    to={syllabusPath}
+
+                  <button
+                    type="button"
                     className="course-view-link"
+                    style={{ background: "transparent", border: "none", cursor: "pointer" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenDetails && onOpenDetails(course);
+                    }}
                   >
-                    Syllabus
-                  </Link>
+                    Syllabus Details
+                  </button>
                 </div>
               </div>
             );

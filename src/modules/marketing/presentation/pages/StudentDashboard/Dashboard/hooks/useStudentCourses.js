@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { studentStorage } from "../services/studentStorage";
-import { courses as marketCourses } from "../../../MarketPlace/coursesList";
+import { studentApi } from "../services/studentApi";
+import { COURSE_CATALOGUE } from "../services/courseCatalogue.data";
 
 export function useStudentCourses() {
   const [enrollments, setEnrollments] = useState(() => studentStorage.getEnrolledCourses());
@@ -13,7 +14,14 @@ export function useStudentCourses() {
 
   useEffect(() => {
     window.addEventListener("storage", syncCourses);
-    return () => window.removeEventListener("storage", syncCourses);
+    window.addEventListener("topicProgressChanged", syncCourses);
+    window.addEventListener("enrollmentChanged", syncCourses);
+
+    return () => {
+      window.removeEventListener("storage", syncCourses);
+      window.removeEventListener("topicProgressChanged", syncCourses);
+      window.removeEventListener("enrollmentChanged", syncCourses);
+    };
   }, [syncCourses]);
 
   const filteredEnrollments = useMemo(() => {
@@ -34,22 +42,30 @@ export function useStudentCourses() {
     const enrolledIds = new Set(
       enrollments.map((e) => (e.courseId || e.id || e.courseCode || "").toLowerCase())
     );
-    return marketCourses
-      .filter((c) => !enrolledIds.has((c.id || "").toLowerCase()) && !enrolledIds.has((c.code || "").toLowerCase()))
-      .slice(0, 3);
+    return COURSE_CATALOGUE.filter(
+      (c) =>
+        !enrolledIds.has((c.id || "").toLowerCase()) &&
+        !enrolledIds.has((c.code || "").toLowerCase())
+    ).slice(0, 6);
   }, [enrollments]);
 
   const enrollInCourse = useCallback((course) => {
     const res = studentStorage.enrollCourse(course);
     if (res.success) {
-      setEnrollments((prev) => [...prev, res.course]);
+      syncCourses();
     }
     return res;
-  }, []);
+  }, [syncCourses]);
 
   const updateProgress = useCallback((courseId, pct) => {
     studentStorage.updateCourseProgress(courseId, pct);
     syncCourses();
+  }, [syncCourses]);
+
+  const updateTopicProgress = useCallback(async ({ courseId, topicId, status }) => {
+    const res = await studentApi.updateTopicProgress({ courseId, topicId, status });
+    syncCourses();
+    return res;
   }, [syncCourses]);
 
   return {
@@ -62,5 +78,7 @@ export function useStudentCourses() {
     setCourseFilter,
     enrollInCourse,
     updateProgress,
+    updateTopicProgress,
+    syncCourses,
   };
 }
