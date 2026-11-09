@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useRef, useState } from "react";
 import {
   Activity, ArrowDownToLine, ArrowLeft, ArrowRight, Award, Bell, BookOpen,
@@ -8,7 +7,6 @@ import {
 import { Link } from "react-router-dom";
 import txIcon from "./assets/tx-icon.jpg";
 import "./App.css";
-=======
 import { useState, useEffect } from "react";
 import {
   BrowserRouter,
@@ -18,7 +16,6 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
->>>>>>> 5101f40 (new login)
 
 const departments = [
   { name: "CSE", completion: 78 }, { name: "IT", completion: 74 },
@@ -41,19 +38,31 @@ const learners = [
   { name: "Rahul Varma", email: "rahul.varma@kits.edu", department: "EEE", programme: "Cloud & DevOps", progress: 41, status: "Needs support" }
 ];
 
-<<<<<<< HEAD
 const courses = [
   { name: "Full Stack Engineering", category: "SOFTWARE DEVELOPMENT", instructor: "Meera Krishnan", learners: 680, completion: 76, state: "Active", tone: "blue" },
   { name: "Cloud & DevOps Foundations", category: "CLOUD COMPUTING", instructor: "Arjun Menon", learners: 520, completion: 71, state: "Active", tone: "green" },
   { name: "Applied Data Engineering", category: "DATA & AI", instructor: "Nisha Rao", learners: 410, completion: 68, state: "Active", tone: "orange" },
   { name: "Cybersecurity Essentials", category: "SECURITY", instructor: "Tanvox Technologies", learners: 320, completion: 63, state: "Review due", tone: "red" }
 ];
-=======
+
+import Header from "./modules/marketing/presentation/components/Header/Header";
+import Footer from "./modules/marketing/presentation/components/Footer/Footer";
+
+import Home from "./modules/marketing/presentation/pages/Home/Home";
+import LearnerJourney from "./modules/marketing/presentation/pages/Learner_journey/Learner_journey";
+import About from "./modules/marketing/presentation/pages/About/About";
+
+import Marketplace from "./modules/marketing/presentation/pages/MarketPlace/MarketPlace";
+import Blog from "./modules/marketing/presentation/pages/Blog/Blog";
+import CareersHero from "./modules/marketing/presentation/pages/Careers/Careers";
+import Organization from "./modules/marketing/presentation/pages/Contact/Contact";
+import Cart from "./modules/marketing/presentation/pages/Cart/Cart";
+import CourseDetail from "./modules/marketing/presentation/pages/CourseDetails/CourseDetails";
+
 import DashboardSelectionModal from "./modules/marketing/presentation/components/DashboardSelection/DashboardSelectionModal";
 import Login from "./modules/marketing/presentation/components/Login/Login";
 import Signin from "./modules/marketing/presentation/components/Login/signin";
 import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
->>>>>>> 5101f40 (new login)
 
 const programmes = [
   { name: "Industry-Ready Software Engineer", code: "PRG-2026-01", duration: "24 weeks", learners: 820, departments: "CSE, IT", progress: 78, state: "In progress" },
@@ -99,7 +108,8 @@ function matchesSearch(record, search) {
   return JSON.stringify(record).toLowerCase().includes(search.trim().toLowerCase());
 }
 
-<<<<<<< HEAD
+
+
 function downloadCsv(fileName, rows) {
   const csv = rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
   const link = document.createElement("a");
@@ -107,7 +117,67 @@ function downloadCsv(fileName, rows) {
   link.download = fileName;
   link.click();
   URL.revokeObjectURL(link.href);
-=======
+/**
+ * Dedicated LoginPage wrapper component for direct /login or /signin access
+ * Immediately pops up "WELCOME TO PATHWING PORTAL" over the page
+ */
+function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const portalParam =
+    searchParams.get("portal") || searchParams.get("role") || "";
+
+  const [selectionOpen, setSelectionOpen] = useState(!portalParam);
+  const [loginOpen, setLoginOpen] = useState(Boolean(portalParam));
+  const [selectedRole, setSelectedRole] = useState(portalParam || "student");
+
+  useEffect(() => {
+    if (portalParam) {
+      setSelectedRole(portalParam);
+      setSelectionOpen(false);
+      setLoginOpen(true);
+    } else {
+      setSelectionOpen(true);
+      setLoginOpen(false);
+    }
+  }, [portalParam]);
+
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    setSelectionOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleBackToSelection = () => {
+    setLoginOpen(false);
+    setSelectionOpen(true);
+  };
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <Home />
+      {/* WELCOME TO PATHWING PORTAL SELECTION POPUP */}
+      <DashboardSelectionModal
+        isOpen={selectionOpen}
+        onClose={handleClose}
+        onSelectRole={handleSelectRole}
+      />
+      {/* PARTICULAR ROLE SIGN-IN POPUP */}
+      <Login
+        isOpen={loginOpen}
+        selectedRole={selectedRole}
+        onClose={handleClose}
+        onBack={handleBackToSelection}
+      />
+    </>
+  );
+}
+
 /**
  * Dedicated LoginPage wrapper component for direct /login or /signin access
  * Immediately pops up "WELCOME TO PATHWING PORTAL" over the page
@@ -233,6 +303,31 @@ function AppLayout() {
         {/* =====================================
             STUDENT DASHBOARD (PROTECTED)
             ===================================== */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
         <Route
           path="/dashboard"
           element={
@@ -460,14 +555,13 @@ function AppLayout() {
       {!hideHeaderFooter && <Footer />}
     </>
   );
->>>>>>> 5101f40 (new login)
+
 }
 
 function PageHeading({ eyebrow, title, description, children }) {
   return <div className="page-heading"><div><div className="page-eyebrow">{eyebrow}</div><h1>{title}</h1><p>{description}</p></div><div className="page-heading-actions">{children}</div></div>;
 }
 
-<<<<<<< HEAD
 function StatusTag({ children }) {
   const className = children.toLowerCase().replaceAll(" ", "-");
   return <span className={`status-tag status-${className}`}>{children}</span>;
@@ -588,6 +682,6 @@ export default function Dashboard() {
     {mobileNavOpen && <button className="mobile-scrim" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />}{message && <div className="status-toast" role="status"><Check size={16} />{message}</div>}
   </div>;
 }
-=======
+
 export default App;
->>>>>>> 5101f40 (new login)
+

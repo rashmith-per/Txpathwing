@@ -28,20 +28,19 @@ import {
 
 import "./Login.css";
 
-<<<<<<< HEAD
 // ==========================================
 // ADMIN LOGIN DETAILS
 // ==========================================
 const ADMIN_EMAIL = "tanvoxadmin@gmail.com";
 const ADMIN_PASSWORD = "tanvox12340";
-=======
 const ROLE_ICON_MAP = {
   student: GraduationCap,
   admin: ShieldCheck,
   instructor: Users,
   institution: Building2,
 };
->>>>>>> 5101f40 (new login)
+
+
 
 const Login = ({
   isOpen = true,
@@ -84,7 +83,6 @@ const Login = ({
   const [messageType, setMessageType] = React.useState("");
 
   // ==========================================
-<<<<<<< HEAD
   // AUTO-REDIRECT IF ALREADY AUTHENTICATED
   // ==========================================
   React.useEffect(() => {
@@ -101,9 +99,8 @@ const Login = ({
 
   // ==========================================
   // RESET WHEN POPUP OPENS
-=======
-  // RESET WHEN POPUP OPENS OR ROLE CHANGES
->>>>>>> 5101f40 (new login)
+
+  // RESET WHEN POPUP OPENS OR ROLE CHANGE
   // ==========================================
   React.useEffect(() => {
     if (isOpen) {
@@ -228,7 +225,6 @@ const Login = ({
     // LOGIN FLOW
     // ==========================================
     if (isLogin) {
-<<<<<<< HEAD
       // ========================================
       // ADMIN LOGIN
       // ========================================
@@ -265,9 +261,41 @@ const Login = ({
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email);
       localStorage.removeItem("isAdmin");
+      // 1. Verify credentials passing the active selectedRole
+      // Student login accepts any email and any password!
+      const authResult = verifyCredentials(email, password, selectedRole);
 
-      window.dispatchEvent(new Event("authChanged"));
-      window.dispatchEvent(new Event("storage"));
+      if (!authResult.success) {
+        setErrors({
+          general:
+            authResult.error ||
+            "Invalid email or password. Please verify your credentials.",
+        });
+        return;
+      }
+
+      const authenticatedUser = authResult.user;
+
+      // 2. Verify authenticated user's actual role and compare with selected dashboard
+      const normalizedUserRole = normalizeRole(authenticatedUser.role);
+      const normalizedSelectedRole = normalizeRole(selectedRole);
+
+      // Enforce role comparison: Allow access only when both roles match
+      if (normalizedUserRole !== normalizedSelectedRole) {
+        const actualRoleName = getRoleDisplayName(normalizedUserRole);
+        const selectedDashboardName = roleConfig.displayName;
+        setErrors({
+          general: `Role mismatch: This account has the role of ${actualRoleName}, but you are attempting to log in to ${selectedDashboardName}. Please return to dashboard selection and choose ${actualRoleName} Dashboard.`,
+        });
+        return;
+      }
+
+      // 3. Roles match! Set active session and dispatch events
+      setAuthenticatedSession(authenticatedUser);
+
+      if (onClose) onClose();
+      if (onLoginSuccess) onLoginSuccess();
+      if (onAdminLogin && normalizedUserRole === "admin") onAdminLogin();
 
       if (onClose) {
         onClose();
@@ -279,7 +307,6 @@ const Login = ({
 
       // Open Student Dashboard
       navigate("/dashboard");
-=======
       // 1. Verify credentials passing the active selectedRole
       // Student login accepts any email and any password!
       const authResult = verifyCredentials(email, password, selectedRole);
@@ -321,7 +348,14 @@ const Login = ({
         roleConfig.route ||
         authenticatedUser.targetDashboard ||
         "/dashboard";
->>>>>>> 5101f40 (new login)
+
+
+      // 4. Redirect to authorized dashboard
+      const targetRoute =
+        roleConfig.route ||
+        authenticatedUser.targetDashboard ||
+        "/dashboard";
+
 
       navigate(targetRoute);
       return;
@@ -474,11 +508,8 @@ const Login = ({
 
             <p>
               {isLogin
-<<<<<<< HEAD
                 ? "Sign in to continue your learning journey."
-=======
                 ? roleConfig.subtitle
->>>>>>> 5101f40 (new login)
                 : "Join us and start building your future today."}
             </p>
 
@@ -663,7 +694,6 @@ const Login = ({
             </button>
           </div>
 
-<<<<<<< HEAD
           {isLogin && (
             <Link
               className="institution-login-link"
@@ -675,9 +705,8 @@ const Login = ({
           )}
 
           {/* SECURITY */}
-=======
           {/* SECURITY NOTE */}
->>>>>>> 5101f40 (new login)
+
           <p className="login-security">
             <ShieldCheck size={14} />
             Your information is securely protected.

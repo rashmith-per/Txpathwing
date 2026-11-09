@@ -38,13 +38,6 @@ export const DEFAULT_ENROLLMENTS = [
   },
 ];
 
-<<<<<<< HEAD
-export const studentStorage = {
-  initDemoSession() {
-    studentApi.init();
-    if (localStorage.getItem(STORAGE_KEYS.IS_LOGGED_IN) !== "true") {
-      localStorage.setItem(STORAGE_KEYS.IS_LOGGED_IN, "true");
-=======
 const KNOWN_CODES = {
   "aws-dop": "AWS-DOP",
   "java-fs": "JAVA-FS",
@@ -56,7 +49,7 @@ const KNOWN_CODES = {
 export const studentStorage = {
   initDemoSession() {
     if (localStorage.getItem(STORAGE_KEYS.IS_LOGGED_IN) === "true") {
->>>>>>> 5101f40 (new login)
+
       if (!localStorage.getItem(STORAGE_KEYS.USER_EMAIL)) {
         localStorage.setItem(STORAGE_KEYS.USER_EMAIL, "student@pathwing.com");
       }
