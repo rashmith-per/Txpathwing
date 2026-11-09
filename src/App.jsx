@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useRef, useState } from "react";
 import {
   Activity, ArrowDownToLine, ArrowLeft, ArrowRight, Award, Bell, BookOpen,
@@ -7,6 +8,17 @@ import {
 import { Link } from "react-router-dom";
 import txIcon from "./assets/tx-icon.jpg";
 import "./App.css";
+=======
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+>>>>>>> 5101f40 (new login)
 
 const departments = [
   { name: "CSE", completion: 78 }, { name: "IT", completion: 74 },
@@ -29,12 +41,19 @@ const learners = [
   { name: "Rahul Varma", email: "rahul.varma@kits.edu", department: "EEE", programme: "Cloud & DevOps", progress: 41, status: "Needs support" }
 ];
 
+<<<<<<< HEAD
 const courses = [
   { name: "Full Stack Engineering", category: "SOFTWARE DEVELOPMENT", instructor: "Meera Krishnan", learners: 680, completion: 76, state: "Active", tone: "blue" },
   { name: "Cloud & DevOps Foundations", category: "CLOUD COMPUTING", instructor: "Arjun Menon", learners: 520, completion: 71, state: "Active", tone: "green" },
   { name: "Applied Data Engineering", category: "DATA & AI", instructor: "Nisha Rao", learners: 410, completion: 68, state: "Active", tone: "orange" },
   { name: "Cybersecurity Essentials", category: "SECURITY", instructor: "Tanvox Technologies", learners: 320, completion: 63, state: "Review due", tone: "red" }
 ];
+=======
+import DashboardSelectionModal from "./modules/marketing/presentation/components/DashboardSelection/DashboardSelectionModal";
+import Login from "./modules/marketing/presentation/components/Login/Login";
+import Signin from "./modules/marketing/presentation/components/Login/signin";
+import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
+>>>>>>> 5101f40 (new login)
 
 const programmes = [
   { name: "Industry-Ready Software Engineer", code: "PRG-2026-01", duration: "24 weeks", learners: 820, departments: "CSE, IT", progress: 78, state: "In progress" },
@@ -80,6 +99,7 @@ function matchesSearch(record, search) {
   return JSON.stringify(record).toLowerCase().includes(search.trim().toLowerCase());
 }
 
+<<<<<<< HEAD
 function downloadCsv(fileName, rows) {
   const csv = rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
   const link = document.createElement("a");
@@ -87,12 +107,367 @@ function downloadCsv(fileName, rows) {
   link.download = fileName;
   link.click();
   URL.revokeObjectURL(link.href);
+=======
+/**
+ * Dedicated LoginPage wrapper component for direct /login or /signin access
+ * Immediately pops up "WELCOME TO PATHWING PORTAL" over the page
+ */
+function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const portalParam =
+    searchParams.get("portal") || searchParams.get("role") || "";
+
+  const [selectionOpen, setSelectionOpen] = useState(!portalParam);
+  const [loginOpen, setLoginOpen] = useState(Boolean(portalParam));
+  const [selectedRole, setSelectedRole] = useState(portalParam || "student");
+
+  useEffect(() => {
+    if (portalParam) {
+      setSelectedRole(portalParam);
+      setSelectionOpen(false);
+      setLoginOpen(true);
+    } else {
+      setSelectionOpen(true);
+      setLoginOpen(false);
+    }
+  }, [portalParam]);
+
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    setSelectionOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleBackToSelection = () => {
+    setLoginOpen(false);
+    setSelectionOpen(true);
+  };
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <Home />
+      {/* WELCOME TO PATHWING PORTAL SELECTION POPUP */}
+      <DashboardSelectionModal
+        isOpen={selectionOpen}
+        onClose={handleClose}
+        onSelectRole={handleSelectRole}
+      />
+      {/* PARTICULAR ROLE SIGN-IN POPUP */}
+      <Login
+        isOpen={loginOpen}
+        selectedRole={selectedRole}
+        onClose={handleClose}
+        onBack={handleBackToSelection}
+      />
+    </>
+  );
+}
+
+function AppLayout() {
+  const location = useLocation();
+
+  // Don't show normal website Header/Footer on dashboards
+  const hideHeaderFooter =
+    location.pathname.startsWith("/hackathon-dashboard") ||
+    location.pathname.startsWith("/dashboard") ||
+    location.pathname.startsWith("/student") ||
+    location.pathname.toLowerCase().startsWith("/assessments") ||
+    location.pathname.toLowerCase().startsWith("/certificates") ||
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/admin-dashboard") ||
+    location.pathname.startsWith("/instructor") ||
+    location.pathname.startsWith("/instructor-dashboard") ||
+    location.pathname.startsWith("/institution") ||
+    location.pathname.startsWith("/institution-dashboard");
+
+  return (
+    <>
+      <ScrollToTop />
+
+      {!hideHeaderFooter && <Header />}
+
+      <Routes>
+        {/* Home */}
+        <Route path="/" element={<Home />} />
+
+        {/* Explore / Marketplace */}
+        <Route path="/marketplace" element={<Marketplace />} />
+
+        {/* Course Details */}
+        <Route path="/course/:id" element={<CourseDetail />} />
+
+        {/* Other pages */}
+        <Route path="/events" element={<Events />} />
+        <Route path="/careers" element={<CareersHero />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/learner-journey" element={<LearnerJourney />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Organization />} />
+
+        {/* Login & Signin Routes with Immediate Popup */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/Signin" element={<LoginPage />} />
+
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/registration" element={<RegistrationForm />} />
+
+        {/* =====================================
+            HACKATHON ADMIN DASHBOARD (PRESERVED)
+            ===================================== */}
+        <Route
+          path="/hackathon-dashboard"
+          element={
+            <ProtectedRoute allowedRole="hackathon_admin">
+              <HackathonDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* =====================================
+            STUDENT DASHBOARD (PROTECTED)
+            ===================================== */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-dashboard"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/assessments"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assessments/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Assessments"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Assessments/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/certificates"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/certificates/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Certificates"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Certificates/*"
+          element={
+            <ProtectedRoute allowedRole="student">
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* =====================================
+            PLATFORM ADMIN DASHBOARD (PROTECTED)
+            ===================================== */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* =====================================
+            INSTRUCTOR DASHBOARD (PROTECTED)
+            ===================================== */}
+        <Route
+          path="/instructor"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor/*"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor-dashboard"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructor-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="instructor">
+              <InstructorDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* =====================================
+            INSTITUTION DASHBOARD (PROTECTED)
+            ===================================== */}
+        <Route
+          path="/institution"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution/*"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution-dashboard"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution-dashboard/*"
+          element={
+            <ProtectedRoute allowedRole="institution">
+              <InstitutionDashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+
+      {!hideHeaderFooter && <Footer />}
+    </>
+  );
+>>>>>>> 5101f40 (new login)
 }
 
 function PageHeading({ eyebrow, title, description, children }) {
   return <div className="page-heading"><div><div className="page-eyebrow">{eyebrow}</div><h1>{title}</h1><p>{description}</p></div><div className="page-heading-actions">{children}</div></div>;
 }
 
+<<<<<<< HEAD
 function StatusTag({ children }) {
   const className = children.toLowerCase().replaceAll(" ", "-");
   return <span className={`status-tag status-${className}`}>{children}</span>;
@@ -213,3 +588,6 @@ export default function Dashboard() {
     {mobileNavOpen && <button className="mobile-scrim" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />}{message && <div className="status-toast" role="status"><Check size={16} />{message}</div>}
   </div>;
 }
+=======
+export default App;
+>>>>>>> 5101f40 (new login)

@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
+<<<<<<< HEAD
 import { Link, useLocation, useNavigate } from "react-router-dom";
+=======
+import { Link, useLocation } from "react-router-dom";
+import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
+import Login from "../Login/Login";
+>>>>>>> 5101f40 (new login)
 import "./Header.css";
 import { ChevronDown, ShoppingCart } from "lucide-react";
 
@@ -58,10 +64,17 @@ function readCartCount() {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+<<<<<<< HEAD
   const [cartCount, setCartCount] = useState(readCartCount);
   const [isInstitutionLoggedIn, setIsInstitutionLoggedIn] = useState(
     () => localStorage.getItem("institutionLoggedIn") === "true"
   );
+=======
+  const [selectionOpen, setSelectionOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("student");
+  const [cartCount, setCartCount] = useState(0);
+>>>>>>> 5101f40 (new login)
   const [isLoggedIn, setIsLoggedIn] = useState(
     () => localStorage.getItem("isLoggedIn") === "true"
   );
@@ -140,9 +153,34 @@ export default function Header() {
     setMenuOpen(false);
   };
 
-  const openLogin = () => {
+  // Open "WELCOME TO PATHWING PORTAL" selection popup
+  const openSelectionPopup = () => {
     closeMenu();
+<<<<<<< HEAD
     navigate("/institution-signin");
+=======
+    setSelectionOpen(true);
+    setLoginOpen(false);
+  };
+
+  // When a dashboard is selected from the 4 cards, close selection popup and open Login popup
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    setSelectionOpen(false);
+    setLoginOpen(true);
+  };
+
+  // Back button in Login returns to "WELCOME TO PATHWING PORTAL" selection popup
+  const handleBackToSelection = () => {
+    setLoginOpen(false);
+    setSelectionOpen(true);
+  };
+
+  // Close all popups
+  const closeAllPopups = () => {
+    setSelectionOpen(false);
+    setLoginOpen(false);
+>>>>>>> 5101f40 (new login)
   };
 
   return (
@@ -231,7 +269,7 @@ export default function Header() {
               <button
                 type="button"
                 className="btn-signin"
-                onClick={openLogin}
+                onClick={openSelectionPopup}
               >
                 Sign in
               </button>
@@ -382,7 +420,7 @@ export default function Header() {
             <button
               type="button"
               className="btn-signin"
-              onClick={openLogin}
+              onClick={openSelectionPopup}
             >
               Sign in
             </button>
@@ -390,6 +428,23 @@ export default function Header() {
         </div>
       </div>
 
+<<<<<<< HEAD
+=======
+      {/* "WELCOME TO PATHWING PORTAL" ROLE SELECTION POPUP */}
+      <DashboardSelectionModal
+        isOpen={selectionOpen}
+        onClose={closeAllPopups}
+        onSelectRole={handleSelectRole}
+      />
+
+      {/* PARTICULAR ROLE SIGN-IN POPUP (EXACT SCREENSHOT UI) */}
+      <Login
+        isOpen={loginOpen}
+        selectedRole={selectedRole}
+        onClose={closeAllPopups}
+        onBack={handleBackToSelection}
+      />
+>>>>>>> 5101f40 (new login)
     </>
   );
 }
