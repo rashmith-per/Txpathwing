@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { renderTopicIcon } from "../TopicExams/TopicExamCard";
 
-export default function ExamInstructionsModal({ exam, onStartExam, onClose }) {
+export default function ExamInstructionsModal({ exam, compData, onStartExam, onClose }) {
   if (!exam) return null;
 
   const topicsList =
