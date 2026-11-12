@@ -38,16 +38,6 @@ const NAV_LINKS = [
   },
 ];
 
-const MORE_LINKS = [
-  { label: "Learner journey", path: "/learner-journey" },
-  { label: "For students", path: "/for-students" },
-  { label: "Pricing", path: "/pricing" },
-  { label: "FAQ", path: "/faq" },
-  { label: "For institutions", path: "/for-institutions" },
-  { label: "Industry partners", path: "/industry-partners" },
-  { label: "For instructors", path: "/for-instructors" },
-  { label: "Institution dashboard", path: "/institution-dashboard" },
-];
 
 function readCartCount() {
   try {
@@ -249,18 +239,7 @@ export default function Header() {
                 </Link>
               </li>
             ))}
-            <li className="nav-more">
-              <details>
-                <summary className="nav-link">More <ChevronDown size={13} aria-hidden="true" /></summary>
-                <div className="nav-more-menu">
-                  {MORE_LINKS.map((item) => (
-                    <Link key={item.path} to={item.path} onClick={(event) => { event.currentTarget.closest("details").open = false; }}>
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </details>
-            </li>
+           
           </ul>
 
           <div className="nav-actions">
@@ -411,16 +390,7 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          {MORE_LINKS.map((item) => (
-            <Link
-              key={item.path}
-              className={`mobile-link${isActive(item.path) ? " active" : ""}`}
-              to={item.path}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </Link>
-          ))}
+          
           <Link
             className={`mobile-link${isActive("/cart") ? " active" : ""}`}
             to="/cart"

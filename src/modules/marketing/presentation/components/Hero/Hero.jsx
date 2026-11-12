@@ -125,13 +125,7 @@ export default function Hero() {
               <span>Register for Events</span>
             </Link>
 
-            <Link
-              to="/institution-dashboard"
-              className="hero-button hero-button-institution"
-            >
-              <span>Institution dashboard</span>
-              <span className="hero-button-arrow">→</span>
-            </Link>
+           
 
           </div>
 

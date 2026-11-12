@@ -36,40 +36,9 @@ export function Sidebar({
         className={`sidebar inst-sidebar ${sidebarCollapsed ? "collapsed" : ""} ${mobileNav ? "mobile-open" : ""}`}
         aria-label="Instructor Sidebar Navigation"
       >
-        {/* Mobile Header Inside Drawer */}
-        <div className="mobile-drawer-header">
-          <div className="drawer-brand">
-            <div className="drawer-logo-mark">
-              <img src={txIcon} alt="TX Pathwing Logo" className="drawer-logo-img" />
-            </div>
-            <span className="drawer-title">TX Pathwing</span>
-          </div>
-          <IconButton
-            icon={X}
-            size="sm"
-            variant="neutral"
-            className="close-drawer-btn"
-            onClick={() => setMobileNav(false)}
-            tooltip="Close navigation"
-            ariaLabel="Close navigation"
-          />
-        </div>
+        
 
-        {/* Sidebar Header & Collapse Toggle */}
-        <div className={`sidebar-controls ${sidebarCollapsed ? "collapsed-controls" : ""}`}>
-          {!sidebarCollapsed && (
-            <span className="sidebar-section-title">NAVIGATION</span>
-          )}
-          <button
-            type="button"
-            className="collapse-toggle-btn"
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {sidebarCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
-          </button>
-        </div>
+       
 
         {/* Navigation Groups */}
         <div className="sidebar-nav-scroll inst-sidebar-nav-scroll">
