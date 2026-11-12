@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import {
-  Users, Search, Mail, MessageSquare, CheckCircle,
-  Clock, Award, Filter, ChevronLeft, ChevronRight, X, AlertCircle
+  Users, Search, Mail, RotateCcw,
+  SlidersHorizontal, ChevronLeft, ChevronRight, X
 } from "lucide-react";
 import { Badge, getStatusTone } from "../common/Badge";
+import { ActionButton, IconButton } from "../common/ActionButton.jsx";
 import "./Learners.css";
 
 export function Learners({ learners = [] }) {
@@ -91,15 +92,15 @@ export function Learners({ learners = [] }) {
             }}
           />
           {search && (
-            <button
-              type="button"
+            <IconButton
+              icon={X}
+              size="xs"
+              variant="ghost"
               className="learners-search-clear"
               onClick={clearSearch}
-              title="Clear search"
-              aria-label="Clear search"
-            >
-              <X size={14} />
-            </button>
+              tooltip="Clear search"
+              ariaLabel="Clear search"
+            />
           )}
         </div>
 
@@ -124,7 +125,7 @@ export function Learners({ learners = [] }) {
 
           {/* Cohort Select Dropdown */}
           <div className="learners-cohort-dropdown">
-            <Filter size={14} className="filter-icon" />
+            <SlidersHorizontal size={14} className="filter-icon" />
             <select
               value={cohortFilter}
               onChange={(e) => {
@@ -154,8 +155,10 @@ export function Learners({ learners = [] }) {
               {statusFilter !== "all" && <> with status <strong>{statusFilter}</strong></>}
             </span>
           </div>
-          <button
-            type="button"
+          <ActionButton
+            icon={RotateCcw}
+            variant="secondary"
+            size="sm"
             className="btn-reset-filters"
             onClick={() => {
               setSearch("");
@@ -163,9 +166,10 @@ export function Learners({ learners = [] }) {
               setStatusFilter("all");
               setCurrentPage(1);
             }}
+            tooltip="Reset all search & filters"
           >
             Reset Filters
-          </button>
+          </ActionButton>
         </div>
       )}
 
@@ -250,14 +254,14 @@ export function Learners({ learners = [] }) {
                         <small className="last-active">{lrn.lastActive}</small>
                       </td>
                       <td>
-                        <button
-                          type="button"
-                          className="btn-icon-action"
-                          title={`Send message to ${lrn.name}`}
+                        <IconButton
+                          icon={Mail}
+                          size="sm"
+                          variant="edit"
+                          tooltip={`Send message to ${lrn.name}`}
+                          ariaLabel={`Send message to ${lrn.name}`}
                           onClick={() => alert(`Direct message composer opened for ${lrn.email}`)}
-                        >
-                          <Mail size={15} />
-                        </button>
+                        />
                       </td>
                     </tr>
                   );

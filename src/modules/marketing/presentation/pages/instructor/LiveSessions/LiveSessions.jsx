@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Calendar, Clock, ExternalLink, Play, Plus, Radio, Users, Video, X } from "lucide-react";
+import { useState } from "react";
+import { Calendar, Clock, Play, Plus, Radio, Send, Users, X } from "lucide-react";
 import { Badge } from "../common/Badge";
+import { ActionButton, IconButton } from "../common/ActionButton.jsx";
 
 export function LiveSessions({ sessions = [], onAddSession }) {
   const [showScheduleModal, setShowScheduleModal] = useState(false);
@@ -45,14 +46,15 @@ export function LiveSessions({ sessions = [], onAddSession }) {
           <h1 className="module-title">Live Classroom & Interactive Webinars</h1>
           <p className="module-sub">Host live interactive engineering sessions, office hours, and broadcast system design deep dives.</p>
         </div>
-        <button
-          type="button"
-          className="btn-primary-gradient"
+        <ActionButton
+          icon={Plus}
+          variant="primary"
+          size="md"
           onClick={() => setShowScheduleModal(true)}
+          tooltip="Schedule a live interactive class"
         >
-          <Plus size={16} />
-          <span>Schedule Live Class</span>
-        </button>
+          Schedule Live Class
+        </ActionButton>
       </div>
 
       {/* Metrics */}
@@ -127,7 +129,14 @@ export function LiveSessions({ sessions = [], onAddSession }) {
           <form className="card modal-dialog" onClick={(e) => e.stopPropagation()} onSubmit={handleScheduleSubmit}>
             <div className="modal-header">
               <h2>Schedule Live Interactive Session</h2>
-              <button type="button" className="icon-button" onClick={() => setShowScheduleModal(false)}><X size={16} /></button>
+              <IconButton
+                icon={X}
+                size="sm"
+                variant="neutral"
+                onClick={() => setShowScheduleModal(false)}
+                tooltip="Close"
+                ariaLabel="Close schedule session dialog"
+              />
             </div>
             <div className="modal-body form-grid">
               <label>
@@ -180,8 +189,12 @@ export function LiveSessions({ sessions = [], onAddSession }) {
               </label>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn-secondary" onClick={() => setShowScheduleModal(false)}>Cancel</button>
-              <button type="submit" className="btn-primary-gradient">Publish Session Schedule</button>
+              <ActionButton icon={X} variant="secondary" size="md" onClick={() => setShowScheduleModal(false)}>
+                Cancel
+              </ActionButton>
+              <ActionButton icon={Send} type="submit" variant="primary" size="md">
+                Publish Session Schedule
+              </ActionButton>
             </div>
           </form>
         </div>

@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
-import { Users, Calendar, Clock, Plus, Search, CheckCircle, ChevronRight, X } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Calendar, Clock, Plus, Search, ChevronRight, Send, X } from "lucide-react";
 import { Badge } from "../common/Badge";
+import { ActionButton, IconButton } from "../common/ActionButton.jsx";
 
 export function Batches({ batches = [], onAddBatch }) {
   const [search, setSearch] = useState("");
@@ -58,14 +59,15 @@ export function Batches({ batches = [], onAddBatch }) {
           <h1 className="module-title">Batch & Cohort Orchestration</h1>
           <p className="module-sub">Track active learning cohorts, capacity allocations, and live schedule calendars.</p>
         </div>
-        <button
-          type="button"
-          className="btn-primary-gradient"
+        <ActionButton
+          icon={Plus}
+          variant="primary"
+          size="md"
           onClick={() => setShowCreateModal(true)}
+          tooltip="Create a new learning cohort"
         >
-          <Plus size={16} />
-          <span>Create New Cohort</span>
-        </button>
+          Create New Cohort
+        </ActionButton>
       </div>
 
       {/* Metrics Row */}
@@ -97,6 +99,16 @@ export function Batches({ batches = [], onAddBatch }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          {search && (
+            <IconButton
+              icon={X}
+              size="xs"
+              variant="ghost"
+              onClick={() => setSearch("")}
+              tooltip="Clear search"
+              ariaLabel="Clear batch search"
+            />
+          )}
         </div>
         <div className="filter-chips">
           {["All", "Active", "Upcoming"].map((st) => (
@@ -155,14 +167,16 @@ export function Batches({ batches = [], onAddBatch }) {
                 </div>
               </div>
 
-              <button
-                type="button"
+              <ActionButton
+                trailingIcon={ChevronRight}
+                variant="outline-blue"
+                size="sm"
                 className="btn-cohort-details"
                 onClick={() => setSelectedBatch(batch)}
+                tooltip={`Manage cohort ${batch.code}`}
               >
-                <span>Manage Cohort</span>
-                <ChevronRight size={14} />
-              </button>
+                Manage Cohort
+              </ActionButton>
             </div>
           );
         })}
@@ -177,7 +191,14 @@ export function Batches({ batches = [], onAddBatch }) {
                 <span className="cohort-code">{selectedBatch.code}</span>
                 <h2>{selectedBatch.name}</h2>
               </div>
-              <button className="icon-button" onClick={() => setSelectedBatch(null)}><X size={16} /></button>
+              <IconButton
+                icon={X}
+                size="sm"
+                variant="neutral"
+                onClick={() => setSelectedBatch(null)}
+                tooltip="Close"
+                ariaLabel="Close cohort details"
+              />
             </div>
             <div className="modal-body">
               <p><strong>Course:</strong> {selectedBatch.courseName}</p>
@@ -187,7 +208,9 @@ export function Batches({ batches = [], onAddBatch }) {
               <p><strong>Progress:</strong> {selectedBatch.completion}% completed</p>
             </div>
             <div className="modal-footer">
-              <button className="btn-secondary" onClick={() => setSelectedBatch(null)}>Close</button>
+              <ActionButton icon={X} variant="secondary" size="md" onClick={() => setSelectedBatch(null)}>
+                Close
+              </ActionButton>
             </div>
           </div>
         </div>
@@ -199,7 +222,14 @@ export function Batches({ batches = [], onAddBatch }) {
           <form className="card modal-dialog" onClick={(e) => e.stopPropagation()} onSubmit={handleCreateSubmit}>
             <div className="modal-header">
               <h2>Create New Learning Cohort</h2>
-              <button type="button" className="icon-button" onClick={() => setShowCreateModal(false)}><X size={16} /></button>
+              <IconButton
+                icon={X}
+                size="sm"
+                variant="neutral"
+                onClick={() => setShowCreateModal(false)}
+                tooltip="Close"
+                ariaLabel="Close create cohort dialog"
+              />
             </div>
             <div className="modal-body form-grid">
               <label>
@@ -244,8 +274,12 @@ export function Batches({ batches = [], onAddBatch }) {
               </label>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn-secondary" onClick={() => setShowCreateModal(false)}>Cancel</button>
-              <button type="submit" className="btn-primary-gradient">Publish Cohort</button>
+              <ActionButton icon={X} variant="secondary" size="md" onClick={() => setShowCreateModal(false)}>
+                Cancel
+              </ActionButton>
+              <ActionButton icon={Send} type="submit" variant="primary" size="md">
+                Publish Cohort
+              </ActionButton>
             </div>
           </form>
         </div>
