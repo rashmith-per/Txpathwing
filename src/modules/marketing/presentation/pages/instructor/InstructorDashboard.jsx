@@ -414,15 +414,7 @@ export function InstructorDashboard() {
           badge: batchAssessments.length || undefined,
           badgeTone: "blue"
         },
-        {
-          name: "Assignments",
-          icon: FileCheck,
-          badge:
-            assignments.filter(
-              (item) => item.status === "Pending Review"
-            ).length || undefined,
-          badgeTone: "warning"
-        },
+        
         {
           name: "Live Sessions",
           icon: Radio,
