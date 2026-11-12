@@ -1,0 +1,55 @@
+/* =========================================================
+   PRACTICE CATALOG VIEW STYLES
+   ========================================================= */
+
+.practice-catalog-page {
+  width: 100%;
+}
+
+.practice-hero-banner {
+  margin-bottom: 24px;
+}
+
+.practice-back-wrapper {
+  margin-bottom: 20px;
+}
+
+.practice-back-choice-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+.practice-back-choice-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.practice-topic-card {
+  background: #ffffff;
+}
+
+.practice-count-pill {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.practice-start-btn {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+}
+
+.practice-start-btn:hover {
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+}

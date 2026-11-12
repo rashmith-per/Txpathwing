@@ -1,0 +1,60 @@
+/* =========================================================
+   ACTIVE EXAM SESSION VIEW STYLES
+   ========================================================= */
+
+.fs-recovery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: rgba(15, 23, 42, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.fs-recovery-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.fs-recovery-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.fs-recovery-text {
+  max-width: 480px;
+  font-size: 15px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.btn-reenter-fullscreen {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-reenter-fullscreen:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}

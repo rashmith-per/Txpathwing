@@ -1,0 +1,130 @@
+/* =========================================================
+   PORTAL SELECT VIEW STYLES
+   ========================================================= */
+
+.portal-select-page {
+  width: 100%;
+}
+
+.portal-select-hero {
+  margin-bottom: 32px;
+}
+
+.portal-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.portal-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-card-top-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
+
+.practice-accent {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+}
+
+.exam-accent {
+  background: linear-gradient(90deg, #ea580c, #dc2626);
+}
+
+.portal-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.practice-badge-pill {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.exam-badge-pill {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.portal-icon-wrapper {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.practice-icon-wrapper {
+  background: #eff6ff;
+}
+
+.exam-icon-wrapper {
+  background: #fff7ed;
+}
+
+.portal-card-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.portal-action-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.practice-action-btn {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.practice-action-btn:hover {
+  background: #1d4ed8;
+}
+
+.exam-action-btn {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+}
+
+.exam-action-btn:hover {
+  background: #1e293b;
+}

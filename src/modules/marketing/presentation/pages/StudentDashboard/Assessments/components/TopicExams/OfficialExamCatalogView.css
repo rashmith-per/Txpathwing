@@ -1,0 +1,32 @@
+/* =========================================================
+   OFFICIAL EXAM CATALOG VIEW STYLES
+   ========================================================= */
+
+.official-exam-page {
+  width: 100%;
+}
+
+.official-back-bar {
+  margin-bottom: 16px;
+}
+
+.official-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  color: #334155;
+  transition: all 0.15s ease;
+}
+
+.official-back-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}

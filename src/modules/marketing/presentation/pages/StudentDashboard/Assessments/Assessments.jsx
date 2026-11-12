@@ -4,39 +4,48 @@ import "./Assessments.css";
 // Modular Domain Datasets
 import { ASSESSMENT_EXAMS } from "./data/assessmentExams.data";
 import { EXAM_QUESTIONS_BY_TOPIC } from "./data/examQuestions.data";
+import { PRACTICE_QUESTIONS_BY_COURSE } from "./data/practiceQuestions.data";
 
 // Modular Services & Hooks
 import { calculateExamResults } from "./services/scoreCalculator.service";
 import { useProctoring } from "./hooks/useProctoring";
 
-// Modular Presentation Components
-import TopicExamCard from "./components/TopicExams/TopicExamCard";
-import TopicProgressWidgets from "./components/TopicExams/TopicProgressWidgets";
-import ActiveExamHeader from "./components/ActiveExam/ActiveExamHeader";
-import QuestionCard from "./components/ActiveExam/QuestionCard";
-import ProctoringFeed from "./components/ActiveExam/ProctoringFeed";
+// Modular Presentation Views
+import PortalSelectView from "./components/PortalSelect/PortalSelectView";
+import PracticeCatalogView from "./components/PracticeMode/PracticeCatalogView";
+import PracticeActiveSessionView from "./components/PracticeMode/PracticeActiveSessionView";
+import PracticeResultView from "./components/PracticeMode/PracticeResultView";
+import OfficialExamCatalogView from "./components/TopicExams/OfficialExamCatalogView";
+import ActiveExamSessionView from "./components/ActiveExam/ActiveExamSessionView";
 import ExamCompletedPopup from "./components/CompletedPopup/ExamCompletedPopup";
-import ExamInstructionsModal from "./components/InstructionsModal/ExamInstructionsModal";
-import SecondPersonWarningModal from "./components/ActiveExam/SecondPersonWarningModal";
 
 export default function Assessments({ onBack, onExamActiveChange }) {
+  // Navigation View: "portal_select" | "practice_catalog" | "practice_active" | "exam_catalog"
+  const [assessmentView, setAssessmentView] = useState("portal_select");
+
   // Category Filter State
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   // Instructions Modal State (Shown when clicking "View Exam" on any topic)
   const [instructionExam, setInstructionExam] = useState(null);
 
-  // Question & Navigation States
-  const [currentQIndex, setCurrentQIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [flaggedQuestions, setFlaggedQuestions] = useState({});
-
-  // Exam Workflow Lifecycle: "start" -> "active" -> "completed" -> "start"
+  // Exam Workflow Lifecycle: "start" -> "active" -> "completed"
   const [examStage, setExamStage] = useState("start");
   const [activeExam, setActiveExam] = useState(ASSESSMENT_EXAMS[0]);
   const [completedExams, setCompletedExams] = useState({});
   const [secondsRemaining, setSecondsRemaining] = useState(352);
   const [submissionReason, setSubmissionReason] = useState("");
+
+  // Question & Navigation States (Official Exam)
+  const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [flaggedQuestions, setFlaggedQuestions] = useState({});
+
+  // Practice Mode State
+  const [activePracticeCourse, setActivePracticeCourse] = useState(null);
+  const [practiceQIndex, setPracticeQIndex] = useState(0);
+  const [practiceAnswers, setPracticeAnswers] = useState({});
+  const [showPracticeResult, setShowPracticeResult] = useState(false);
 
   // Proctoring Hardware & AI Detection Hook
   const isExamActive = examStage === "active";
@@ -153,9 +162,18 @@ export default function Assessments({ onBack, onExamActiveChange }) {
     }
   }, [secondsRemaining, isExamActive, isExamPaused, handleSubmitAssessment]);
 
-  // Anti-cheat navigation lock (prevent accidental exit or tab close during active exam)
+  // Anti-cheat navigation lock (prevent accidental exit, tab close, back button, and ESC during active exam)
   useEffect(() => {
     if (!isExamActive) return;
+
+    // Push state and trap browser back navigation
+    window.history.pushState(null, "", window.location.href);
+
+    const handlePopState = (e) => {
+      e.preventDefault();
+      window.history.pushState(null, "", window.location.href);
+      setWarningMessage("⚠️ Navigation is locked during the official exam. You cannot use the back button until the exam ends.");
+    };
 
     const handleBeforeUnload = (e) => {
       e.preventDefault();
@@ -163,23 +181,83 @@ export default function Assessments({ onBack, onExamActiveChange }) {
       return e.returnValue;
     };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [isExamActive]);
-
-  // Monitor fullscreen exit during active exam
-  useEffect(() => {
-    if (!isExamActive) return;
-
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && isExamActive) {
-        setWarningMessage("⚠️ Fullscreen is mandatory! Please keep fullscreen enabled during exam.");
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" || e.code === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        setWarningMessage("⚠️ ESC key is disabled. Fullscreen mode is strictly required during the exam.");
       }
     };
 
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    window.addEventListener("popstate", handlePopState);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("keydown", handleKeyDown, true);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("keydown", handleKeyDown, true);
+    };
   }, [isExamActive, setWarningMessage]);
+
+  const [isFsBlocked, setIsFsBlocked] = useState(false);
+
+  // Monitor fullscreen exit during active exam and force immediate re-entry lock overlay
+  useEffect(() => {
+    if (!isExamActive) {
+      setIsFsBlocked(false);
+      return;
+    }
+
+    const checkFs = () => {
+      const isFs = Boolean(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+      if (!isFs) {
+        setIsFsBlocked(true);
+        setWarningMessage("⚠️ Fullscreen required! Escape is disabled. Re-enter full screen to continue.");
+      } else {
+        setIsFsBlocked(false);
+      }
+    };
+
+    document.addEventListener("fullscreenchange", checkFs);
+    document.addEventListener("webkitfullscreenchange", checkFs);
+    document.addEventListener("mozfullscreenchange", checkFs);
+    document.addEventListener("MSFullscreenChange", checkFs);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", checkFs);
+      document.removeEventListener("webkitfullscreenchange", checkFs);
+      document.removeEventListener("mozfullscreenchange", checkFs);
+      document.removeEventListener("MSFullscreenChange", checkFs);
+    };
+  }, [isExamActive, setWarningMessage]);
+
+  const handleReEnterFullscreen = () => {
+    try {
+      const el = document.documentElement;
+      const requestMethod =
+        el.requestFullscreen ||
+        el.webkitRequestFullscreen ||
+        el.mozRequestFullScreen ||
+        el.msRequestFullscreen;
+
+      if (requestMethod) {
+        requestMethod.call(el).then(() => {
+          setIsFsBlocked(false);
+          if (navigator.keyboard && navigator.keyboard.lock) {
+            navigator.keyboard.lock(["Escape"]).catch(() => {});
+          }
+        }).catch(() => {});
+      }
+    } catch (err) {
+      console.warn("Re-enter fullscreen error:", err);
+    }
+  };
 
   // Step 1: Click "View Exam" -> Open Instructions Modal
   const handleOpenInstructions = (exam) => {
@@ -203,10 +281,14 @@ export default function Assessments({ onBack, onExamActiveChange }) {
     // Inform Dashboard to hide sidebar and header
     onExamActiveChange?.(true);
 
-    // Request browser Fullscreen
+    // Request browser Fullscreen and lock keyboard escape if supported
     try {
       if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        document.documentElement.requestFullscreen().then(() => {
+          if (navigator.keyboard && navigator.keyboard.lock) {
+            navigator.keyboard.lock(["Escape"]).catch(() => {});
+          }
+        }).catch(() => {});
       } else if (document.documentElement.webkitRequestFullscreen) {
         document.documentElement.webkitRequestFullscreen();
       }
@@ -262,108 +344,124 @@ export default function Assessments({ onBack, onExamActiveChange }) {
     }
   };
 
-  // =========================================================================
-  // STAGE 1: TOPIC-WISE EXAMS UI (Percentage shown ONLY after completing exam)
-  // =========================================================================
-  if (examStage === "start") {
-    const completedExamList = Object.values(completedExams);
-    const completedSessionCount = completedExamList.length;
-    const totalCompletedCount = completedSessionCount;
-    const overallPercent =
-      completedSessionCount > 0
-        ? Math.round(
-            completedExamList.reduce((acc, item) => acc + (item.percentage || 0), 0) /
-              completedSessionCount
-          )
-        : 0;
+  // -------------------------------------------------------------------------
+  // PRACTICE MODE HANDLERS (Completely free, no proctoring, no security)
+  // -------------------------------------------------------------------------
+  const handleStartPracticeCourse = (course) => {
+    setActivePracticeCourse(course);
+    setPracticeQIndex(0);
+    setPracticeAnswers({});
+    setShowPracticeResult(false);
+    setAssessmentView("practice_active");
+  };
 
-    const filteredExams =
-      selectedCategory === "all"
-        ? ASSESSMENT_EXAMS
-        : ASSESSMENT_EXAMS.filter(
-            (e) =>
-              e.id === selectedCategory ||
-              e.category?.toLowerCase() === selectedCategory.toLowerCase()
-          );
+  const handleSelectPracticeOption = (questionId, optId) => {
+    setPracticeAnswers((prev) => ({
+      ...prev,
+      [questionId]: optId
+    }));
+  };
 
+  // =========================================================================
+  // VIEW 1: PORTAL SELECTION (Two Distinct Blocks: Practice vs Official Proctored Exam)
+  // =========================================================================
+  if (assessmentView === "portal_select") {
     return (
-      <div className="topic-exams-page">
-        {/* Instructions Popup Modal with "Start Exam" and "Back" buttons */}
-        {instructionExam && (
-          <ExamInstructionsModal
-            exam={instructionExam}
-            onStartExam={handleStartExam}
-            onClose={() => setInstructionExam(null)}
-          />
-        )}
-
-        <div className="topic-exams-content-grid">
-          {/* Left Column: Topic Exam Cards List */}
-          <div className="topic-exams-main-col">
-            {/* Hero Banner */}
-            <div className="topic-hero-banner">
-              <div className="topic-hero-text">
-                <div className="topic-breadcrumb" onClick={onBack}>
-                  <span>Dashboard</span>
-                  <span>›</span>
-                  <span>Assessments</span>
-                </div>
-                <h1 className="topic-hero-title">Topic-wise Proctored Assessments</h1>
-                <p className="topic-hero-subtitle">
-                  Demonstrate domain mastery with AI-proctored skill evaluations. Complete assessments to earn verified blockchain credentials.
-                </p>
-              </div>
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="topic-filter-pills">
-              {[
-                { id: "all", label: "All Topics" },
-                { id: "java", label: "Java" },
-                { id: "python", label: "Python" },
-                { id: "javascript", label: "JavaScript" },
-                { id: "database", label: "Database" },
-                { id: "web-dev", label: "Web Dev" },
-                { id: "system-design", label: "System Design" },
-              ].map((cat) => (
-                <button
-                  key={cat.id}
-                  type="button"
-                  className={`topic-filter-pill ${selectedCategory === cat.id ? "active" : ""}`}
-                  onClick={() => setSelectedCategory(cat.id)}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="topic-cards-list">
-              {filteredExams.map((exam) => (
-                <TopicExamCard
-                  key={exam.id}
-                  exam={exam}
-                  compData={completedExams[exam.id]}
-                  onStartExam={handleOpenInstructions}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column: Progress & Stats Widgets */}
-          <TopicProgressWidgets
-            totalCompletedCount={totalCompletedCount}
-            totalExamsCount={ASSESSMENT_EXAMS.length}
-            overallPercent={overallPercent}
-            recommendedExam={ASSESSMENT_EXAMS[0]}
-            onStartExam={handleOpenInstructions}
-          />
-        </div>
-      </div>
+      <PortalSelectView
+        onSelectMode={(mode) => setAssessmentView(mode)}
+        onBack={onBack}
+      />
     );
   }
 
   // =========================================================================
-  // STAGE 3: EXAM COMPLETED POPUP
+  // VIEW 2A: PRACTICE CATALOG (List of courses for practice mode)
+  // =========================================================================
+  if (assessmentView === "practice_catalog") {
+    return (
+      <PracticeCatalogView
+        exams={ASSESSMENT_EXAMS}
+        onSelectCourse={handleStartPracticeCourse}
+        onBack={() => setAssessmentView("portal_select")}
+      />
+    );
+  }
+
+  // =========================================================================
+  // VIEW 2B: ACTIVE PRACTICE SESSION (Choose correct answers, 4 marks, Free Back)
+  // =========================================================================
+  if (assessmentView === "practice_active" && activePracticeCourse) {
+    const questions = PRACTICE_QUESTIONS_BY_COURSE[activePracticeCourse.id] || PRACTICE_QUESTIONS_BY_COURSE.java;
+    const currentQ = questions[practiceQIndex] || questions[0];
+    const selectedOpt = practiceAnswers[currentQ.id];
+    const totalAnswered = Object.keys(practiceAnswers).length;
+
+    // Results calculation
+    const correctCount = questions.filter((q) => practiceAnswers[q.id] === q.correct).length;
+    const totalMarks = questions.length * 4;
+    const scoredMarks = correctCount * 4;
+    const percentage = Math.round((scoredMarks / totalMarks) * 100);
+
+    if (showPracticeResult) {
+      return (
+        <PracticeResultView
+          activePracticeCourse={activePracticeCourse}
+          scoredMarks={scoredMarks}
+          totalMarks={totalMarks}
+          percentage={percentage}
+          correctCount={correctCount}
+          totalAnswered={totalAnswered}
+          questions={questions}
+          practiceAnswers={practiceAnswers}
+          onRetake={() => {
+            setPracticeAnswers({});
+            setPracticeQIndex(0);
+            setShowPracticeResult(false);
+          }}
+          onBackToCourses={() => setAssessmentView("practice_catalog")}
+        />
+      );
+    }
+
+    return (
+      <PracticeActiveSessionView
+        activePracticeCourse={activePracticeCourse}
+        questions={questions}
+        practiceQIndex={practiceQIndex}
+        practiceAnswers={practiceAnswers}
+        selectedOpt={selectedOpt}
+        totalAnswered={totalAnswered}
+        onSelectIndex={setPracticeQIndex}
+        onSelectOption={handleSelectPracticeOption}
+        onPrevious={() => setPracticeQIndex((prev) => Math.max(0, prev - 1))}
+        onNext={() => setPracticeQIndex((prev) => prev + 1)}
+        onFinish={() => setShowPracticeResult(true)}
+        onBackToCourses={() => setAssessmentView("practice_catalog")}
+      />
+    );
+  }
+
+  // =========================================================================
+  // VIEW 3: OFFICIAL PROCTORED EXAMS CATALOG (Stage 1)
+  // =========================================================================
+  if (examStage === "start") {
+    return (
+      <OfficialExamCatalogView
+        exams={ASSESSMENT_EXAMS}
+        completedExams={completedExams}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        instructionExam={instructionExam}
+        onOpenInstructions={handleOpenInstructions}
+        onCloseInstructions={() => setInstructionExam(null)}
+        onStartExam={handleStartExam}
+        onBackToPortal={() => setAssessmentView("portal_select")}
+      />
+    );
+  }
+
+  // =========================================================================
+  // VIEW 4: EXAM COMPLETED POPUP
   // =========================================================================
   if (examStage === "completed") {
     const latestComp = completedExams[activeExam?.id];
@@ -381,71 +479,43 @@ export default function Assessments({ onBack, onExamActiveChange }) {
   }
 
   // =========================================================================
-  // STAGE 2: ACTIVE PROCTORED EXAM (Dedicated Fullscreen, No Sidebar, Camera AI)
+  // VIEW 5: ACTIVE PROCTORED EXAM (Dedicated Fullscreen, No Sidebar, Camera AI)
   // =========================================================================
   return (
-    <div className="proctored-assessment-wrapper">
-      {/* Second Person Warning Modal — Pauses Exam when second person is detected */}
-      {isSecondPersonDetected && (
-        <SecondPersonWarningModal
-          faceConfidence={faceConfidence}
-          onResume={forceSingleCandidateResume}
-        />
-      )}
-
-      <main className="assessment-center-area">
-        {/* Active Header: No exit/back option midway through exam */}
-        <ActiveExamHeader
-          activeExam={activeExam}
-          activeQuestions={activeQuestions}
-          currentAnsweredCount={currentAnsweredCount}
-          secondsRemaining={secondsRemaining}
-          isExamPaused={isExamPaused}
-          onSubmit={handleSubmitAssessment}
-        />
-
-        {/* Warning incident alert banner (Single face alert, tab switch, etc.) */}
-        {warningMessage && !isSecondPersonDetected && (
-          <div className="proctoring-incident-alert incident-warning">
-            <span>{warningMessage}</span>
-            <span style={{ fontSize: "11px", opacity: 0.85 }}>Live Monitored</span>
-          </div>
-        )}
-
-        {/* Main Question Card — Input locked while paused */}
-        <QuestionCard
-          activeQuestions={activeQuestions}
-          currentQIndex={currentQIndex}
-          currentQuestion={currentQuestion}
-          selectedAnswers={selectedAnswers}
-          flaggedQuestions={flaggedQuestions}
-          currentAnsweredCount={currentAnsweredCount}
-          isExamPaused={isExamPaused}
-          onSelectOption={handleSelectOption}
-          onToggleFlag={handleToggleFlag}
-          onSelectQuestionIndex={setCurrentQIndex}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          onSubmit={handleSubmitAssessment}
-        />
-      </main>
-
-      {/* Right Proctoring Panel */}
-      <ProctoringFeed
-        cameraActive={cameraActive}
-        cameraStarting={cameraStarting}
-        cameraError={cameraError}
-        micActive={micActive}
-        audioLevel={audioLevel}
-        faceDetectionState={faceDetectionState}
-        faceConfidence={faceConfidence}
-        simulatedMode={simulatedMode}
-        setSimulatedMode={setSimulatedMode}
-        videoRef={videoRef}
-        canvasRef={canvasRef}
-        overlayCanvasRef={overlayCanvasRef}
-        onRetryCamera={startCameraAndMic}
-      />
-    </div>
+    <ActiveExamSessionView
+      isFsBlocked={isFsBlocked}
+      onReEnterFullscreen={handleReEnterFullscreen}
+      isSecondPersonDetected={isSecondPersonDetected}
+      faceConfidence={faceConfidence}
+      forceSingleCandidateResume={forceSingleCandidateResume}
+      activeExam={activeExam}
+      activeQuestions={activeQuestions}
+      currentAnsweredCount={currentAnsweredCount}
+      secondsRemaining={secondsRemaining}
+      isExamPaused={isExamPaused}
+      onSubmitAssessment={handleSubmitAssessment}
+      warningMessage={warningMessage}
+      currentQIndex={currentQIndex}
+      currentQuestion={currentQuestion}
+      selectedAnswers={selectedAnswers}
+      flaggedQuestions={flaggedQuestions}
+      onSelectOption={handleSelectOption}
+      onToggleFlag={handleToggleFlag}
+      onSelectQuestionIndex={setCurrentQIndex}
+      onPrevious={handlePrevious}
+      onNext={handleNext}
+      cameraActive={cameraActive}
+      cameraStarting={cameraStarting}
+      cameraError={cameraError}
+      micActive={micActive}
+      audioLevel={audioLevel}
+      faceDetectionState={faceDetectionState}
+      simulatedMode={simulatedMode}
+      setSimulatedMode={setSimulatedMode}
+      videoRef={videoRef}
+      canvasRef={canvasRef}
+      overlayCanvasRef={overlayCanvasRef}
+      startCameraAndMic={startCameraAndMic}
+    />
   );
 }
