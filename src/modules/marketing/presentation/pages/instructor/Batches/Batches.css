@@ -1,0 +1,1436 @@
+/* ==========================================================================
+   Batches & Cohorts Management Styling
+   High-Fidelity Modern SaaS Design matching Pathwing Design System
+   ========================================================================== */
+
+.batches-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Header Row */
+.batches-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.batches-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.batches-header-info .breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.batches-header-info .breadcrumb-nav .current {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.batches-header-info .module-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.batches-header-info .module-sub {
+  margin: 0;
+  font-size: 13.5px;
+  color: #64748b;
+}
+
+.btn-create-cohort-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 22px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-create-cohort-top:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(29, 78, 216, 0.35);
+}
+
+/* Success Notification Toast */
+.batch-toast-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+  animation: slideDownToast 0.3s ease-out;
+}
+
+@keyframes slideDownToast {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.batch-toast-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.batch-toast-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #047857;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.batch-toast-close:hover {
+  background: #d1fae5;
+}
+
+/* KPI Metrics Grid */
+.batches-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.batch-metric-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+}
+
+.batch-metric-box:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.07);
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.metric-info .metric-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.metric-info .metric-val {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.metric-info .metric-note {
+  font-size: 11.5px;
+  color: #10b981;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metric-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metric-icon-wrap.blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.metric-icon-wrap.green {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.metric-icon-wrap.purple {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.metric-icon-wrap.amber {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+/* Controls & Filter Bar */
+.batches-filter-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+}
+
+.filter-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.batches-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 14px;
+  flex: 1;
+  min-width: 260px;
+  transition: all 0.2s ease;
+}
+
+.batches-search-box:focus-within {
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.batches-search-box svg {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.batches-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  color: #0f172a;
+  width: 100%;
+}
+
+.filter-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-chips-group {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.status-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.status-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
+}
+
+.view-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.view-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.view-mode-btn.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* Category Filter Tabs Bar */
+.category-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.category-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.category-filter-chip:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.category-filter-chip.active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+}
+
+.category-chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-size: 10.5px;
+  font-weight: 800;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.category-filter-chip.active .category-chip-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Category Sections (Grouped View) */
+.category-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.category-section-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.category-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-banner-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.category-banner-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.category-banner-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+/* Beautiful Cohort / Batch Box / Card */
+.cohorts-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 22px;
+}
+
+/* ==========================================================================
+   MODERN BATCH CARD DESIGN (Exact match to uploaded image)
+   ========================================================================== */
+.batch-modern-card {
+  background: #ffffff;
+  border: 1.5px solid #edf2f7;
+  border-radius: 28px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 34px rgba(99, 102, 241, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+.batch-modern-card:hover {
+  transform: translateY(-3px);
+  border-color: #cbd5e1;
+  box-shadow: 0 20px 42px rgba(99, 102, 241, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Header Area */
+.batch-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.batch-card-left-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.batch-card-title-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.batch-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.batch-badge-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ede9fe;
+  color: #5b21b6;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.batch-badge-category svg {
+  color: #6d28d9;
+}
+
+.batch-badge-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.batch-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.batch-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.batch-status-dot.green {
+  background: #16a34a;
+}
+
+.batch-card-name {
+  margin: 3px 0 5px 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.batch-card-course {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.batch-card-course svg {
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.btn-batch-delete {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-batch-delete:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+  transform: scale(1.05);
+}
+
+/* Divider */
+.batch-card-divider {
+  border-top: 1px solid #f1f5f9;
+  margin: 18px 0 16px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* 3-Column Info Row */
+.batch-card-info-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.15fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.batch-info-col {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.batch-info-col-schedule {
+  padding-right: 14px;
+  border-right: 1.5px solid #e2e8f0;
+}
+
+.batch-info-circle-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.batch-info-circle-icon.blue {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.batch-info-circle-icon.purple {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.batch-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.batch-info-primary {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+.batch-info-secondary {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+/* Column 3 Pill Box */
+.batch-info-pill-box {
+  background: #f1f5f9;
+  border-radius: 16px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.batch-pill-icon {
+  color: #4f46e5;
+  flex-shrink: 0;
+}
+
+.batch-pill-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.batch-pill-primary {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.batch-pill-secondary {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.25;
+}
+
+/* Capacity Row */
+.batch-card-capacity-row {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.batch-capacity-circle-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: #ede9fe;
+  color: #6d28d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.batch-capacity-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.batch-capacity-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.batch-capacity-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.batch-capacity-count {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.batch-capacity-track {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.batch-capacity-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #3b82f6);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.batch-capacity-percent {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #334155;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Manage Batch Button */
+.batch-card-manage-btn {
+  position: relative;
+  z-index: 1;
+  margin: 20px auto 0 auto;
+  align-self: center;
+  width: auto;
+  min-width: 170px;
+  height: 38px;
+  padding: 0 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #5b21b6 0%, #4338ca 30%, #2563eb 70%, #0091ff 100%);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.25);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.batch-card-manage-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.38);
+}
+
+@media (max-width: 860px) {
+  .batch-card-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .batch-info-col-schedule {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+  }
+}
+
+.cohort-box-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cohort-box-card:hover {
+  transform: translateY(-3px);
+  border-color: #cbd5e1;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Top Accent Line based on Category */
+.cohort-box-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #2563eb;
+}
+
+.cohort-box-card.cat-cloud::before {
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+}
+
+.cohort-box-card.cat-software::before {
+  background: linear-gradient(90deg, #059669, #34d399);
+}
+
+.cohort-box-card.cat-web::before {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+}
+
+.cohort-box-card.cat-system::before {
+  background: linear-gradient(90deg, #d97706, #fbbf24);
+}
+
+.cohort-box-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cohort-box-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.cohort-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.cohort-category-tag.blue {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.cohort-category-tag.green {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.cohort-category-tag.purple {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+
+.cohort-category-tag.amber {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.cohort-code-badge {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.cohort-box-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.cohort-associated-course {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.cohort-associated-course svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+/* Schedule and Dates Details */
+.cohort-meta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.cohort-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.cohort-meta-item svg {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.cohort-meta-item strong {
+  color: #0f172a;
+}
+
+/* Progress & Capacity Bars */
+.cohort-capacity-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.capacity-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.capacity-head-row .label {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.capacity-head-row .value {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.capacity-head-row .fill-pct {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.cohort-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cohort-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #38bdf8);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.cohort-progress-fill.purple {
+  background: linear-gradient(90deg, #7c3aed, #c084fc);
+}
+
+.cohort-seats-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* Action Buttons inside Box */
+.cohort-box-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-manage-cohort {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-manage-cohort:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.btn-icon-action {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-icon-action:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* ==========================================================================
+   DOWN / BOTTOM "CREATE NEW BATCH" BUTTON SECTION
+   ("then down give creat the new branch butten")
+   ========================================================================== */
+
+.create-batch-bottom-banner {
+  margin-top: 16px;
+  background: #ffffff;
+  border: 2px dashed #93c5fd;
+  border-radius: 18px;
+  padding: 26px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.05);
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+  transition: all 0.25s ease;
+}
+
+.create-batch-bottom-banner:hover {
+  border-color: #2563eb;
+  background: #f0f6ff;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.1);
+}
+
+.bottom-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.bottom-banner-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bottom-banner-content h3 {
+  margin: 0 0 4px 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.bottom-banner-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.btn-create-batch-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 26px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-create-batch-cta:hover {
+  background: #1e40af;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(29, 78, 216, 0.35);
+}
+
+/* Empty State */
+.cohorts-empty-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.cohorts-empty-box h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.cohorts-empty-box p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #64748b;
+  max-width: 440px;
+}
+
+/* ==========================================================================
+   EXACT MODAL STYLING MATCHING UPLOADED IMAGE (media_1794305414270_fc2812e7.png)
+   ========================================================================== */
+
+.cohort-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2500;
+  padding: 20px;
+  animation: fadeInModalBackdrop 0.2s ease-out;
+}
+
+@keyframes fadeInModalBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cohort-modal-card {
+  width: min(540px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px -15px rgba(15, 23, 42, 0.25), 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: 32px 36px;
+  color: #0f172a;
+  animation: scaleUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+@keyframes scaleUpModal {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Header matching image */
+.cohort-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.cohort-modal-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.cohort-modal-close-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cohort-modal-close-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Modal Form Body */
+.cohort-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cohort-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cohort-form-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.cohort-form-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cohort-form-input:focus {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+
+.cohort-form-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Custom Select Dropdown matching image */
+.cohort-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.cohort-form-select {
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 40px 12px 14px;
+  font-size: 14px;
+  color: #0f172a;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cohort-form-select:focus {
+  border-color: #1d4ed8;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+
+.cohort-select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+}
+
+/* Modal Footer Buttons matching image */
+.cohort-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 14px;
+}
+
+.btn-modal-cancel {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #1e293b;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-modal-cancel:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-modal-publish {
+  background: #1d4ed8;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-modal-publish:hover {
+  background: #1e40af;
+  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
+}
+
+.btn-modal-publish:active {
+  transform: translateY(1px);
+}
+
+/* Responsive Queries */
+@media (max-width: 1024px) {
+  .batches-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cohorts-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .batches-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-batch-bottom-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .btn-create-batch-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cohort-modal-card {
+    padding: 24px 20px;
+  }
+}

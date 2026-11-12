@@ -321,64 +321,7 @@ export const initialPayoutHistory = [
   { id: "pay-jul-26", month: "July 2026", gross: "₹2,70,000", commission: "₹40,500 (15%)", net: "₹2,29,500", status: "Settled", date: "02 Aug 2026" }
 ];
 
-export const initialBatches = [
-  {
-    id: "batch-1",
-    name: "Java Full Stack - Cohort 2026-Alpha",
-    code: "JFS-26A",
-    courseId: "crs-inst-1",
-    courseName: "Java Full Stack Development",
-    schedule: "Mon, Wed, Fri · 6:00 PM - 8:00 PM",
-    enrolled: 128,
-    capacity: 150,
-    startDate: "01 Oct 2026",
-    endDate: "20 Dec 2026",
-    status: "Active",
-    completion: 68
-  },
-  {
-    id: "batch-2",
-    name: "AWS DevOps Masterclass - Cohort 2026-B",
-    code: "AWS-26B",
-    courseId: "crs-inst-2",
-    courseName: "AWS DevOps Engineer Professional",
-    schedule: "Tue, Thu, Sat · 7:00 PM - 9:00 PM",
-    enrolled: 114,
-    capacity: 120,
-    startDate: "05 Oct 2026",
-    endDate: "15 Dec 2026",
-    status: "Active",
-    completion: 74
-  },
-  {
-    id: "batch-3",
-    name: "React 19 Next.js Weekend Accelerator",
-    code: "RCT-26W",
-    courseId: "crs-inst-3",
-    courseName: "React 19 & Next.js Full Stack Engineering",
-    schedule: "Sat, Sun · 10:00 AM - 1:00 PM",
-    enrolled: 96,
-    capacity: 100,
-    startDate: "15 Sep 2026",
-    endDate: "30 Nov 2026",
-    status: "Active",
-    completion: 86
-  },
-  {
-    id: "batch-4",
-    name: "Distributed Microservices Winter Cohort",
-    code: "MIC-26W",
-    courseId: "crs-inst-4",
-    courseName: "Distributed Microservices & Kubernetes Architecture",
-    schedule: "Mon, Thu · 8:00 PM - 10:00 PM",
-    enrolled: 42,
-    capacity: 60,
-    startDate: "10 Nov 2026",
-    endDate: "25 Jan 2027",
-    status: "Upcoming",
-    completion: 0
-  }
-];
+export const initialBatches = [];
 
 export const initialAssignments = [
   {

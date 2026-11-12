@@ -580,9 +580,9 @@
 
 .instructor-app-shell .sidebar,
 .instructor-app-shell .inst-sidebar {
-  width: 250px;
-  min-width: 250px;
-  max-width: 250px;
+  width: 304px;
+  min-width: 304px;
+  max-width: 304px;
   height: 100%;
 
   flex-shrink: 0;
@@ -712,8 +712,7 @@
 
   overflow-y: auto;
   overflow-x: hidden;
-
-  padding-right: 2px;
+  padding-right: 4px;
 }
 
 .instructor-app-shell .sidebar-nav-scroll::-webkit-scrollbar,
@@ -768,8 +767,7 @@
 
   display: flex;
   align-items: center;
-  
-
+  gap: 12px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -842,11 +840,9 @@
 .instructor-app-shell .inst-nav-text {
   flex: 1;
   min-width: 0;
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
   font-size: 13.5px;
 }
 
@@ -864,7 +860,6 @@
 
   font-size: 11px;
   font-weight: 700;
-
   border-radius: 9999px;
   background: #f1f5f9;
   border: 1px solid #e2e8f0;
@@ -883,8 +878,12 @@
   border-radius: 50%;
 }
 
-/* Sidebar User */
+.instructor-app-shell .nav-icon,
+.instructor-app-shell .inst-nav-icon {
+  flex-shrink: 0;
+}
 
+/* Sidebar User */
 .instructor-app-shell .sidebar-user,
 .instructor-app-shell .inst-sidebar-user {
   margin-top: auto;
@@ -2566,12 +2565,12 @@
     top: 0;
     bottom: 0;
     left: 0;
-
     height: 100dvh;
     max-height: 100dvh;
-
-    transform: translateX(-105%);
-
+    width: min(304px, 86vw);
+    min-width: 0;
+    max-width: 86vw;
+    transform: translateX(-100%);
     box-shadow: 0 10px 40px rgba(15, 23, 42, 0.15);
 
     z-index: 1000;

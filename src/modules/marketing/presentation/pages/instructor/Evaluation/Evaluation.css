@@ -1,0 +1,361 @@
+/* ==========================================================================
+   Assessment & Evaluation Hub + Evaluation Module Styling
+   Matches Instructor Dashboard Blue & White Theme (styles.css / Assessments.css)
+   ========================================================================== */
+
+.ae-hub-page,
+.instructor-evaluation-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ae-hub-page .breadcrumb-nav,
+.instructor-evaluation-page .breadcrumb-nav,
+.ae-module-topbar .breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.ae-hub-page .breadcrumb-nav .current,
+.instructor-evaluation-page .breadcrumb-nav .current,
+.ae-module-topbar .breadcrumb-nav .current {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+/* Top bar when navigating back to Assessment & Evaluation Hub */
+.ae-module-topbar,
+.eval-screen-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.ae-module-topbar {
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   Two-Card Hub Layout (Assessments & Evaluation)
+   ========================================================================== */
+
+.ae-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 960px;
+}
+
+.ae-module-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-top: 3px solid #2563eb;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ae-module-card.ae-card-eval {
+  border-top-color: #059669;
+}
+
+.ae-module-card:hover,
+.ae-module-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: #bfdbfe;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.ae-module-card.ae-card-eval:hover,
+.ae-module-card.ae-card-eval:focus-visible {
+  border-color: #a7f3d0;
+  box-shadow: 0 14px 30px rgba(5, 150, 105, 0.1);
+}
+
+.ae-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ae-icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ae-icon-blue {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+}
+
+.ae-icon-emerald {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+}
+
+.ae-module-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ae-module-meta-pill.ae-meta-emerald {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+.ae-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ae-card-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.4px;
+}
+
+.ae-card-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #475569;
+}
+
+.ae-card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+}
+
+.ae-open-btn {
+  width: 100%;
+  justify-content: center;
+  height: 42px;
+  font-size: 13.5px;
+}
+
+/* ==========================================================================
+   Evaluation Batches Grid
+   ========================================================================== */
+
+.eval-batches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.eval-batch-card {
+  gap: 16px;
+}
+
+.eval-field-kicker {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.eval-card-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+}
+
+.eval-batch-btn {
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Student Details Screen
+   ========================================================================== */
+
+.eval-details-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.eval-details-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.eval-assessment-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.eval-assessment-selector label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+}
+
+.eval-summary-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.eval-course-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.eval-assessment-title-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.eval-assessment-title-cell svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.eval-total-marks {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.eval-status-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.eval-obtained-marks-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #065f46;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.eval-action-btn {
+  white-space: nowrap;
+}
+
+.eval-edit-btn {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1d4ed8 !important;
+  white-space: nowrap;
+}
+
+.eval-edit-btn:hover {
+  background: #eff6ff !important;
+  border-color: #2563eb !important;
+  color: #1e40af !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.14) !important;
+}
+
+/* ==========================================================================
+   Student Evaluation Modal Input
+   ========================================================================== */
+
+.eval-marks-input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "IBM Plex Mono", monospace;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.eval-marks-input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .ae-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .eval-summary-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .eval-batches-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .eval-summary-metrics {
+    grid-template-columns: 1fr;
+  }
+}

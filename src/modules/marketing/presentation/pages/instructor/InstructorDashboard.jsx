@@ -13,16 +13,29 @@ import {
   Activity,
   Award,
   BookOpen,
+  Calendar,
+  CheckCircle2,
+  ClipboardCheck,
+  ExternalLink,
   FileCheck,
+  Globe,
   HelpCircle,
   IndianRupee,
   Layers,
   LayoutDashboard,
+  LogOut,
+  Mail,
   Menu,
+  MessageSquare,
+  Plus,
   Radio,
   Settings as SettingsIcon,
+  ShieldCheck,
+  Sparkles,
   Star,
+  TrendingUp,
   Users,
+  Video,
   X
 } from "lucide-react";
 
@@ -43,20 +56,33 @@ import {
   initialLearners,
   initialReviews,
   initialBatches,
-  initialAssignments,
   initialLiveSessions,
   initialQnA,
   initialCertificates,
-  initialCourseAnalytics
+  initialCourseAnalytics,
+  initialAssignments
 } from "./data/mockData";
 
 // Dashboard Components
 import { Sidebar } from "./common/Sidebar";
 import { Overview } from "./Overview/Overview";
 import { MyCourses } from "./MyCourses/MyCourses";
+import { AICourseBuilder } from "./AICourseBuilder/AICourseBuilder";
 import { Batches } from "./Batches/Batches";
-import { Learners } from "./Learners/Learners";
+// Assessment & Evaluation Module Orchestrator
+import {
+  ASSESSMENT_STORAGE_KEYS,
+  assignStudentsToAssessment,
+  normalizeText
+} from "./Assessments/assessmentUtils";
+import { AssessmentEvaluationModule } from "./Evaluation/AssessmentEvaluationModule";
 import { Assignments } from "./Assignments/Assignments";
+
+import {
+  EVALUATION_STORAGE_KEYS,
+  upsertStudentEvaluation
+} from "./Evaluation/evaluationUtils";
+import { Learners } from "./Learners/Learners";
 import { LiveSessions } from "./LiveSessions/LiveSessions";
 import { Certificates } from "./Certificates/Certificates";
 import { QnA } from "./QnA/QnA";
@@ -74,6 +100,7 @@ export function InstructorDashboard() {
   // ==========================================
 
   const [page, setPage] = useState("Dashboard");
+  const [assessmentSubView, setAssessmentSubView] = useState("hub");
   const [mobileNav, setMobileNav] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [pendingOpenCreateCourse, setPendingOpenCreateCourse] = useState(false);
@@ -135,10 +162,116 @@ export function InstructorDashboard() {
   });
   const [earnings] = useState(initialEarningsData);
   const [attentionItems, setAttentionItems] = useState(initialAttentionItems);
-  const [learners] = useState(initialLearners);
-  const [reviews] = useState(initialReviews);
-  const [batches, setBatches] = useState(initialBatches);
+  const [learners, setLearners] = useState(initialLearners);
+  const [reviews, setReviews] = useState(initialReviews);
   const [assignments, setAssignments] = useState(initialAssignments);
+  const [batches, setBatches] = useState(() => {
+    try {
+      const saved = localStorage.getItem("instructor_batches");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Remove legacy mock cohorts so user starts strictly with their own created batches
+          const filtered = parsed.filter(
+            (b) => b && !["batch-1", "batch-2", "batch-3", "batch-4"].includes(b.id) && b.name
+          );
+          // Deduplicate by name
+          const seen = new Set();
+          const unique = [];
+          for (const item of filtered) {
+            const key = item.name.trim().toLowerCase();
+            if (!seen.has(key)) {
+              seen.add(key);
+              unique.push(item);
+            }
+          }
+          if (unique.length > 0) return unique;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to load batches from localStorage", e);
+    }
+    return initialBatches || [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("instructor_batches", JSON.stringify(batches));
+    } catch (e) {
+      console.warn("Failed to persist batches to localStorage", e);
+    }
+  }, [batches]);
+  const [batchAssessments, setBatchAssessments] = useState(() => {
+    try {
+      const saved = localStorage.getItem(ASSESSMENT_STORAGE_KEYS.ASSESSMENTS);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn("Failed to load batch assessments from localStorage", e);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        ASSESSMENT_STORAGE_KEYS.ASSESSMENTS,
+        JSON.stringify(batchAssessments)
+      );
+    } catch (e) {
+      console.warn("Failed to persist batch assessments to localStorage", e);
+    }
+  }, [batchAssessments]);
+
+  const [assessmentAssignments, setAssessmentAssignments] = useState(() => {
+    try {
+      const saved = localStorage.getItem(ASSESSMENT_STORAGE_KEYS.ASSIGNMENTS);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn("Failed to load assessment assignments from localStorage", e);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        ASSESSMENT_STORAGE_KEYS.ASSIGNMENTS,
+        JSON.stringify(assessmentAssignments)
+      );
+    } catch (e) {
+      console.warn("Failed to persist assessment assignments to localStorage", e);
+    }
+  }, [assessmentAssignments]);
+
+  const [studentEvaluations, setStudentEvaluations] = useState(() => {
+    try {
+      const saved = localStorage.getItem(EVALUATION_STORAGE_KEYS.EVALUATIONS);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn("Failed to load student evaluations from localStorage", e);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        EVALUATION_STORAGE_KEYS.EVALUATIONS,
+        JSON.stringify(studentEvaluations)
+      );
+    } catch (e) {
+      console.warn("Failed to persist student evaluations to localStorage", e);
+    }
+  }, [studentEvaluations]);
   const [liveSessions, setLiveSessions] = useState(initialLiveSessions);
   const [qna, setQnA] = useState(initialQnA);
   const [certificates, setCertificates] = useState(initialCertificates);
@@ -276,6 +409,12 @@ export function InstructorDashboard() {
           badgeTone: "neutral"
         },
         {
+          name: "Assessment & Evaluation",
+          icon: ClipboardCheck,
+          badge: batchAssessments.length || undefined,
+          badgeTone: "blue"
+        },
+        {
           name: "Assignments",
           icon: FileCheck,
           badge:
@@ -336,14 +475,15 @@ export function InstructorDashboard() {
     }
   ], [
     activeCoursesCount,
+    courses.length,
     batches.length,
     learners.length,
+    batchAssessments.length,
     assignments,
     liveSessions,
     certificates.length,
     qna
   ]);
-
 
   // ==========================================
   // DOCUMENT TITLE
@@ -488,9 +628,58 @@ export function InstructorDashboard() {
   // ==========================================
 
   const handleAddBatch = (newBatch) => {
-    setBatches((prev) => [newBatch, ...prev]);
+    setBatches((prev) => {
+      // Prevent duplicates by ID or name
+      if (
+        prev.some(
+          (b) =>
+            b.id === newBatch.id ||
+            b.name.trim().toLowerCase() === newBatch.name.trim().toLowerCase()
+        )
+      ) {
+        return prev;
+      }
+      return [newBatch, ...prev];
+    });
   };
 
+  const handleDeleteBatch = (batchId) => {
+    setBatches((prev) => prev.filter((b) => b.id !== batchId));
+
+    setBatchAssessments((prev) => prev.filter((a) => a.batchId !== batchId));
+    setAssessmentAssignments((prev) => prev.filter((r) => r.batchId !== batchId));
+    setStudentEvaluations((prev) => prev.filter((ev) => ev.batchId !== batchId));
+  };
+
+  const handleUpdateBatch = (updatedBatch) => {
+    setStudentEvaluations((prev) =>
+      prev.map((ev) =>
+        ev.batchId === updatedBatch.id
+          ? {
+              ...ev,
+              batchName: updatedBatch.name ?? ev.batchName,
+              courseName: updatedBatch.courseName ?? ev.courseName
+            }
+          : ev
+      )
+    );
+    setBatches((prev) =>
+      prev.map((b) => (b.id === updatedBatch.id ? { ...b, ...updatedBatch } : b))
+    );
+
+    setBatchAssessments((prev) =>
+      prev.map((a) =>
+        a.batchId === updatedBatch.id
+          ? {
+              ...a,
+              batchName: updatedBatch.name ?? a.batchName,
+              courseId: updatedBatch.courseId ?? a.courseId,
+              courseName: updatedBatch.courseName ?? a.courseName
+            }
+          : a
+      )
+    );
+  };
 
   // ==========================================
   // ASSIGNMENT HANDLERS
@@ -509,6 +698,51 @@ export function InstructorDashboard() {
           : assignment
       )
     );
+  };
+
+  const handleCreateBatchAssessment = (newAssessment) => {
+
+    setBatchAssessments((prev) => {
+      if (
+        prev.some(
+          (a) =>
+            a.id === newAssessment.id ||
+            (a.batchId === newAssessment.batchId &&
+              (a.kind || "assessment") === (newAssessment.kind || "assessment") &&
+              normalizeText(a.title) === normalizeText(newAssessment.title))
+        )
+      ) {
+        return prev;
+      }
+      return [newAssessment, ...prev];
+    });
+  };
+
+  const handleAssignAssessmentStudents = ({ assessmentId, batchId, students }) => {
+    setAssessmentAssignments((prev) =>
+      assignStudentsToAssessment(prev, { assessmentId, batchId, students }).assignments
+    );
+  };
+
+  const handleSaveStudentEvaluation = (payload) => {
+    const result = upsertStudentEvaluation(studentEvaluations, payload);
+    if (!result.error) {
+      setStudentEvaluations(result.evaluations);
+    }
+    return result;
+  };
+
+  const handleNavigate = (targetPage) => {
+    if (targetPage === "Assessment") {
+      setPage("Assessment & Evaluation");
+      setAssessmentSubView("assessments");
+    } else if (targetPage === "Assessment & Evaluation") {
+      setPage("Assessment & Evaluation");
+      setAssessmentSubView("hub");
+    } else {
+      setPage(targetPage);
+    }
+    setMobileNav(false);
   };
 
 
@@ -689,10 +923,10 @@ export function InstructorDashboard() {
         <Sidebar
           navConfig={navConfig}
           page={page}
-          onNavigate={(targetPage) => {
-            setPage(targetPage);
-            setMobileNav(false);
-          }}
+          onNavigate={handleNavigate}
+
+
+
           mobileNav={mobileNav}
           setMobileNav={setMobileNav}
           sidebarCollapsed={sidebarCollapsed}
@@ -717,10 +951,10 @@ export function InstructorDashboard() {
               earningsData={earnings}
               attentionItems={attentionItems}
               reviews={reviews}
-              onNavigate={setPage}
+              onNavigate={handleNavigate}
               onCreateCourse={() => {
                 setPendingOpenCreateCourse(true);
-                setPage("My Courses");
+                handleNavigate("My Courses");
               }}
               onResolveItem={handleResolveAttentionItem}
             />
@@ -744,11 +978,24 @@ export function InstructorDashboard() {
               onDeleteOrArchiveCourse={handleDeleteOrArchiveCourse}
               onRestoreCourse={handleRestoreCourse}
               onSyncSyllabus={handleSyncCourseSyllabus}
-              onNavigate={setPage}
+              onNavigate={handleNavigate}
+              onSelectCourse={(c) => {
+                setPage("AI Course Builder");
+              }}
             />
 
           )}
 
+          {page === "AI Course Builder" && (
+            <AICourseBuilder
+              instructorProfile={profile}
+              learners={learners}
+              batches={batches}
+              onSaveCourse={handleCreateCourse}
+              onNavigate={handleNavigate}
+              onCloseBuilder={() => handleNavigate("My Courses")}
+            />
+          )}
 
           {/* Batches */}
 
@@ -757,6 +1004,10 @@ export function InstructorDashboard() {
             <Batches
               batches={batches}
               onAddBatch={handleAddBatch}
+              onDeleteBatch={handleDeleteBatch}
+              onUpdateBatch={handleUpdateBatch}
+              courses={courses}
+              onNavigate={handleNavigate}
             />
 
           )}
@@ -772,6 +1023,25 @@ export function InstructorDashboard() {
 
           )}
 
+
+          {/* Assessment & Evaluation */}
+
+          {page === "Assessment & Evaluation" && (
+            <AssessmentEvaluationModule
+              batches={batches}
+              courses={courses}
+              learners={learners}
+              batchAssessments={batchAssessments}
+              assessmentAssignments={assessmentAssignments}
+              onCreateAssessment={handleCreateBatchAssessment}
+              onAssignAssessmentStudents={handleAssignAssessmentStudents}
+              studentEvaluations={studentEvaluations}
+              onSaveEvaluation={handleSaveStudentEvaluation}
+              subView={assessmentSubView}
+              onChangeSubView={setAssessmentSubView}
+              onNavigate={handleNavigate}
+            />
+          )}
 
           {/* Assignments */}
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -577,6 +577,16 @@ const Login = ({
               {isLogin ? "Create account" : "Sign in"}
             </button>
           </div>
+
+          {isLogin && (
+            <Link
+              className="institution-login-link"
+              to="/institution-signin"
+              onClick={handleClose}
+            >
+              Institution administrator? Sign in to your campus
+            </Link>
+          )}
 
           {/* SECURITY NOTE */}
           <p className="login-security">
