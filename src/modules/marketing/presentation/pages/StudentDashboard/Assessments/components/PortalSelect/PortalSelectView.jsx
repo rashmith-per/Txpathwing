@@ -59,7 +59,7 @@ export default function PortalSelectView({ onSelectMode, onBack }) {
               <Award size={30} color="#ea580c" />
             </div>
 
-            <h2 className="portal-card-title">Official Proctored Exam</h2>
+            <h2 className="portal-card-title">Official Assessments</h2>
           </div>
 
           <button

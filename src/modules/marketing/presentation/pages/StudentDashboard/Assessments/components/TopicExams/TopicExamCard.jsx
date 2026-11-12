@@ -1,5 +1,6 @@
 import React from "react";
 import { BookOpen, FileText, CheckCircle2, ArrowRight, Database, Globe, Cpu } from "lucide-react";
+import "./TopicExamCard.css";
 
 export function renderTopicIcon(id) {
   switch (id) {

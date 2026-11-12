@@ -73,10 +73,8 @@ export default function OfficialExamCatalogView({
                 <span>›</span>
                 <span>Official Proctored Exam</span>
               </div>
-              <h1 className="topic-hero-title">Official Proctored Assessments</h1>
-              <p className="topic-hero-subtitle">
-                Demonstrate domain mastery with AI-proctored skill evaluations. Complete assessments to earn verified blockchain credentials.
-              </p>
+              <h1 className="topic-hero-title">Official  Assessments</h1>
+             
             </div>
           </div>
 
