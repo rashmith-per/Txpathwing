@@ -1,12 +1,14 @@
-import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import Header from "./modules/marketing/presentation/components/Header/Header";
 import Footer from "./modules/marketing/presentation/components/Footer/Footer";
+import DashboardSelectionModal from "./modules/marketing/presentation/components/DashboardSelection/DashboardSelectionModal";
+import Login from "./modules/marketing/presentation/components/Login/Login";
+import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
 
 const InstitutionDashboard = lazy(() => import("./App"));
 const InstitutionSignIn = lazy(() => import("./modules/marketing/presentation/pages/InstitutionSignIn/InstitutionSignIn"));
-const Login = lazy(() => import("./modules/marketing/presentation/components/Login/Login"));
 const Signin = lazy(() => import("./modules/marketing/presentation/components/Login/signin"));
 const RegistrationForm = lazy(() => import("./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm"));
 const FAQ = lazy(() => import("./modules/marketing/presentation/components/FAQ/FAQ"));
@@ -24,6 +26,7 @@ const LearnerJourney = lazy(() => import("./modules/marketing/presentation/pages
 const Marketplace = lazy(() => import("./modules/marketing/presentation/pages/MarketPlace/MarketPlace"));
 const StudentDashboard = lazy(() => import("./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard"));
 const AdminDashboard = lazy(() => import("./modules/marketing/presentation/pages/AdminDashboard/AdminDashboard"));
+const InstructorDashboard = lazy(() => import("./modules/marketing/presentation/pages/instructor"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,8 +38,60 @@ function ScrollToTop() {
   return null;
 }
 
+function LoginPageContent({ portalParam }) {
+  const navigate = useNavigate();
+  const [selectionOpen, setSelectionOpen] = useState(!portalParam);
+  const [loginOpen, setLoginOpen] = useState(Boolean(portalParam));
+  const [selectedRole, setSelectedRole] = useState(portalParam || "student");
+
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+    setSelectionOpen(false);
+    setLoginOpen(true);
+  };
+
+  const handleBackToSelection = () => {
+    setLoginOpen(false);
+    setSelectionOpen(true);
+  };
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <Home />
+      <DashboardSelectionModal
+        isOpen={selectionOpen}
+        onClose={handleClose}
+        onSelectRole={handleSelectRole}
+      />
+      <Login
+        isOpen={loginOpen}
+        selectedRole={selectedRole}
+        onClose={handleClose}
+        onBack={handleBackToSelection}
+      />
+    </>
+  );
+}
+
+function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const portalParam = searchParams.get("portal") || searchParams.get("role") || "";
+
+  return <LoginPageContent key={portalParam} portalParam={portalParam} />;
+}
+
 function InstitutionDashboardRoute() {
-  if (localStorage.getItem("institutionLoggedIn") !== "true") {
+  const userRole = localStorage.getItem("userRole") || "";
+  const isInstitutionSession =
+    localStorage.getItem("institutionLoggedIn") === "true" ||
+    (localStorage.getItem("isLoggedIn") === "true" &&
+      (userRole === "institution" || userRole === "institution_admin"));
+
+  if (!isInstitutionSession) {
     return <Navigate to="/institution-signin" replace />;
   }
 
@@ -45,14 +100,18 @@ function InstitutionDashboardRoute() {
 
 function AppRoutes() {
   const { pathname } = useLocation();
-  const isConsole = pathname.startsWith("/institution-dashboard");
+  const isConsole = pathname === "/institution"
+    || pathname.startsWith("/institution/")
+    || pathname.startsWith("/institution-dashboard");
   const isPrivateDashboard = pathname.startsWith("/hackathon-dashboard")
     || pathname.startsWith("/dashboard")
     || pathname.startsWith("/student")
     || pathname.toLowerCase().startsWith("/assessments")
     || pathname.toLowerCase().startsWith("/certificates")
     || pathname.startsWith("/admin")
-    || pathname.startsWith("/admin-dashboard");
+    || pathname.startsWith("/admin-dashboard")
+    || pathname.startsWith("/instructor")
+    || pathname.startsWith("/instructor-dashboard");
   const showWebsiteChrome = !isConsole && !isPrivateDashboard;
 
   return <>
@@ -92,10 +151,12 @@ function AppRoutes() {
       <Route path="/privacy" element={<About />} />
       <Route path="/terms" element={<About />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signin" element={<LoginPage />} />
       <Route path="/Signin" element={<Signin />} />
       <Route path="/registration" element={<RegistrationForm />} />
       <Route path="/institution-signin" element={<InstitutionSignIn />} />
+      <Route path="/institution/*" element={<InstitutionDashboardRoute />} />
       <Route path="/institution-dashboard/*" element={<InstitutionDashboardRoute />} />
       <Route path="/hackathon-dashboard/*" element={<HackathonDashboard />} />
       <Route path="/dashboard/*" element={<StudentDashboard />} />
@@ -107,6 +168,22 @@ function AppRoutes() {
       <Route path="/Certificates/*" element={<StudentDashboard />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
+      <Route
+        path="/instructor/*"
+        element={
+          <ProtectedRoute allowedRole="instructor">
+            <InstructorDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/instructor-dashboard/*"
+        element={
+          <ProtectedRoute allowedRole="instructor">
+            <InstructorDashboard />
+          </ProtectedRoute>
+        }
+      />
       <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>

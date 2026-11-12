@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
 import Login from "../Login/Login";
@@ -68,7 +68,7 @@ export default function Header() {
   const [selectionOpen, setSelectionOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("student");
-  const [cartCount, setCartCount] = useState(0);
+
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     () => localStorage.getItem("isLoggedIn") === "true"
@@ -78,21 +78,59 @@ export default function Header() {
   );
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const [userRole, setUserRole] = useState(
+    () => localStorage.getItem("userRole") || ""
+  );
+
+  const getDashboardDestination = () => {
+    const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
+    if (userRole === "platform_admin" || isPlatformAdmin) {
+      return "/admin-dashboard";
+    }
+    if (userRole === "institution" || userRole === "institution_admin") {
+      return "/institution-dashboard";
+    }
+    if (userRole === "instructor") {
+      return "/instructor-dashboard";
+    }
+    if (userRole === "hackathon_admin" || isAdmin) {
+      return "/hackathon-dashboard";
+    }
+    return "/dashboard";
+  };
+
+  const getDashboardText = () => {
+    const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
+    if (userRole === "platform_admin" || isPlatformAdmin) {
+      return "Admin Console";
+    }
+    if (userRole === "institution" || userRole === "institution_admin") {
+      return "Institution Portal";
+    }
+    if (userRole === "instructor") {
+      return "Instructor Portal";
+    }
+    if (userRole === "hackathon_admin" || isAdmin) {
+      return "Hackathon Portal";
+    }
+    return "Dashboard";
+  };
 
   useEffect(() => {
     const syncAuth = () => {
       setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
       setIsAdmin(localStorage.getItem("isAdmin") === "true");
       setIsInstitutionLoggedIn(localStorage.getItem("institutionLoggedIn") === "true");
+      setUserRole(localStorage.getItem("userRole") || "");
     };
     window.addEventListener("authChanged", syncAuth);
+    syncAuth();
     window.addEventListener("storage", syncAuth);
     return () => {
       window.removeEventListener("authChanged", syncAuth);
       window.removeEventListener("storage", syncAuth);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,7 +142,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -138,7 +176,7 @@ export default function Header() {
         updateCartCount
       );
     };
-  }, []);
+  }, [location.pathname]);
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -151,7 +189,7 @@ export default function Header() {
   // Open "WELCOME TO PATHWING PORTAL" selection popup
   const openSelectionPopup = () => {
     closeMenu();
-    navigate("/institution-signin");
+
     setSelectionOpen(true);
     setLoginOpen(false);
   };
@@ -253,10 +291,10 @@ export default function Header() {
               </Link>
             ) : isLoggedIn ? (
               <Link
-                to={isAdmin ? "/hackathon-dashboard" : "/dashboard"}
+                to={getDashboardDestination()}
                 className="btn-signin"
               >
-                {isAdmin ? "Admin Portal" : "Dashboard"}
+                {getDashboardText()}
               </Link>
             ) : (
               <button
@@ -403,11 +441,11 @@ export default function Header() {
             </Link>
           ) : isLoggedIn ? (
             <Link
-              to={isAdmin ? "/hackathon-dashboard" : "/dashboard"}
+              to={getDashboardDestination()}
               className="btn-signin"
               onClick={closeMenu}
             >
-              {isAdmin ? "Admin Portal" : " Dashboard"}
+              {getDashboardText()}
             </Link>
           ) : (
             <button

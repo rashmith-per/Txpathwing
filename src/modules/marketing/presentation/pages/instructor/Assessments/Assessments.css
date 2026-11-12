@@ -1,0 +1,702 @@
+.instructor-assessments-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Header Summary Pill */
+.asmt-header-summary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.asmt-header-summary-pill svg {
+  color: #2563eb;
+}
+
+.asmt-pill-divider {
+  width: 1px;
+  height: 16px;
+  background: #cbd5e1;
+}
+
+/* Notification Banner */
+.asmt-toast-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.asmt-toast-banner.success {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.asmt-toast-banner.warning {
+  border-color: #fde68a;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.asmt-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.asmt-toast-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.asmt-toast-link {
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid #93c5fd;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.asmt-toast-link:hover {
+  background: #dbeafe;
+}
+
+.asmt-toast-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+/* Batch Cards Grid */
+.asmt-batches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.asmt-batch-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.asmt-batch-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.08);
+}
+
+.asmt-batch-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.asmt-batch-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.asmt-batch-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.asmt-batch-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.asmt-course-name {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.asmt-course-name svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+/* Batch Card Stats Boxes */
+.asmt-batch-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.asmt-stat-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.asmt-stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #64748b;
+}
+
+.asmt-stat-value-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.asmt-stat-icon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.asmt-stat-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* Syllabus Completion Progress */
+.asmt-progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.asmt-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.asmt-progress-header strong {
+  color: #1d4ed8;
+  font-weight: 800;
+}
+
+.asmt-progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.asmt-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5 0%, #2563eb 60%, #0ea5e9 100%);
+  border-radius: 999px;
+  transition: width 0.35s ease;
+}
+
+/* Saved Assessments Chips inside Card */
+.asmt-saved-list-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.asmt-saved-list-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #64748b;
+}
+
+.asmt-saved-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.asmt-saved-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.asmt-saved-chip:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+}
+
+.asmt-saved-chip.is-practice {
+  border-color: #ddd6fe;
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.asmt-saved-chip.is-practice:hover {
+  background: #ede9fe;
+  border-color: #c4b5fd;
+}
+
+.asmt-saved-chip-kind {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.85;
+}
+
+.asmt-saved-chip-count {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 11px;
+}
+
+/* Batch Card Footer Actions */
+.asmt-batch-actions {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.asmt-btn-half {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+}
+
+.asmt-btn-center {
+  justify-content: center;
+}
+
+/* Empty State */
+.asmt-empty-state-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 48px 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.asmt-empty-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asmt-empty-state-card h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.asmt-empty-state-card p {
+  margin: 0 0 6px;
+  max-width: 460px;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Student Assignment Screen */
+.asmt-assignment-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.asmt-screen-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.asmt-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asmt-assignment-header-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.asmt-assignment-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.asmt-summary-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.asmt-summary-kpi {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.asmt-summary-kpi.kpi-success {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.asmt-summary-kpi.kpi-warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.asmt-summary-kpi-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #64748b;
+}
+
+.asmt-summary-kpi-value {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.asmt-data-note-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 13px;
+}
+
+.asmt-data-note-banner svg {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+/* Student Table */
+.asmt-student-table-wrap {
+  margin-bottom: 0;
+  overflow-x: auto;
+}
+
+.asmt-student-id-cell {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 700;
+  color: #334155;
+}
+
+.asmt-student-sub {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.asmt-assign-test-btn {
+  gap: 6px;
+}
+
+.asmt-assigned-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #059669;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: default;
+}
+
+.asmt-table-empty {
+  padding: 42px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+}
+
+.asmt-table-empty svg {
+  color: #2563eb;
+}
+
+.asmt-table-empty h3 {
+  margin: 4px 0 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.asmt-table-empty p {
+  margin: 0;
+  font-size: 13.5px;
+  max-width: 440px;
+}
+
+/* Bulk Assignment Footer */
+.asmt-bulk-footer-bar {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.asmt-all-assigned-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.asmt-pending-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #475569;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.asmt-bulk-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Modals */
+.asmt-modal-dialog {
+  max-width: 520px;
+}
+
+.asmt-modal-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.asmt-modal-close-btn:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.asmt-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.asmt-field-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.asmt-required-mark {
+  color: #dc2626;
+}
+
+.asmt-readonly-input {
+  background: #f8fafc !important;
+  color: #475569 !important;
+  border-color: #e2e8f0 !important;
+  cursor: default;
+  font-weight: 600;
+}
+
+.asmt-field-error {
+  font-size: 12px;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.asmt-confirm-summary-grid {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.asmt-confirm-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13.5px;
+  color: #475569;
+}
+
+.asmt-confirm-summary-row:last-child {
+  border-bottom: none;
+}
+
+.asmt-confirm-summary-row strong {
+  color: #0f172a;
+  font-weight: 800;
+  text-align: right;
+}
+
+.asmt-confirm-summary-row.highlight {
+  background: #eff6ff;
+  color: #1e40af;
+}
+
+.asmt-confirm-summary-row.highlight strong {
+  color: #1d4ed8;
+}
+
+.asmt-bulk-confirm-message {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .asmt-summary-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .asmt-batches-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .asmt-summary-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .asmt-batch-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .asmt-summary-metrics {
+    grid-template-columns: 1fr;
+  }
+}
