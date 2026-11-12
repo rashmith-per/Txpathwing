@@ -460,9 +460,9 @@
 
 .instructor-app-shell .sidebar,
 .instructor-app-shell .inst-sidebar {
-  width: 250px;
-  min-width: 250px;
-  max-width: 250px;
+  width: 304px;
+  min-width: 304px;
+  max-width: 304px;
   height: 100%;
   max-height: 100%;
   flex-shrink: 0;
@@ -566,7 +566,7 @@
   gap: 18px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 2px;
+  padding-right: 4px;
 }
 
 .instructor-app-shell .inst-sidebar-nav-scroll::-webkit-scrollbar {
@@ -621,7 +621,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
+  gap: 10px;
+  padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid transparent;
   background: transparent;
@@ -692,8 +693,9 @@
 .instructor-app-shell .inst-nav-text {
   flex: 1;
   white-space: nowrap !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
+  min-width: 0;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   font-size: 13.5px;
 }
 
@@ -708,6 +710,7 @@
   margin-left: auto;
   font-size: 11px;
   font-weight: 700;
+  flex: 0 0 auto;
   padding: 2px 7px;
   border-radius: 6px;
   background: #f1f5f9 !important;
@@ -724,6 +727,16 @@
   position: absolute;
   top: 8px;
   right: 8px;
+}
+
+.instructor-app-shell .nav-icon,
+.instructor-app-shell .inst-nav-icon {
+  flex-shrink: 0;
+}
+
+.instructor-app-shell .nav-text,
+.instructor-app-shell .inst-nav-text {
+  font-size: 13px;
 }
 
 /* User Footer Section in Sidebar */
@@ -2008,7 +2021,9 @@
     bottom: 0;
     z-index: 1000;
     transform: translateX(-100%);
-    width: 270px;
+    width: min(304px, 86vw);
+    min-width: 0;
+    max-width: 86vw;
     box-shadow: 0 10px 40px rgba(15, 23, 42, 0.15);
   }
 
