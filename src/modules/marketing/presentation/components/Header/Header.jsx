@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { Link, useLocation } from "react-router-dom";
+
 import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
 import Login from "../Login/Login";
 import "./Header.css";
-import { ShoppingCart } from "lucide-react";
+import { ChevronDown, ShoppingCart } from "lucide-react";
 
 const NAV_LINKS = [
   {
@@ -37,30 +38,49 @@ const NAV_LINKS = [
   },
 ];
 
+const MORE_LINKS = [
+  { label: "Learner journey", path: "/learner-journey" },
+  { label: "For students", path: "/for-students" },
+  { label: "Pricing", path: "/pricing" },
+  { label: "FAQ", path: "/faq" },
+  { label: "For institutions", path: "/for-institutions" },
+  { label: "Industry partners", path: "/industry-partners" },
+  { label: "For instructors", path: "/for-instructors" },
+  { label: "Institution dashboard", path: "/institution-dashboard" },
+];
+
+function readCartCount() {
+  try {
+    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    return Array.isArray(savedCart) ? savedCart.length : 0;
+  } catch {
+    return 0;
+  }
+}
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(readCartCount);
+  const [isInstitutionLoggedIn, setIsInstitutionLoggedIn] = useState(
+    () => localStorage.getItem("institutionLoggedIn") === "true"
+  );
   const [selectionOpen, setSelectionOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("student");
-  const [cartCount, setCartCount] = useState(0);
+
+
   const [isLoggedIn, setIsLoggedIn] = useState(
     () => localStorage.getItem("isLoggedIn") === "true"
   );
   const [isAdmin, setIsAdmin] = useState(
     () => localStorage.getItem("isAdmin") === "true"
   );
+
+  const location = useLocation();
   const [userRole, setUserRole] = useState(
     () => localStorage.getItem("userRole") || ""
   );
-
-  const location = useLocation();
-
-  const checkAuth = () => {
-    setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-    setIsAdmin(localStorage.getItem("isAdmin") === "true");
-    setUserRole(localStorage.getItem("userRole") || "");
-  };
 
   const getDashboardDestination = () => {
     const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
@@ -97,12 +117,18 @@ export default function Header() {
   };
 
   useEffect(() => {
-    checkAuth();
-    window.addEventListener("authChanged", checkAuth);
-    window.addEventListener("storage", checkAuth);
+    const syncAuth = () => {
+      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
+      setIsAdmin(localStorage.getItem("isAdmin") === "true");
+      setIsInstitutionLoggedIn(localStorage.getItem("institutionLoggedIn") === "true");
+      setUserRole(localStorage.getItem("userRole") || "");
+    };
+    window.addEventListener("authChanged", syncAuth);
+    syncAuth();
+    window.addEventListener("storage", syncAuth);
     return () => {
-      window.removeEventListener("authChanged", checkAuth);
-      window.removeEventListener("storage", checkAuth);
+      window.removeEventListener("authChanged", syncAuth);
+      window.removeEventListener("storage", syncAuth);
     };
   }, [location.pathname]);
 
@@ -116,7 +142,7 @@ export default function Header() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -126,24 +152,8 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  const updateCartCount = () => {
-    try {
-      const savedCart = JSON.parse(
-        localStorage.getItem("cart") || "[]"
-      );
-
-      setCartCount(
-        Array.isArray(savedCart)
-          ? savedCart.length
-          : 0
-      );
-    } catch {
-      setCartCount(0);
-    }
-  };
-
   useEffect(() => {
-    updateCartCount();
+    const updateCartCount = () => setCartCount(readCartCount());
 
     window.addEventListener(
       "cartUpdated",
@@ -166,10 +176,6 @@ export default function Header() {
         updateCartCount
       );
     };
-  }, []);
-
-  useEffect(() => {
-    updateCartCount();
   }, [location.pathname]);
 
   const isActive = (path) => {
@@ -183,6 +189,7 @@ export default function Header() {
   // Open "WELCOME TO PATHWING PORTAL" selection popup
   const openSelectionPopup = () => {
     closeMenu();
+
     setSelectionOpen(true);
     setLoginOpen(false);
   };
@@ -204,6 +211,7 @@ export default function Header() {
   const closeAllPopups = () => {
     setSelectionOpen(false);
     setLoginOpen(false);
+
   };
 
   return (
@@ -241,6 +249,18 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            <li className="nav-more">
+              <details>
+                <summary className="nav-link">More <ChevronDown size={13} aria-hidden="true" /></summary>
+                <div className="nav-more-menu">
+                  {MORE_LINKS.map((item) => (
+                    <Link key={item.path} to={item.path} onClick={(event) => { event.currentTarget.closest("details").open = false; }}>
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+            </li>
           </ul>
 
           <div className="nav-actions">
@@ -265,7 +285,11 @@ export default function Header() {
               )}
             </Link>
 
-            {isLoggedIn ? (
+            {isInstitutionLoggedIn ? (
+              <Link to="/institution-dashboard" className="btn-signin">
+                Institution dashboard
+              </Link>
+            ) : isLoggedIn ? (
               <Link
                 to={getDashboardDestination()}
                 className="btn-signin"
@@ -387,6 +411,16 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+          {MORE_LINKS.map((item) => (
+            <Link
+              key={item.path}
+              className={`mobile-link${isActive(item.path) ? " active" : ""}`}
+              to={item.path}
+              onClick={closeMenu}
+            >
+              {item.label}
+            </Link>
+          ))}
           <Link
             className={`mobile-link${isActive("/cart") ? " active" : ""}`}
             to="/cart"
@@ -397,7 +431,15 @@ export default function Header() {
         </nav>
 
         <div className="mobile-actions">
-          {isLoggedIn ? (
+          {isInstitutionLoggedIn ? (
+            <Link
+              to="/institution-dashboard"
+              className="btn-signin"
+              onClick={closeMenu}
+            >
+              Institution dashboard
+            </Link>
+          ) : isLoggedIn ? (
             <Link
               to={getDashboardDestination()}
               className="btn-signin"
@@ -431,6 +473,7 @@ export default function Header() {
         onClose={closeAllPopups}
         onBack={handleBackToSelection}
       />
+
     </>
   );
 }
