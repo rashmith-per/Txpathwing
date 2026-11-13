@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Activity, ArrowRight, ArrowUpRight, Award, Bell, BookOpen,
   Briefcase, Building2, Calendar, CheckCircle2, ChevronDown,
@@ -110,6 +111,8 @@ const navConfig = [
 ];
 
 function AdminDashboard() {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState("Overview");
   const [mobileNav, setMobileNav] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -126,6 +129,7 @@ function AdminDashboard() {
       document.title = originalTitle;
     };
   }, []);
+  
 
   // Handle keyboard navigation (Escape to close drawer and menus)
   useEffect(() => {
@@ -205,6 +209,21 @@ function AdminDashboard() {
     setShowNotifMenu(false);
     setShowRoleMenu(false);
   }
+    // Handle Admin Logout
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userPhone");
+    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("isPlatformAdmin");
+    localStorage.removeItem("isHackathonAdmin");
+
+    window.dispatchEvent(new Event("authChanged"));
+
+    navigate("/");
+  };
 
   // Selected record breadcrumb label
   const activeRecordName = useMemo(() => {
@@ -290,6 +309,8 @@ function AdminDashboard() {
           setCurrentRole={setCurrentRole}
           showRoleMenu={showRoleMenu}
           setShowRoleMenu={setShowRoleMenu}
+          onLogout={handleLogout}
+          
           counts={{
             tenants: tenants.length + 32,
             moderation: moderationCount,
@@ -570,6 +591,7 @@ function AdminDashboard() {
             <footer>
               TX-PATHWING PLATFORM ADMIN CONSOLE
               <span>Super Admin Operations · Multi-Tenant Architecture</span>
+              
             </footer>
           </div>
         </main>

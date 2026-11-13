@@ -2446,6 +2446,25 @@
   visibility: visible;
   transform: translateY(-50%) translateX(0);
 }
+.sidebar-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #dc2626;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-logout-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
 
 /* User Profile Footer */
 .sidebar-user {

@@ -20,13 +20,13 @@ const Careers = lazy(() => import("./modules/marketing/presentation/pages/Career
 const CourseDetail = lazy(() => import("./modules/marketing/presentation/pages/CourseDetails/CourseDetails"));
 const Organization = lazy(() => import("./modules/marketing/presentation/pages/Contact/Contact"));
 const Events = lazy(() => import("./modules/marketing/presentation/pages/Events/Events.jsx"));
-const HackathonDashboard = lazy(() => import("./modules/marketing/presentation/pages/HackathonDashboard/HackathonDashboard"));
+const HackathonDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/HackathonDashboard/HackathonDashboard.jsx"));
 const Home = lazy(() => import("./modules/marketing/presentation/pages/Home/Home"));
 const LearnerJourney = lazy(() => import("./modules/marketing/presentation/pages/Learner_journey/Learner_journey"));
 const Marketplace = lazy(() => import("./modules/marketing/presentation/pages/MarketPlace/MarketPlace"));
-const StudentDashboard = lazy(() => import("./modules/marketing/presentation/pages/StudentDashboard/Dashboard/Dashboard"));
-const AdminDashboard = lazy(() => import("./modules/marketing/presentation/pages/AdminDashboard/AdminDashboard"));
-const InstructorDashboard = lazy(() => import("./modules/marketing/presentation/pages/instructor"));
+const StudentDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/StudentDashboard/Dashboard/Dashboard.jsx"));
+const AdminDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/AdminDashboard/AdminDashboard"));
+const InstructorDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstructorDashboard/InstructorDashboard.jsx"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();

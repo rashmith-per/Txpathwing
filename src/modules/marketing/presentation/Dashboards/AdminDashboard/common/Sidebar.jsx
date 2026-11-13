@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import {
-  ChevronDown, ChevronLeft, ChevronRight, Layers,
-  PanelLeftClose, PanelLeftOpen, ShieldCheck, X
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  PanelLeftClose,
+  PanelLeftOpen,
+  ShieldCheck,
+  X,
+  LogOut
 } from "lucide-react";
 
 export function Sidebar({
@@ -16,7 +23,8 @@ export function Sidebar({
   setCurrentRole,
   showRoleMenu,
   setShowRoleMenu,
-  counts
+  counts,
+  onLogout
 }) {
   // Collapsible nested navigation groups
   const [collapsedGroups, setCollapsedGroups] = useState({});
@@ -74,9 +82,9 @@ export function Sidebar({
         <div className="sidebar-controls">
           {!sidebarCollapsed ? (
             <div className="signed-role-container">
-             
+
               <div className="topbar-relative">
-                
+
 
                 {showRoleMenu && (
                   <div className="role-dropdown-menu" role="listbox">
@@ -189,16 +197,28 @@ export function Sidebar({
         </div>
 
         {/* User / Profile Footer Section */}
+        {/* User / Profile Footer Section */}
         <div className={`sidebar-user ${sidebarCollapsed ? "collapsed-user" : ""}`}>
           <div className="avatar" title="Platform Operations · PW">
             PW
           </div>
+
           {!sidebarCollapsed && (
             <div className="user-info">
               <strong>Platform Operations</strong>
               <small>Super admin · all data boundaries</small>
             </div>
           )}
+
+          <button
+            type="button"
+            className="sidebar-logout-btn"
+            onClick={onLogout}
+            title="Sign out & Exit"
+            aria-label="Sign out & Exit"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
       </aside>
     </>
