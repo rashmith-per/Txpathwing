@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses as marketCourses } from "../MarketPlace/coursesList";
-import { getCourseByIdOrCode } from "../StudentDashboard/Dashboard/services/courseCatalogue.data";
-import { studentStorage } from "../StudentDashboard/Dashboard/services/studentStorage";
+import { getCourseByIdOrCode } from "../../Dashboards/StudentDashboard/services/courseCatalogue.data";
+import { studentStorage } from "../../Dashboards/StudentDashboard/services/studentStorage";
 import "./CourseDetails.css";
 
 /* ---------- Compact course builder ----------
