@@ -67,7 +67,7 @@
 .notification-menu strong { font-size: 12px; }
 .notification-menu p { margin: 11px 0; color: var(--muted); font-size: 11px; }
 .notification-menu button { padding: 0; color: var(--blue); background: none; border: 0; cursor: pointer; font-size: 11px; font-weight: 650; }
-.website-button { height: 33px; display: flex; align-items: center; gap: 6px; padding: 0 10px; color: #24344b; background: var(--surface); border: 1px solid var(--line); border-radius: 7px; text-decoration: none; font-size: 11px; font-weight: 650; }
+.website-button { height: 33px; display: flex; align-items: center; gap: 6px; padding: 0 10px; color: #24344b; background: var(--surface); border: 1px solid var(--line); border-radius: 7px; cursor: pointer; text-decoration: none; font-size: 11px; font-weight: 650; }
 .dashboard-content { width: min(100%, 1720px); margin: 0 auto; padding: 34px 38px 44px; }
 .overview-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
 .overview-heading h1 { margin: 0; color: #15243b; font-size: 28px; font-weight: 750; line-height: 1.25; }

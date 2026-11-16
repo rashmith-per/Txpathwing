@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import {
   Activity, ArrowDownToLine, ArrowLeft, ArrowRight, Award, Bell, BookOpen,
-  BriefcaseBusiness, Building2, CalendarDays, Check, CheckCircle2, Clock3, FileText, FileUp, Globe2,
+  BriefcaseBusiness, Building2, CalendarDays, Check, CheckCircle2, Clock3, FileText, FileUp, LogOut,
   GraduationCap, LayoutDashboard, Menu, Moon, Plus, Search, ShieldCheck, TrendingUp, Users, X
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import txIcon from "./assets/tx-icon.jpg";
+import { clearAuthenticatedSession } from "./modules/marketing/services/authService";
 import "./App.css";
 
 const departments = [
@@ -108,6 +109,7 @@ function EventRow({ event, onSelect }) {
 }
 
 export default function Dashboard() {
+  const navigateTo = useNavigate();
   const [activeNav, setActiveNav] = useState("Overview");
   const [search, setSearch] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -117,6 +119,14 @@ export default function Dashboard() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [departmentFilter, setDepartmentFilter] = useState("All departments");
   const fileInputRef = useRef(null);
+
+  function exitDashboard() {
+    localStorage.removeItem("institutionLoggedIn");
+    localStorage.removeItem("institutionEmail");
+    localStorage.removeItem("institutionName");
+    clearAuthenticatedSession();
+    navigateTo("/", { replace: true });
+  }
 
   function showMessage(text) {
     setMessage(text);
@@ -208,7 +218,7 @@ export default function Dashboard() {
   return <div className={`institution-app${darkMode ? " institution-app-dark" : ""}`}>
     <div className="institution-shell">
       <aside className={`institution-sidebar${mobileNavOpen ? " institution-sidebar-open" : ""}`}><div className="institution-brand"><img src={txIcon} alt="TX Pathwing" /><span>Pathwing</span><button className="icon-button mobile-close" type="button" onClick={() => setMobileNavOpen(false)} aria-label="Close navigation"><X size={18} /></button></div><div className="signed-in-label">SIGNED IN AS</div><div className="institution-context"><Building2 size={17} /><div><span>Institution</span><strong>KITS Warangal</strong></div></div><nav className="institution-nav" aria-label="Institution navigation">{navigation.map((item) => { const Icon = item.icon; return <div key={item.label}>{item.group && <div className="nav-group-label">{item.group}</div>}<button type="button" className={`nav-item${activeNav === item.label ? " nav-item-active" : ""}`} onClick={() => navigate(item.label)}><Icon size={17} /><span>{item.label}</span>{item.count && <small>{item.count}</small>}</button></div>; })}</nav><div className="sidebar-profile"><div className="profile-avatar">RS</div><div><strong>R. Sathyanarayana</strong><span>Tenant admin · KITS Warangal</span></div></div></aside>
-      <main className="institution-main"><header className="console-header"><button className="icon-button mobile-menu" type="button" onClick={() => setMobileNavOpen(true)} aria-label="Open navigation"><Menu size={19} /></button><div className="breadcrumbs"><span>Pathwing</span><span>/</span><span>Institution</span><span>/</span><strong>{selectedEvent ? "Event details" : activeNav}</strong></div><div className="header-actions"><label className="search-box"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={`Search ${activeNav.toLowerCase()}...`} aria-label={`Search ${activeNav}`} /></label><div className="notification-wrap"><button className="icon-button notification-button" type="button" onClick={() => setNotificationsOpen(!notificationsOpen)} aria-label="Notifications" aria-expanded={notificationsOpen}><Bell size={18} /><span className="notification-count">3</span></button>{notificationsOpen && <div className="notification-menu"><strong>Notifications</strong><p>3 learners need profile verification.</p><p>Compliance report due 30 Sep.</p><button type="button" onClick={() => setNotificationsOpen(false)}>Dismiss</button></div>}</div><button className="icon-button theme-toggle" type="button" onClick={() => setDarkMode(!darkMode)} aria-label={darkMode ? "Switch to light theme" : "Switch to dark theme"}><Moon size={17} /></button><Link className="website-button" to="/"><Globe2 size={15} /><span>Website</span></Link></div></header><section className="dashboard-content">{pageRenderers[activeNav]()}</section></main>
+      <main className="institution-main"><header className="console-header"><button className="icon-button mobile-menu" type="button" onClick={() => setMobileNavOpen(true)} aria-label="Open navigation"><Menu size={19} /></button><div className="breadcrumbs"><span>Pathwing</span><span>/</span><span>Institution</span><span>/</span><strong>{selectedEvent ? "Event details" : activeNav}</strong></div><div className="header-actions"><label className="search-box"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={`Search ${activeNav.toLowerCase()}...`} aria-label={`Search ${activeNav}`} /></label><div className="notification-wrap"><button className="icon-button notification-button" type="button" onClick={() => setNotificationsOpen(!notificationsOpen)} aria-label="Notifications" aria-expanded={notificationsOpen}><Bell size={18} /><span className="notification-count">3</span></button>{notificationsOpen && <div className="notification-menu"><strong>Notifications</strong><p>3 learners need profile verification.</p><p>Compliance report due 30 Sep.</p><button type="button" onClick={() => setNotificationsOpen(false)}>Dismiss</button></div>}</div><button className="icon-button theme-toggle" type="button" onClick={() => setDarkMode(!darkMode)} aria-label={darkMode ? "Switch to light theme" : "Switch to dark theme"}><Moon size={17} /></button><button className="website-button" type="button" onClick={exitDashboard} aria-label="Exit to website" title="Exit to website"><LogOut size={15} /><span>Exit</span></button></div></header><section className="dashboard-content">{pageRenderers[activeNav]()}</section></main>
     </div>
     {mobileNavOpen && <button className="mobile-scrim" type="button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)} />}{message && <div className="status-toast" role="status"><Check size={16} />{message}</div>}
   </div>;
