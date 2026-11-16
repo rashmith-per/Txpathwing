@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Sparkles, Award, Layers } from "lucide-react";
-import { studentApi } from "../services/studentApi";
+import { studentApi } from "../../services/studentApi";
 
 export default function SkillProfileSection() {
   const [skills, setSkills] = useState([]);
