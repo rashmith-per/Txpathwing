@@ -42,7 +42,7 @@ export function Overview({
     <>
       <div className="metrics-grid">
         <Metric
-          label="TENANTS"
+          label="ORGANIZATIONS"
           value={String(tenants.length + 32)}
           foot="▲ 3 this quarter"
           icon={Building2}
@@ -129,7 +129,7 @@ export function Overview({
 
         <section className="card consumption-card">
           <div className="card-heading">
-            <h2>Top tenants by consumption · Aug</h2>
+            <h2>Top organizations by consumption · Aug</h2>
             <small>learning seats</small>
           </div>
           {tenants.slice(0, 4).map(t => {
@@ -140,9 +140,9 @@ export function Overview({
                 key={t.id || t.name}
                 onClick={() => {
                   if (onSelectTenant) onSelectTenant(t);
-                  setPage("Tenants");
+                  setPage("Organizations");
                 }}
-                title="Click to view tenant details"
+                title="Click to view organization details"
               >
                 <div>
                   <strong>{t.name}</strong>
@@ -154,8 +154,8 @@ export function Overview({
               </div>
             );
           })}
-          <button className="secondary full" onClick={() => setPage("Tenants")}>
-            View all tenants <ArrowRight size={15} />
+          <button className="secondary full" onClick={() => setPage("Organizations")}>
+            View all organizations <ArrowRight size={15} />
           </button>
         </section>
 
@@ -192,10 +192,10 @@ export function Overview({
                   className="text-button"
                   onClick={() => {
                     if (onSelectTenant) onSelectTenant(nearCapTenants[0]);
-                    setPage("Tenants");
+                    setPage("Organizations");
                   }}
                 >
-                  Manage tenant <ArrowUpRight size={14} />
+                  Manage organization <ArrowUpRight size={14} />
                 </button>
               </div>
             </div>

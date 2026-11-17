@@ -1,0 +1,736 @@
+/* ==========================================================================
+   Instructors Module - Premium Design Box & High Clarity Presentation
+   ========================================================================== */
+
+/* Top Metrics Grid spacing */
+.instructor-metrics {
+  margin-bottom: 24px;
+}
+
+/* Toolbar & View Controls */
+.inst-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 20px !important;
+}
+
+.inst-filters-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  flex: 1 !important;
+}
+
+.inst-search-wrap {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  min-width: 260px !important;
+  max-width: 360px !important;
+  flex: 1 !important;
+}
+
+.inst-search-icon {
+  position: absolute !important;
+  left: 14px !important;
+  color: #94a3b8 !important;
+  pointer-events: none !important;
+}
+
+.inst-search-input {
+  width: 100% !important;
+  padding: 9px 36px 9px 38px !important;
+  font-size: 13.5px !important;
+  border-radius: 9999px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.inst-search-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+.inst-search-clear {
+  position: absolute !important;
+  right: 12px !important;
+  background: none !important;
+  border: none !important;
+  color: #94a3b8 !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+}
+
+.inst-search-clear:hover {
+  color: #475569 !important;
+  background: #f1f5f9 !important;
+}
+
+.inst-select-box {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.inst-dropdown-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 9999px !important;
+  padding: 8px 34px 8px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.inst-dropdown-select:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12) !important;
+}
+
+.inst-chevron {
+  position: absolute !important;
+  right: 12px !important;
+  color: #64748b !important;
+  pointer-events: none !important;
+}
+
+/* Actions Right (View switch + Add Instructor) */
+.inst-toolbar-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.inst-view-switch {
+  display: flex !important;
+  align-items: center !important;
+  background: #f1f5f9 !important;
+  border-radius: 9999px !important;
+  padding: 3px !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.inst-view-btn-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.inst-view-btn-icon.active {
+  background: #ffffff !important;
+  color: #4f46e5 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.inst-add-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  padding: 9px 20px !important;
+  border-radius: 9999px !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  white-space: nowrap !important;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25) !important;
+}
+
+.inst-add-btn:hover {
+  background: #4338ca !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.inst-add-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* ==========================================================================
+   Design Box Grid (Cards Layout)
+   ========================================================================== */
+.inst-cards-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 22px !important;
+  margin-bottom: 24px !important;
+}
+
+@media (max-width: 1200px) {
+  .inst-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .inst-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Single Design Box Card */
+.inst-design-box {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.inst-design-box:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px -4px rgba(79, 70, 229, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04) !important;
+  border-color: #c7d2fe !important;
+}
+
+/* Card Top Strip */
+.inst-box-top-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+}
+
+.inst-status-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 3px 10px !important;
+  border-radius: 9999px !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+}
+
+.inst-status-chip.active {
+  background: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+.inst-status-chip.inactive {
+  background: #f8fafc !important;
+  color: #64748b !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.inst-status-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: currentColor !important;
+}
+
+.inst-domain-chip {
+  display: inline-block !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #4338ca !important;
+  background: #eef2ff !important;
+  padding: 3px 10px !important;
+  border-radius: 9999px !important;
+  border: 1px solid #e0e7ff !important;
+  max-width: 170px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Profile Identity Row */
+.inst-box-profile {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.inst-avatar {
+  position: relative !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+  border: 2px solid #ffffff !important;
+}
+
+.inst-avatar-online-dot {
+  position: absolute !important;
+  bottom: 1px !important;
+  right: 1px !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: #10b981 !important;
+  border: 2px solid #ffffff !important;
+}
+
+.inst-profile-meta {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.inst-name {
+  margin: 0 0 3px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.3 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.inst-role-org {
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 12.5px !important;
+  color: #64748b !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.inst-role {
+  font-weight: 600 !important;
+  color: #475569 !important;
+}
+
+.inst-sep {
+  color: #cbd5e1 !important;
+}
+
+.inst-org {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  color: #4f46e5 !important;
+  font-weight: 500 !important;
+}
+
+.inline-icon {
+  flex-shrink: 0 !important;
+}
+
+/* Contact Strip */
+.inst-contact-strip {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+  background: #f8fafc !important;
+  padding: 9px 12px !important;
+  border-radius: 10px !important;
+  border: 1px solid #f1f5f9 !important;
+}
+
+.inst-contact-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 12px !important;
+  color: #475569 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.inst-contact-icon {
+  color: #94a3b8 !important;
+  flex-shrink: 0 !important;
+}
+
+.truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* High-Clarity Metric Stat Tiles (The Clarity Output) */
+.inst-metrics-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.inst-metric-tile {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  padding: 9px 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.15s ease !important;
+}
+
+.inst-metric-tile:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.inst-metric-icon-wrap {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.inst-metric-icon-wrap.indigo {
+  background: #e0e7ff !important;
+  color: #4338ca !important;
+}
+
+.inst-metric-icon-wrap.emerald {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.inst-metric-icon-wrap.amber {
+  background: #fef3c7 !important;
+  color: #b45309 !important;
+}
+
+.star-filled {
+  fill: currentColor !important;
+}
+
+.inst-metric-info {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+.inst-metric-val {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.1 !important;
+}
+
+.inst-metric-lbl {
+  font-size: 10.5px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  text-transform: capitalize !important;
+}
+
+/* Specialization Box */
+.inst-specialty-box {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 7px 10px !important;
+  background: #fffbeb !important;
+  border: 1px dashed #fde68a !important;
+  border-radius: 8px !important;
+  font-size: 11.5px !important;
+  color: #92400e !important;
+}
+
+.inst-specialty-icon {
+  color: #f59e0b !important;
+  flex-shrink: 0 !important;
+}
+
+.inst-specialty-text {
+  font-weight: 500 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Footer Action Buttons */
+.inst-box-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 14px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  margin-top: auto !important;
+}
+
+.inst-box-actions-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.inst-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+.inst-action-btn.delete {
+  color: #dc2626 !important;
+}
+
+.inst-action-btn.delete:hover {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+}
+
+.inst-action-btn.toggle {
+  color: #64748b !important;
+}
+
+.inst-action-btn.toggle:hover {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+.inst-view-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  padding: 7px 15px !important;
+  border-radius: 9999px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-shadow: 0 1px 4px rgba(79, 70, 229, 0.2) !important;
+}
+
+.inst-view-btn:hover {
+  background: #4338ca !important;
+  box-shadow: 0 3px 8px rgba(79, 70, 229, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   Modern Redesigned Table View (For when user switches to List)
+   ========================================================================== */
+.instructor-card {
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+
+.inst-table-profile {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.inst-table-avatar {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  flex-shrink: 0 !important;
+}
+
+.instructor-name strong {
+  display: block !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.inst-table-org {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #1e293b !important;
+}
+
+.inst-domain-badge {
+  display: inline-block !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #4338ca !important;
+  background: #eef2ff !important;
+  padding: 3px 9px !important;
+  border-radius: 9999px !important;
+  border: 1px solid #e0e7ff !important;
+  margin-bottom: 2px !important;
+}
+
+.inst-stat-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+}
+
+.inst-rating-cell {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+}
+
+.row-sub {
+  display: block !important;
+  font-size: 12px !important;
+  color: #64748b !important;
+  margin-top: 1px !important;
+}
+
+/* ==========================================================================
+   Table Action Button Boxes (Redesigned Button Boxes)
+   ========================================================================== */
+.inst-action-boxes-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.inst-box-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  outline: none !important;
+  border: 1px solid transparent !important;
+  padding: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* View Box Button */
+.inst-box-btn.view {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+.inst-box-btn.view:hover {
+  background: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3) !important;
+}
+
+.inst-box-btn.view:active {
+  transform: translateY(0) !important;
+}
+
+/* Delete Box Button */
+.inst-box-btn.delete {
+  background: #fef2f2 !important;
+  border-color: #fee2e2 !important;
+  color: #ef4444 !important;
+}
+
+.inst-box-btn.delete:hover {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.3) !important;
+}
+
+.inst-box-btn.delete:active {
+  transform: translateY(0) !important;
+}
+
+/* Empty State Card Box */
+.inst-empty-container {
+  background: #ffffff !important;
+  border: 1px dashed #cbd5e1 !important;
+  border-radius: 16px !important;
+  padding: 54px 24px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.inst-empty-icon-circle {
+  width: 68px !important;
+  height: 68px !important;
+  border-radius: 50% !important;
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.inst-empty-title {
+  margin: 0 !important;
+  font-size: 19px !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.inst-empty-desc {
+  margin: 0 !important;
+  color: #64748b !important;
+  max-width: 440px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
