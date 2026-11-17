@@ -1065,7 +1065,7 @@ export const initialRoles = [
     }
   },
   {
-    name: "Mentor",
+    name: "Instructor",
     description: "Assigned course instruction, batch evaluation, and student feedback.",
     usersCount: 184,
     permissions: {

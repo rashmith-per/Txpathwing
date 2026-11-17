@@ -1,1 +1,165 @@
-/* Module-specific overrides for Subscriptions. Shared dashboard styling is in ../styles.css. */
+/* ---------- Subscription action buttons ---------- */
+.sub-action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sub-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.sub-icon-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.sub-icon-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.sub-icon-danger {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.sub-icon-danger:hover {
+  background: #fef2f2;
+  border-color: #f87171;
+}
+
+/* ---------- Modal ---------- */
+.sub-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.sub-modal {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+}
+
+.sub-modal-sm {
+  max-width: 380px;
+}
+
+.sub-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.sub-modal h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.sub-modal-header p,
+.sub-muted {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.sub-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.sub-field input,
+.sub-field select {
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #fff;
+}
+
+.sub-field input:focus,
+.sub-field select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.sub-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.sub-error {
+  margin: 0;
+  font-size: 13px;
+  color: #dc2626;
+}
+
+.sub-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+/* ---------- Delete confirmation ---------- */
+.sub-danger-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.sub-danger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sub-danger-btn:hover {
+  background: #b91c1c;
+}
