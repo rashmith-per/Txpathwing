@@ -117,6 +117,15 @@ function AdminDashboard() {
   const [mobileNav, setMobileNav] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notice, setNotice] = useState("");
+
+  // Auto-dismiss notice popup after 5 seconds
+  useEffect(() => {
+    if (!notice) return;
+    const timer = setTimeout(() => {
+      setNotice("");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [notice]);
   const [showNotifMenu, setShowNotifMenu] = useState(false);
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [currentRole, setCurrentRole] = useState("Super admin — Platform");
@@ -170,7 +179,27 @@ function AdminDashboard() {
   // Core Platform Datasets
   const [tenants, setTenants] = useState(initialTenants);
   const [users, setUsers] = useState(initialUsers);
-  const [courses, setCourses] = useState(initialCourses);
+  const [courses, setCourses] = useState(() => {
+    try {
+      localStorage.removeItem("tx_admin_courses");
+      const saved = localStorage.getItem("tx_admin_courses_active");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return initialCourses;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("tx_admin_courses_active", JSON.stringify(courses));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [courses]);
   const [approvals, setApprovals] = useState(initialApprovals);
   const [internships, setInternships] = useState(initialInternships);
   const [events, setEvents] = useState(initialEvents);
@@ -350,7 +379,8 @@ function AdminDashboard() {
 
           <div className="page-content">
             {/* Header info */}
-            <div className="page-head">
+            {page !== "Courses" && (
+              <div className="page-head">
               <div>
                 <h1>{page === "Overview" ? "Platform Overview" : page}</h1>
                 <p>
@@ -386,14 +416,25 @@ function AdminDashboard() {
                 </Badge>
               )}
             </div>
+            )}
 
-            {/* Toast Feedback Notification */}
+            {/* Floating Toast Popup Notification */}
             {notice && (
-              <div className="notice">
-                <span>{notice}</span>
-                <button onClick={() => setNotice("")} aria-label="Dismiss">
+              <div className="adm-toast-popup" role="alert">
+                <div className="adm-toast-icon">
+                  <CheckCircle2 size={18} />
+                </div>
+                <div className="adm-toast-content">
+                  <span className="adm-toast-message">{notice}</span>
+                </div>
+                <button
+                  className="adm-toast-close"
+                  onClick={() => setNotice("")}
+                  aria-label="Dismiss notification"
+                >
                   <X size={16} />
                 </button>
+                <div className="adm-toast-progress" />
               </div>
             )}
 
