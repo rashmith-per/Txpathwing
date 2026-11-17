@@ -40,14 +40,14 @@ import { UsersModule } from "./Users/Users";
 import { Courses } from "./Courses/Courses";
 import { Moderation } from "./Moderation/Moderation";
 import { Approvals } from "./Approvals/Approvals";
-import { Internships } from "./Internships/Internships";
+import  Internships  from "./Internships/Internships.jsx";
 import { Events } from "./Events/Events";
 import { TrainingPrograms } from "./TrainingPrograms/TrainingPrograms";
 import { Certificates } from "./Certificates/Certificates";
 import { Batches } from "./Batches/Batches";
 import { Payments } from "./Payments/Payments";
 import { Subscriptions } from "./Subscriptions/Subscriptions";
-import { Coupons } from "./Coupons/Coupons";
+import Coupons from "./Coupons/Coupons.jsx";
 import { Reports } from "./ReportsAnalytics/ReportsAnalytics";
 import { SecurityAudit } from "./SecurityAudit/SecurityAudit";
 import { RolesPermissions } from "./RolesPermissions/RolesPermissions";
@@ -666,4 +666,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-export { AdminDashboard };
