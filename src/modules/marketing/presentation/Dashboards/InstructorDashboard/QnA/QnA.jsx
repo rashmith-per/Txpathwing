@@ -108,18 +108,20 @@ export function QnA({ questions = [], onAnswerQuestion }) {
                 <ThumbsUp size={12} /> {q.upvotes} Upvotes
               </span>
 
-              <ActionButton
-                icon={MessageSquare}
-                variant={q.answer ? "secondary" : "outline-blue"}
-                size="sm"
-                onClick={() => {
-                  setSelectedQuestion(q);
-                  setReplyText(q.answer || "");
-                }}
-                tooltip={q.answer ? "Edit your technical answer" : "Write an answer to this question"}
-              >
-                {q.answer ? "Edit Answer" : "Reply to Question"}
-              </ActionButton>
+              <div className="qna-card-actions">
+                <ActionButton
+                  icon={MessageSquare}
+                  variant={q.answer ? "secondary" : "outline-blue"}
+                  size="sm"
+                  onClick={() => {
+                    setSelectedQuestion(q);
+                    setReplyText(q.answer || "");
+                  }}
+                  tooltip={q.answer ? "Edit your technical answer" : "Write an answer to this question"}
+                >
+                  {q.answer ? "Edit Answer" : "Reply to Question"}
+                </ActionButton>
+              </div>
             </div>
           </div>
         ))}
