@@ -10,7 +10,7 @@ import {
   Layers,
   Award,
 } from "lucide-react";
-import { getCourseByIdOrCode } from "../services/courseCatalogue.data";
+import { getCourseByIdOrCode } from "../../services/courseCatalogue.data";
 import "./RecommendedCourseModal.css";
 
 export default function RecommendedCourseModal({

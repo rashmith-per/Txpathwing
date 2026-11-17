@@ -1,1 +1,341 @@
-/* Module-specific overrides for Events. Shared dashboard styling is in ../styles.css. */
+/* ===== Event cards ===== */
+.events-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 18px;
+}
+
+.event-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  flex: 0 0 calc((100% - 48px) / 4);
+  max-width: calc((100% - 48px) / 4);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.event-card:hover {
+  border-color: #c9d6ee;
+  box-shadow: 0 10px 24px #263e6a14;
+}
+
+.event-card:has(.manage-menu) {
+  z-index: 5;
+}
+
+.event-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.event-card-title h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  color: #101d34;
+}
+
+.event-card-meta {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  font-size: 12px;
+  color: #34435d;
+}
+
+.event-card-meta div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.event-card-meta svg {
+  color: #7189c5;
+  flex-shrink: 0;
+}
+
+.event-card-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-card-progress {
+  margin-top: auto;
+}
+
+.event-card-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: #71809a;
+}
+
+.event-card-progress-head strong {
+  font-size: 12px;
+  color: #17243b;
+}
+
+.event-card-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.event-card-footer .btn-sm {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ===== Manage dropdown ===== */
+.manage-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.manage-trigger .chev {
+  transition: transform 0.15s ease;
+}
+
+.manage-trigger .chev.open {
+  transform: rotate(180deg);
+}
+
+.manage-menu {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  width: 190px;
+  display: grid;
+  gap: 2px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #d5dfef;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(16, 29, 52, 0.18);
+  animation: slideDown 0.15s ease;
+}
+
+.manage-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #334562;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.manage-item:hover {
+  background: #f0f4fc;
+  color: #1b399d;
+}
+
+.manage-item.danger {
+  color: #c64e46;
+}
+
+.manage-item.danger:hover {
+  background: #fff1f0;
+  color: #c64e46;
+}
+
+.manage-divider {
+  height: 1px;
+  margin: 4px 2px;
+  background: #e6ecf5;
+}
+
+/* ===== Modal ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(11, 20, 38, 0.45);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.18s ease-out;
+}
+
+.modal {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+  box-shadow: 0 24px 60px rgba(11, 20, 38, 0.3);
+  animation: slideDown 0.18s ease-out;
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #dce4f0;
+}
+
+.modal-head h2 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.3px;
+  color: #101d34;
+}
+
+.modal-head p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #71809a;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid #e6ecf5;
+  background: #fafbfe;
+}
+
+.modal-message {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #3c4d68;
+}
+
+.modal-message strong {
+  color: #17243b;
+}
+
+.form-stack {
+  display: grid;
+  gap: 14px;
+}
+
+/* ===== Form fields ===== */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #485872;
+}
+
+.form-field.span-full {
+  grid-column: 1 / -1;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  min-width: 0;
+  padding: 0 10px;
+  height: 38px;
+  border: 1px solid #d4deed;
+  border-radius: 7px;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  color: #24344e;
+}
+
+.form-field textarea {
+  height: auto;
+  min-height: 84px;
+  padding: 9px 10px;
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: 0;
+  border-color: #365ce0;
+  box-shadow: 0 0 0 3px #e8efff;
+}
+
+.form-field input:disabled {
+  background: #f3f6fc;
+  color: #9aa7bc;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 7px;
+  background: #ffebea;
+  color: #c64e46;
+  font-size: 12px;
+}
+
+.btn-sm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Responsive card widths ===== */
+@media (max-width: 1200px) {
+  .event-card {
+    flex-basis: calc((100% - 32px) / 3);
+    max-width: calc((100% - 32px) / 3);
+  }
+}
+
+@media (max-width: 900px) {
+  .event-card {
+    flex-basis: calc((100% - 16px) / 2);
+    max-width: calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 560px) {
+  .events-card-grid {
+    padding: 12px;
+  }
+
+  .event-card {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

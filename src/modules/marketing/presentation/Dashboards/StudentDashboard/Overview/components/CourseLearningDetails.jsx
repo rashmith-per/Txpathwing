@@ -15,7 +15,7 @@ import {
   Circle,
   PlayCircle,
 } from "lucide-react";
-import { studentApi } from "../services/studentApi";
+import { studentApi } from "../../services/studentApi";
 import "./CourseLearningDetails.css";
 
 export default function CourseLearningDetails({
