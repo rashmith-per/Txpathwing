@@ -74,7 +74,7 @@ export function Tenants({
     setTenants(prev => [newTenant, ...prev]);
     setSelectedTenant(newTenant);
     setShowOnboard(false);
-    setNotice(`Tenant "${newTenant.name}" registered successfully in Onboarding status.`);
+    setNotice(`Organization "${newTenant.name}" registered successfully in Onboarding status.`);
     // Reset form
     setName("");
     setSeats("1000");
@@ -101,7 +101,7 @@ export function Tenants({
         return t;
       })
     );
-    setNotice(`Onboarding approved for ${selectedTenant?.name || "tenant"}. Access provisioned.`);
+    setNotice(`Onboarding approved for ${selectedTenant?.name || "organization"}. Access provisioned.`);
   }
 
   function handleExpandSeats(tenantId) {
@@ -139,14 +139,14 @@ export function Tenants({
         return t;
       })
     );
-    setNotice(`Tenant status updated to ${selectedTenant?.status === "Suspended" ? "Active" : "Suspended"}.`);
+    setNotice(`Organization status updated to ${selectedTenant?.status === "Suspended" ? "Active" : "Suspended"}.`);
   }
 
   return (
     <>
       <div className="metrics-grid four">
-        <Metric label="TOTAL TENANTS" value={String(tenants.length)} foot="Configured data boundaries" icon={Building2} />
-        <Metric label="ACTIVE TENANTS" value={String(activeCount)} foot="Operational instances" icon={CheckCircle2} />
+        <Metric label="TOTAL ORGANIZATIONS" value={String(tenants.length)} foot="Configured data boundaries" icon={Building2} />
+        <Metric label="ACTIVE ORGANIZATIONS" value={String(activeCount)} foot="Operational instances" icon={CheckCircle2} />
         <Metric label="IN ONBOARDING" value={String(onboardingCount)} foot="Awaiting verification" icon={ShieldAlert} tone={onboardingCount > 0 ? "warning" : "positive"} />
         <Metric label="CONTRACTED SEATS" value={totalSeats.toLocaleString("en-IN")} foot="Platform aggregate" icon={Building2} />
       </div>
@@ -155,8 +155,8 @@ export function Tenants({
         <form className="card onboard-form inline-form" onSubmit={handleCreateTenant}>
           <div className="form-head">
             <div>
-              <h2>Onboard New Tenant</h2>
-              <p>Create a dedicated data boundary, LMS subdomain, and contracted seats.</p>
+              <h2>Add Organization</h2>
+              <p>Create a dedicated organization workspace, LMS subdomain, and contracted seats.</p>
             </div>
             <button type="button" className="icon-button" onClick={() => setShowOnboard(false)} aria-label="Close form">
               <X size={18} />
@@ -165,7 +165,7 @@ export function Tenants({
 
           <div className="form-grid">
             <label>
-              Tenant Name *
+              Organization Name *
               <input
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -174,7 +174,7 @@ export function Tenants({
               />
             </label>
             <label>
-              Tenant Type *
+              Organization Type *
               <select value={type} onChange={e => setType(e.target.value)}>
                 <option>Institution</option>
                 <option>Corporate</option>
@@ -229,7 +229,7 @@ export function Tenants({
 
           <div className="form-actions">
             <button className="primary" type="submit">
-              <CheckCircle2 size={16} /> Complete Tenant Onboarding
+              <CheckCircle2 size={16} /> Add Organization
             </button>
             <button type="button" className="secondary" onClick={() => setShowOnboard(false)}>
               Cancel
@@ -265,7 +265,7 @@ export function Tenants({
                 className={`secondary btn-sm ${selectedTenant.status === "Suspended" ? "btn-success" : "btn-danger"}`}
                 onClick={() => handleToggleStatus(selectedTenant.id)}
               >
-                {selectedTenant.status === "Suspended" ? "Activate Tenant" : "Suspend Tenant"}
+                {selectedTenant.status === "Suspended" ? "Activate Organization" : "Suspend Organization"}
               </button>
             </>
           }
@@ -350,11 +350,11 @@ export function Tenants({
         <section className="card tenant-card">
           <div className="table-heading">
             <div className="heading-left">
-              <h2>Tenant Data Boundaries</h2>
+              <h2>All Organizations</h2>
               <Badge>{filtered.length} of {tenants.length} shown</Badge>
             </div>
             <button className="primary btn-sm" onClick={() => setShowOnboard(true)}>
-              <Plus size={15} /> Onboard Tenant
+              <Plus size={15} /> Add Organization
             </button>
           </div>
 
@@ -364,7 +364,7 @@ export function Tenants({
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search tenant name, type, domain, contact..."
+                placeholder="Search organization name, type, domain, contact..."
               />
               {search && (
                 <button className="clear-btn" onClick={() => setSearch("")} aria-label="Clear search">
@@ -399,7 +399,7 @@ export function Tenants({
             <table>
               <thead>
                 <tr>
-                  <th>Tenant</th>
+                  <th>Organization</th>
                   <th>Type</th>
                   <th>Domain</th>
                   <th>Seats</th>

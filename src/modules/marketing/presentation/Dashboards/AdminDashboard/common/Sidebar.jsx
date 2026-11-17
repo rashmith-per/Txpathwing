@@ -37,7 +37,8 @@ export function Sidebar({
   }
 
   function getBadgeCount(itemName) {
-    if (itemName === "Tenants") return counts.tenants;
+    if (itemName === "Organizations" || itemName === "Tenants") return counts.tenants;
+    if (itemName === "Instructors" || itemName === "Instructor") return counts.instructors || null;
     if (itemName === "Moderation") return counts.moderation > 0 ? counts.moderation : null;
     if (itemName === "Approvals") return counts.approvals > 0 ? counts.approvals : null;
     if (itemName === "Security & audit") return counts.security > 0 ? counts.security : null;
