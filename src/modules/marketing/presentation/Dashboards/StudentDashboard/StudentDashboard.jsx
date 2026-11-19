@@ -50,7 +50,7 @@ export default function StudentDashboard() {
   const getInitialTab = useCallback(() => {
     const path = location.pathname.toLowerCase();
     if (path.includes("courses")) return "My courses";
-    if (path.includes("coding-lab")) return "Coding lab";
+    if (path.includes("coding")) return "Coding lab";
     if (path.includes("chat-instructor") || path.includes("instructor") || path.includes("ai-assistant")) return "Chat Instructor";
     if (path.includes("careers")) return "Careers";
     if (path.includes("leaderboard") || path.includes("leaders")) return "Leaderboard";
@@ -200,7 +200,7 @@ export default function StudentDashboard() {
                 <AIAssistantTab userName={userProfile.name} />
               )}
 
-              {activeTab === "Coding lab" && (
+              {(activeTab === "Coding lab" || activeTab === "Coding Lab" || activeTab?.toLowerCase().includes("coding")) && (
                 <CodingLabTab onOpenSandbox={() => showToast("Launching sandbox environment...")} />
               )}
 

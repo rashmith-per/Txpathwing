@@ -1,0 +1,187 @@
+/* ==========================================================================
+   Events Module - Modals, Forms & Actions
+   ========================================================================== */
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Backdrop & Window */
+.modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1100 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 20px !important;
+  background: rgba(15, 23, 42, 0.45) !important;
+  backdrop-filter: blur(3px) !important;
+  animation: fadeIn 0.18s ease-out !important;
+}
+
+.modal {
+  width: min(560px, 100%) !important;
+  max-height: calc(100vh - 40px) !important;
+  overflow: auto !important;
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2) !important;
+  animation: slideDown 0.18s ease-out !important;
+}
+
+.modal-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 18px 20px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.modal-head h2 {
+  margin: 0 !important;
+  font-size: 16px !important;
+  font-weight: 650 !important;
+  color: #0f172a !important;
+}
+
+.modal-head p {
+  margin: 4px 0 0 !important;
+  font-size: 12.5px !important;
+  color: #64748b !important;
+}
+
+.modal-body {
+  padding: 20px !important;
+}
+
+.modal-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  padding: 14px 20px !important;
+  border-top: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  border-bottom-left-radius: 14px !important;
+  border-bottom-right-radius: 14px !important;
+}
+
+.modal-actions.span-full {
+  grid-column: 1 / -1 !important;
+  margin: 8px -20px -20px !important;
+}
+
+.modal-message {
+  margin: 0 0 14px !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #475569 !important;
+}
+
+.modal-message strong {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+}
+
+/* Form Layout */
+.form-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.form-grid-2 {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+}
+
+.form-field {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+}
+
+.form-field.span-full {
+  grid-column: 1 / -1 !important;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  min-width: 0 !important;
+  padding: 8px 12px !important;
+  height: 38px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  font: inherit !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #0f172a !important;
+  outline: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.form-field textarea {
+  height: auto !important;
+  min-height: 84px !important;
+  padding: 10px 12px !important;
+  resize: vertical !important;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+.form-field input:disabled {
+  background: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  cursor: not-allowed !important;
+}
+
+.form-error {
+  grid-column: 1 / -1 !important;
+  margin: 0 0 8px !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca !important;
+  color: #dc2626 !important;
+  font-size: 12px !important;
+}
+
+.btn-danger {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  background: #dc2626 !important;
+  border: 1px solid #b91c1c !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-danger:hover {
+  background: #b91c1c !important;
+}

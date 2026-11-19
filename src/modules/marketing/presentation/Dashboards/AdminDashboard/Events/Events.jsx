@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./Events.css";
+import "./EventModals.css";
 import {
   Activity, Calendar, CheckCircle2, Plus,
   Search, SearchX, X, Users
@@ -179,6 +180,7 @@ export function Events({ events, setEvents, setNotice }) {
                 key={e.id}
                 event={e}
                 pctOf={pctOf}
+                onView={() => setSelectedId(e.id)}
                 onSelect={() => setSelectedId(e.id)}
                 onEdit={openModal("edit")}
                 onAddAttendees={openModal("attendees")}

@@ -164,6 +164,10 @@ function AppRoutes() {
       <Route path="/Assessments/*" element={<StudentDashboard />} />
       <Route path="/certificates/*" element={<StudentDashboard />} />
       <Route path="/Certificates/*" element={<StudentDashboard />} />
+      <Route path="/coding-lab/*" element={<StudentDashboard />} />
+      <Route path="/codinglab/*" element={<StudentDashboard />} />
+      <Route path="/CodingLab/*" element={<StudentDashboard />} />
+      <Route path="/Coding-lab/*" element={<StudentDashboard />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
       <Route path="/instructor/*" element={<InstructorDashboard />} />

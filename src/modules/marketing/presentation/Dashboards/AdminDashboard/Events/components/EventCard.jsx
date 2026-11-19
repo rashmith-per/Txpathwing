@@ -6,7 +6,19 @@ import { ManageMenu } from "./ManageMenu";
 const pctOf = (e) =>
   e.capacity ? Math.min(100, Math.round((e.registrations / e.capacity) * 100)) : 0;
 
-export function EventCard({ event, onView, onEdit, onAddAttendees, onDelete }) {
+export function EventCard({
+  event,
+  onView,
+  onSelect,
+  onEdit,
+  onAddAttendees,
+  onDelete
+}) {
+  const handleView = () => {
+    if (onView) onView(event);
+    else if (onSelect) onSelect(event);
+  };
+
   return (
     <article className="card event-card">
       <div className="event-card-top">
@@ -47,7 +59,12 @@ export function EventCard({ event, onView, onEdit, onAddAttendees, onDelete }) {
       </div>
 
       <div className="event-card-footer">
-        <button className="secondary btn-sm" onClick={() => onView(event)}>
+        <button
+          type="button"
+          className="secondary btn-sm"
+          onClick={handleView}
+          title="View Event Details"
+        >
           <Eye size={13} /> View Event
         </button>
         <ManageMenu

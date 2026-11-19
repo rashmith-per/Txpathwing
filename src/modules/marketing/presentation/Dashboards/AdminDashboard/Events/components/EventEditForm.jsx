@@ -4,11 +4,25 @@ const MODE_OPTIONS = ["Online", "Onsite", "Hybrid"];
 const TYPE_OPTIONS = ["Hackathon", "Workshop", "Bootcamp", "Webinar"];
 const STATUS_OPTIONS = ["Upcoming", "Registration open", "Draft"];
 
-export function EventEditForm({ event, onSave }) {
+export function EventEditForm({ event, initial, onSave, onCancel }) {
+  const base = event || initial || {
+    id: null,
+    title: "",
+    organization: "",
+    venue: "",
+    type: "Hackathon",
+    mode: "Online",
+    date: "",
+    capacity: 100,
+    registrations: 0,
+    status: "Upcoming",
+    description: "",
+  };
+
   const [form, setForm] = useState({
-    ...event,
-    capacity: String(event.capacity),
-    description: event.description || "",
+    ...base,
+    capacity: String(base.capacity ?? 100),
+    description: base.description || "",
   });
   const [error, setError] = useState("");
 
@@ -20,12 +34,14 @@ export function EventEditForm({ event, onSave }) {
     const capacity = Number(form.capacity);
     if (!Number.isInteger(capacity) || capacity < 1)
       return setError("Capacity must be a whole number greater than 0.");
-    if (capacity < event.registrations)
+    if (capacity < (base.registrations || 0))
       return setError(
-        `Capacity cannot be lower than the ${event.registrations} current registrations.`
+        `Capacity cannot be lower than the ${base.registrations} current registrations.`
       );
     setError("");
-    onSave({ ...form, title: form.title.trim(), capacity });
+    if (onSave) {
+      onSave({ ...form, title: form.title.trim(), capacity });
+    }
   }
 
   return (
@@ -34,15 +50,15 @@ export function EventEditForm({ event, onSave }) {
 
       <label className="form-field span-full">
         Event title
-        <input value={form.title} onChange={set("title")} />
+        <input value={form.title} onChange={set("title")} placeholder="e.g. AI Hackathon 2026" />
       </label>
       <label className="form-field">
         Host organization
-        <input value={form.organization} onChange={set("organization")} />
+        <input value={form.organization} onChange={set("organization")} placeholder="e.g. Tech Academy" />
       </label>
       <label className="form-field">
         Venue / stream link
-        <input value={form.venue} onChange={set("venue")} />
+        <input value={form.venue} onChange={set("venue")} placeholder="e.g. Auditorium / Zoom" />
       </label>
       <label className="form-field">
         Type
@@ -62,7 +78,7 @@ export function EventEditForm({ event, onSave }) {
       </label>
       <label className="form-field">
         Date & schedule
-        <input value={form.date} onChange={set("date")} />
+        <input value={form.date} onChange={set("date")} placeholder="e.g. 25 Nov 2026, 10:00 AM" />
       </label>
       <label className="form-field">
         Capacity
@@ -78,8 +94,21 @@ export function EventEditForm({ event, onSave }) {
       </label>
       <label className="form-field span-full">
         Description
-        <textarea value={form.description} onChange={set("description")} />
+        <textarea
+          value={form.description}
+          onChange={set("description")}
+          placeholder="Describe the event agenda, requirements..."
+        />
       </label>
+
+      <div className="modal-actions span-full">
+        <button type="button" className="secondary btn-sm" onClick={onCancel}>
+          Cancel
+        </button>
+        <button type="submit" className="primary btn-sm">
+          Save Event
+        </button>
+      </div>
     </form>
   );
 }

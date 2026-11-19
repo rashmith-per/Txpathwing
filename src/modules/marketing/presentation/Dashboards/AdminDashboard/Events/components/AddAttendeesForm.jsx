@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-export function AddAttendeesForm({ event, onSave }) {
-  const remaining = Math.max(0, event.capacity - event.registrations);
+export function AddAttendeesForm({ event, onSave, onAdd, onCancel }) {
+  const handleSave = onSave || onAdd;
+  const remaining = Math.max(0, (event?.capacity || 0) - (event?.registrations || 0));
   const [count, setCount] = useState(1);
   const [error, setError] = useState("");
 
@@ -11,7 +12,7 @@ export function AddAttendeesForm({ event, onSave }) {
     if (!Number.isInteger(count) || count < 1 || count > remaining)
       return setError(`Enter a number between 1 and ${remaining}.`);
     setError("");
-    onSave(count);
+    if (handleSave) handleSave(count);
   }
 
   return (
@@ -31,6 +32,14 @@ export function AddAttendeesForm({ event, onSave }) {
           onChange={(e) => setCount(Number(e.target.value))}
         />
       </label>
+      <div className="modal-actions">
+        <button type="button" className="secondary btn-sm" onClick={onCancel}>
+          Cancel
+        </button>
+        <button type="submit" className="primary btn-sm" disabled={remaining === 0}>
+          Add Attendees
+        </button>
+      </div>
     </form>
   );
 }

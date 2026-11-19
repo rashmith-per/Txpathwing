@@ -100,7 +100,6 @@ export default function CodingLabTab({ registeredCourseIds }) {
   if (!course) {
     return (
       <div className="cl">
-        <style>{CSS}</style>
         <div className="cl-wrap">
           <div className="cl-crumb"><b>Coding Lab</b></div>
           <h1 className="cl-h1">Interactive Coding Lab</h1>
@@ -130,7 +129,6 @@ export default function CodingLabTab({ registeredCourseIds }) {
 
   return (
     <div className="cl">
-        <style>{CSS}</style>
       <div className="cl-wrap">
         <div className="cl-crumb">
           <button onClick={() => setCourse(null)}>Coding Lab</button>›<b>{course.name}</b>
