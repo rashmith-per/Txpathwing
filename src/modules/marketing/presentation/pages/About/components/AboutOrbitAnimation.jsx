@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ORBIT_NODES, ORBIT_CYCLE_DURATION } from "../aboutData";
+import txLogo from "../../../../../../assets/tx-icon.jpg";
 
 export function AboutOrbitAnimation() {
   const [progress, setProgress] = useState(0);
-  const [, setIsHired] = useState(false);
+  const [isHired, setIsHired] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1200);
-  const [, setConfetti] = useState([]);
+  const [confetti, setConfetti] = useState([]);
   const animRef = useRef(null);
   const startTimeRef = useRef(0);
   const prevProgressRef = useRef(0);
@@ -61,10 +62,18 @@ export function AboutOrbitAnimation() {
     : 490;
   const radius = Math.round(stageSize * 0.34);
   const nodeSize = isSmallMobile ? 34 : isMobile ? 40 : isTablet ? 48 : 52;
+  const hubSize = isSmallMobile ? 56 : isMobile ? 66 : isTablet ? 84 : 94;
   const viewBoxSize = 520;
   const centerCoord = viewBoxSize / 2;
   const svgRadius = 190;
   const activeNodeIdx = Math.floor(progress * ORBIT_NODES.length + 0.18);
+  const headAngleRad = (-90 + progress * 360) * (Math.PI / 180);
+  const headX = Math.cos(headAngleRad) * radius;
+  const headY = Math.sin(headAngleRad) * radius;
+  const trailDots = [0.022, 0.045].map((offset) => {
+    const angle = (-90 + ((progress - offset + 1) % 1) * 360) * (Math.PI / 180);
+    return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
+  });
 
   return (
     <div className="about-orbit-wrapper">
@@ -136,6 +145,58 @@ export function AboutOrbitAnimation() {
               </div>
             );
           })}
+          {trailDots.map((pos, idx) => (
+            <div
+              key={idx}
+              className="about-orbit-trail-dot"
+              style={{
+                width: idx === 0 ? 6 : 3.5,
+                height: idx === 0 ? 6 : 3.5,
+                transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
+                opacity: idx === 0 ? 0.35 : 0.18,
+              }}
+            />
+          ))}
+          <div
+            className="about-orbit-head-anchor"
+            style={{
+              transform: `translate(calc(-50% + ${headX}px), calc(-50% + ${headY}px))`,
+              zIndex: 10,
+            }}
+          >
+            <div className="about-orbit-head-blur-outer" />
+            <div className="about-orbit-head-blur-inner" />
+            <div className="about-orbit-head-dot">
+              <div className="about-orbit-head-spark" />
+            </div>
+          </div>
+          <div
+            className="about-orbit-center-anchor"
+            style={{
+              width: hubSize,
+              height: hubSize,
+              animation: isHired ? "centerBounceHired 720ms cubic-bezier(0.34, 1.56, 0.64, 1)" : undefined,
+            }}
+          >
+            <div className={`about-orbit-center-card ${isHired ? "is-hired" : ""}`}>
+              <img src={txLogo} alt="TX Pathwing Logo" className="about-orbit-center-img" />
+            </div>
+            {confetti.map((p, idx) => (
+              <div
+                key={idx}
+                className="about-orbit-confetti"
+                style={{
+                  width: p.r,
+                  height: p.r,
+                  backgroundColor: p.c,
+                  "--tx": `${p.x}px`,
+                  "--ty": `${p.y}px`,
+                  "--rot": `${p.d}deg`,
+                  animation: `confettiPop 900ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * 28}ms forwards`,
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
