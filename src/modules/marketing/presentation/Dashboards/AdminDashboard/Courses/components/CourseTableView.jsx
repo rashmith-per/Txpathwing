@@ -5,9 +5,16 @@ import { CourseBanner } from "../CourseBanners";
 export function CourseTableView({
   courses,
   onSelect,
+  onSelectCourse,
   onEdit,
-  onDelete
+  onEditCourse,
+  onDelete,
+  onDeleteCourse
 }) {
+  const handleSelect = onSelect || onSelectCourse;
+  const handleEdit = onEdit || onEditCourse;
+  const handleDelete = onDelete || onDeleteCourse;
+
   return (
     <div className="adm-table-wrap">
       <table className="adm-table">
@@ -28,7 +35,7 @@ export function CourseTableView({
             <tr
               key={course.id}
               className="adm-table-row"
-              onClick={() => onSelect(course)}
+              onClick={() => handleSelect && handleSelect(course)}
             >
               <td>
                 <div className="adm-table-cell-course">
@@ -67,10 +74,11 @@ export function CourseTableView({
               <td>
                 <div className="adm-table-actions">
                   <button
+                    type="button"
                     className="adm-view-btn adm-view-btn-sm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onSelect(course);
+                      if (handleSelect) handleSelect(course);
                     }}
                     title="View details"
                   >
@@ -78,20 +86,22 @@ export function CourseTableView({
                     <span>View</span>
                   </button>
                   <button
+                    type="button"
                     className="adm-table-action-icon edit"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onEdit(course);
+                      if (handleEdit) handleEdit(course);
                     }}
                     title="Edit course"
                   >
                     <Pencil size={14} />
                   </button>
                   <button
+                    type="button"
                     className="adm-table-action-icon delete"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDelete(course);
+                      if (handleDelete) handleDelete(course);
                     }}
                     title="Delete course"
                   >

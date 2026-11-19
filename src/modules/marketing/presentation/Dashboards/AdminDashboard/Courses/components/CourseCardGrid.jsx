@@ -5,9 +5,16 @@ import { CourseBanner } from "../CourseBanners";
 export function CourseCardGrid({
   courses,
   onSelect,
+  onSelectCourse,
   onEdit,
-  onDelete
+  onEditCourse,
+  onDelete,
+  onDeleteCourse
 }) {
+  const handleSelect = onSelect || onSelectCourse;
+  const handleEdit = onEdit || onEditCourse;
+  const handleDelete = onDelete || onDeleteCourse;
+
   return (
     <div className="adm-courses-grid">
       {courses.map((course) => {
@@ -16,7 +23,7 @@ export function CourseCardGrid({
           <div
             key={course.id}
             className="adm-course-card"
-            onClick={() => onSelect(course)}
+            onClick={() => handleSelect && handleSelect(course)}
           >
             {/* Banner Area (Height: 160px) */}
             <div className="adm-card-banner">
@@ -66,7 +73,7 @@ export function CourseCardGrid({
                     className="adm-card-action-btn edit"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onEdit(course);
+                      if (handleEdit) handleEdit(course);
                     }}
                     title="Edit course"
                     aria-label="Edit course"
@@ -79,7 +86,7 @@ export function CourseCardGrid({
                     className="adm-card-action-btn delete"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDelete(course);
+                      if (handleDelete) handleDelete(course);
                     }}
                     title="Delete course"
                     aria-label="Delete course"
@@ -94,7 +101,7 @@ export function CourseCardGrid({
                   className="adm-view-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onSelect(course);
+                    if (handleSelect) handleSelect(course);
                   }}
                 >
                   <span>View Details</span>
