@@ -247,15 +247,21 @@ export function Courses({
       ) : viewMode === "grid" ? (
         <CourseCardGrid
           courses={filteredCourses}
+          onSelect={setSelectedCourse}
           onSelectCourse={setSelectedCourse}
+          onEdit={openEditModal}
           onEditCourse={openEditModal}
+          onDelete={setCourseToDelete}
           onDeleteCourse={setCourseToDelete}
         />
       ) : (
         <CourseTableView
           courses={filteredCourses}
+          onSelect={setSelectedCourse}
           onSelectCourse={setSelectedCourse}
+          onEdit={openEditModal}
           onEditCourse={openEditModal}
+          onDelete={setCourseToDelete}
           onDeleteCourse={setCourseToDelete}
         />
       )}

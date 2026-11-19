@@ -7,6 +7,12 @@ import { COURSE_CATALOGUE, getCourseByIdOrCode } from "./courseCatalogue.data.js
 describe("Course Progress Calculation Engine", () => {
   const javaCourse = getCourseByIdOrCode("java-fs");
 
+  it("verifies course catalogue is populated with courses", () => {
+    assert.ok(Array.isArray(COURSE_CATALOGUE));
+    assert.ok(COURSE_CATALOGUE.length > 0);
+    assert.ok(COURSE_CATALOGUE.some((c) => c.id === "java-fs"));
+  });
+
   it("calculates 0% overall progress when no topics are completed", () => {
     const metrics = learningProgressService.computeCourseProgress(javaCourse, {}, null);
     assert.strictEqual(metrics.overallProgressPercent, 0);
