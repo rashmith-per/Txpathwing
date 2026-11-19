@@ -1,29 +1,37 @@
-/**
- * Custom Hook: useSyllabus
- * Manages course syllabus state, async loading, module & topic CRUD modal dialogues,
- * reordering, validation, feedback notifications, and double-submit protection.
- */
-
 import { useState, useEffect, useCallback, useRef } from "react";
 import { syllabusService } from "../services/syllabusService.js";
-import { validateTopicInput, validateModuleInput } from "../validation/topicValidation.js";
+import { validateModuleInput } from "../validation/topicValidation.js";
+import { useSyllabusDialogs } from "./useSyllabusDialogs.js";
+import { useSyllabusOperations } from "./useSyllabusOperations.js";
 
 export function useSyllabus(course, options = {}) {
-  const { onSyllabusChange } = options || {};
+  const { onSyllabusChange } = options;
+
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [successNotice, setSuccessNotice] = useState(null);
 
-  // Module dialog states
-  const [moduleFormState, setModuleFormState] = useState(null); // { mode: "add"|"edit", module? }
-  const [deletingModule, setDeletingModule] = useState(null); // module
-
-  // Topic dialog states
-  const [editingTopic, setEditingTopic] = useState(null); // { module, topic }
-  const [addingToModule, setAddingToModule] = useState(null); // module
-  const [deletingTopic, setDeletingTopic] = useState(null); // { module, topic }
+  const dialogs = useSyllabusDialogs(setError);
+  const {
+    moduleFormState,
+    openAddModule,
+    openEditModule,
+    closeModuleModal,
+    deletingModule,
+    openDeleteModule,
+    closeDeleteModule,
+    editingTopic,
+    openEditTopic,
+    closeEditTopic,
+    addingToModule,
+    openAddTopic,
+    closeAddTopic,
+    deletingTopic,
+    openDeleteTopic,
+    closeDeleteTopic
+  } = dialogs;
 
   const noticeTimeoutRef = useRef(null);
   const onSyllabusChangeRef = useRef(onSyllabusChange);
@@ -33,9 +41,7 @@ export function useSyllabus(course, options = {}) {
   }, [onSyllabusChange]);
 
   const clearNotice = useCallback(() => {
-    if (noticeTimeoutRef.current) {
-      clearTimeout(noticeTimeoutRef.current);
-    }
+    if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
     setSuccessNotice(null);
   }, []);
 
@@ -43,9 +49,7 @@ export function useSyllabus(course, options = {}) {
     clearNotice();
     setSuccessNotice(message);
     setError(null);
-    noticeTimeoutRef.current = setTimeout(() => {
-      setSuccessNotice(null);
-    }, 3500);
+    noticeTimeoutRef.current = setTimeout(() => setSuccessNotice(null), 3500);
   }, [clearNotice]);
 
   const courseId = course?.id;
@@ -56,14 +60,11 @@ export function useSyllabus(course, options = {}) {
       if (typeof onSyllabusChangeRef.current === "function" && courseId) {
         onSyllabusChangeRef.current(courseId, updatedModules);
       }
-      if (successMessage) {
-        triggerSuccess(successMessage);
-      }
+      if (successMessage) triggerSuccess(successMessage);
     },
     [courseId, triggerSuccess]
   );
 
-  // Imperative refresh helper
   const loadSyllabus = useCallback(async () => {
     if (!course || !course.id) {
       setModules([]);
@@ -85,9 +86,7 @@ export function useSyllabus(course, options = {}) {
 
   useEffect(() => {
     let active = true;
-    if (!course || !course.id) {
-      return undefined;
-    }
+    if (!course || !course.id) return undefined;
 
     syllabusService
       .getCourseSyllabus(course)
@@ -106,13 +105,10 @@ export function useSyllabus(course, options = {}) {
 
     return () => {
       active = false;
-      if (noticeTimeoutRef.current) {
-        clearTimeout(noticeTimeoutRef.current);
-      }
+      if (noticeTimeoutRef.current) clearTimeout(noticeTimeoutRef.current);
     };
   }, [course]);
 
-  // Sync with external updates
   useEffect(() => {
     const handleUpdate = (event) => {
       if (
@@ -126,29 +122,8 @@ export function useSyllabus(course, options = {}) {
     };
 
     window.addEventListener("tx_syllabus_updated", handleUpdate);
-    return () => {
-      window.removeEventListener("tx_syllabus_updated", handleUpdate);
-    };
+    return () => window.removeEventListener("tx_syllabus_updated", handleUpdate);
   }, [course]);
-
-  // ==========================================
-  // MODULE CRUD & REORDER HANDLERS
-  // ==========================================
-
-  const openAddModule = useCallback(() => {
-    setError(null);
-    setModuleFormState({ mode: "add", module: null });
-  }, []);
-
-  const openEditModule = useCallback((mod) => {
-    setError(null);
-    setModuleFormState({ mode: "edit", module: mod });
-  }, []);
-
-  const closeModuleModal = useCallback(() => {
-    setModuleFormState(null);
-    setError(null);
-  }, []);
 
   const saveModuleForm = useCallback(
     async (formData) => {
@@ -162,9 +137,7 @@ export function useSyllabus(course, options = {}) {
         maxOrder: modules.length
       });
 
-      if (!validation.isValid) {
-        throw validation.errors;
-      }
+      if (!validation.isValid) throw validation.errors;
 
       try {
         setIsSubmitting(true);
@@ -194,29 +167,15 @@ export function useSyllabus(course, options = {}) {
     [moduleFormState, course, modules.length, closeModuleModal, applyModulesUpdate]
   );
 
-  const openDeleteModule = useCallback((mod) => {
-    setError(null);
-    setDeletingModule(mod);
-  }, []);
-
-  const closeDeleteModule = useCallback(() => {
-    setDeletingModule(null);
-    setError(null);
-  }, []);
-
   const confirmDeleteModule = useCallback(async () => {
     if (!deletingModule || !course) return;
-
     const target = deletingModule;
     try {
       setIsSubmitting(true);
       setError(null);
       const updatedModules = await syllabusService.deleteModule(course.id, target.id);
       closeDeleteModule();
-      applyModulesUpdate(
-        updatedModules,
-        `Module "${target.title}" was deleted and remaining modules renumbered.`
-      );
+      applyModulesUpdate(updatedModules, `Module "${target.title}" was deleted.`);
     } catch (err) {
       console.error("[useSyllabus] Error deleting module:", err);
       setError(err.message || "Failed to delete module.");
@@ -244,158 +203,29 @@ export function useSyllabus(course, options = {}) {
     [course, isSubmitting, applyModulesUpdate]
   );
 
-  // ==========================================
-  // TOPIC CRUD & REORDER HANDLERS
-  // ==========================================
+  const { saveTopic, confirmDeleteTopic, reorderTopic } = useSyllabusOperations({
+    course,
+    isSubmitting,
+    setIsSubmitting,
+    setError,
+    applyModulesUpdate,
+    dialogs
+  });
 
-  const openEditTopic = useCallback((module, topic) => {
-    setError(null);
-    setEditingTopic({ module, topic });
-  }, []);
-
-  const closeEditTopic = useCallback(() => {
-    setEditingTopic(null);
-    setError(null);
-  }, []);
-
-  const saveEditTopic = useCallback(async (formData) => {
-    if (!editingTopic || !course) return;
-
-    const { module, topic } = editingTopic;
-    const validation = validateTopicInput({
-      title: formData.title,
-      description: formData.description,
-      duration: formData.duration,
-      order: formData.order,
-      maxOrder: module.topics.length
-    });
-
-    if (!validation.isValid) {
-      throw validation.errors;
-    }
-
+  const resetToDefaults = useCallback(async () => {
+    if (!course || !course.id) return;
     try {
       setIsSubmitting(true);
       setError(null);
-      const updatedModules = await syllabusService.updateTopic(
-        course.id,
-        module.id,
-        topic.id,
-        formData
-      );
-      closeEditTopic();
-      applyModulesUpdate(updatedModules, `Topic "${formData.title}" updated successfully.`);
+      const defaults = await syllabusService.resetCourseSyllabus(course);
+      applyModulesUpdate(defaults, "Syllabus reset to default template.");
     } catch (err) {
-      console.error("[useSyllabus] Error updating topic:", err);
-      setError(err.message || "Failed to save topic changes.");
-      throw err;
+      console.error("[useSyllabus] Error resetting syllabus:", err);
+      setError(err.message || "Failed to reset syllabus.");
     } finally {
       setIsSubmitting(false);
     }
-  }, [editingTopic, course, closeEditTopic, applyModulesUpdate]);
-
-  const openAddTopic = useCallback((module) => {
-    setError(null);
-    setAddingToModule(module);
-  }, []);
-
-  const closeAddTopic = useCallback(() => {
-    setAddingToModule(null);
-    setError(null);
-  }, []);
-
-  const saveAddTopic = useCallback(async (formData) => {
-    if (!addingToModule || !course) return;
-
-    const validation = validateTopicInput({
-      title: formData.title,
-      description: formData.description,
-      duration: formData.duration,
-      order: formData.order,
-      maxOrder: addingToModule.topics.length
-    });
-
-    if (!validation.isValid) {
-      throw validation.errors;
-    }
-
-    try {
-      setIsSubmitting(true);
-      setError(null);
-      const updatedModules = await syllabusService.addTopic(
-        course.id,
-        addingToModule.id,
-        formData
-      );
-      closeAddTopic();
-      applyModulesUpdate(
-        updatedModules,
-        `New topic "${formData.title}" added to ${addingToModule.title}.`
-      );
-    } catch (err) {
-      console.error("[useSyllabus] Error adding topic:", err);
-      setError(err.message || "Failed to add new topic.");
-      throw err;
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [addingToModule, course, closeAddTopic, applyModulesUpdate]);
-
-  const openDeleteTopic = useCallback((module, topic) => {
-    setError(null);
-    setDeletingTopic({ module, topic });
-  }, []);
-
-  const closeDeleteTopic = useCallback(() => {
-    setDeletingTopic(null);
-    setError(null);
-  }, []);
-
-  const confirmDeleteTopic = useCallback(async () => {
-    if (!deletingTopic || !course) return;
-
-    const { module, topic } = deletingTopic;
-    try {
-      setIsSubmitting(true);
-      setError(null);
-      const updatedModules = await syllabusService.deleteTopic(
-        course.id,
-        module.id,
-        topic.id
-      );
-      closeDeleteTopic();
-      applyModulesUpdate(updatedModules, `Topic "${topic.title}" was successfully deleted.`);
-    } catch (err) {
-      console.error("[useSyllabus] Error deleting topic:", err);
-      setError(err.message || "Failed to delete topic.");
-      throw err;
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [deletingTopic, course, closeDeleteTopic, applyModulesUpdate]);
-
-  const reorderTopic = useCallback(
-    async (mod, top, direction) => {
-      if (!course || !mod || !top || isSubmitting) return;
-      try {
-        setIsSubmitting(true);
-        setError(null);
-        const updatedModules = await syllabusService.reorderTopic(
-          course.id,
-          mod.id,
-          top.id,
-          direction
-        );
-        applyModulesUpdate(updatedModules, `Moved topic "${top.title}" ${direction}.`);
-      } catch (err) {
-        console.error("[useSyllabus] Error reordering topic:", err);
-        setError(err.message || "Failed to reorder topic.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [course, isSubmitting, applyModulesUpdate]
-  );
+  }, [course, applyModulesUpdate]);
 
   return {
     modules,
@@ -403,8 +233,10 @@ export function useSyllabus(course, options = {}) {
     isSubmitting,
     error,
     successNotice,
+    clearError: () => setError(null),
     clearNotice,
-    // Module dialogs & actions
+    refreshSyllabus: loadSyllabus,
+    resetToDefaults,
     moduleFormState,
     openAddModule,
     openEditModule,
@@ -415,22 +247,17 @@ export function useSyllabus(course, options = {}) {
     closeDeleteModule,
     confirmDeleteModule,
     reorderModule,
-    // Topic dialogs & actions
     editingTopic,
     openEditTopic,
     closeEditTopic,
-    saveEditTopic,
     addingToModule,
     openAddTopic,
     closeAddTopic,
-    saveAddTopic,
+    saveTopic,
     deletingTopic,
     openDeleteTopic,
     closeDeleteTopic,
     confirmDeleteTopic,
-    reorderTopic,
-    refresh: loadSyllabus
+    reorderTopic
   };
 }
-
-export default useSyllabus;

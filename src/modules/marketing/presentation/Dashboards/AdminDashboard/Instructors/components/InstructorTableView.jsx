@@ -87,8 +87,23 @@ export function InstructorTableView({
                         }}
                         title="View Profile"
                         aria-label="View Profile"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "36px",
+                          height: "36px",
+                          minWidth: "36px",
+                          borderRadius: "10px",
+                          border: "1px solid #bfdbfe",
+                          backgroundColor: "#eff6ff",
+                          color: "#2563eb",
+                          cursor: "pointer",
+                          boxShadow: "0 1px 3px rgba(37, 99, 235, 0.08)",
+                          transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)"
+                        }}
                       >
-                        <Eye size={16} />
+                        <Eye size={17} strokeWidth={2.1} />
                       </button>
                       <button
                         type="button"
@@ -99,8 +114,23 @@ export function InstructorTableView({
                         }}
                         title="Delete Instructor"
                         aria-label="Delete Instructor"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "36px",
+                          height: "36px",
+                          minWidth: "36px",
+                          borderRadius: "10px",
+                          border: "1px solid #fecaca",
+                          backgroundColor: "#fef2f2",
+                          color: "#dc2626",
+                          cursor: "pointer",
+                          boxShadow: "0 1px 3px rgba(220, 38, 38, 0.08)",
+                          transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)"
+                        }}
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={17} strokeWidth={2.1} />
                       </button>
                     </div>
                   </td>

@@ -1,249 +1,84 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
-import { Link, useLocation } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
 import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
 import Login from "../Login/Login";
+import { NAV_LINKS } from "./navLinks";
+import { useHeaderAuth } from "./useHeaderAuth";
+import { MobileNavDrawer } from "./MobileNavDrawer";
 import "./Header.css";
-import { ChevronDown, ShoppingCart } from "lucide-react";
-
-const NAV_LINKS = [
-  {
-    label: "Home",
-    path: "/",
-  },
-  {
-    label: "About us",
-    path: "/about",
-  },
-  {
-    label: "Events",
-    path: "/events",
-  },
-  {
-    label: "Careers",
-    path: "/careers",
-  },
-  {
-    label: "Explore",
-    path: "/marketplace",
-  },
-  {
-    label: "Blog",
-    path: "/blog",
-  },
-  {
-    label: "Contact",
-    path: "/contact",
-  },
-];
-
-
-function readCartCount() {
-  try {
-    const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-    return Array.isArray(savedCart) ? savedCart.length : 0;
-  } catch {
-    return 0;
-  }
-}
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(readCartCount);
-  const [isInstitutionLoggedIn, setIsInstitutionLoggedIn] = useState(
-    () => localStorage.getItem("institutionLoggedIn") === "true"
-  );
   const [selectionOpen, setSelectionOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("student");
 
-
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    () => localStorage.getItem("isLoggedIn") === "true"
-  );
-  const [isAdmin, setIsAdmin] = useState(
-    () => localStorage.getItem("isAdmin") === "true"
-  );
-
-  const location = useLocation();
-  const [userRole, setUserRole] = useState(
-    () => localStorage.getItem("userRole") || ""
-  );
-
-  const getDashboardDestination = () => {
-    const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
-    if (userRole === "platform_admin" || isPlatformAdmin) {
-      return "/admin-dashboard";
-    }
-    if (userRole === "institution" || userRole === "institution_admin") {
-      return "/institution-dashboard";
-    }
-    if (userRole === "instructor") {
-      return "/instructor-dashboard";
-    }
-    if (userRole === "hackathon_admin" || isAdmin) {
-      return "/hackathon-dashboard";
-    }
-    return "/dashboard";
-  };
-
-  const getDashboardText = () => {
-    const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
-    if (userRole === "platform_admin" || isPlatformAdmin) {
-      return "Admin Console";
-    }
-    if (userRole === "institution" || userRole === "institution_admin") {
-      return "Institution Portal";
-    }
-    if (userRole === "instructor") {
-      return "Instructor Portal";
-    }
-    if (userRole === "hackathon_admin" || isAdmin) {
-      return "Hackathon Portal";
-    }
-    return "Dashboard";
-  };
-
-  useEffect(() => {
-    const syncAuth = () => {
-      setIsLoggedIn(localStorage.getItem("isLoggedIn") === "true");
-      setIsAdmin(localStorage.getItem("isAdmin") === "true");
-      setIsInstitutionLoggedIn(localStorage.getItem("institutionLoggedIn") === "true");
-      setUserRole(localStorage.getItem("userRole") || "");
-    };
-    window.addEventListener("authChanged", syncAuth);
-    syncAuth();
-    window.addEventListener("storage", syncAuth);
-    return () => {
-      window.removeEventListener("authChanged", syncAuth);
-      window.removeEventListener("storage", syncAuth);
-    };
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 12);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [location.pathname]);
+  const {
+    location,
+    scrolled,
+    cartCount,
+    isInstitutionLoggedIn,
+    isLoggedIn,
+    getDashboardDestination,
+    getDashboardText,
+  } = useHeaderAuth();
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-
     return () => {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    const updateCartCount = () => setCartCount(readCartCount());
+  const isActive = (path) => location.pathname === path;
+  const closeMenu = () => setMenuOpen(false);
 
-    window.addEventListener(
-      "cartUpdated",
-      updateCartCount
-    );
-
-    window.addEventListener(
-      "storage",
-      updateCartCount
-    );
-
-    return () => {
-      window.removeEventListener(
-        "cartUpdated",
-        updateCartCount
-      );
-
-      window.removeEventListener(
-        "storage",
-        updateCartCount
-      );
-    };
-  }, [location.pathname]);
-
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
-  // Open "WELCOME TO PATHWING PORTAL" selection popup
   const openSelectionPopup = () => {
     closeMenu();
-
     setSelectionOpen(true);
     setLoginOpen(false);
   };
 
-  // When a dashboard is selected from the 4 cards, close selection popup and open Login popup
   const handleSelectRole = (role) => {
     setSelectedRole(role);
     setSelectionOpen(false);
     setLoginOpen(true);
   };
 
-  // Back button in Login returns to "WELCOME TO PATHWING PORTAL" selection popup
   const handleBackToSelection = () => {
     setLoginOpen(false);
     setSelectionOpen(true);
   };
 
-  // Close all popups
   const closeAllPopups = () => {
     setSelectionOpen(false);
     setLoginOpen(false);
-
   };
 
   return (
     <>
-      <header
-        className={`header${
-          scrolled ? " scrolled" : ""
-        }`}
-      >
+      <header className={`header${scrolled ? " scrolled" : ""}`}>
         <div className="nav-container">
-
-          <Link
-            className="brand"
-            to="/"
-            onClick={closeMenu}
-          >
-            <img
-              src={txIcon}
-              alt="Tx Pathwing"
-            />
+          <Link className="brand" to="/" onClick={closeMenu}>
+            <img src={txIcon} alt="Tx Pathwing" />
           </Link>
 
           <ul className="nav-links">
             {NAV_LINKS.map((item) => (
               <li key={item.label}>
                 <Link
-                  className={`nav-link${
-                    isActive(item.path)
-                      ? " active"
-                      : ""
-                  }`}
+                  className={`nav-link${isActive(item.path) ? " active" : ""}`}
                   to={item.path}
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
-           
           </ul>
 
           <div className="nav-actions">
-
             <Link
               to="/cart"
               className="header-cart"
@@ -254,12 +89,9 @@ export default function Header() {
                 size={25}
                 strokeWidth={2.2}
               />
-
               {cartCount > 0 && (
                 <span className="cart-badge">
-                  {cartCount > 99
-                    ? "99+"
-                    : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
@@ -269,10 +101,7 @@ export default function Header() {
                 Institution dashboard
               </Link>
             ) : isLoggedIn ? (
-              <Link
-                to={getDashboardDestination()}
-                className="btn-signin"
-              >
+              <Link to={getDashboardDestination()} className="btn-signin">
                 {getDashboardText()}
               </Link>
             ) : (
@@ -284,7 +113,6 @@ export default function Header() {
                 Sign in
               </button>
             )}
-
           </div>
 
           <div className="mobile-header-actions">
@@ -298,152 +126,51 @@ export default function Header() {
                 size={22}
                 strokeWidth={2.2}
               />
-
               {cartCount > 0 && (
                 <span className="cart-badge">
-                  {cartCount > 99
-                    ? "99+"
-                    : cartCount}
+                  {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
 
             <button
-              className={`hamburger${
-                menuOpen ? " open" : ""
-              }`}
-              aria-label={
-                menuOpen
-                  ? "Close menu"
-                  : "Open menu"
-              }
+              className={`hamburger${menuOpen ? " open" : ""}`}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              onClick={() =>
-                setMenuOpen((value) => !value)
-              }
+              onClick={() => setMenuOpen((value) => !value)}
             >
               <span></span>
               <span></span>
               <span></span>
             </button>
           </div>
-
         </div>
       </header>
 
-      <div
-        className={`scrim${
-          menuOpen ? " open" : ""
-        }`}
-        onClick={closeMenu}
+      <MobileNavDrawer
+        menuOpen={menuOpen}
+        closeMenu={closeMenu}
+        cartCount={cartCount}
+        isActive={isActive}
+        isInstitutionLoggedIn={isInstitutionLoggedIn}
+        isLoggedIn={isLoggedIn}
+        getDashboardDestination={getDashboardDestination}
+        getDashboardText={getDashboardText}
+        openSelectionPopup={openSelectionPopup}
       />
 
-      <div
-        className={`mobile-panel${
-          menuOpen ? " open" : ""
-        }`}
-      >
-        <div className="mobile-panel-head">
-
-          <Link
-            to="/"
-            onClick={closeMenu}
-          >
-            <img
-              src={txIcon}
-              alt="Tx Pathwing"
-            />
-          </Link>
-
-          <button
-            className="mobile-close"
-            aria-label="Close menu"
-            onClick={closeMenu}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#1D1830"
-              strokeWidth="2.3"
-              strokeLinecap="round"
-            >
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-
-        </div>
-
-        <nav className="mobile-navigation">
-          {NAV_LINKS.map((item) => (
-            <Link
-              key={item.label}
-              className={`mobile-link${
-                isActive(item.path)
-                  ? " active"
-                  : ""
-              }`}
-              to={item.path}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </Link>
-          ))}
-          
-          <Link
-            className={`mobile-link${isActive("/cart") ? " active" : ""}`}
-            to="/cart"
-            onClick={closeMenu}
-          >
-            Cart {cartCount > 0 ? `(${cartCount})` : ""}
-          </Link>
-        </nav>
-
-        <div className="mobile-actions">
-          {isInstitutionLoggedIn ? (
-            <Link
-              to="/institution-dashboard"
-              className="btn-signin"
-              onClick={closeMenu}
-            >
-              Institution dashboard
-            </Link>
-          ) : isLoggedIn ? (
-            <Link
-              to={getDashboardDestination()}
-              className="btn-signin"
-              onClick={closeMenu}
-            >
-              {getDashboardText()}
-            </Link>
-          ) : (
-            <button
-              type="button"
-              className="btn-signin"
-              onClick={openSelectionPopup}
-            >
-              Sign in
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* "WELCOME TO PATHWING PORTAL" ROLE SELECTION POPUP */}
       <DashboardSelectionModal
         isOpen={selectionOpen}
         onClose={closeAllPopups}
         onSelectRole={handleSelectRole}
       />
 
-      {/* PARTICULAR ROLE SIGN-IN POPUP (EXACT SCREENSHOT UI) */}
       <Login
         isOpen={loginOpen}
         selectedRole={selectedRole}
         onClose={closeAllPopups}
         onBack={handleBackToSelection}
       />
-
     </>
   );
 }

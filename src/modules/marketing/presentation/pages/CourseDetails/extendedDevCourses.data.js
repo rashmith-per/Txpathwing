@@ -1,0 +1,143 @@
+export const extendedDevCourses = {
+  "react-fs": {
+    code: "REACT-FS",
+    title: "React Full Stack Development",
+    category: "Software Development",
+    instructor: "Arjun Mehta",
+    role: "Ex-Meta, 8 years React Architect",
+    weeks: "14 weeks",
+    lessons: "96 lessons",
+    level: "Intermediate",
+    price: "₹5,499",
+    oldPrice: "₹8,999",
+    rating: "4.9",
+    reviews: "1,240",
+    emoji: "⚛",
+    about: "Master modern React with Next.js 14, Tailwind CSS, Node.js, and PostgreSQL. Build industry-ready full stack web applications.",
+    syllabus: [
+      { m: "Module 1", t: "React Fundamentals & Hooks", topics: ["JSX & Components", "Props & State Management", "Custom Hooks", "React Router v6"], d: "2 weeks" },
+      { m: "Module 2", t: "Advanced Frontend Architecture", topics: ["Context API & Redux Toolkit", "React Query & Data Fetching", "Performance Optimization", "Jest & React Testing Library"], d: "3 weeks" },
+      { m: "Module 3", t: "Next.js 14 & Full Stack API", topics: ["App Router & Server Components", "API Routes & Middleware", "Prisma ORM & PostgreSQL", "Authentication with NextAuth"], d: "4 weeks" },
+      { m: "Module 4", t: "Production & Deployment", topics: ["Vercel CI/CD Pipelines", "Payment Gateway Integration", "Realtime WebSockets", "Capstone Project"], d: "5 weeks" }
+    ],
+    projects: ["E-commerce SaaS Platform", "Real-time Collaborative Workspace", "Analytics Dashboard"],
+    skills: ["React", "Next.js", "Tailwind", "Node.js", "PostgreSQL", "TypeScript"]
+  },
+  "py-fs": {
+    code: "PY-FS",
+    title: "Python Full Stack with Django & React",
+    category: "Software Development",
+    instructor: "Sowmya Iyer",
+    role: "Ex-Swiggy, Python Lead Architect",
+    weeks: "16 weeks",
+    lessons: "112 lessons",
+    level: "Beginner",
+    price: "₹6,499",
+    oldPrice: "₹9,999",
+    rating: "4.8",
+    reviews: "1,876",
+    emoji: "🐍",
+    about: "Become a complete Python Full Stack Developer. Master Python OOP, Django MVT, REST Framework, React integration, Celery background tasks, and Docker deployment.",
+    syllabus: [
+      { m: "Module 1", t: "Python Core & Advanced OOP", topics: ["Python Data Structures", "OOP Concepts & Design Patterns", "Asyncio & Multithreading", "File I/O & Generators"], d: "2 weeks" },
+      { m: "Module 2", t: "Django Framework & Relational DB", topics: ["Django Architecture", "ORM & Migrations", "PostgreSQL Integration", "Auth & Permissions"], d: "4 weeks" },
+      { m: "Module 3", t: "Django REST Framework (DRF)", topics: ["API Serializers & Views", "JWT Authentication", "Celery & Redis Caching", "Unit Testing APIs"], d: "4 weeks" },
+      { m: "Module 4", t: "Frontend & DevOps Integration", topics: ["React Integration", "Docker Containerization", "AWS EC2 Deployment", "Capstone Project"], d: "6 weeks" }
+    ],
+    projects: ["EdTech Marketplace", "REST API Engine", "AI Powered Lead Tracker"],
+    skills: ["Python", "Django", "DRF", "PostgreSQL", "React", "Docker", "Redis"]
+  },
+  "java-fs": {
+    code: "JAVA-FS",
+    title: "Java Full Stack — Spring Boot & Microservices",
+    category: "Software Development",
+    instructor: "Naveen Kulkarni",
+    role: "Ex-Oracle, Java Champion",
+    weeks: "18 weeks",
+    lessons: "128 lessons",
+    level: "Intermediate",
+    price: "₹6,999",
+    oldPrice: "₹11,999",
+    rating: "4.7",
+    reviews: "2,104",
+    emoji: "☕",
+    about: "Enterprise Java Development track. Master Java 17, Spring Boot 3, Spring Cloud Microservices, Apache Kafka, Kubernetes, and React frontend.",
+    syllabus: [
+      { m: "Module 1", t: "Java 17 Core & JVM Internals", topics: ["Java 17 Features", "Collections Framework", "Multithreading & Concurrency", "JVM Tuning"], d: "3 weeks" },
+      { m: "Module 2", t: "Spring Boot Enterprise Deep-Dive", topics: ["Dependency Injection", "Spring Data JPA & Hibernate", "Spring Security & OAuth2", "RESTful Web Services"], d: "5 weeks" },
+      { m: "Module 3", t: "Microservices & Event-Driven Architecture", topics: ["Spring Cloud Gateway & Eureka", "Apache Kafka Messaging", "Distributed Tracing", "Circuit Breakers"], d: "5 weeks" },
+      { m: "Module 4", t: "Cloud & Kubernetes Deployment", topics: ["Dockerization", "Kubernetes Manifests", "AWS Cloud Infrastructure", "Capstone Microservices Project"], d: "5 weeks" }
+    ],
+    projects: ["Banking Core Microservices", "E-Commerce Checkout System", "Notification Hub"],
+    skills: ["Java 17", "Spring Boot", "Spring Cloud", "Kafka", "Kubernetes", "PostgreSQL", "React"]
+  },
+  "aws-dop": {
+    code: "AWS-DOP",
+    title: "AWS DevOps Engineer — Professional Track",
+    category: "Cloud & DevOps",
+    instructor: "Meera Krishnan",
+    role: "AWS Community Hero, Ex-Amazon DevOps",
+    weeks: "12 weeks",
+    lessons: "74 lessons",
+    level: "Advanced",
+    price: "₹6,999",
+    oldPrice: "₹10,999",
+    rating: "4.9",
+    reviews: "1,284",
+    emoji: "☁",
+    about: "Production-grade Cloud DevOps. Master AWS Core Infrastructure, Infrastructure as Code with Terraform, Amazon EKS, automated CI/CD pipelines, and Prometheus monitoring.",
+    syllabus: [
+      { m: "Module 1", t: "AWS Core Infrastructure", topics: ["VPC Architecture", "EC2, Auto-scaling, ALB", "IAM Security Policies", "S3 & RDS Storage"], d: "2 weeks" },
+      { m: "Module 2", t: "Infrastructure as Code (IaC)", topics: ["Terraform Fundamentals", "Modular State Management", "CloudFormation", "Ansible Configuration"], d: "3 weeks" },
+      { m: "Module 3", t: "Containers & Orchestration", topics: ["Docker Deep Dive", "Amazon EKS & ECS", "Helm Package Manager", "Istio Service Mesh"], d: "4 weeks" },
+      { m: "Module 4", t: "CI/CD & Observability", topics: ["GitHub Actions Pipelines", "ArgoCD GitOps", "Prometheus & Grafana", "Production Capstone Lab"], d: "3 weeks" }
+    ],
+    projects: ["Multi-Region Terraform Infra", "EKS Microservices Deployment", "Zero-Downtime CI/CD Pipeline"],
+    skills: ["AWS", "Terraform", "Kubernetes", "Docker", "GitHub Actions", "Prometheus", "ArgoCD"]
+  },
+  "k8s-prd": {
+    code: "K8S-PRD",
+    title: "Kubernetes for Production Workloads",
+    category: "Cloud & DevOps",
+    instructor: "Meera Krishnan",
+    role: "AWS Community Hero, Ex-Amazon DevOps",
+    weeks: "9 weeks",
+    lessons: "52 lessons",
+    level: "Advanced",
+    price: "₹5,499",
+    oldPrice: "₹8,499",
+    rating: "4.8",
+    reviews: "760",
+    emoji: "☸",
+    about: "Deep dive into production-grade Kubernetes. Master pod scheduling, ingress control, storage persistence, RBAC, network policies, and cluster upgrades.",
+    syllabus: [
+      { m: "Module 1", t: "Kubernetes Architecture", topics: ["Control Plane & Worker Nodes", "Pods, ReplicaSets & Deployments", "Services & Ingress Controllers", "ConfigMaps & Secrets"], d: "3 weeks" },
+      { m: "Module 2", t: "Storage, Security & RBAC", topics: ["Persistent Volumes & PVCs", "Cluster RBAC & Service Accounts", "Network Policies", "Calico CNI"], d: "3 weeks" },
+      { m: "Module 3", t: "Production Operations & Monitoring", topics: ["Cluster Upgrades & Backup (Velero)", "Prometheus Monitoring & Alertmanager", "Logging with Fluent Bit & Loki", "Production Capstone"], d: "3 weeks" }
+    ],
+    projects: ["High-Availability K8s Cluster", "GitOps Continuous Deployment", "Cluster Observability Stack"],
+    skills: ["Kubernetes", "Docker", "Helm", "Prometheus", "Grafana", "GitOps"]
+  },
+  "devsec": {
+    code: "DEVSEC",
+    title: "Cloud Security & DevSecOps Essentials",
+    category: "Cloud & DevOps",
+    instructor: "Tanvox Technologies",
+    role: "Industry Security Consultants",
+    weeks: "8 weeks",
+    lessons: "44 lessons",
+    level: "Intermediate",
+    price: "₹5,299",
+    oldPrice: "₹7,999",
+    rating: "4.7",
+    reviews: "640",
+    emoji: "🛡",
+    about: "Embed security into the DevOps pipeline. Learn SAST, DAST, container scanning, secret detection, IAM auditing, and cloud compliance standards.",
+    syllabus: [
+      { m: "Module 1", t: "DevSecOps Fundamentals & SAST", topics: ["Security in CI/CD", "SonarQube & Semgrep", "Secret Scanning (TruffleHog)", "Dependency Scanning (Snyk)"], d: "3 weeks" },
+      { m: "Module 2", t: "Container & Cloud Security", topics: ["Trivy & Clair Container Auditing", "Kubernetes Security Policies", "AWS IAM Security Auditing", "DAST with OWASP ZAP"], d: "5 weeks" }
+    ],
+    projects: ["Secure CI/CD Pipeline", "Kubernetes Security Benchmark", "Automated Vulnerability Scanner"],
+    skills: ["DevSecOps", "Docker Security", "Kubernetes Security", "SonarQube", "Trivy", "OWASP"]
+  }
+};
