@@ -1,7 +1,7 @@
 import React from "react";
 import "./Assessments.css";
 
-import { ASSESSMENT_EXAMS } from "./data/assessmentExams.data";
+import { ASSESSMENT_EXAMS } from "./data/assessmentExams.data.js";
 import { useAssessmentSession } from "./hooks/useAssessmentSession";
 
 import PortalSelectView from "./components/PortalSelect/PortalSelectView";

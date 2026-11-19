@@ -1,8 +1,8 @@
-import { javaCourse } from "./catalogueData/javaCourse.data";
-import { awsCourse } from "./catalogueData/awsCourse.data";
-import { fullstackCourses } from "./catalogueData/fullstackCourses.data";
-import { aiDataCourses } from "./catalogueData/aiDataCourses.data";
-import { qaCareerCourses } from "./catalogueData/qaCareerCourses.data";
+import { javaCourse } from "./catalogueData/javaCourse.data.js";
+import { awsCourse } from "./catalogueData/awsCourse.data.js";
+import { fullstackCourses } from "./catalogueData/fullstackCourses.data.js";
+import { aiDataCourses } from "./catalogueData/aiDataCourses.data.js";
+import { qaCareerCourses } from "./catalogueData/qaCareerCourses.data.js";
 
 export const DEMO_VIDEOS = [
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",

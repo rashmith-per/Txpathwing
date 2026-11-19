@@ -1,5 +1,5 @@
 import React from "react";
-import { PRACTICE_QUESTIONS_BY_COURSE } from "../../data/practiceQuestions.data";
+import { PRACTICE_QUESTIONS_BY_COURSE } from "../../data/practiceQuestions.data.js";
 import PracticeActiveSessionView from "./PracticeActiveSessionView";
 import PracticeResultView from "./PracticeResultView";
 

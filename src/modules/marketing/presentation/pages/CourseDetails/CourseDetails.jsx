@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses as marketCourses } from "../MarketPlace/coursesList";
-import { getCourseByIdOrCode } from "../../Dashboards/StudentDashboard/services/courseCatalogue.data";
+import { getCourseByIdOrCode } from "../../Dashboards/StudentDashboard/services/courseCatalogue.data.js";
 import { studentStorage } from "../../Dashboards/StudentDashboard/services/studentStorage";
 import { extendedCoursesData, fromMarket, readEnrolled } from "./courseDetailsData";
 import "./CourseDetails.css";

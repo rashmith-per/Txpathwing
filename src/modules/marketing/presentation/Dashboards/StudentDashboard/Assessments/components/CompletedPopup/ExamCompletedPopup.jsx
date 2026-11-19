@@ -1,6 +1,6 @@
 import React from "react";
 import { CheckCircle2, VideoOff } from "lucide-react";
-import { formatTimer } from "../../services/scoreCalculator.service";
+import { formatTimer } from "../../services/scoreCalculator.service.js";
 
 export default function ExamCompletedPopup({
   activeExam,

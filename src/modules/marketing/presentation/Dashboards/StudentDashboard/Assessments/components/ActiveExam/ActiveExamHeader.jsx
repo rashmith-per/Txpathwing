@@ -1,6 +1,6 @@
 import React from "react";
 import { Clock, CheckCircle2, Shield, Lock, Pause } from "lucide-react";
-import { formatTimer } from "../../services/scoreCalculator.service";
+import { formatTimer } from "../../services/scoreCalculator.service.js";
 
 export default function ActiveExamHeader({
   activeExam,

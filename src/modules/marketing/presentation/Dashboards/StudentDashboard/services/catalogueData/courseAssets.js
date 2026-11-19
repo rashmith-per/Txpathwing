@@ -11,3 +11,10 @@ export const seleniumGuide = new URL("../../../../../../../assets/cardImages/sel
 export const apiPerformanceGuide = new URL("../../../../../../../assets/cardImages/apiPerformanceGuide.jpg", import.meta.url).href;
 export const interviewPrepGuide = new URL("../../../../../../../assets/cardImages/interviewPrepGuide.jpg", import.meta.url).href;
 export const campusAptitudeGuide = new URL("../../../../../../../assets/cardImages/campusAptitudeGuide.jpg", import.meta.url).href;
+
+export const DEMO_VIDEOS = [
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+];

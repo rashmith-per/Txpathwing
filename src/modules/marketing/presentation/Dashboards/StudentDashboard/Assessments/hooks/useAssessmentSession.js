@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { ASSESSMENT_EXAMS } from "../data/assessmentExams.data";
-import { EXAM_QUESTIONS_BY_TOPIC } from "../data/examQuestions.data";
-import { calculateExamResults } from "../services/scoreCalculator.service";
+import { ASSESSMENT_EXAMS } from "../data/assessmentExams.data.js";
+import { EXAM_QUESTIONS_BY_TOPIC } from "../data/examQuestions.data.js";
+import { calculateExamResults } from "../services/scoreCalculator.service.js";
 import { useProctoring } from "./useProctoring";
 
 export function useAssessmentSession({ onExamActiveChange }) {

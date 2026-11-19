@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Editor from "@monaco-editor/react";
-import { JAVA, PY, AWS, SQL, REACT, DSA, COURSES } from "./codingLabProblems";
+import { JAVA, PY, AWS, SQL, REACT, DSA, COURSES } from "./codingLabProblems.js";
 import "./CodingLabTab.css";
 
 // false = sends code to RUN_URL; your backend must return { stdout, stderr }

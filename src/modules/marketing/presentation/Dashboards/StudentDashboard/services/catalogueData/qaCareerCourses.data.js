@@ -11,8 +11,9 @@ import {
   seleniumGuide,
   apiPerformanceGuide,
   interviewPrepGuide,
-  campusAptitudeGuide
-} from "./courseAssets";
+  campusAptitudeGuide,
+  DEMO_VIDEOS
+} from "./courseAssets.js";
 
 export const qaCareerCourses = [
 {

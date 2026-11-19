@@ -4,15 +4,15 @@
  * syllabus topic progress, and dynamic skill profiles.
  */
 
-import { COURSE_CATALOGUE, getCourseByIdOrCode } from "./courseCatalogue.data";
-import { learningProgressService } from "./learningProgress.service";
-import { skillProfileService } from "./skillProfile.service";
+import { COURSE_CATALOGUE, getCourseByIdOrCode } from "./courseCatalogue.data.js";
+import { learningProgressService } from "./learningProgress.service.js";
+import { skillProfileService } from "./skillProfile.service.js";
 import {
   STORAGE_KEYS,
   ensureDemoProgressSeeded,
   getAllTopicProgress,
   saveAllTopicProgress,
-} from "./studentStorage.service";
+} from "./studentStorage.service.js";
 
 export const studentApi = {
   init() {

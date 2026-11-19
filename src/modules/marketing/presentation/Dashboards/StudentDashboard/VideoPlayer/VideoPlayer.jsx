@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { X, ListVideo } from "lucide-react";
-import { getCourseByIdOrCode, DEMO_VIDEOS } from "../services/courseCatalogue.data";
+import { getCourseByIdOrCode, DEMO_VIDEOS } from "../services/courseCatalogue.data.js";
 import { studentApi } from "../services/studentApi";
 import { VideoControls } from "./components/VideoControls";
 import { VideoPlaylistSidebar } from "./components/VideoPlaylistSidebar";

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { analyzeVideoFrameForFaces } from "../services/faceDetectionEngine.service";
-import { drawFaceOverlay } from "../services/proctoringOverlay.service";
-import { initMediaStream, setupAudioAnalyser } from "../services/proctoringMedia.service";
+import { analyzeVideoFrameForFaces } from "../services/faceDetectionEngine.service.js";
+import { drawFaceOverlay } from "../services/proctoringOverlay.service.js";
+import { initMediaStream, setupAudioAnalyser } from "../services/proctoringMedia.service.js";
 
 export function useProctoring(isExamActive) {
   const [cameraActive, setCameraActive] = useState(false);

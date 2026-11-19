@@ -105,14 +105,7 @@ function AppRoutes() {
   const isConsole = pathname === "/institution"
     || pathname.startsWith("/institution/")
     || pathname.startsWith("/institution-dashboard");
-  const isPrivateDashboard = pathname.startsWith("/hackathon-dashboard")
-    || pathname.startsWith("/dashboard")
-    || pathname.startsWith("/student")
-    || pathname.toLowerCase().startsWith("/assessments")
-    || pathname.toLowerCase().startsWith("/certificates")
-    || pathname.startsWith("/admin")
-    || pathname.startsWith("/admin-dashboard")
-    || pathname.toLowerCase().startsWith("/instructor");
+  const isPrivateDashboard = pathname.toLowerCase().startsWith("/hackathon") || pathname.toLowerCase().startsWith("/dashboard") || pathname.toLowerCase().startsWith("/student") || pathname.toLowerCase().startsWith("/assessments") || pathname.toLowerCase().startsWith("/certificates") || pathname.toLowerCase().startsWith("/admin") || pathname.toLowerCase().startsWith("/instructor");
   const showWebsiteChrome = !isConsole && !isPrivateDashboard;
 
   return <>
@@ -163,6 +156,10 @@ function AppRoutes() {
       <Route path="/dashboard/*" element={<StudentDashboard />} />
       <Route path="/student/*" element={<StudentDashboard />} />
       <Route path="/student-dashboard/*" element={<StudentDashboard />} />
+      <Route path="/studentdashboard/*" element={<StudentDashboard />} />
+      <Route path="/Student/*" element={<StudentDashboard />} />
+      <Route path="/Student-dashboard/*" element={<StudentDashboard />} />
+      <Route path="/Dashboard/*" element={<StudentDashboard />} />
       <Route path="/assessments/*" element={<StudentDashboard />} />
       <Route path="/Assessments/*" element={<StudentDashboard />} />
       <Route path="/certificates/*" element={<StudentDashboard />} />

@@ -3,7 +3,7 @@ import {
   CERTIFICATES_DATA,
   getCertificatesForUser,
   resolveStudentCertificateName
-} from "./data/certificates.data";
+} from "./data/certificates.data.js";
 import CertificatesHeader from "./components/CertificatesHeader";
 import CertificateFeaturedPreview from "./components/CertificateFeaturedPreview";
 import CertificatesGrid from "./components/CertificatesGrid";

@@ -1,3 +1,5 @@
+import { JAVA, PY, AWS } from "./codingLabLangProblems.js";
+
 const SQL=[
 {id:"s1",lv:"Easy",t:"Students from Hyderabad",topic:"SELECT and WHERE",d:"Table students(id, name, city). Return the names of students whose city is Hyderabad, sorted A to Z.",c:["Use WHERE and ORDER BY","Return one column: name"],dflt:"(no rows)",
  code:`-- Table: students(id, name, city)
