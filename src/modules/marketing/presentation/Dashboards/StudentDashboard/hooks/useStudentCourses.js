@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { studentStorage } from "../services/studentStorage";
 import { studentApi } from "../services/studentApi";
-import { COURSE_CATALOGUE } from "../services/courseCatalogue.data";
+import { COURSE_CATALOGUE } from "../services/courseCatalogue.data.js";
 
 export function useStudentCourses() {
   const [enrollments, setEnrollments] = useState(() => studentStorage.getEnrolledCourses());

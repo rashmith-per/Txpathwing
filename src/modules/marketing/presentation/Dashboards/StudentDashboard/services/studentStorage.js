@@ -4,8 +4,8 @@
  * Delegates to studentApi for unified syllabus topic progress and dynamic calculations.
  */
 
-import { studentApi } from "./studentApi";
-import { getCourseByIdOrCode } from "./courseCatalogue.data";
+import { studentApi } from "./studentApi.js";
+import { getCourseByIdOrCode } from "./courseCatalogue.data.js";
 
 const STORAGE_KEYS = {
   IS_LOGGED_IN: "isLoggedIn",

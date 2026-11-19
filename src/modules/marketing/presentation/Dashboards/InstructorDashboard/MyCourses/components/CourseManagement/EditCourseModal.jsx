@@ -1,9 +1,3 @@
-/**
- * EditCourseModal Component
- * Unified modal for editing course metadata (title, code, category, level, status, price, hours,
- * target audience, description) for both manually created and AI-generated courses.
- */
-
 import { useState } from "react";
 import { X, Save, AlertCircle, BookOpen } from "lucide-react";
 import { ActionButton, IconButton } from "../../../common/ActionButton.jsx";
@@ -13,6 +7,7 @@ import {
   COURSE_STATUSES,
   validateCourseInput
 } from "../../validation/courseValidation.js";
+import { EditCourseFormFields } from "./EditCourseFormFields.jsx";
 
 function EditCourseModalContent({ course, onClose, onSave, isSubmitting = false }) {
   const [title, setTitle] = useState(() => course.title || "");
@@ -94,7 +89,6 @@ function EditCourseModalContent({ course, onClose, onSave, isSubmitting = false 
             icon={X}
             size="sm"
             variant="neutral"
-            className="inst-topic-modal-close"
             onClick={onClose}
             tooltip="Close"
             ariaLabel="Close edit course dialog"
@@ -110,204 +104,27 @@ function EditCourseModalContent({ course, onClose, onSave, isSubmitting = false 
             </div>
           )}
 
-          <div className="inst-form-grid-2">
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-title" className="inst-form-label">
-                Course Title <span className="inst-required">*</span>
-              </label>
-              <input
-                id="edit-course-title"
-                type="text"
-                className={`inst-form-input ${errors.title ? "is-invalid" : ""}`}
-                value={title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  clearFieldError("title");
-                }}
-                disabled={isSubmitting}
-                autoFocus
-              />
-              {errors.title && (
-                <span className="inst-form-error" role="alert">
-                  <AlertCircle size={13} /> {errors.title}
-                </span>
-              )}
-            </div>
+          <EditCourseFormFields
+            title={title} setTitle={setTitle}
+            code={code} setCode={setCode}
+            category={category} setCategory={setCategory}
+            level={level} setLevel={setLevel}
+            status={status} setStatus={setStatus}
+            price={price} setPrice={setPrice}
+            totalHours={totalHours} setTotalHours={setTotalHours}
+            targetAudience={targetAudience} setTargetAudience={setTargetAudience}
+            description={description} setDescription={setDescription}
+            errors={errors}
+            clearFieldError={clearFieldError}
+            isSubmitting={isSubmitting}
+            courseCategories={COURSE_CATEGORIES}
+            courseLevels={COURSE_LEVELS}
+            statusChoices={statusChoices}
+          />
 
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-code" className="inst-form-label">
-                Course Code <span className="inst-required">*</span>
-              </label>
-              <input
-                id="edit-course-code"
-                type="text"
-                className={`inst-form-input ${errors.code ? "is-invalid" : ""}`}
-                value={code}
-                onChange={(e) => {
-                  setCode(e.target.value.toUpperCase());
-                  clearFieldError("code");
-                }}
-                disabled={isSubmitting}
-              />
-              {errors.code && (
-                <span className="inst-form-error" role="alert">
-                  <AlertCircle size={13} /> {errors.code}
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="inst-form-grid-2">
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-category" className="inst-form-label">
-                Category
-              </label>
-              <select
-                id="edit-course-category"
-                className="inst-form-input"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                disabled={isSubmitting}
-              >
-                {!COURSE_CATEGORIES.includes(category) && (
-                  <option value={category}>{category}</option>
-                )}
-                {COURSE_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-level" className="inst-form-label">
-                Proficiency Level
-              </label>
-              <select
-                id="edit-course-level"
-                className="inst-form-input"
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
-                disabled={isSubmitting}
-              >
-                {!COURSE_LEVELS.includes(level) && <option value={level}>{level}</option>}
-                {COURSE_LEVELS.map((lvl) => (
-                  <option key={lvl} value={lvl}>
-                    {lvl}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="inst-form-grid-3">
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-status" className="inst-form-label">
-                Status
-              </label>
-              <select
-                id="edit-course-status"
-                className="inst-form-input"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                disabled={isSubmitting}
-              >
-                {statusChoices.map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-price" className="inst-form-label">
-                Enrollment Fee (INR ₹)
-              </label>
-              <input
-                id="edit-course-price"
-                type="number"
-                min={0}
-                className={`inst-form-input ${errors.price ? "is-invalid" : ""}`}
-                value={price}
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  clearFieldError("price");
-                }}
-                disabled={isSubmitting}
-              />
-              {errors.price && (
-                <span className="inst-form-error" role="alert">
-                  <AlertCircle size={13} /> {errors.price}
-                </span>
-              )}
-            </div>
-
-            <div className="inst-form-group">
-              <label htmlFor="edit-course-hours" className="inst-form-label">
-                Estimated Hours
-              </label>
-              <input
-                id="edit-course-hours"
-                type="number"
-                min={1}
-                className={`inst-form-input ${errors.totalHours ? "is-invalid" : ""}`}
-                value={totalHours}
-                onChange={(e) => {
-                  setTotalHours(e.target.value);
-                  clearFieldError("totalHours");
-                }}
-                disabled={isSubmitting}
-              />
-              {errors.totalHours && (
-                <span className="inst-form-error" role="alert">
-                  <AlertCircle size={13} /> {errors.totalHours}
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="inst-form-group">
-            <label htmlFor="edit-course-audience" className="inst-form-label">
-              Target Audience
-            </label>
-            <input
-              id="edit-course-audience"
-              type="text"
-              className="inst-form-input"
-              placeholder="e.g. Backend engineers & full stack developers"
-              value={targetAudience}
-              onChange={(e) => setTargetAudience(e.target.value)}
-              disabled={isSubmitting}
-            />
-          </div>
-
-          <div className="inst-form-group">
-            <label htmlFor="edit-course-description" className="inst-form-label">
-              Course Description
-            </label>
-            <textarea
-              id="edit-course-description"
-              rows={3}
-              className={`inst-form-textarea ${errors.description ? "is-invalid" : ""}`}
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-                clearFieldError("description");
-              }}
-              disabled={isSubmitting}
-            />
-            {errors.description && (
-              <span className="inst-form-error" role="alert">
-                <AlertCircle size={13} /> {errors.description}
-              </span>
-            )}
-          </div>
-
-          <div className="inst-topic-modal-footer">
+          <div className="inst-topic-modal-actions">
             <ActionButton
-              icon={X}
+              type="button"
               variant="secondary"
               size="md"
               onClick={onClose}
@@ -316,14 +133,13 @@ function EditCourseModalContent({ course, onClose, onSave, isSubmitting = false 
               Cancel
             </ActionButton>
             <ActionButton
-              icon={Save}
               type="submit"
               variant="primary"
               size="md"
-              loading={isSubmitting}
-              loadingLabel="Saving..."
+              icon={Save}
+              disabled={isSubmitting}
             >
-              Save Changes
+              {isSubmitting ? "Saving Changes..." : "Save Course Changes"}
             </ActionButton>
           </div>
         </form>
@@ -342,7 +158,6 @@ export function EditCourseModal({
   if (!isOpen || !course) return null;
   return (
     <EditCourseModalContent
-      key={`${course.id}-${course.updatedAt || ""}`}
       course={course}
       onClose={onClose}
       onSave={onSave}

@@ -1,79 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
-  Calendar, ChevronDown, Copy, Eye, GraduationCap, Pencil, Percent, Plus, Power,
-  Search, SlidersHorizontal, Tag, Trash2, Users, X,
+  Calendar, Copy, Percent, Plus, Search, Tag, Trash2, Users
 } from "lucide-react";
 import "./Coupons.css";
-
-/* ------------------------------------------------------------------
-   Adapter: reads your existing coupon records even if the key names
-   differ (discount / value, expiry / validUntil, redemptions "342 / 1,000" ...).
-------------------------------------------------------------------- */
-const pick = (o, keys, fallback) => {
-  for (const k of keys) if (o[k] !== undefined && o[k] !== null && o[k] !== "") return o[k];
-  return fallback;
-};
-const toNum = (v) => {
-  const n = parseInt(String(v).replace(/[^\d]/g, ""), 10);
-  return Number.isNaN(n) ? 0 : n;
-};
-function parseUsage(r) {
-  const raw = pick(r, ["redemptions", "used", "redeemed", "usage"], 0);
-  const lim = pick(r, ["limit", "maxRedemptions", "usageLimit", "max", "total"], null);
-  if (typeof raw === "string" && raw.includes("/")) {
-    const [a, b] = raw.split("/");
-    return [toNum(a), lim !== null ? toNum(lim) : toNum(b)];
-  }
-  return [toNum(raw), lim !== null ? toNum(lim) : 0];
-}
-function normalize(r) {
-  const rawVal = pick(r, ["value", "discount", "amount", "discountValue"], 0);
-  let type = pick(r, ["type", "discountType"], null);
-  if (!type) type = String(rawVal).includes("%") ? "Percentage" : "Fixed";
-  type = /fix|flat/i.test(type) ? "Fixed" : "Percentage";
-  const [used, limit] = parseUsage(r);
-  return {
-    id: r.id ?? r.code,
-    code: pick(r, ["code", "name"], "—"),
-    type,
-    value: toNum(rawVal),
-    scope: pick(r, ["scope", "appliesTo", "applicableTo", "applicable"], "All courses"),
-    valid: pick(r, ["validUntil", "expiry", "expiresOn", "validTill", "valid"], "—"),
-    used,
-    limit,
-    status: pick(r, ["status"], "Active"),
-    desc: pick(r, ["desc", "description"], "Discount coupon"),
-  };
-}
-const discountLabel = (c) =>
-  c.type === "Percentage" ? `${c.value}% off` : `₹${c.value.toLocaleString("en-IN")} off`;
-const fmt = (n) => n.toLocaleString("en-IN");
-const fmtDate = (iso) =>
-  new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-
-const toISO = (s) => {
-  const d = new Date(s);
-  if (Number.isNaN(d.getTime())) return "";
-  const p = (n) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
-};
-
-function useCountUp(target, ms = 1200) {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (typeof target !== "number") return;
-    let raf, t0;
-    const step = (t) => {
-      t0 = t0 ?? t;
-      const p = Math.min(1, (t - t0) / ms);
-      setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [target, ms]);
-  return typeof target === "number" ? n : target;
-}
+import {
+  discountLabel, fmt, normalize, useCountUp
+} from "./couponUtils";
+import { CouponCard } from "./components/CouponCard";
+import { CouponModal } from "./components/CouponModal";
+import { CouponForm } from "./components/CouponForm";
 
 function Stat({ icon: Icon, label, value, note }) {
   const v = useCountUp(value);
@@ -85,122 +20,6 @@ function Stat({ icon: Icon, label, value, note }) {
       </div>
       <strong>{typeof v === "number" ? v.toLocaleString("en-IN") : v}</strong>
       <em>{note}</em>
-    </div>
-  );
-}
-
-function Modal({ title, onClose, children }) {
-  useEffect(() => {
-    const h = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", h);
-    return () => window.removeEventListener("keydown", h);
-  }, [onClose]);
-  return (
-    <div className="cp-overlay" onMouseDown={onClose}>
-      <div className="cp-modal" role="dialog" aria-label={title} onMouseDown={(e) => e.stopPropagation()}>
-        <div className="cp-modal-head">
-          <h3>{title}</h3>
-          <button className="cp-icon" onClick={onClose} aria-label="Close"><X size={18} /></button>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function Card({ c, index, menuOpen, setMenu, onView, onCopy, onEdit, onToggle, onDuplicate, onDelete }) {
-  const pct = c.limit ? Math.min(100, Math.round((c.used / c.limit) * 100)) : 0;
-  const spotlight = (e) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
-  };
-  return (
-    <article className={`cp-card${menuOpen ? " cp-open" : ""}`} style={{ "--i": index }} onMouseMove={spotlight}>
-      <div className="cp-top">
-        <span className="cp-tag">{c.type}</span>
-        <span className={`cp-pill cp-${c.status}`}>{c.status}</span>
-      </div>
-      <div className="cp-coderow">
-        <h3>{c.code}</h3>
-        <button className="cp-icon" aria-label="Copy code" onClick={() => onCopy(c)}><Copy size={15} /></button>
-      </div>
-      <p className="cp-desc">{c.desc} · {c.scope}</p>
-      <ul className="cp-facts">
-        <li className="cp-hl"><Tag size={15} />{discountLabel(c)}</li>
-        <li><GraduationCap size={15} />{c.scope}</li>
-        <li><Calendar size={15} />Valid until {c.valid}</li>
-      </ul>
-      <div className="cp-use">
-        <div><span>Redemptions</span><b>{fmt(c.used)} / {fmt(c.limit)}</b></div>
-        <div className="cp-track"><div className={`cp-fill${pct >= 100 ? " cp-full" : ""}`} style={{ "--w": `${pct}%` }} /></div>
-      </div>
-      <div className="cp-actions">
-        <button className="cp-btn cp-ghost" onClick={() => onView(c)}><Eye size={15} /> View Coupon</button>
-        <button className="cp-btn" onClick={(e) => { e.stopPropagation(); setMenu(menuOpen ? null : c.id); }}>
-          <SlidersHorizontal size={15} /> Manage <ChevronDown size={14} />
-        </button>
-        {menuOpen && (
-          <div className="cp-menu" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => onEdit(c)}><Pencil size={15} /> Edit</button>
-            {c.status !== "Expired" && (
-              <button onClick={() => onToggle(c)}>
-                <Power size={15} /> {c.status === "Active" ? "Deactivate" : "Activate"}
-              </button>
-            )}
-            <button onClick={() => onDuplicate(c)}><Copy size={15} /> Duplicate</button>
-            <hr />
-            <button className="cp-del" onClick={() => onDelete(c)}><Trash2 size={15} /> Delete</button>
-          </div>
-        )}
-      </div>
-    </article>
-  );
-}
-
-function CouponForm({ existing, initial, onSave, onCancel }) {
-  const [f, setF] = useState(
-    initial
-      ? { code: initial.code, type: initial.type, value: String(initial.value), scope: initial.scope, date: toISO(initial.valid), limit: String(initial.limit) }
-      : { code: "", type: "Percentage", value: "", scope: "All courses", date: "", limit: "" }
-  );
-  const [err, setErr] = useState("");
-  const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
-
-  const submit = () => {
-    const code = f.code.trim().toUpperCase();
-    const value = Number(f.value), limit = Number(f.limit);
-    if (!code) return setErr("Enter a coupon code.");
-    if (existing.includes(code)) return setErr("That code already exists.");
-    if (!(value > 0) || (f.type === "Percentage" && value > 100)) return setErr("Enter a valid discount value.");
-    if (!f.date) return setErr("Choose a validity date.");
-    if (!(limit > 0)) return setErr("Enter a redemption limit.");
-    onSave({ code, type: f.type, value, scope: f.scope.trim() || "All courses", valid: fmtDate(f.date), limit });
-  };
-
-  return (
-    <div className="cp-form">
-      <label>Coupon code<input value={f.code} onChange={set("code")} placeholder="e.g. NEWYEAR25" /></label>
-      <div className="cp-two">
-        <label>Discount type
-          <select value={f.type} onChange={set("type")}><option>Percentage</option><option>Fixed</option></select>
-        </label>
-        <label>{f.type === "Percentage" ? "Percent off" : "Amount off (₹)"}
-          <input type="number" min="1" value={f.value} onChange={set("value")} />
-        </label>
-      </div>
-      <label>Applies to<input value={f.scope} onChange={set("scope")} placeholder="All courses" /></label>
-      <div className="cp-two">
-        <label>Valid until<input type="date" value={f.date} onChange={set("date")} /></label>
-        <label>Redemption limit<input type="number" min="1" value={f.limit} onChange={set("limit")} /></label>
-      </div>
-      {err && <div className="cp-err">{err}</div>}
-      <div className="cp-form-actions">
-        <button className="cp-btn cp-ghost" onClick={onCancel}>Cancel</button>
-        <button className="cp-btn" onClick={submit}>
-          {initial ? <><Pencil size={15} /> Save changes</> : <><Plus size={16} /> Create Coupon</>}
-        </button>
-      </div>
     </div>
   );
 }
@@ -314,9 +133,19 @@ export function Coupons({ coupons = [], setCoupons, setNotice }) {
       <div key={animKey} className="cp-grid cp-anim">
         {visible.length ? (
           visible.map((c, i) => (
-            <Card key={c.id} c={c} index={i} menuOpen={menu === c.id} setMenu={setMenu}
-              onView={setViewing} onCopy={copy} onEdit={(x) => { setMenu(null); setEditing(x); }}
-              onToggle={toggle} onDuplicate={duplicate} onDelete={(x) => { setMenu(null); setDeleting(x); }} />
+            <CouponCard
+              key={c.id}
+              c={c}
+              index={i}
+              menuOpen={menu === c.id}
+              setMenu={setMenu}
+              onView={setViewing}
+              onCopy={copy}
+              onEdit={(x) => { setMenu(null); setEditing(x); }}
+              onToggle={toggle}
+              onDuplicate={duplicate}
+              onDelete={(x) => { setMenu(null); setDeleting(x); }}
+            />
           ))
         ) : (
           <div className="cp-empty">No coupons match your search.</div>
@@ -324,24 +153,24 @@ export function Coupons({ coupons = [], setCoupons, setNotice }) {
       </div>
 
       {creating && (
-        <Modal title="Create coupon" onClose={() => setCreating(false)}>
+        <CouponModal title="Create coupon" onClose={() => setCreating(false)}>
           <CouponForm existing={items.map((c) => c.code)} onSave={create} onCancel={() => setCreating(false)} />
-        </Modal>
+        </CouponModal>
       )}
 
       {editing && (
-        <Modal title={`Edit ${editing.code}`} onClose={() => setEditing(null)}>
+        <CouponModal title={`Edit ${editing.code}`} onClose={() => setEditing(null)}>
           <CouponForm
             initial={editing}
             existing={items.filter((c) => c.id !== editing.id).map((c) => c.code)}
             onSave={saveEdit}
             onCancel={() => setEditing(null)}
           />
-        </Modal>
+        </CouponModal>
       )}
 
       {deleting && (
-        <Modal title="Delete coupon?" onClose={() => setDeleting(null)}>
+        <CouponModal title="Delete coupon?" onClose={() => setDeleting(null)}>
           <p className="cp-confirm">
             <b>{deleting.code}</b> will be removed permanently
             {deleting.used > 0 ? ` (it has ${fmt(deleting.used)} redemptions)` : ""}. This can’t be undone.
@@ -352,14 +181,14 @@ export function Coupons({ coupons = [], setCoupons, setNotice }) {
               <Trash2 size={15} /> Delete coupon
             </button>
           </div>
-        </Modal>
+        </CouponModal>
       )}
 
       {viewing && (() => {
         const c = items.find((x) => x.id === viewing.id) || viewing;
         const pct = c.limit ? Math.min(100, Math.round((c.used / c.limit) * 100)) : 0;
         return (
-          <Modal title={c.code} onClose={() => setViewing(null)}>
+          <CouponModal title={c.code} onClose={() => setViewing(null)}>
             <div className="cp-view">
               <div className="cp-view-top">
                 <span className="cp-tag">{c.type}</span>
@@ -378,7 +207,7 @@ export function Coupons({ coupons = [], setCoupons, setNotice }) {
                 <button className="cp-btn" onClick={() => setViewing(null)}>Done</button>
               </div>
             </div>
-          </Modal>
+          </CouponModal>
         );
       })()}
     </div>

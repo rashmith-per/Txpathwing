@@ -8,13 +8,7 @@ import { useStudentStats } from "./hooks/useStudentStats";
 
 import DashboardSidebar from "./Overview/components/DashboardSidebar";
 import DashboardHeader from "./Overview/components/DashboardHeader";
-import WelcomeHero from "./Overview/components/WelcomeHero";
-import StatsCards from "./Overview/components/StatsCards";
-import ContinueLearning from "./Overview/components/ContinueLearning";
-import RecommendedSection from "./Overview/components/RecommendedSection";
-import SkillProfileSection from "./Overview/components/SkillProfileSection";
-import ComingUpSection from "./Overview/components/ComingUpSection";
-import AchievementsSection from "./Overview/components/AchievementsSection";
+import DashboardOverviewTab from "./Overview/components/DashboardOverviewTab";
 import AIAssistantTab from "./Overview/components/AIAssistantTab";
 import CodingLabTab from "./Overview/components/CodingLabTab";
 import CareersTab from "./Overview/components/CareersTab";
@@ -32,7 +26,6 @@ export default function StudentDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Custom Modular Hooks
   const { userProfile, logout } = useStudentAuth();
   const {
     enrollments,
@@ -48,18 +41,16 @@ export default function StudentDashboard() {
   } = useStudentCourses();
   const { activeCoursesCount, streakDays, learningHours } = useStudentStats(enrollments);
 
-  // Deep Link Routing helper for Course Learning Details (/dashboard/learning/:id)
   const getInitialLearningCourseId = useCallback(() => {
     const path = location.pathname.toLowerCase();
     const match = path.match(/\/(?:dashboard|student)\/learn(?:ing)?\/([a-z0-9-_]+)/i);
     return match ? match[1] : null;
   }, [location.pathname]);
 
-  // Tab State & Deep Link Routing
   const getInitialTab = useCallback(() => {
     const path = location.pathname.toLowerCase();
     if (path.includes("courses")) return "My courses";
-    if (path.includes("coding-lab")) return "Coding lab";
+    if (path.includes("coding")) return "Coding lab";
     if (path.includes("chat-instructor") || path.includes("instructor") || path.includes("ai-assistant")) return "Chat Instructor";
     if (path.includes("careers")) return "Careers";
     if (path.includes("leaderboard") || path.includes("leaders")) return "Leaderboard";
@@ -75,7 +66,6 @@ export default function StudentDashboard() {
   const [selectedLearningCourseId, setSelectedLearningCourseId] = useState(getInitialLearningCourseId);
   const [selectedRecommendedCourse, setSelectedRecommendedCourse] = useState(null);
   
-  // Assessments Category Only: Fullscreen & Sidebar removal when taking proctored exam
   const [isExamActive, setIsExamActive] = useState(false);
   const isFullscreenExamActive = activeTab === "Assessments" && isExamActive;
 
@@ -84,7 +74,6 @@ export default function StudentDashboard() {
     setTimeout(() => setToastMessage(""), 3500);
   }, []);
 
-  // Synchronize Tab and Learning View with Location
   useEffect(() => {
     setActiveTab(getInitialTab());
     const learnId = getInitialLearningCourseId();
@@ -96,110 +85,78 @@ export default function StudentDashboard() {
   }, [location.pathname, getInitialTab, getInitialLearningCourseId]);
 
   const handleTabClick = (tabName) => {
-    // When leaving or switching tabs, ensure any exam state is cleared
     setIsExamActive(false);
-    setActiveTab(tabName);
     setSelectedLearningCourseId(null);
-    setMobileMenuOpen(false);
-    if (tabName === "Dashboard") navigate("/dashboard");
-    else if (tabName === "My courses") navigate("/dashboard/courses");
-    else if (tabName === "Chat Instructor" || tabName === "AI assistant") navigate("/dashboard/chat-instructor");
-    else if (tabName === "Coding lab") navigate("/dashboard/coding-lab");
-    else if (tabName === "Careers") navigate("/dashboard/careers");
-    else if (tabName === "Leaderboard") navigate("/dashboard/leaderboard");
-    else if (tabName === "Assessments") navigate("/dashboard/assessments");
-    else if (tabName === "Certificates") navigate("/dashboard/certificates");
-  };
-
-  const handleResumeLesson = (courseObj) => {
-    const target = courseObj || enrollments[0];
-    if (typeof target === "string") {
-      const found = enrollments.find(
-        (e) => (e.courseId || e.id || e.courseCode || "").toLowerCase() === target.toLowerCase()
-      );
-      setActiveVideoCourse(found || enrollments[0]);
-    } else {
-      setActiveVideoCourse(target);
-    }
+    setActiveTab(tabName);
+    const slug = tabName.toLowerCase().replace(/\s+/g, "-");
+    navigate(slug === "dashboard" ? "/student/dashboard" : `/student/${slug}`);
   };
 
   const handleOpenLearningDetails = (course) => {
-    const cId = (course.courseId || course.id || course.code || course.courseCode || "").toLowerCase();
-    setSelectedLearningCourseId(cId);
-    navigate(`/dashboard/learning/${cId}`);
+    const cId = course?.courseId || course?.id || course?.code;
+    if (cId) {
+      setSelectedLearningCourseId(cId);
+      navigate(`/student/learn/${cId}`);
+    }
   };
 
   const handleBackFromLearning = () => {
     setSelectedLearningCourseId(null);
-    navigate("/dashboard");
+    navigate("/student/courses");
+  };
+
+  const handleResumeLesson = (course) => {
+    setActiveVideoCourse(course);
+  };
+
+  const handleQuickEnroll = async (course) => {
+    const res = await enrollInCourse(course);
+    showToast(res.message);
+    if (res.success) {
+      syncCourses();
+    }
   };
 
   const handleOpenRecommendedDetails = (course) => {
     setSelectedRecommendedCourse(course);
   };
 
-  const handleQuickEnroll = (course) => {
-    const res = enrollInCourse(course);
-    showToast(res.message);
-    if (res.success) {
-      syncCourses();
-    }
-  };
-
   const handleEnrollFromModal = async (course) => {
-    const res = enrollInCourse(course);
+    const res = await enrollInCourse(course);
     showToast(res.message);
+    setSelectedRecommendedCourse(null);
     if (res.success) {
-      setSelectedRecommendedCourse(null);
       syncCourses();
     }
   };
 
   return (
-    <div className={`dashboard-root-layout ${isFullscreenExamActive ? "exam-fullscreen-mode" : ""}`}>
-      {/* Toast Notification */}
+    <div className={`student-dashboard-layout ${isFullscreenExamActive ? "fullscreen-exam-mode" : ""}`}>
       {toastMessage && (
-        <div className="dashboard-toast">
-          <Sparkles size={16} color="#3b82f6" /> {toastMessage}
-        </div>
+        <aside className="dashboard-toast-notification">
+          <Sparkles size={16} />
+          <span>{toastMessage}</span>
+        </aside>
       )}
 
-      {/* Video Player Modal */}
       {activeVideoCourse && (
         <VideoPlayer
           course={activeVideoCourse}
           onClose={() => setActiveVideoCourse(null)}
-          onProgressUpdate={(pct) => {
-            updateProgress(activeVideoCourse.courseId || activeVideoCourse.id, pct);
-            syncCourses();
-            showToast("Lesson progress updated!");
+          onProgressUpdate={(newPercent) => {
+            updateProgress(activeVideoCourse.id || activeVideoCourse.courseId, newPercent);
           }}
         />
       )}
 
-      {/* Recommended Course Information & Syllabus Modal */}
       {selectedRecommendedCourse && (
         <RecommendedCourseModal
           course={selectedRecommendedCourse}
-          isEnrolled={enrollments.some(
-            (e) =>
-              (e.courseId || e.id || e.courseCode || "").toLowerCase() ===
-              (selectedRecommendedCourse.id || selectedRecommendedCourse.code || "").toLowerCase()
-          )}
           onClose={() => setSelectedRecommendedCourse(null)}
           onEnroll={handleEnrollFromModal}
         />
       )}
 
-      {/* Mobile Drawer Backdrop - Only active for standard pages */}
-      {mobileMenuOpen && !isFullscreenExamActive && (
-        <div
-          className="dashboard-mobile-overlay"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Fixed Sidebar - Present for all categories; hidden ONLY during active Assessment exam */}
       {!isFullscreenExamActive && (
         <DashboardSidebar
           userProfile={userProfile}
@@ -212,9 +169,7 @@ export default function StudentDashboard() {
         />
       )}
 
-      {/* Main Viewport */}
       <div className="dashboard-viewport">
-        {/* Fixed Header - Present for all categories; hidden ONLY during active Assessment exam */}
         {!isFullscreenExamActive && (
           <DashboardHeader
             activeTab={selectedLearningCourseId ? "Course Learning" : activeTab}
@@ -224,9 +179,7 @@ export default function StudentDashboard() {
           />
         )}
 
-        {/* Scrollable Main Content */}
         <main className="dashboard-content-scroll">
-          {/* Dedicated Course Learning Details View */}
           {selectedLearningCourseId ? (
             <CourseLearningDetails
               courseId={selectedLearningCourseId}
@@ -236,7 +189,6 @@ export default function StudentDashboard() {
             />
           ) : (
             <>
-              {/* Category 1: My Courses */}
               {activeTab === "My courses" && (
                 <MyCourses
                   onResumeCourse={handleResumeLesson}
@@ -244,20 +196,16 @@ export default function StudentDashboard() {
                 />
               )}
 
-              {/* Category 2: Chat Instructor */}
               {(activeTab === "Chat Instructor" || activeTab === "AI assistant") && (
                 <AIAssistantTab userName={userProfile.name} />
               )}
 
-              {/* Category 3: Coding Lab */}
-              {activeTab === "Coding lab" && (
+              {(activeTab === "Coding lab" || activeTab === "Coding Lab" || activeTab?.toLowerCase().includes("coding")) && (
                 <CodingLabTab onOpenSandbox={() => showToast("Launching sandbox environment...")} />
               )}
 
-              {/* Category 4: Careers */}
               {activeTab === "Careers" && <CareersTab />}
 
-              {/* Category 4b: Leaderboard (Rankings, Podium, XP & Streaks) */}
               {activeTab === "Leaderboard" && (
                 <LeaderboardTab
                   currentUserName={userProfile?.name}
@@ -265,7 +213,6 @@ export default function StudentDashboard() {
                 />
               )}
 
-              {/* Category 5: Assessments (Dedicated Proctoring, Fullscreen & Instructions Rules) */}
               {activeTab === "Assessments" && (
                 <Assessments
                   onBack={() => handleTabClick("Dashboard")}
@@ -273,58 +220,26 @@ export default function StudentDashboard() {
                 />
               )}
 
-              {/* Category 6: Certificates */}
               {activeTab === "Certificates" && (
                 <Certificates userEmail={userProfile?.email} userName={userProfile?.name} />
               )}
 
-              {/* Category 7: Dashboard Overview */}
               {activeTab === "Dashboard" && (
-                <>
-                  {/* Welcome Banner */}
-                  <WelcomeHero
-                    userName={userProfile.name}
-                    streakDays={streakDays}
-                    learningHours={learningHours}
-                    activeCoursesCount={activeCoursesCount}
-                    lastCourse={enrollments[0]}
-                    onResume={handleResumeLesson}
-                  />
-
-                  {/* Statistics Metric Cards */}
-                  <StatsCards
-                    activeCoursesCount={activeCoursesCount}
-                    learningHours={learningHours}
-                    streakDays={streakDays}
-                  />
-
-                  {/* Main Content Grid */}
-                  <div className="dashboard-main-grid">
-                    {/* Primary Column */}
-                    <div className="main-column">
-                      <ContinueLearning
-                        enrollments={filteredEnrollments}
-                        courseFilter={courseFilter}
-                        onFilterChange={setCourseFilter}
-                        onResume={handleResumeLesson}
-                        onOpenDetails={handleOpenLearningDetails}
-                      />
-
-                      <RecommendedSection
-                        recommendedCourses={recommendedCourses}
-                        onEnroll={handleQuickEnroll}
-                        onViewDetails={handleOpenRecommendedDetails}
-                      />
-                    </div>
-
-                    {/* Secondary Column */}
-                    <div className="sidebar-column">
-                      <SkillProfileSection />
-                      <ComingUpSection />
-                      <AchievementsSection />
-                    </div>
-                  </div>
-                </>
+                <DashboardOverviewTab
+                  userProfile={userProfile}
+                  streakDays={streakDays}
+                  learningHours={learningHours}
+                  activeCoursesCount={activeCoursesCount}
+                  enrollments={enrollments}
+                  filteredEnrollments={filteredEnrollments}
+                  recommendedCourses={recommendedCourses}
+                  courseFilter={courseFilter}
+                  onCourseFilterChange={setCourseFilter}
+                  onResumeLesson={handleResumeLesson}
+                  onOpenLearningDetails={handleOpenLearningDetails}
+                  onQuickEnroll={handleQuickEnroll}
+                  onOpenRecommendedDetails={handleOpenRecommendedDetails}
+                />
               )}
             </>
           )}

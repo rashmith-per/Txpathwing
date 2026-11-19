@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowLeft, ArrowRight, HelpCircle, Sparkles } from "lucide-react";
 import { renderTopicIcon } from "../TopicExams/TopicExamCard";
-import { PRACTICE_QUESTIONS_BY_COURSE } from "../../data/practiceQuestions.data";
+import { PRACTICE_QUESTIONS_BY_COURSE } from "../../data/practiceQuestions.data.js";
 import "./PracticeCatalogView.css";
 
 export default function PracticeCatalogView({ exams, onSelectCourse, onBack }) {

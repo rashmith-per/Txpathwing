@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { CheckCircle2, MessageSquare, Send, ThumbsUp, X } from "lucide-react";
 import { Badge } from "../common/Badge";
 import { ActionButton, IconButton } from "../common/ActionButton.jsx";
+import "../styles.css";
 
 export function QnA({ questions = [], onAnswerQuestion }) {
   const [filter, setFilter] = useState("All");

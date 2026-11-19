@@ -1,20 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import {
-  Play,
-  Pause,
-  Volume2,
-  VolumeX,
-  Maximize2,
-  Minimize2,
-  SkipBack,
-  SkipForward,
-  CheckCircle,
-  X,
-  Clock,
-  ListVideo,
-} from "lucide-react";
-import { getCourseByIdOrCode, DEMO_VIDEOS } from "../services/courseCatalogue.data";
+import { X, ListVideo } from "lucide-react";
+import { getCourseByIdOrCode, DEMO_VIDEOS } from "../services/courseCatalogue.data.js";
 import { studentApi } from "../services/studentApi";
+import { VideoControls } from "./components/VideoControls";
+import { VideoPlaylistSidebar } from "./components/VideoPlaylistSidebar";
+import { VideoLessonInfo } from "./components/VideoLessonInfo";
 import "./VideoPlayer.css";
 
 const FALLBACK_PLAYLIST = [
@@ -32,12 +22,10 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   const courseTitle = courseData?.title || course?.title || "Enrolled Course";
   const currentModule = courseData?.modules?.[0]?.title ? `Module 1: ${courseData.modules[0].title}` : (course?.currentModule || "Module 1");
 
-  // Construct real syllabus playlist from course modules and topics
   const playlist = useMemo(() => {
     if (!courseData || !Array.isArray(courseData.modules) || courseData.modules.length === 0) {
       return FALLBACK_PLAYLIST;
     }
-
     const items = [];
     courseData.modules.forEach((mod, modIdx) => {
       (mod.topics || []).forEach((topic, topIdx) => {
@@ -53,17 +41,14 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
         });
       });
     });
-
     return items.length > 0 ? items : FALLBACK_PLAYLIST;
   }, [courseData]);
 
-  // Load saved topic progress from studentApi
   const [topicProgress, setTopicProgress] = useState(() => {
     const all = studentApi.getAllTopicProgress();
     return all[courseId] || { lastAccessedTopicId: null, topics: {} };
   });
 
-  // Determine initial active topic
   const [activeLesson, setActiveLesson] = useState(() => {
     if (course?.selectedTopicId) {
       const found = playlist.find((p) => p.id === course.selectedTopicId);
@@ -86,13 +71,11 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   const [playbackRate, setPlaybackRate] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [playlistOpen, setPlaylistOpen] = useState(true);
-  const [speedMenuOpen, setSpeedMenuOpen] = useState(false);
   const [savedIndicator, setSavedIndicator] = useState(false);
 
   const videoRef = useRef(null);
   const playerContainerRef = useRef(null);
 
-  // Restore playback on active lesson change
   useEffect(() => {
     setIsPlaying(false);
     setCurrentTime(0);
@@ -103,7 +86,6 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
     studentApi.setLastAccessedTopic(courseId, activeLesson.id);
   }, [activeLesson.id, courseId, playbackRate]);
 
-  // Save progress handler
   const saveProgress = useCallback(
     async (markCompleted = false) => {
       try {
@@ -113,14 +95,10 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
           topicId: activeLesson.id,
           status,
         });
-
-        // Update local state
         const all = studentApi.getAllTopicProgress();
         setTopicProgress(all[courseId] || {});
-
         setSavedIndicator(true);
         setTimeout(() => setSavedIndicator(false), 2000);
-
         if (onProgressUpdate && res?.metrics) {
           onProgressUpdate(res.metrics.overallProgressPercent);
         }
@@ -155,9 +133,7 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   const handleSeek = (e) => {
     const val = parseFloat(e.target.value);
     setCurrentTime(val);
-    if (videoRef.current) {
-      videoRef.current.currentTime = val;
-    }
+    if (videoRef.current) videoRef.current.currentTime = val;
   };
 
   const handleVolume = (e) => {
@@ -172,21 +148,14 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
 
   const toggleMute = () => {
     if (!videoRef.current) return;
-    if (isMuted) {
-      videoRef.current.muted = false;
-      setIsMuted(false);
-    } else {
-      videoRef.current.muted = true;
-      setIsMuted(true);
-    }
+    const nextMuted = !isMuted;
+    videoRef.current.muted = nextMuted;
+    setIsMuted(nextMuted);
   };
 
   const changeRate = (rate) => {
     setPlaybackRate(rate);
-    if (videoRef.current) {
-      videoRef.current.playbackRate = rate;
-    }
-    setSpeedMenuOpen(false);
+    if (videoRef.current) videoRef.current.playbackRate = rate;
   };
 
   const toggleFullscreen = () => {
@@ -234,7 +203,6 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
   return (
     <div className="player-modal-backdrop">
       <div className="player-window" ref={playerContainerRef}>
-        {/* Header */}
         <header className="player-top-nav">
           <div className="player-course-meta">
             <span className="player-tag">SYLLABUS LESSON</span>
@@ -267,9 +235,7 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
           </div>
         </header>
 
-        {/* Content */}
         <div className="player-content-split">
-          {/* Main Video View */}
           <div className="player-viewport-column">
             <div className="player-video-box">
               <video
@@ -283,179 +249,47 @@ export default function VideoPlayer({ course, onClose, onProgressUpdate }) {
                 onClick={togglePlay}
                 playsInline
               />
-
               <div className="player-demo-badge">
                 <span>Interactive Learning Stream</span> • TX-Pathwing LMS
               </div>
             </div>
 
-            {/* Custom Controls */}
-            <div className="player-controls-container">
-              {/* Seek bar */}
-              <div className="player-scrub-bar">
-                <input
-                  type="range"
-                  min={0}
-                  max={duration || 100}
-                  step={0.5}
-                  value={currentTime}
-                  onChange={handleSeek}
-                  className="player-scrub-slider"
-                />
-                <div
-                  className="player-scrub-progress"
-                  style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
-                />
-              </div>
+            <VideoControls
+              isPlaying={isPlaying}
+              togglePlay={togglePlay}
+              handlePrev={handlePrev}
+              hasPrev={hasPrev}
+              handleNext={handleNext}
+              hasNext={hasNext}
+              isMuted={isMuted}
+              toggleMute={toggleMute}
+              volume={volume}
+              handleVolume={handleVolume}
+              currentTime={currentTime}
+              duration={duration}
+              handleSeek={handleSeek}
+              formatTime={formatTime}
+              speed={playbackRate}
+              changeSpeed={changeRate}
+              isFullscreen={isFullscreen}
+              toggleFullscreen={toggleFullscreen}
+              isCurrentLessonCompleted={isCurrentLessonCompleted}
+              handleMarkComplete={() => saveProgress(!isCurrentLessonCompleted)}
+            />
 
-              {/* Buttons */}
-              <div className="player-controls-actions">
-                <div className="controls-group-left">
-                  <button type="button" className="ctrl-action-btn play-circle" onClick={togglePlay}>
-                    {isPlaying ? <Pause size={18} /> : <Play size={18} fill="#ffffff" />}
-                  </button>
-
-                  <button type="button" className="ctrl-action-btn" onClick={handlePrev} disabled={!hasPrev} title="Previous Topic">
-                    <SkipBack size={17} />
-                  </button>
-
-                  <button type="button" className="ctrl-action-btn" onClick={handleNext} disabled={!hasNext} title="Next Topic">
-                    <SkipForward size={17} />
-                  </button>
-
-                  <div className="volume-slider-group">
-                    <button type="button" className="ctrl-action-btn" onClick={toggleMute}>
-                      {isMuted ? <VolumeX size={17} /> : <Volume2 size={17} />}
-                    </button>
-                    <input
-                      type="range"
-                      min={0}
-                      max={1}
-                      step={0.05}
-                      value={isMuted ? 0 : volume}
-                      onChange={handleVolume}
-                      className="volume-input"
-                    />
-                  </div>
-
-                  <span className="player-time-label">
-                    {formatTime(currentTime)} / {formatTime(duration)}
-                  </span>
-                </div>
-
-                <div className="controls-group-right">
-                  <div className="speed-dropdown-wrapper">
-                    <button
-                      type="button"
-                      className="speed-toggle"
-                      onClick={() => setSpeedMenuOpen((v) => !v)}
-                    >
-                      {playbackRate}x
-                    </button>
-
-                    {speedMenuOpen && (
-                      <div className="speed-menu">
-                        {[0.75, 1, 1.25, 1.5, 2].map((r) => (
-                          <button
-                            key={r}
-                            type="button"
-                            className={`speed-item ${playbackRate === r ? "active" : ""}`}
-                            onClick={() => changeRate(r)}
-                          >
-                            {r}x {r === 1 ? "(Normal)" : ""}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    className={`mark-done-btn ${isCurrentLessonCompleted ? "done" : ""}`}
-                    onClick={() => saveProgress(!isCurrentLessonCompleted)}
-                  >
-                    <CheckCircle size={15} />
-                    <span>{isCurrentLessonCompleted ? "Topic Completed ✓" : "Mark as Completed"}</span>
-                  </button>
-
-                  <button type="button" className="ctrl-action-btn" onClick={toggleFullscreen}>
-                    {isFullscreen ? <Minimize2 size={17} /> : <Maximize2 size={17} />}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Lesson details description */}
-            <div className="player-lesson-info-box">
-              <h4>{activeLesson.rawTitle || activeLesson.title}</h4>
-              <p>
-                In this topic, you will master the concepts, code implementations, and design patterns required for enterprise full stack development.
-              </p>
-              {activeLesson.skills?.length > 0 && (
-                <div style={{ marginTop: "10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                  {activeLesson.skills.map((s) => (
-                    <span
-                      key={s}
-                      style={{
-                        background: "#eff6ff",
-                        color: "#2563eb",
-                        fontSize: "0.75rem",
-                        fontWeight: 600,
-                        padding: "2px 8px",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
+            <VideoLessonInfo activeLesson={activeLesson} />
           </div>
 
-          {/* Playlist drawer */}
           {playlistOpen && (
-            <aside className="player-playlist-panel">
-              <div className="playlist-title-bar">
-                <h5>Syllabus Topics</h5>
-                <span>{playlist.length} Topics</span>
-              </div>
-
-              <div className="playlist-items-scroll">
-                {playlist.map((les, idx) => {
-                  const isCurrent = les.id === activeLesson.id;
-                  const isDone = topicProgress?.topics?.[les.id]?.status === "completed";
-
-                  return (
-                    <button
-                      key={les.id}
-                      type="button"
-                      className={`playlist-row ${isCurrent ? "current" : ""} ${isDone ? "done" : ""}`}
-                      onClick={() => {
-                        saveProgress(false);
-                        setActiveLesson(les);
-                      }}
-                    >
-                      <div className="playlist-row-status">
-                        {isDone ? (
-                          <CheckCircle size={16} color="#10b981" />
-                        ) : isCurrent ? (
-                          <Play size={14} color="#2563eb" fill="#2563eb" />
-                        ) : (
-                          <span className="circle-dot">{idx + 1}</span>
-                        )}
-                      </div>
-                      <div className="playlist-row-text">
-                        <span className="playlist-row-title">{les.title}</span>
-                        <span className="playlist-row-time">
-                          <Clock size={11} /> {les.duration}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </aside>
+            <VideoPlaylistSidebar
+              playlist={playlist}
+              activeLesson={activeLesson}
+              topicProgress={topicProgress}
+              onSelectLesson={(les) => {
+                saveProgress(false);
+                setActiveLesson(les);
+              }}
+            />
           )}
         </div>
       </div>

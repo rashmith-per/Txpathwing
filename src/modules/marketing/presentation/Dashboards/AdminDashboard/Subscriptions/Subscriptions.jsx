@@ -1,117 +1,14 @@
 import React, { useState } from "react";
 import "./Subscriptions.css";
 import {
-  AlertTriangle, Check, CheckCircle2, Layers, Shield,
-  SlidersHorizontal, Sparkles, Trash2, X, Zap
+  CheckCircle2, Layers, Shield, SlidersHorizontal, Sparkles, Trash2, Zap
 } from "lucide-react";
 import { Badge, getStatusTone } from "../common/Badge";
 import { Metric } from "../common/Metric";
 import { DetailField, InlineDetailView } from "../common/DetailSection";
-
-const PLANS = ["Basic", "Professional", "Enterprise LMS"];
-const STATUSES = ["Active", "Suspended", "Expired"];
-
-function EditSubscriptionModal({ tenant, onClose, onSave }) {
-  const [form, setForm] = useState({
-    plan: tenant.plan,
-    seats: String(tenant.seats),
-    contract: tenant.contract,
-    status: tenant.status,
-  });
-  const [error, setError] = useState("");
-
-  const set = key => e => setForm(f => ({ ...f, [key]: e.target.value }));
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const seats = Number(form.seats);
-    if (!Number.isFinite(seats) || seats < tenant.used) {
-      setError(`Seats can't be below used seats (${tenant.used.toLocaleString("en-IN")}).`);
-      return;
-    }
-    if (!form.contract.trim()) {
-      setError("Contract term is required.");
-      return;
-    }
-    onSave({ plan: form.plan, seats, contract: form.contract.trim(), status: form.status });
-  }
-
-  return (
-    <div className="sub-modal-backdrop" onClick={onClose}>
-      <form className="sub-modal" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
-        <div className="sub-modal-header">
-          <div>
-            <h2>Edit subscription</h2>
-            <p>{tenant.name}</p>
-          </div>
-          <button type="button" className="sub-icon-btn" onClick={onClose} aria-label="Close">
-            <X size={16} />
-          </button>
-        </div>
-
-        <label className="sub-field">
-          Plan
-          <select value={form.plan} onChange={set("plan")}>
-            {PLANS.map(p => <option key={p} value={p}>{p}</option>)}
-          </select>
-        </label>
-
-        <label className="sub-field">
-          Contracted seats
-          <input type="number" min={0} value={form.seats} onChange={set("seats")} />
-          <span className="sub-hint">Used: {tenant.used.toLocaleString("en-IN")}</span>
-        </label>
-
-        <label className="sub-field">
-          Contract term
-          <input
-            type="text"
-            value={form.contract}
-            onChange={set("contract")}
-            placeholder="e.g. Jun 26 – May 27"
-          />
-        </label>
-
-        <label className="sub-field">
-          Status
-          <select value={form.status} onChange={set("status")}>
-            {STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
-          </select>
-        </label>
-
-        {error && <p className="sub-error">{error}</p>}
-
-        <div className="sub-modal-actions">
-          <button type="button" className="secondary btn-sm" onClick={onClose}>Cancel</button>
-          <button type="submit" className="primary btn-sm">Save changes</button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
-function DeleteSubscriptionModal({ tenant, onClose, onConfirm }) {
-  return (
-    <div className="sub-modal-backdrop" onClick={onClose}>
-      <div className="sub-modal sub-modal-sm" onClick={e => e.stopPropagation()}>
-        <div className="sub-danger-icon">
-          <AlertTriangle size={20} />
-        </div>
-        <h2>Delete subscription?</h2>
-        <p className="sub-muted">
-          This removes <strong>{tenant.name}</strong> and its{" "}
-          {tenant.seats.toLocaleString("en-IN")} contracted seats. This can't be undone.
-        </p>
-        <div className="sub-modal-actions">
-          <button className="secondary btn-sm" onClick={onClose}>Cancel</button>
-          <button className="sub-danger-btn" onClick={onConfirm}>
-            <Trash2 size={14} /> Delete
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { EditSubscriptionModal } from "./components/EditSubscriptionModal";
+import { DeleteSubscriptionModal } from "./components/DeleteSubscriptionModal";
+import { SubscriptionPlansGrid } from "./components/SubscriptionPlansGrid";
 
 export function Subscriptions({
   subscriptions,
@@ -124,8 +21,8 @@ export function Subscriptions({
   const [deletingTenant, setDeletingTenant] = useState(null);
 
   function handleUpgrade(tenantId, newPlan) {
-    setTenants(prev =>
-      prev.map(t => {
+    setTenants((prev) =>
+      prev.map((t) => {
         if (t.id === tenantId) {
           const updated = { ...t, plan: newPlan };
           if (selectedSubTenant && selectedSubTenant.id === tenantId) {
@@ -140,8 +37,8 @@ export function Subscriptions({
   }
 
   function handleRenewContract(tenantId) {
-    setTenants(prev =>
-      prev.map(t => {
+    setTenants((prev) =>
+      prev.map((t) => {
         if (t.id === tenantId) {
           const updated = { ...t, contract: "Nov 26 – Nov 27", status: "Active" };
           if (selectedSubTenant && selectedSubTenant.id === tenantId) {
@@ -157,11 +54,11 @@ export function Subscriptions({
 
   function handleSaveEdit(data) {
     const id = editingTenant.id;
-    setTenants(prev =>
-      prev.map(t => (t.id === id ? { ...t, ...data } : t))
+    setTenants((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, ...data } : t))
     );
     if (selectedSubTenant && selectedSubTenant.id === id) {
-      setSelectedSubTenant(prev => ({ ...prev, ...data }));
+      setSelectedSubTenant((prev) => ({ ...prev, ...data }));
     }
     setNotice(`Subscription for "${editingTenant.name}" updated.`);
     setEditingTenant(null);
@@ -169,7 +66,7 @@ export function Subscriptions({
 
   function handleDelete() {
     const { id, name } = deletingTenant;
-    setTenants(prev => prev.filter(t => t.id !== id));
+    setTenants((prev) => prev.filter((t) => t.id !== id));
     if (selectedSubTenant && selectedSubTenant.id === id) {
       setSelectedSubTenant(null);
     }
@@ -177,9 +74,9 @@ export function Subscriptions({
     setDeletingTenant(null);
   }
 
-  const enterpriseCount = tenants.filter(t => t.plan === "Enterprise LMS").length;
-  const proCount = tenants.filter(t => t.plan === "Professional").length;
-  const basicCount = tenants.filter(t => t.plan === "Basic").length;
+  const enterpriseCount = tenants.filter((t) => t.plan === "Enterprise LMS").length;
+  const proCount = tenants.filter((t) => t.plan === "Professional").length;
+  const basicCount = tenants.filter((t) => t.plan === "Basic").length;
 
   return (
     <>
@@ -190,24 +87,7 @@ export function Subscriptions({
         <Metric label="BASIC TIERS" value={String(basicCount + 10)} foot="Essential features" icon={Shield} />
       </div>
 
-      <div className="plans-grid">
-        {subscriptions.map(plan => (
-          <div className="card plan-card" key={plan.id}>
-            <div className="plan-header">
-              <span className="plan-name">{plan.planName}</span>
-              <strong className="plan-price">{plan.monthlyPrice} <small>/ mo</small></strong>
-              <span className="plan-seats">{plan.maxSeats}</span>
-            </div>
-            <ul className="plan-features">
-              {plan.features.map((f, i) => (
-                <li key={i}>
-                  <Check size={14} className="text-success" /> {f}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <SubscriptionPlansGrid subscriptions={subscriptions} />
 
       {selectedSubTenant ? (
         <InlineDetailView
@@ -291,7 +171,7 @@ export function Subscriptions({
                 </tr>
               </thead>
               <tbody>
-                {tenants.map(t => (
+                {tenants.map((t) => (
                   <tr
                     key={t.id || t.name}
                     className="hoverable-row"
@@ -310,7 +190,7 @@ export function Subscriptions({
                           className="sub-icon-btn"
                           title="Manage subscription"
                           aria-label="Manage subscription"
-                          onClick={e => {
+                          onClick={(e) => {
                             e.stopPropagation();
                             setEditingTenant(t);
                           }}
@@ -321,7 +201,7 @@ export function Subscriptions({
                           className="sub-icon-btn sub-icon-danger"
                           title="Delete subscription"
                           aria-label="Delete subscription"
-                          onClick={e => {
+                          onClick={(e) => {
                             e.stopPropagation();
                             setDeletingTenant(t);
                           }}

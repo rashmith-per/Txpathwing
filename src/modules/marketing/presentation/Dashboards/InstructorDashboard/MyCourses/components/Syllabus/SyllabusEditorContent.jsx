@@ -1,22 +1,9 @@
-/**
- * SyllabusEditorContent Component
- * Reusable complete Syllabus CRUD panel providing Module-level (Add, Edit, Delete, Reorder)
- * and Topic-level (Add, Edit, Delete, Reorder) operations plus validation & confirmations.
- * Used identically inside SyllabusModal and ViewCourseModal (Course Details).
- */
-
 import { useState } from "react";
 import {
   Layers,
   FolderPlus,
-  PlusCircle,
-  Pencil,
-  Trash2,
-  ArrowUp,
-  ArrowDown,
   ChevronDown,
   ChevronUp,
-  Clock,
   CheckCircle2,
   AlertCircle,
   BookOpen,
@@ -24,12 +11,8 @@ import {
 } from "lucide-react";
 import { ActionButton, IconButton } from "../../../common/ActionButton.jsx";
 import { useSyllabus } from "../../hooks/useSyllabus.js";
-import { SyllabusTopic } from "./SyllabusTopic.jsx";
-import { EditTopicModal } from "./EditTopicModal.jsx";
-import { AddTopicModal } from "./AddTopicModal.jsx";
-import { DeleteConfirmation } from "./DeleteConfirmation.jsx";
-import { ModuleFormModal } from "./ModuleFormModal.jsx";
-import { DeleteModuleConfirmation } from "./DeleteModuleConfirmation.jsx";
+import { SyllabusModuleCard } from "./SyllabusModuleCard.jsx";
+import { SyllabusDialogContainer } from "./SyllabusDialogContainer.jsx";
 import "../../styles/syllabus.css";
 
 export function SyllabusEditorContent({ course, onSyllabusChange }) {
@@ -40,7 +23,6 @@ export function SyllabusEditorContent({ course, onSyllabusChange }) {
     error,
     successNotice,
     clearNotice,
-    // Module CRUD
     moduleFormState,
     openAddModule,
     openEditModule,
@@ -51,15 +33,13 @@ export function SyllabusEditorContent({ course, onSyllabusChange }) {
     closeDeleteModule,
     confirmDeleteModule,
     reorderModule,
-    // Topic CRUD
     editingTopic,
     openEditTopic,
     closeEditTopic,
-    saveEditTopic,
+    saveTopic,
     addingToModule,
     openAddTopic,
     closeAddTopic,
-    saveAddTopic,
     deletingTopic,
     openDeleteTopic,
     closeDeleteTopic,
@@ -177,195 +157,48 @@ export function SyllabusEditorContent({ course, onSyllabusChange }) {
             </ActionButton>
           </div>
         ) : (
-          modules.map((mod, idx) => {
-            const topicsList = Array.isArray(mod.topics) ? mod.topics : [];
-            const isFirstMod = idx === 0;
-            const isLastMod = idx === modules.length - 1;
-            const modKey = getModuleKey(mod, idx);
-            const isExpanded = !collapsedModuleIds[modKey];
-
-            return (
-              <div
-                key={modKey}
-                className={`inst-syllabus-module-card ${!isExpanded ? "is-collapsed" : ""}`}
-              >
-                <div className="inst-module-header">
-                  <div className="inst-module-meta-wrap">
-                    <span className="inst-module-badge">Module {mod.num || idx + 1}</span>
-                    <strong className="inst-module-title">{mod.title}</strong>
-                    <span className="inst-module-hours">
-                      <Clock size={12} /> {mod.duration || "8 hours"}
-                    </span>
-                    <span className="inst-module-topic-pill">
-                      {topicsList.length} {topicsList.length === 1 ? "Topic" : "Topics"}
-                    </span>
-                  </div>
-
-                  <div className="inst-module-controls">
-                    <ActionButton
-                      icon={PlusCircle}
-                      variant="outline-blue"
-                      size="sm"
-                      onClick={() => openAddTopic(mod)}
-                      disabled={isSubmitting}
-                      tooltip={`Add a new topic to Module ${mod.num || idx + 1}`}
-                    >
-                      Add Topic
-                    </ActionButton>
-
-                    <IconButton
-                      icon={ArrowUp}
-                      size="xs"
-                      variant="neutral"
-                      onClick={() => reorderModule(mod, "up")}
-                      disabled={isFirstMod || isSubmitting}
-                      tooltip="Move module up"
-                      ariaLabel={`Move Module ${mod.num || idx + 1} up`}
-                    />
-
-                    <IconButton
-                      icon={ArrowDown}
-                      size="xs"
-                      variant="neutral"
-                      onClick={() => reorderModule(mod, "down")}
-                      disabled={isLastMod || isSubmitting}
-                      tooltip="Move module down"
-                      ariaLabel={`Move Module ${mod.num || idx + 1} down`}
-                    />
-
-                    <IconButton
-                      icon={Pencil}
-                      size="sm"
-                      variant="edit"
-                      onClick={() => openEditModule(mod)}
-                      disabled={isSubmitting}
-                      tooltip={`Edit Module ${mod.num || idx + 1}`}
-                      ariaLabel={`Edit Module ${mod.title}`}
-                    />
-
-                    <IconButton
-                      icon={Trash2}
-                      size="sm"
-                      variant="delete"
-                      onClick={() => openDeleteModule(mod)}
-                      disabled={isSubmitting}
-                      tooltip={`Delete Module ${mod.num || idx + 1}`}
-                      ariaLabel={`Delete Module ${mod.title}`}
-                    />
-
-                    <IconButton
-                      icon={isExpanded ? ChevronUp : ChevronDown}
-                      size="sm"
-                      variant="neutral"
-                      onClick={() => toggleModuleExpand(modKey)}
-                      aria-expanded={isExpanded}
-                      tooltip={isExpanded ? "Collapse module" : "Expand module"}
-                      ariaLabel={`${isExpanded ? "Collapse" : "Expand"} Module ${mod.title}`}
-                    />
-                  </div>
-                </div>
-
-                {isExpanded && (
-                  <>
-                    {mod.description && (
-                      <p className="inst-module-description">{mod.description}</p>
-                    )}
-
-                    {topicsList.length > 0 ? (
-                      <div className="inst-module-topics-list">
-                        {topicsList.map((top, topIdx) => (
-                          <SyllabusTopic
-                            key={top.id}
-                            topic={top}
-                            module={mod}
-                            isFirst={topIdx === 0}
-                            isLast={topIdx === topicsList.length - 1}
-                            isSubmitting={isSubmitting}
-                            onEdit={openEditTopic}
-                            onDelete={openDeleteTopic}
-                            onReorder={reorderTopic}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="inst-module-topics-empty">
-                        <p>No topics in this module yet.</p>
-                        <ActionButton
-                          icon={PlusCircle}
-                          variant="outline-blue"
-                          size="sm"
-                          onClick={() => openAddTopic(mod)}
-                        >
-                          Add First Topic
-                        </ActionButton>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            );
-          })
+          modules.map((mod, idx) => (
+            <SyllabusModuleCard
+              key={getModuleKey(mod, idx)}
+              mod={mod}
+              idx={idx}
+              modKey={getModuleKey(mod, idx)}
+              isExpanded={!collapsedModuleIds[getModuleKey(mod, idx)]}
+              isFirstMod={idx === 0}
+              isLastMod={idx === modules.length - 1}
+              isSubmitting={isSubmitting}
+              toggleModuleExpand={toggleModuleExpand}
+              openAddTopic={openAddTopic}
+              reorderModule={reorderModule}
+              openEditModule={openEditModule}
+              openDeleteModule={openDeleteModule}
+              openEditTopic={openEditTopic}
+              openDeleteTopic={openDeleteTopic}
+              reorderTopic={reorderTopic}
+            />
+          ))
         )}
       </div>
 
-      {/* Add / Edit Module Modal */}
-      {moduleFormState && (
-        <ModuleFormModal
-          isOpen={Boolean(moduleFormState)}
-          mode={moduleFormState.mode}
-          module={moduleFormState.module}
-          modulesCount={modules.length}
-          onClose={closeModuleModal}
-          onSave={saveModuleForm}
-          isSubmitting={isSubmitting}
-        />
-      )}
-
-      {/* Delete Module Confirmation Dialog */}
-      {deletingModule && (
-        <DeleteModuleConfirmation
-          isOpen={Boolean(deletingModule)}
-          module={deletingModule}
-          onClose={closeDeleteModule}
-          onConfirm={confirmDeleteModule}
-          isSubmitting={isSubmitting}
-        />
-      )}
-
-      {/* Edit Topic Modal Dialog */}
-      {editingTopic && (
-        <EditTopicModal
-          isOpen={Boolean(editingTopic)}
-          module={editingTopic.module}
-          topic={editingTopic.topic}
-          onClose={closeEditTopic}
-          onSave={saveEditTopic}
-          isSubmitting={isSubmitting}
-        />
-      )}
-
-      {/* Add Topic Modal Dialog */}
-      {addingToModule && (
-        <AddTopicModal
-          isOpen={Boolean(addingToModule)}
-          module={addingToModule}
-          onClose={closeAddTopic}
-          onAdd={saveAddTopic}
-          isSubmitting={isSubmitting}
-        />
-      )}
-
-      {/* Delete Topic Confirmation Dialog */}
-      {deletingTopic && (
-        <DeleteConfirmation
-          isOpen={Boolean(deletingTopic)}
-          module={deletingTopic.module}
-          topic={deletingTopic.topic}
-          onClose={closeDeleteTopic}
-          onConfirm={confirmDeleteTopic}
-          isSubmitting={isSubmitting}
-        />
-      )}
+      <SyllabusDialogContainer
+        moduleFormState={moduleFormState}
+        modulesCount={modules.length}
+        closeModuleModal={closeModuleModal}
+        saveModuleForm={saveModuleForm}
+        deletingModule={deletingModule}
+        closeDeleteModule={closeDeleteModule}
+        confirmDeleteModule={confirmDeleteModule}
+        editingTopic={editingTopic}
+        closeEditTopic={closeEditTopic}
+        saveEditTopic={(topicData) => saveTopic(editingTopic?.module, topicData, editingTopic?.topic)}
+        addingToModule={addingToModule}
+        closeAddTopic={closeAddTopic}
+        saveAddTopic={(topicData) => saveTopic(addingToModule, topicData, null)}
+        deletingTopic={deletingTopic}
+        closeDeleteTopic={closeDeleteTopic}
+        confirmDeleteTopic={confirmDeleteTopic}
+        isSubmitting={isSubmitting}
+      />
     </>
   );
 }

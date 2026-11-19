@@ -1,0 +1,266 @@
+import {
+  fullStackGuide,
+  pyFullStackGuide,
+  javaFullStackGuide,
+  awsDevopsGuide,
+  kubernetesGuide,
+  cloudSecurityGuide,
+  machineLearningGuide,
+  agenticAiGuide,
+  sqlDataModellingGuide,
+  seleniumGuide,
+  apiPerformanceGuide,
+  interviewPrepGuide,
+  campusAptitudeGuide,
+  DEMO_VIDEOS
+} from "./courseAssets.js";
+
+export const aiDataCourses = [
+{
+    id: "devsec",
+    code: "DEVSEC",
+    title: "Cloud Security & DevSecOps Essentials",
+    category: "Cloud & DevOps",
+    instructor: {
+      name: "Tanvox Technologies",
+      role: "Industry Security Consultants",
+      initials: "TT",
+    },
+    duration: "8 weeks",
+    durationHours: 50,
+    lessons: "44 lessons",
+    level: "Intermediate",
+    price: "₹5,299",
+    oldPrice: "₹7,999",
+    rating: "4.7",
+    reviews: "640",
+    emoji: "🛡",
+    image: cloudSecurityGuide,
+    description:
+      "Embed security into the DevOps pipeline. Learn SAST, DAST, container scanning, secret detection, IAM auditing, and cloud compliance standards.",
+    skills: ["DevSecOps", "Docker Security", "Kubernetes Security", "SonarQube", "Trivy", "OWASP"],
+    learningOutcomes: [
+      "Integrate SAST and secret scanning into continuous integration pipelines",
+      "Audit container images for vulnerabilities using Trivy and Clair",
+      "Enforce compliance and governance across AWS and Kubernetes workloads",
+    ],
+    projects: [
+      "Automated DevSecOps Pipeline with Quality Gates",
+      "Kubernetes Security Benchmark Compliance Suite",
+      "Dynamic Web Vulnerability Scanner Integration",
+    ],
+    modules: [
+      {
+        id: "mod-ds-1",
+        moduleNumber: 1,
+        title: "DevSecOps Fundamentals & SAST Automation",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-ds-1", title: "Security in CI/CD & Shift-Left Culture", duration: "45 mins", durationSec: 2700, skills: ["DevSecOps"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ds-2", title: "SonarQube & Semgrep Static Code Analysis", duration: "60 mins", durationSec: 3600, skills: ["SonarQube", "DevSecOps"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ds-3", title: "Secret Scanning with TruffleHog & Gitleaks", duration: "50 mins", durationSec: 3000, skills: ["DevSecOps"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-ds-2",
+        moduleNumber: 2,
+        title: "Container Auditing, DAST & Cloud Governance",
+        duration: "5 weeks",
+        topics: [
+          { id: "top-ds-4", title: "Trivy Container Image Vulnerability Scanning", duration: "60 mins", durationSec: 3600, skills: ["Trivy", "Docker Security"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ds-5", title: "Kubernetes Admission Controllers & Kyverno", duration: "65 mins", durationSec: 3900, skills: ["Kubernetes Security"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ds-6", title: "OWASP ZAP Dynamic Application Security Testing", duration: "70 mins", durationSec: 4200, skills: ["OWASP", "DevSecOps"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "ml-py",
+    code: "ML-PY",
+    title: "Machine Learning with Python",
+    category: "AI & Data",
+    instructor: {
+      name: "Dr. Anita Bose",
+      role: "Data Science Lead, PhD in AI",
+      initials: "AB",
+    },
+    duration: "12 weeks",
+    durationHours: 80,
+    lessons: "62 lessons",
+    level: "Intermediate",
+    price: "₹7,499",
+    oldPrice: "₹11,999",
+    rating: "4.9",
+    reviews: "2,100",
+    emoji: "📊",
+    image: machineLearningGuide,
+    description:
+      "Comprehensive Machine Learning program. Master Python data science libraries (NumPy, Pandas, Matplotlib), supervised & unsupervised learning, model tuning, and deployment.",
+    skills: ["Python", "Scikit-Learn", "Pandas & NumPy", "Supervised Learning", "Model Deployment", "Data Analysis"],
+    learningOutcomes: [
+      "Perform exploratory data analysis and feature engineering with Pandas",
+      "Train classification and regression models using Scikit-Learn and XGBoost",
+      "Tune hyperparameters and validate machine learning pipelines",
+      "Serve ML models in production via FastAPI and Docker",
+    ],
+    projects: [
+      "Predictive Customer Churn Engine",
+      "Real Estate Valuation Regressor",
+      "End-to-End Production Machine Learning API",
+    ],
+    modules: [
+      {
+        id: "mod-ml-1",
+        moduleNumber: 1,
+        title: "Data Preprocessing & Exploratory Analysis",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-ml-1", title: "NumPy Arrays & Pandas DataFrames", duration: "55 mins", durationSec: 3300, skills: ["Pandas & NumPy", "Python"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ml-2", title: "Missing Data Imputation & Outlier Handling", duration: "50 mins", durationSec: 3000, skills: ["Data Analysis"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ml-3", title: "Feature Scaling, Encoding & Engineering", duration: "60 mins", durationSec: 3600, skills: ["Data Analysis", "Python"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-ml-2",
+        moduleNumber: 2,
+        title: "Supervised Learning Algorithms",
+        duration: "4 weeks",
+        topics: [
+          { id: "top-ml-4", title: "Linear & Logistic Regression Models", duration: "65 mins", durationSec: 3900, skills: ["Supervised Learning", "Scikit-Learn"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ml-5", title: "Decision Trees & Random Forests", duration: "60 mins", durationSec: 3600, skills: ["Supervised Learning", "Scikit-Learn"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ml-6", title: "Gradient Boosting with XGBoost & LightGBM", duration: "70 mins", durationSec: 4200, skills: ["Supervised Learning"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-ml-3",
+        moduleNumber: 3,
+        title: "Unsupervised Learning & FastAPI Deployment",
+        duration: "5 weeks",
+        topics: [
+          { id: "top-ml-7", title: "K-Means Clustering & PCA Dimension Reduction", duration: "60 mins", durationSec: 3600, skills: ["Scikit-Learn", "Data Analysis"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ml-8", title: "Model Evaluation Metrics & Cross Validation", duration: "55 mins", durationSec: 3300, skills: ["Scikit-Learn"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ml-9", title: "FastAPI Model Serving & Docker Container", duration: "75 mins", durationSec: 4500, skills: ["Model Deployment", "Python"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "agentic",
+    code: "AGENTIC",
+    title: "Agentic AI Platform Engineering",
+    category: "AI & Data",
+    instructor: {
+      name: "Rohit Sharma",
+      role: "Ex-Google, AI Systems Engineer",
+      initials: "RS",
+    },
+    duration: "8 weeks",
+    durationHours: 55,
+    lessons: "46 lessons",
+    level: "Advanced",
+    price: "₹8,999",
+    oldPrice: "₹13,999",
+    rating: "4.9",
+    reviews: "520",
+    emoji: "🤖",
+    image: agenticAiGuide,
+    description:
+      "Build autonomous AI agents and multi-agent platforms. Master LangChain, LangGraph, AutoGen, vector databases, RAG architecture, and tool-calling models.",
+    skills: ["Generative AI", "LangChain", "LangGraph", "Vector DBs", "RAG Architecture", "Multi-Agent Systems"],
+    learningOutcomes: [
+      "Build production RAG pipelines with hybrid vector and keyword search",
+      "Design multi-agent collaborative workflows using LangGraph state machines",
+      "Equip autonomous agents with custom tools, external APIs, and code execution",
+    ],
+    projects: [
+      "Autonomous Code Review & Refactoring Agent",
+      "Multi-Agent Enterprise Market Research Swarm",
+      "Production-Grade Hybrid RAG Platform",
+    ],
+    modules: [
+      {
+        id: "mod-ag-1",
+        moduleNumber: 1,
+        title: "LLM Orchestration & RAG Pipelines",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-ag-1", title: "Prompt Engineering & Structured Outputs", duration: "50 mins", durationSec: 3000, skills: ["Generative AI"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ag-2", title: "Vector Databases (Chroma, Pinecone & PGVector)", duration: "65 mins", durationSec: 3900, skills: ["Vector DBs"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ag-3", title: "Advanced RAG: Chunking, Re-ranking & Context", duration: "70 mins", durationSec: 4200, skills: ["RAG Architecture", "LangChain"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-ag-2",
+        moduleNumber: 2,
+        title: "Autonomous Multi-Agent Architectures",
+        duration: "5 weeks",
+        topics: [
+          { id: "top-ag-4", title: "LangGraph State Machines & Cyclic Graphs", duration: "75 mins", durationSec: 4500, skills: ["LangGraph", "Multi-Agent Systems"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-ag-5", title: "Tool Calling, Sandboxed Code Execution & Memory", duration: "70 mins", durationSec: 4200, skills: ["Multi-Agent Systems"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-ag-6", title: "Multi-Agent Collaboration with AutoGen", duration: "80 mins", durationSec: 4800, skills: ["Multi-Agent Systems", "Generative AI"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "sql-dm",
+    code: "SQL-DM",
+    title: "SQL & Data Modelling for Engineers",
+    category: "AI & Data",
+    instructor: {
+      name: "Dr. Anita Bose",
+      role: "Data Science Lead, PhD in AI",
+      initials: "AB",
+    },
+    duration: "6 weeks",
+    durationHours: 40,
+    lessons: "38 lessons",
+    level: "Beginner",
+    price: "₹1,999",
+    oldPrice: "₹3,499",
+    rating: "4.7",
+    reviews: "1,430",
+    emoji: "🗄",
+    image: sqlDataModellingGuide,
+    description:
+      "SQL from fundamentals to advanced data engineering queries. Master joins, window functions, indexing, CTEs, and relational database schema design.",
+    skills: ["SQL", "Relational Databases", "Data Modelling", "Query Optimization", "PostgreSQL"],
+    learningOutcomes: [
+      "Master relational database normalization and ERD modeling",
+      "Write advanced SQL queries with Window Functions and CTEs",
+      "Tune query performance using explain plans and composite indexes",
+    ],
+    projects: [
+      "E-Commerce Analytics Warehouse Schema",
+      "High-Performance Financial Ledger Queries",
+      "Database Indexing & Query Tuning Benchmark",
+    ],
+    modules: [
+      {
+        id: "mod-sql-1",
+        moduleNumber: 1,
+        title: "SQL Fundamentals & Relational Joins",
+        duration: "2 weeks",
+        topics: [
+          { id: "top-sql-1", title: "Relational Theory & DDL/DML Fundamentals", duration: "45 mins", durationSec: 2700, skills: ["SQL", "Relational Databases"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-sql-2", title: "INNER, LEFT, RIGHT & FULL OUTER Joins", duration: "55 mins", durationSec: 3300, skills: ["SQL"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-sql-3", title: "Aggregations, GROUP BY & HAVING Clauses", duration: "50 mins", durationSec: 3000, skills: ["SQL"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-sql-2",
+        moduleNumber: 2,
+        title: "Advanced Analytical Queries & Schema Tuning",
+        duration: "4 weeks",
+        topics: [
+          { id: "top-sql-4", title: "Window Functions (RANK, DENSE_RANK, LEAD, LAG)", duration: "65 mins", durationSec: 3900, skills: ["SQL"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-sql-5", title: "Common Table Expressions (CTEs) & Subqueries", duration: "60 mins", durationSec: 3600, skills: ["SQL"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-sql-6", title: "PostgreSQL B-Tree Indexes & EXPLAIN ANALYZE", duration: "70 mins", durationSec: 4200, skills: ["Query Optimization", "PostgreSQL"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  }
+];

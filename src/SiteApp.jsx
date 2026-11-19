@@ -105,15 +105,7 @@ function AppRoutes() {
   const isConsole = pathname === "/institution"
     || pathname.startsWith("/institution/")
     || pathname.startsWith("/institution-dashboard");
-  const isPrivateDashboard = pathname.startsWith("/hackathon-dashboard")
-    || pathname.startsWith("/dashboard")
-    || pathname.startsWith("/student")
-    || pathname.toLowerCase().startsWith("/assessments")
-    || pathname.toLowerCase().startsWith("/certificates")
-    || pathname.startsWith("/admin")
-    || pathname.startsWith("/admin-dashboard")
-    || pathname.startsWith("/instructor")
-    || pathname.startsWith("/instructor-dashboard");
+  const isPrivateDashboard = pathname.toLowerCase().startsWith("/hackathon") || pathname.toLowerCase().startsWith("/dashboard") || pathname.toLowerCase().startsWith("/student") || pathname.toLowerCase().startsWith("/assessments") || pathname.toLowerCase().startsWith("/certificates") || pathname.toLowerCase().startsWith("/admin") || pathname.toLowerCase().startsWith("/instructor");
   const showWebsiteChrome = !isConsole && !isPrivateDashboard;
 
   return <>
@@ -164,28 +156,24 @@ function AppRoutes() {
       <Route path="/dashboard/*" element={<StudentDashboard />} />
       <Route path="/student/*" element={<StudentDashboard />} />
       <Route path="/student-dashboard/*" element={<StudentDashboard />} />
+      <Route path="/studentdashboard/*" element={<StudentDashboard />} />
+      <Route path="/Student/*" element={<StudentDashboard />} />
+      <Route path="/Student-dashboard/*" element={<StudentDashboard />} />
+      <Route path="/Dashboard/*" element={<StudentDashboard />} />
       <Route path="/assessments/*" element={<StudentDashboard />} />
       <Route path="/Assessments/*" element={<StudentDashboard />} />
       <Route path="/certificates/*" element={<StudentDashboard />} />
       <Route path="/Certificates/*" element={<StudentDashboard />} />
+      <Route path="/coding-lab/*" element={<StudentDashboard />} />
+      <Route path="/codinglab/*" element={<StudentDashboard />} />
+      <Route path="/CodingLab/*" element={<StudentDashboard />} />
+      <Route path="/Coding-lab/*" element={<StudentDashboard />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
-      <Route
-        path="/instructor/*"
-        element={
-          <ProtectedRoute allowedRole="instructor">
-            <InstructorDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/instructor-dashboard/*"
-        element={
-          <ProtectedRoute allowedRole="instructor">
-            <InstructorDashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/instructor/*" element={<InstructorDashboard />} />
+      <Route path="/instructor-dashboard/*" element={<InstructorDashboard />} />
+      <Route path="/Instructor/*" element={<InstructorDashboard />} />
+      <Route path="/Instructor-dashboard/*" element={<InstructorDashboard />} />
       <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
