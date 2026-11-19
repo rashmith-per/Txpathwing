@@ -151,7 +151,7 @@ export function InstructorContentDispatcher({
         />
       )}
 
-      {page === "QnA Forum" && (
+      {(page === "Q&A Forum" || page === "QnA Forum") && (
         <QnA questions={qna} onAnswerQuestion={handleAnswerQnA} />
       )}
 

@@ -1,3 +1,12 @@
+import { instructorProfile } from "./instructorProfile.data.js";
+
+function toLocalCalendarDay(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 export function createSeedRevenueTransactions(referenceDate = new Date()) {
   const anchor = new Date(referenceDate);
   const commissionRate = instructorProfile.platformCommissionRate / 100;

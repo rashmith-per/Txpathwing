@@ -112,8 +112,7 @@ function AppRoutes() {
     || pathname.toLowerCase().startsWith("/certificates")
     || pathname.startsWith("/admin")
     || pathname.startsWith("/admin-dashboard")
-    || pathname.startsWith("/instructor")
-    || pathname.startsWith("/instructor-dashboard");
+    || pathname.toLowerCase().startsWith("/instructor");
   const showWebsiteChrome = !isConsole && !isPrivateDashboard;
 
   return <>
@@ -170,22 +169,10 @@ function AppRoutes() {
       <Route path="/Certificates/*" element={<StudentDashboard />} />
       <Route path="/admin/*" element={<AdminDashboard />} />
       <Route path="/admin-dashboard/*" element={<AdminDashboard />} />
-      <Route
-        path="/instructor/*"
-        element={
-          <ProtectedRoute allowedRole="instructor">
-            <InstructorDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/instructor-dashboard/*"
-        element={
-          <ProtectedRoute allowedRole="instructor">
-            <InstructorDashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/instructor/*" element={<InstructorDashboard />} />
+      <Route path="/instructor-dashboard/*" element={<InstructorDashboard />} />
+      <Route path="/Instructor/*" element={<InstructorDashboard />} />
+      <Route path="/Instructor-dashboard/*" element={<InstructorDashboard />} />
       <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
