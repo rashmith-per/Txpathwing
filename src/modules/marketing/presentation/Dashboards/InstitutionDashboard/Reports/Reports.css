@@ -1,0 +1,25 @@
+/* Reports.css — department chart + report list */
+.report-chart-panel { margin-bottom: 15px; }
+.report-chart-panel .panel-header { min-height: 60px; }
+.report-chart-panel .panel-header p { margin: 4px 0 0; color: var(--muted); font-size: 9px; }
+.report-bars { display: grid; gap: 13px; max-width: 760px; padding: 18px 20px; }
+.report-bar-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 34px; align-items: center; gap: 10px; }
+.report-bar-row > span { color: #71819b; text-align: right; font: 10px ui-monospace, SFMono-Regular, monospace; }
+.report-bar-row .progress-track { height: 12px; }
+.report-bar-row > strong { color: #1d2c43; font-size: 10px; }
+.report-list-panel { overflow: hidden; }
+.report-row { min-height: 59px; display: flex; align-items: center; gap: 11px; padding: 10px 15px; border-bottom: 1px solid #edf0f5; }
+.report-row:last-child { border-bottom: 0; }
+.report-file-icon { width: 32px; height: 32px; display: grid; place-items: center; color: #2148d5; background: #edf2ff; border-radius: 7px; }
+.report-copy { flex: 1; min-width: 0; }
+.report-copy strong, .report-copy span { display: block; }
+.report-copy strong { overflow: hidden; color: #24344b; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.report-copy span { margin-top: 4px; color: var(--muted); font-size: 9px; }
+.format-tag { padding: 4px 6px; color: #65758d; background: #f1f3f7; border-radius: 4px; font: 8px ui-monospace, SFMono-Regular, monospace; }
+
+.institution-app-dark .report-row { border-color: #2d3b53; }
+.institution-app-dark .report-copy strong, .institution-app-dark .report-bar-row > strong { color: #edf2ff; }
+
+@media (max-width: 520px) {
+	.report-bars { padding: 15px 12px; }
+}

@@ -1,0 +1,28 @@
+/* Programmes.css — programme cards */
+.programme-list { display: grid; gap: 10px; }
+.programme-card { min-height: 145px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 75px 36px; align-items: center; gap: 15px; padding: 16px 18px; }
+.programme-index { align-self: start; padding-top: 4px; color: #8a98ad; font: 11px ui-monospace, SFMono-Regular, monospace; }
+.programme-code { display: flex; align-items: center; gap: 8px; color: #7c8ba3; font: 9px ui-monospace, SFMono-Regular, monospace; }
+.programme-main h2 { margin: 8px 0 3px; color: #18273e; font-size: 14px; font-weight: 700; }
+.programme-main > p { margin: 0 0 12px; color: var(--muted); font-size: 10px; }
+.programme-progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; color: var(--muted); font-size: 9px; }
+.programme-progress-label strong { color: #25364e; }
+.programme-main .progress-track { height: 6px; }
+.programme-count { display: flex; flex-direction: column; gap: 3px; text-align: center; }
+.programme-count strong { color: #17263c; font-size: 17px; }
+.programme-count span { color: var(--muted); font-size: 9px; }
+
+.institution-app-dark .programme-main h2, .institution-app-dark .programme-count strong, .institution-app-dark .programme-progress-label strong { color: #edf2ff; }
+
+@media (max-width: 820px) {
+	.programme-card { grid-template-columns: 25px minmax(0, 1fr) 55px 32px; gap: 9px; padding: 13px 11px; }
+	.programme-index { font-size: 9px; }
+	.programme-main h2 { font-size: 12px; }
+	.programme-code { flex-wrap: wrap; font-size: 8px; }
+	.programme-count strong { font-size: 15px; }
+}
+@media (max-width: 520px) {
+	.programme-card { grid-template-columns: minmax(0, 1fr) 28px; }
+	.programme-index, .programme-count { display: none; }
+	.programme-card .record-action { grid-column: 2; grid-row: 1; }
+}

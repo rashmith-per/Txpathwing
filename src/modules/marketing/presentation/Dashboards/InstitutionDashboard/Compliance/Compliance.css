@@ -1,0 +1,12 @@
+/* Compliance.css — deadline callout + status note */
+.compliance-callout { display: flex; align-items: center; gap: 7px; padding: 8px 10px; color: #8c570c; background: #fff6e8; border-radius: 6px; font-size: 9px; }
+.compliance-note { display: flex; align-items: center; gap: 11px; padding: 13px 16px; color: #16866e; }
+.compliance-note > div { flex: 1; }
+.compliance-note strong { color: #25374f; font-size: 10px; }
+.compliance-note p { margin: 4px 0 0; color: var(--muted); font-size: 9px; }
+
+.institution-app-dark .compliance-note strong { color: #edf2ff; }
+
+@media (max-width: 520px) {
+	.compliance-note { align-items: flex-start; flex-wrap: wrap; }
+}

@@ -1,0 +1,24 @@
+/* Learnings.css — course cards */
+.institution-course-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 18px; }
+.institution-course-card { min-width: 0; display: flex; flex-direction: column; overflow: hidden; }
+.institution-course-accent { min-height: 75px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; color: #fff; }
+.institution-course-accent span { font: 10px ui-monospace, SFMono-Regular, monospace; letter-spacing: .8px; }
+.institution-course-accent-blue { background: #244bd2; }
+.institution-course-accent-green { background: #16866e; }
+.institution-course-accent-orange { background: #c36b25; }
+.institution-course-accent-red { background: #b34d4d; }
+.institution-course-card-body { min-height: 212px; display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 19px 21px 18px; }
+.institution-course-card-body h2 { margin: 11px 0 5px; color: #18273e; font-size: 18px; font-weight: 700; line-height: 1.35; }
+.institution-course-card-body > p { margin: 0; color: var(--muted); font-size: 12px; }
+.institution-course-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 21px; color: #52627a; }
+.institution-course-meta span { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; }
+.institution-course-meta svg { color: #74849c; }
+.institution-course-progress { width: 100%; margin-top: 16px; }
+.institution-course-progress .progress-track { height: 8px; }
+.institution-course-link { display: flex; align-items: center; gap: 7px; margin-top: auto; padding: 18px 0 0; color: #2148d5; background: transparent; border: 0; cursor: pointer; font-size: 12px; font-weight: 650; }
+
+.institution-app-dark .institution-course-card-body h2 { color: #edf2ff; }
+
+@media (max-width: 900px) {
+	.institution-course-grid { grid-template-columns: minmax(0, 1fr); }
+}

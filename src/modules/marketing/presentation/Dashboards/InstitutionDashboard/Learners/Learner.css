@@ -1,0 +1,11 @@
+/* Learner.css — learner directory cells */
+.person-cell { display: flex; align-items: center; gap: 9px; }
+.person-cell strong, .person-cell small { display: block; }
+.person-cell strong { color: #1d2b42; font-size: 10px; font-weight: 650; }
+.person-cell small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+.table-avatar { width: 28px; height: 28px; display: grid; flex: 0 0 28px; place-items: center; color: #244bd2; background: #eaf0ff; border-radius: 7px; font-size: 9px; font-weight: 700; }
+.table-progress { min-width: 105px; display: flex; align-items: center; gap: 7px; }
+.table-progress .progress-track { width: 72px; height: 6px; }
+.table-progress > span { color: #5d6d84; font-size: 9px; }
+
+.institution-app-dark .person-cell strong { color: #edf2ff; }

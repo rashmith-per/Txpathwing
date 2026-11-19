@@ -7,7 +7,7 @@ import DashboardSelectionModal from "./modules/marketing/presentation/components
 import Login from "./modules/marketing/presentation/components/Login/Login";
 import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
 
-const InstitutionDashboard = lazy(() => import("./App"));
+const InstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/InstitutionDashboard.jsx"));
 const InstitutionSignIn = lazy(() => import("./modules/marketing/presentation/pages/InstitutionSignIn/InstitutionSignIn"));
 const Signin = lazy(() => import("./modules/marketing/presentation/components/Login/signin"));
 const RegistrationForm = lazy(() => import("./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm"));
