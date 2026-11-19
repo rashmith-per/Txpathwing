@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Round1 from "./Round1";
 import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -8,19 +7,17 @@ import {
   BarChart3,
   Trophy,
   FileBarChart,
-  Sparkles,
-  LogOut,
-  Menu,
-  X
+  Menu
 } from "lucide-react";
 import Overview from "./Overview";
 import Teams from "./Teams";
-import "./HackathonDashboard.css";
+import Round1 from "./Round1";
 import Round2 from "./Round2";
 import Round3 from "./Round3";
 import Reports from "./Reports";
-import txIcon from "../../../../../assets/tx-icon.jpg";
+import { HackathonSidebar } from "./components/HackathonSidebar";
 import { getRound1Teams, getRound2Teams, getRound3Teams } from "./HackethonApi";
+import "./HackathonDashboard.css";
 
 const HackathonDashboard = () => {
   const [active, setActive] = useState("dashboard");
@@ -104,127 +101,26 @@ const HackathonDashboard = () => {
 
   return (
     <div className="hackathon-dashboard-wrapper">
-
-      <aside
-        className={`hd-sidebar ${
-          mobileOpen ? "hd-sidebar-open" : ""
-        }`}
-      >
-
-        <div className="hd-sidebar-header">
-
-          <div className="hd-logo">
-            <img src={txIcon} alt="TX Logo" style={{ width: "28px", height: "28px", objectFit: "contain", borderRadius: "4px" }} />
-          </div>
-
-          <div className="hd-brand">
-            <div className="hd-brand-title">
-              Hackathon
-            </div>
-
-            <div className="hd-brand-sub">
-              Judge Portal
-            </div>
-          </div>
-
-          <button
-            className="hd-mobile-close"
-            onClick={() => setMobileOpen(false)}
-          >
-            <X size={16} />
-          </button>
-
-        </div>
-
-        <nav className="hd-nav">
-
-          {navItems.map((item) => {
-
-            const isActive = active === item.id;
-            const Icon = item.icon;
-
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setActive(item.id);
-                  setMobileOpen(false);
-                }}
-                className={`hd-nav-item ${
-                  isActive ? "hd-nav-active" : ""
-                }`}
-              >
-
-                <Icon className="hd-nav-icon" />
-
-                <span className="hd-nav-label">
-                  {item.label}
-                </span>
-
-                {typeof item.badge === "number" && item.badge > 0 && (
-                  <span
-                    className={`hd-badge hd-badge-${item.color} ${
-                      isActive ? "hd-badge-active" : ""
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
-
-              </button>
-            );
-          })}
-
-        </nav>
-
-        <div className="hd-sidebar-footer">
-
-          <div className="hd-user-card">
-
-            <div className="hd-user-avatar">
-              J
-            </div>
-
-            <div className="hd-user-info">
-
-              <div className="hd-user-email">
-                judge@hackathon.com
-              </div>
-
-              <div className="hd-user-role">
-                Lead Judge
-              </div>
-
-            </div>
-
-            <button
-              className="hd-logout-btn"
-              onClick={() => navigate("/")}
-            >
-              <LogOut size={16} />
-            </button>
-
-          </div>
-
-        </div>
-
-      </aside>
+      <HackathonSidebar
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+        navItems={navItems}
+        active={active}
+        setActive={setActive}
+        onLogout={() => navigate("/")}
+      />
 
       <div className="hd-main">
-
         <div className="hd-mobile-topbar">
-
           <button
             onClick={() => setMobileOpen(true)}
             className="hd-menu-btn"
+            aria-label="Open menu"
           >
             <Menu size={20} />
           </button>
 
-          <div className="hd-mobile-brand">
-            INNOVATE 2025
-          </div>
-
+          <div className="hd-mobile-brand">INNOVATE 2025</div>
         </div>
 
         {active === "dashboard" && (
@@ -244,17 +140,18 @@ const HackathonDashboard = () => {
             <Round1 />
           </div>
         )}
-        {active === "round2" && (
-  <div className="hd-content">
-    <Round2 />
-  </div>
-)}
 
-{active === "round3" && (
-  <div className="hd-content">
-    <Round3 />
-  </div>
-)}
+        {active === "round2" && (
+          <div className="hd-content">
+            <Round2 />
+          </div>
+        )}
+
+        {active === "round3" && (
+          <div className="hd-content">
+            <Round3 />
+          </div>
+        )}
 
         {active === "reports" && (
           <div className="hd-content">
@@ -269,52 +166,24 @@ const HackathonDashboard = () => {
           active !== "round3" &&
           active !== "reports" && (
             <div className="hd-empty-wrapper">
-
               <div className="hd-empty-box">
-
                 <div className="hd-empty-icon">
-
                   {(() => {
-
-                    const ActiveIcon =
-                      navItems.find(
-                        (item) => item.id === active
-                      )?.icon;
-
-                    return ActiveIcon ? (
-                      <ActiveIcon size={32} />
-                    ) : null;
-
+                    const ActiveIcon = navItems.find((item) => item.id === active)?.icon;
+                    return ActiveIcon ? <ActiveIcon size={32} /> : null;
                   })()}
-
                 </div>
-
-                <h2 className="hd-empty-title">
-                  {active}
-                </h2>
-
-                <p className="hd-empty-text">
-                  Empty screen - {active} page content will go here
-                </p>
-
-                <div className="hd-empty-tag">
-                  Left sidebar navigation working
-                </div>
-
+                <h2 className="hd-empty-title">{active}</h2>
+                <p className="hd-empty-text">Empty screen - {active} page content will go here</p>
+                <div className="hd-empty-tag">Left sidebar navigation working</div>
               </div>
-
             </div>
           )}
-
       </div>
 
       {mobileOpen && (
-        <div
-          className="hd-overlay"
-          onClick={() => setMobileOpen(false)}
-        />
+        <div className="hd-overlay" onClick={() => setMobileOpen(false)} />
       )}
-
     </div>
   );
 };
