@@ -62,7 +62,7 @@ export function AboutOrbitAnimation() {
     : 490;
   const radius = Math.round(stageSize * 0.34);
   const nodeSize = isSmallMobile ? 34 : isMobile ? 40 : isTablet ? 48 : 52;
-  const hubSize = isSmallMobile ? 56 : isMobile ? 66 : isTablet ? 84 : 94;
+  const hubSize = isSmallMobile ? 60 : isMobile ? 72 : isTablet ? 88 : 98;
   const viewBoxSize = 520;
   const centerCoord = viewBoxSize / 2;
   const svgRadius = 190;
@@ -109,6 +109,10 @@ export function AboutOrbitAnimation() {
             const y = Math.sin(rad) * radius;
             const isActive = idx <= activeNodeIdx;
             const isCurrent = idx === activeNodeIdx;
+            const pillDist = radius + (isSmallMobile ? 22 : isMobile ? 28 : 40);
+            const pillX = Math.cos(rad) * pillDist;
+            const pillY = Math.sin(rad) * pillDist;
+
             return (
               <div
                 key={item.label}
@@ -140,6 +144,21 @@ export function AboutOrbitAnimation() {
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
+                  </div>
+                </div>
+
+                <div
+                  className="about-orbit-pill-anchor"
+                  style={{
+                    transform: `translate(calc(-50% + ${pillX - x}px), calc(-50% + ${pillY - y}px))`,
+                    zIndex: 4,
+                  }}
+                >
+                  <div
+                    className={`about-orbit-pill ${isActive ? "is-active" : ""}`}
+                    style={{ fontSize: isSmallMobile ? 9 : isMobile ? 11 : 12 }}
+                  >
+                    {item.short}
                   </div>
                 </div>
               </div>
@@ -180,6 +199,12 @@ export function AboutOrbitAnimation() {
           >
             <div className={`about-orbit-center-card ${isHired ? "is-hired" : ""}`}>
               <img src={txLogo} alt="TX Pathwing Logo" className="about-orbit-center-img" />
+              <span
+                className="about-orbit-center-title"
+                style={{ fontSize: isSmallMobile ? 8 : isMobile ? 9 : 10.5 }}
+              >
+                TX Pathwing
+              </span>
             </div>
             {confetti.map((p, idx) => (
               <div
