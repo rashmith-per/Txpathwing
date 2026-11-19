@@ -1920,13 +1920,14 @@
 }
 
 .qna-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid #f1f5f9;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  margin-top: 14px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  width: 100% !important;
 }
 
 .upvotes-pill {
@@ -1948,11 +1949,11 @@
 }
 
 .qna-card-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-left: auto;
-  gap: 8px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  margin-left: auto !important;
+  gap: 8px !important;
 }
 
 /* =========================================================

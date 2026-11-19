@@ -2807,10 +2807,11 @@
   display: block;
 }
 
-/* Action Boxes Styling */
+/* Action Boxes Styling (Ultra Modern Design Box & High Clarity) */
 .inst-action-boxes-wrap {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 8px !important;
 }
 
@@ -2820,45 +2821,78 @@
   justify-content: center !important;
   width: 34px !important;
   height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  margin: 0 !important;
   border-radius: 9px !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   outline: none !important;
   border: 1px solid transparent !important;
-  padding: 0 !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
 }
 
+/* View Box Button */
 .inst-box-btn.view {
-  background: #eef2ff !important;
-  border: 1px solid #c7d2fe !important;
+  background-color: #f0f4ff !important;
+  border: 1px solid #dbeafe !important;
   color: #4f46e5 !important;
 }
 
+.inst-box-btn.view svg {
+  color: #4f46e5 !important;
+  stroke: #4f46e5 !important;
+  stroke-width: 2 !important;
+  transition: transform 0.15s ease, stroke 0.15s ease !important;
+}
+
 .inst-box-btn.view:hover {
-  background: #4f46e5 !important;
+  background-color: #4f46e5 !important;
   border-color: #4338ca !important;
   color: #ffffff !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35) !important;
+}
+
+.inst-box-btn.view:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transform: scale(1.08) !important;
 }
 
 .inst-box-btn.view:active {
   transform: translateY(0) !important;
 }
 
+/* Delete Box Button */
 .inst-box-btn.delete {
-  background: #fef2f2 !important;
-  border: 1px solid #fecaca !important;
+  background-color: #fef2f2 !important;
+  border: 1px solid #fee2e2 !important;
   color: #ef4444 !important;
 }
 
+.inst-box-btn.delete svg {
+  color: #ef4444 !important;
+  stroke: #ef4444 !important;
+  stroke-width: 2 !important;
+  transition: transform 0.15s ease, stroke 0.15s ease !important;
+}
+
 .inst-box-btn.delete:hover {
-  background: #ef4444 !important;
+  background-color: #ef4444 !important;
   border-color: #dc2626 !important;
   color: #ffffff !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35) !important;
+}
+
+.inst-box-btn.delete:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  transform: scale(1.08) !important;
 }
 
 .inst-box-btn.delete:active {

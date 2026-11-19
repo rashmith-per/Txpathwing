@@ -1,0 +1,251 @@
+import {
+  fullStackGuide,
+  pyFullStackGuide,
+  javaFullStackGuide,
+  awsDevopsGuide,
+  kubernetesGuide,
+  cloudSecurityGuide,
+  machineLearningGuide,
+  agenticAiGuide,
+  sqlDataModellingGuide,
+  seleniumGuide,
+  apiPerformanceGuide,
+  interviewPrepGuide,
+  campusAptitudeGuide
+} from "./courseAssets";
+
+export const qaCareerCourses = [
+{
+    id: "sel-aut",
+    code: "SEL-AUT",
+    title: "Selenium Automation Testing",
+    category: "Testing",
+    instructor: {
+      name: "Kavitha Reddy",
+      role: "QA Lead Architect",
+      initials: "KR",
+    },
+    duration: "8 weeks",
+    durationHours: 50,
+    lessons: "54 lessons",
+    level: "Beginner",
+    price: "₹3,499",
+    oldPrice: "₹5,999",
+    rating: "4.8",
+    reviews: "1,520",
+    emoji: "🧪",
+    image: seleniumGuide,
+    description:
+      "Master automated web testing with Java and Selenium WebDriver. Learn TestNG framework, Page Object Model (POM), Data-Driven testing, and Jenkins integration.",
+    skills: ["Selenium", "Java", "TestNG", "Automation Frameworks", "CI/CD Integration"],
+    learningOutcomes: [
+      "Automate complex web UI interactions with Selenium WebDriver",
+      "Architect scalable Page Object Model (POM) test frameworks",
+      "Integrate automated test execution into CI/CD pipelines",
+    ],
+    projects: [
+      "E-Commerce End-to-End Test Automation Suite",
+      "Hybrid Data-Driven Automation Framework",
+      "Automated Extent Reports Quality Dashboard",
+    ],
+    modules: [
+      {
+        id: "mod-sel-1",
+        moduleNumber: 1,
+        title: "Selenium WebDriver & Java Fundamentals",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-sel-1", title: "WebDriver Architecture & Element Locators", duration: "50 mins", durationSec: 3000, skills: ["Selenium"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-sel-2", title: "Handling Dynamic Elements, Frames & Alerts", duration: "55 mins", durationSec: 3300, skills: ["Selenium", "Java"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-sel-3", title: "Explicit, Implicit & Fluent Synchronizations", duration: "45 mins", durationSec: 2700, skills: ["Selenium"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-sel-2",
+        moduleNumber: 2,
+        title: "TestNG & Page Object Model Frameworks",
+        duration: "5 weeks",
+        topics: [
+          { id: "top-sel-4", title: "TestNG Annotations, Assertions & XML Suites", duration: "60 mins", durationSec: 3600, skills: ["TestNG", "Automation Frameworks"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-sel-5", title: "Page Object Model (POM) & Factory Design", duration: "70 mins", durationSec: 4200, skills: ["Automation Frameworks", "Java"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-sel-6", title: "Apache POI Excel Driven Testing & Jenkins CI", duration: "65 mins", durationSec: 3900, skills: ["CI/CD Integration", "Automation Frameworks"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "api-perf",
+    code: "API-PERF",
+    title: "API & Performance Testing — Postman",
+    category: "Testing",
+    instructor: {
+      name: "Kavitha Reddy",
+      role: "QA Lead Architect",
+      initials: "KR",
+    },
+    duration: "5 weeks",
+    durationHours: 35,
+    lessons: "31 lessons",
+    level: "Intermediate",
+    price: "₹2,999",
+    oldPrice: "₹4,999",
+    rating: "4.7",
+    reviews: "980",
+    emoji: "⚡",
+    image: apiPerformanceGuide,
+    description:
+      "API testing and performance benchmarking. Master Postman test scripts, Newman CLI, Apache JMeter load testing, response validation, and stress analysis.",
+    skills: ["API Testing", "Postman", "JMeter", "Performance Testing", "REST Architecture"],
+    learningOutcomes: [
+      "Create automated API test suites with JavaScript assertions in Postman",
+      "Benchmark high-throughput systems under load with Apache JMeter",
+      "Run headless API integration tests in CI/CD using Newman CLI",
+    ],
+    projects: [
+      "Enterprise Banking API Test Automation Suite",
+      "High-Traffic E-Commerce Load Benchmark Report",
+      "Automated Newman CI/CD Test Pipeline",
+    ],
+    modules: [
+      {
+        id: "mod-api-1",
+        moduleNumber: 1,
+        title: "API Automation with Postman",
+        duration: "2 weeks",
+        topics: [
+          { id: "top-api-1", title: "REST Endpoints, Headers & Query Parameters", duration: "45 mins", durationSec: 2700, skills: ["REST Architecture", "API Testing"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-api-2", title: "Postman Collections, Variables & Environments", duration: "50 mins", durationSec: 3000, skills: ["Postman", "API Testing"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-api-3", title: "JavaScript Assertion Scripts & Newman Execution", duration: "60 mins", durationSec: 3600, skills: ["Postman", "API Testing"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-api-2",
+        moduleNumber: 2,
+        title: "Performance Testing with Apache JMeter",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-api-4", title: "Thread Groups, Samplers & HTTP Requests", duration: "55 mins", durationSec: 3300, skills: ["JMeter", "Performance Testing"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-api-5", title: "Load, Stress & Spike Testing Configurations", duration: "65 mins", durationSec: 3900, skills: ["Performance Testing", "JMeter"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-api-6", title: "Response Latency & Bottleneck Analysis", duration: "60 mins", durationSec: 3600, skills: ["Performance Testing"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "career-01",
+    code: "CAREER-01",
+    title: "Interview Preparation & Resume Lab",
+    category: "Career",
+    instructor: {
+      name: "Placement Cell",
+      role: "Senior Placement Experts",
+      initials: "PC",
+    },
+    duration: "4 weeks",
+    durationHours: 25,
+    lessons: "22 lessons",
+    level: "Beginner",
+    price: "₹0",
+    oldPrice: "₹0",
+    rating: "4.9",
+    reviews: "5,210",
+    emoji: "💼",
+    image: interviewPrepGuide,
+    description:
+      "Land your dream IT job. Comprehensive resume optimization, ATS formatting, LinkedIn branding, technical mock interviews, and HR negotiation strategies.",
+    skills: ["Resume Optimization", "Technical Interviews", "System Design Prep", "Behavioral Interviewing"],
+    learningOutcomes: [
+      "Craft ATS-optimized developer resumes that get recruiter responses",
+      "Confidently answer technical and behavioral interview frameworks",
+      "Master software engineering compensation negotiation tactics",
+    ],
+    projects: [
+      "Industry-Ready ATS Software Developer Resume",
+      "Professional GitHub & Portfolio Showcase",
+      "Mock Technical Interview Recording & Evaluation",
+    ],
+    modules: [
+      {
+        id: "mod-car1-1",
+        moduleNumber: 1,
+        title: "ATS Resume & Portfolio Showcase",
+        duration: "2 weeks",
+        topics: [
+          { id: "top-car1-1", title: "ATS Friendly Resume Structure & Keywords", duration: "40 mins", durationSec: 2400, skills: ["Resume Optimization"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-car1-2", title: "LinkedIn Profile Optimization for Developers", duration: "45 mins", durationSec: 2700, skills: ["Resume Optimization"], videoUrl: DEMO_VIDEOS[1] },
+        ],
+      },
+      {
+        id: "mod-car1-2",
+        moduleNumber: 2,
+        title: "Technical Frameworks & Behavioral Rounds",
+        duration: "2 weeks",
+        topics: [
+          { id: "top-car1-3", title: "STAR Method for Behavioral Interviews", duration: "50 mins", durationSec: 3000, skills: ["Behavioral Interviewing"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-car1-4", title: "Live Mock Technical Interview Evaluation", duration: "60 mins", durationSec: 3600, skills: ["Technical Interviews", "System Design Prep"], videoUrl: DEMO_VIDEOS[1] },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "career-02",
+    code: "CAREER-02",
+    title: "Aptitude & Communication for Campus Hiring",
+    category: "Career",
+    instructor: {
+      name: "Placement Cell",
+      role: "Campus Training Division",
+      initials: "PC",
+    },
+    duration: "6 weeks",
+    durationHours: 35,
+    lessons: "40 lessons",
+    level: "Beginner",
+    price: "₹0",
+    oldPrice: "₹0",
+    rating: "4.6",
+    reviews: "3,120",
+    emoji: "🎯",
+    image: campusAptitudeGuide,
+    description:
+      "Prepare for campus recruitment drives. Quantitative aptitude, logical reasoning, verbal ability, group discussions, and corporate communication.",
+    skills: ["Quantitative Aptitude", "Logical Reasoning", "Corporate Communication", "Group Discussion"],
+    learningOutcomes: [
+      "Solve quantitative and logical reasoning questions with speed math techniques",
+      "Excel in corporate group discussions and public presentations",
+      "Write polished business emails and professional communications",
+    ],
+    projects: [
+      "5 Full-Length Campus Aptitude Diagnostic Tests",
+      "Recorded Live Group Discussion Simulation",
+      "Corporate Professional Communication Portfolio",
+    ],
+    modules: [
+      {
+        id: "mod-car2-1",
+        moduleNumber: 1,
+        title: "Quantitative Aptitude & Speed Math",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-car2-1", title: "Speed Math, Percentages & Ratios", duration: "45 mins", durationSec: 2700, skills: ["Quantitative Aptitude"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-car2-2", title: "Time, Speed, Distance & Work Equations", duration: "50 mins", durationSec: 3000, skills: ["Quantitative Aptitude"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-car2-3", title: "Logical Deductions, Puzzles & Series", duration: "55 mins", durationSec: 3300, skills: ["Logical Reasoning"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+      {
+        id: "mod-car2-2",
+        moduleNumber: 2,
+        title: "Verbal Ability & Corporate Communication",
+        duration: "3 weeks",
+        topics: [
+          { id: "top-car2-4", title: "Grammar, Vocabulary & Reading Comprehension", duration: "45 mins", durationSec: 2700, skills: ["Corporate Communication"], videoUrl: DEMO_VIDEOS[0] },
+          { id: "top-car2-5", title: "Group Discussion Etiquette & Leadership", duration: "55 mins", durationSec: 3300, skills: ["Group Discussion"], videoUrl: DEMO_VIDEOS[1] },
+          { id: "top-car2-6", title: "Corporate Email Writing & Presentation Skills", duration: "50 mins", durationSec: 3000, skills: ["Corporate Communication"], videoUrl: DEMO_VIDEOS[2] },
+        ],
+      },
+    ],
+  },
+];
