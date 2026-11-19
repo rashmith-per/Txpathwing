@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Play, Search, BookOpen, ArrowRight } from "lucide-react";
-import { studentStorage } from "../Dashboard/services/studentStorage";
+import { studentStorage } from "../services/studentStorage";
 import "./MyCourses.css";
 
 export default function MyCourses({ onResumeCourse, onOpenCourseDetails }) {

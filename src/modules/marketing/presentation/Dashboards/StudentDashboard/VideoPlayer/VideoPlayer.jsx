@@ -13,8 +13,8 @@ import {
   Clock,
   ListVideo,
 } from "lucide-react";
-import { getCourseByIdOrCode, DEMO_VIDEOS } from "./services/courseCatalogue.data";
-import { studentApi } from "./services/studentApi";
+import { getCourseByIdOrCode, DEMO_VIDEOS } from "../services/courseCatalogue.data";
+import { studentApi } from "../services/studentApi";
 import "./VideoPlayer.css";
 
 const FALLBACK_PLAYLIST = [

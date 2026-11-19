@@ -1,20 +1,40 @@
-import { Building2, X } from "lucide-react";
-import txIcon from "../../../../../assets/tx-icon.jpg"; // src/assets/tx-icon.jpg — adjust if yours differs
+
+import { Building2, X, LogOut } from "lucide-react";
+import txIcon from "../../../../../assets/tx-icon.jpg";
 import { navigation } from "./sidebarData.js";
 import "./Sidebar.css";
 
-export default function Sidebar({ activeNav, onNavigate, open, onClose }) {
+export default function Sidebar({
+  activeNav,
+  onNavigate,
+  open,
+  onClose,
+  onLogout,
+}) {
   return (
-    <aside className={`institution-sidebar${open ? " institution-sidebar-open" : ""}`}>
+    <aside
+      className={`institution-sidebar${
+        open ? " institution-sidebar-open" : ""
+      }`}
+    >
+      {/* Brand */}
       <div className="institution-brand">
         <img src={txIcon} alt="TX Pathwing" />
         <span>Pathwing</span>
-        <button className="icon-button mobile-close" type="button" onClick={onClose} aria-label="Close navigation">
+
+        <button
+          className="icon-button mobile-close"
+          type="button"
+          onClick={onClose}
+          aria-label="Close navigation"
+        >
           <X size={18} />
         </button>
       </div>
 
+      {/* Institution Information */}
       <div className="signed-in-label">SIGNED IN AS</div>
+
       <div className="institution-context">
         <Building2 size={17} />
         <div>
@@ -23,15 +43,29 @@ export default function Sidebar({ activeNav, onNavigate, open, onClose }) {
         </div>
       </div>
 
-      <nav className="institution-nav" aria-label="Institution navigation">
+      {/* Navigation */}
+      <nav
+        className="institution-nav"
+        aria-label="Institution navigation"
+      >
         {navigation.map((item) => {
           const Icon = item.icon;
+
           return (
             <div key={item.label}>
-              {item.group && <div className="nav-group-label">{item.group}</div>}
+              {item.group && (
+                <div className="nav-group-label">
+                  {item.group}
+                </div>
+              )}
+
               <button
                 type="button"
-                className={`nav-item${activeNav === item.label ? " nav-item-active" : ""}`}
+                className={`nav-item${
+                  activeNav === item.label
+                    ? " nav-item-active"
+                    : ""
+                }`}
                 onClick={() => onNavigate(item.label)}
               >
                 <Icon size={17} />
@@ -43,12 +77,24 @@ export default function Sidebar({ activeNav, onNavigate, open, onClose }) {
         })}
       </nav>
 
+      {/* Profile and Logout */}
       <div className="sidebar-profile">
         <div className="profile-avatar">RS</div>
-        <div>
+
+        <div className="profile-details">
           <strong>R. Sathyanarayana</strong>
           <span>Tenant admin · KITS Warangal</span>
         </div>
+
+        <button
+          type="button"
+          className="sidebar-logout-btn"
+          onClick={onLogout}
+          title="Sign out & Exit"
+          aria-label="Sign out & Exit"
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </aside>
   );

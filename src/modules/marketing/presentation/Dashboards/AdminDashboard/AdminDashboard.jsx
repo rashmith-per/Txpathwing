@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   Activity, ArrowRight, ArrowUpRight, Award, Bell, BookOpen,
   Briefcase, Building2, Calendar, CheckCircle2, ChevronDown,
-  ChevronRight, Download, FileText, Layers, LayoutDashboard,
+  ChevronRight, Download, FileText, GraduationCap, Layers, LayoutDashboard,
   LockKeyhole, Menu, Plus, Search, SearchX, Send, ShieldAlert,
   ShieldCheck, Tag, UserCheck, UserPlus, UserRound, Users,
   Wallet, X, XCircle, Zap
@@ -13,6 +13,7 @@ import "./styles.css";
 // Import Initial Data
 import {
   initialTenants,
+  initialInstructors,
   initialUsers,
   initialCourses,
   initialApprovals,
@@ -33,20 +34,20 @@ import {
 
 // Import Modules
 import { Overview } from "./Overview/Overview";
-import { Organizations } from "./Organizations/Organizations";
-import { Tenants } from "./Tenants/Tenants";
+import { Instructors } from "./Instructors/Instructors";
+import { Tenants as OrganizationsModule } from "./Tenants/Tenants";
 import { UsersModule } from "./Users/Users";
 import { Courses } from "./Courses/Courses";
 import { Moderation } from "./Moderation/Moderation";
 import { Approvals } from "./Approvals/Approvals";
-import { Internships } from "./Internships/Internships";
+import  Internships  from "./Internships/Internships.jsx";
 import { Events } from "./Events/Events";
 import { TrainingPrograms } from "./TrainingPrograms/TrainingPrograms";
 import { Certificates } from "./Certificates/Certificates";
 import { Batches } from "./Batches/Batches";
 import { Payments } from "./Payments/Payments";
 import { Subscriptions } from "./Subscriptions/Subscriptions";
-import { Coupons } from "./Coupons/Coupons";
+import Coupons from "./Coupons/Coupons.jsx";
 import { Reports } from "./ReportsAnalytics/ReportsAnalytics";
 import { SecurityAudit } from "./SecurityAudit/SecurityAudit";
 import { RolesPermissions } from "./RolesPermissions/RolesPermissions";
@@ -61,8 +62,8 @@ const navConfig = [
     group: "PLATFORM",
     items: [
       { name: "Overview", icon: LayoutDashboard },
+      { name: "Instructors", icon: GraduationCap },
       { name: "Organizations", icon: Building2 },
-      { name: "Tenants", icon: Layers },
       { name: "Users", icon: Users }
     ]
   },
@@ -117,6 +118,15 @@ function AdminDashboard() {
   const [mobileNav, setMobileNav] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [notice, setNotice] = useState("");
+
+  // Auto-dismiss notice popup after 5 seconds
+  useEffect(() => {
+    if (!notice) return;
+    const timer = setTimeout(() => {
+      setNotice("");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [notice]);
   const [showNotifMenu, setShowNotifMenu] = useState(false);
   const [showRoleMenu, setShowRoleMenu] = useState(false);
   const [currentRole, setCurrentRole] = useState("Super admin — Platform");
@@ -169,8 +179,48 @@ function AdminDashboard() {
 
   // Core Platform Datasets
   const [tenants, setTenants] = useState(initialTenants);
+  const [instructors, setInstructors] = useState(() => {
+    try {
+      const saved = localStorage.getItem("tx_admin_instructors_active");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return initialInstructors;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("tx_admin_instructors_active", JSON.stringify(instructors));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [instructors]);
   const [users, setUsers] = useState(initialUsers);
-  const [courses, setCourses] = useState(initialCourses);
+  const [courses, setCourses] = useState(() => {
+    try {
+      localStorage.removeItem("tx_admin_courses");
+      const saved = localStorage.getItem("tx_admin_courses_active");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    return initialCourses;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("tx_admin_courses_active", JSON.stringify(courses));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [courses]);
   const [approvals, setApprovals] = useState(initialApprovals);
   const [internships, setInternships] = useState(initialInternships);
   const [events, setEvents] = useState(initialEvents);
@@ -199,7 +249,7 @@ function AdminDashboard() {
 
   const systemAlerts = [
     { id: 1, title: `${moderationCount} Courses in Moderation`, sub: "Oldest past SLA window", link: "Moderation" },
-    { id: 2, title: "Tenant Seat Alert: TX Hub Academy", sub: "At 99% of contracted capacity", link: "Tenants" },
+    { id: 2, title: "Organization Seat Alert: TX Hub Academy", sub: "At 99% of contracted capacity", link: "Organizations" },
     { id: 3, title: `${securityAlertsCount} Open Security Alerts`, sub: "Sandbox queue depth spike", link: "Security & audit" }
   ];
 
@@ -227,7 +277,7 @@ function AdminDashboard() {
 
   // Selected record breadcrumb label
   const activeRecordName = useMemo(() => {
-    if (page === "Tenants" && selectedTenant) return selectedTenant.name;
+    if ((page === "Organizations" || page === "Tenants") && selectedTenant) return selectedTenant.name;
     if (page === "Courses" && selectedCourse) return selectedCourse.title;
     if (page === "Moderation" && selectedModerationCourse) return selectedModerationCourse.title;
     return null;
@@ -313,6 +363,7 @@ function AdminDashboard() {
           
           counts={{
             tenants: tenants.length + 32,
+            instructors: instructors.length,
             moderation: moderationCount,
             approvals: approvalsCount,
             security: securityAlertsCount,
@@ -350,14 +401,17 @@ function AdminDashboard() {
 
           <div className="page-content">
             {/* Header info */}
-            <div className="page-head">
+            {page !== "Courses" && (
+              <div className="page-head">
               <div>
                 <h1>{page === "Overview" ? "Platform Overview" : page}</h1>
                 <p>
                   {({
                     "Overview": "A platform-wide governance view of learning operations, revenue, approvals, and system health.",
-                    "Organizations": "Review organization onboarding, subscription entitlements, and compliance documents.",
-                    "Tenants": "Manage isolated data boundaries with dedicated subdomains, seats, and contract lifecycles.",
+                    "Instructors": "Oversee platform faculty, mentors, teaching credentials, and instructor allocations.",
+                    "Instructor": "Oversee platform faculty, mentors, teaching credentials, and instructor allocations.",
+                    "Organizations": "Manage partner institutions, corporate data boundaries, subdomains, and seat licenses.",
+                    "Tenants": "Manage partner institutions, corporate data boundaries, subdomains, and seat licenses.",
                     "Users": "Manage student accounts, mentors, organization admins, and platform operators.",
                     "Courses": "Manage course catalogue, syllabus units, publication status, and moderation triggers.",
                     "Internships": "Oversee official internships, candidate applications, seat limits, and certificates.",
@@ -386,14 +440,25 @@ function AdminDashboard() {
                 </Badge>
               )}
             </div>
+            )}
 
-            {/* Toast Feedback Notification */}
+            {/* Floating Toast Popup Notification */}
             {notice && (
-              <div className="notice">
-                <span>{notice}</span>
-                <button onClick={() => setNotice("")} aria-label="Dismiss">
+              <div className="adm-toast-popup" role="alert">
+                <div className="adm-toast-icon">
+                  <CheckCircle2 size={18} />
+                </div>
+                <div className="adm-toast-content">
+                  <span className="adm-toast-message">{notice}</span>
+                </div>
+                <button
+                  className="adm-toast-close"
+                  onClick={() => setNotice("")}
+                  aria-label="Dismiss notification"
+                >
                   <X size={16} />
                 </button>
+                <div className="adm-toast-progress" />
               </div>
             )}
 
@@ -408,7 +473,7 @@ function AdminDashboard() {
                 setPage={setPage}
                 onSelectTenant={t => {
                   setSelectedTenant(t);
-                  setPage("Tenants");
+                  setPage("Organizations");
                 }}
                 onSelectCourse={c => {
                   setSelectedModerationCourse(c);
@@ -417,8 +482,8 @@ function AdminDashboard() {
               />
             )}
 
-            {page === "Tenants" && (
-              <Tenants
+            {(page === "Organizations" || page === "Tenants") && (
+              <OrganizationsModule
                 tenants={tenants}
                 setTenants={setTenants}
                 selectedTenant={selectedTenant}
@@ -427,10 +492,10 @@ function AdminDashboard() {
               />
             )}
 
-            {page === "Organizations" && (
-              <Organizations
-                tenants={tenants}
-                setTenants={setTenants}
+            {(page === "Instructors" || page === "Instructor") && (
+              <Instructors
+                instructors={instructors}
+                setInstructors={setInstructors}
                 setNotice={setNotice}
                 setPage={setPage}
               />
@@ -601,4 +666,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-export { AdminDashboard };
