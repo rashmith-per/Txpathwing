@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -35,6 +35,16 @@ export default function PortalLoginModal({
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isForgotOpen, setIsForgotOpen] = useState(false);
+
+  useEffect(() => {
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+    if (initialEmail) {
+      setEmail(initialEmail);
+    }
+    setError("");
+  }, [initialCategory, initialEmail, isOpen]);
 
   const config = CATEGORY_CONFIGS[selectedCategory] || CATEGORY_CONFIGS.institution;
 
@@ -104,25 +114,11 @@ export default function PortalLoginModal({
               Access your {config.title.toLowerCase()} dashboard, administrative tools, and records.
             </p>
 
-            {/* Category Switcher Tabs */}
-            <div className="portal-cat-tabs">
-              {["institution", "organization", "company"].map((catKey) => {
-                const c = CATEGORY_CONFIGS[catKey];
-                const isActive = selectedCategory === catKey;
-                return (
-                  <button
-                    key={catKey}
-                    type="button"
-                    className={`portal-cat-tab-btn ${isActive ? "active" : ""}`}
-                    onClick={() => {
-                      setSelectedCategory(catKey);
-                      setError("");
-                    }}
-                  >
-                    <span>{c.title}</span>
-                  </button>
-                );
-              })}
+            {/* Single Category Tab based on opened category */}
+            <div className="portal-cat-tabs portal-cat-tabs-single">
+              <div className="portal-cat-tab-btn active">
+                <span>{config.title}</span>
+              </div>
             </div>
           </div>
 

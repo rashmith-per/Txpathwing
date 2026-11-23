@@ -104,27 +104,26 @@
   line-height: 1.45;
 }
 
-/* Category Switcher Tabs */
+/* Category Single Tab */
 .portal-cat-tabs {
-  display: flex;
+  display: inline-flex;
   gap: 6px;
   margin-top: 12px;
   background: #f1f5f9;
   padding: 4px;
   border-radius: 10px;
+  align-self: flex-start;
 }
 
 .portal-cat-tab-btn {
-  flex: 1;
-  padding: 6px 10px;
+  padding: 6px 18px;
   border-radius: 7px;
   border: none;
   background: transparent;
   color: #64748b;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  cursor: default;
 }
 
 .portal-cat-tab-btn.active {
@@ -243,12 +242,7 @@
   cursor: pointer;
 }
 
-.portal-remember-label input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
-  accent-color: #2563eb;
-  cursor: pointer;
-}
+.portal-remember-label input[type="checkbox"] { width: 15px; height: 15px; accent-color: #2563eb; cursor: pointer; }
 
 .portal-login-submit-btn {
   margin-top: 4px;

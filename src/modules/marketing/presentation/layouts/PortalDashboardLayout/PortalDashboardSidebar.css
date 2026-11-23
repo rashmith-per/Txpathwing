@@ -152,12 +152,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 12px;
-  border-radius: 9px;
+  padding: 10px 14px;
+  border-radius: 10px;
   border: none;
   background: transparent;
-  color: #475569;
-  font-size: 13px;
+  color: #334155;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -165,39 +165,44 @@
 }
 
 .pdb-nav-item:hover {
-  background: #f1f5f9;
+  background: #f8fafc;
   color: #0f172a;
 }
 
 .pdb-nav-item.active {
-  background: #4f46e5;
-  color: #ffffff;
+  background: #eff6ff;
+  color: #2563eb;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.22);
+  box-shadow: none;
+}
+
+.pdb-nav-item.active .pdb-nav-icon {
+  color: #2563eb;
 }
 
 .pdb-nav-item-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .pdb-nav-icon {
   flex-shrink: 0;
+  color: #475569;
 }
 
 .pdb-nav-badge {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
   background: #e2e8f0;
   color: #334155;
 }
 
 .pdb-nav-item.active .pdb-nav-badge {
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 .pdb-sidebar-footer {
