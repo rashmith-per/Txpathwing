@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { X, LogOut, Shield, ChevronRight } from "lucide-react";
+import { X, LogOut, Shield, Building2 } from "lucide-react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import "./PortalDashboardSidebar.css";
 
@@ -14,6 +14,18 @@ export default function PortalDashboardSidebar({
   onClose,
   onLogout,
 }) {
+  const [logoLoadError, setLogoLoadError] = useState(false);
+
+  const entityLogo =
+    user?.logo ||
+    (typeof window !== "undefined"
+      ? localStorage.getItem("userLogo") || localStorage.getItem("institutionLogo")
+      : null);
+
+  useEffect(() => {
+    setLogoLoadError(false);
+  }, [user?.logo]);
+
   return (
     <aside className={`pdb-sidebar ${isOpen ? "open" : ""}`}>
       {/* Brand Header */}
@@ -47,7 +59,22 @@ export default function PortalDashboardSidebar({
         <div className="pdb-signed-tag">SIGNED IN AS</div>
         <div className="pdb-signed-entity">
           <div className="pdb-entity-avatar">
-            <img src={txIcon} alt="Pathwing" />
+            {entityLogo && !logoLoadError ? (
+              <img
+                src={entityLogo}
+                alt={user?.entityName || "Uploaded Logo"}
+                className="pdb-entity-logo-img"
+                onError={() => setLogoLoadError(true)}
+              />
+            ) : (
+              <div className="pdb-entity-fallback">
+                {user?.entityName ? (
+                  <span>{user.entityName.trim().charAt(0).toUpperCase()}</span>
+                ) : (
+                  <Building2 size={16} />
+                )}
+              </div>
+            )}
           </div>
           <div className="pdb-entity-info">
             <strong title={user?.entityName}>{user?.entityName || "Entity"}</strong>

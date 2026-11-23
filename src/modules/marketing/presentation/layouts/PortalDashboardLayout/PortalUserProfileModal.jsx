@@ -16,6 +16,12 @@ import "./PortalUserProfileModal.css";
 export default function PortalUserProfileModal({ isOpen, user, onClose, onLogout }) {
   if (!isOpen || !user) return null;
 
+  const avatarLogo =
+    user?.logo ||
+    (typeof window !== "undefined"
+      ? localStorage.getItem("userLogo") || localStorage.getItem("institutionLogo")
+      : null);
+
   return (
     <div className="portal-profile-overlay" onClick={onClose} role="dialog" aria-modal="true">
       <div className="portal-profile-modal" onClick={(e) => e.stopPropagation()}>
@@ -31,8 +37,8 @@ export default function PortalUserProfileModal({ isOpen, user, onClose, onLogout
         {/* Profile Card Header */}
         <div className="portal-profile-hero">
           <div className="portal-profile-avatar-wrap">
-            {user.logo ? (
-              <img src={user.logo} alt={user.entityName} className="portal-profile-avatar-img" />
+            {avatarLogo ? (
+              <img src={avatarLogo} alt={user?.entityName || "Account Logo"} className="portal-profile-avatar-img" />
             ) : (
               <div className="portal-profile-avatar-fallback">
                 <Building2 size={28} />
