@@ -24,8 +24,8 @@ export const CATEGORY_CONFIGS = {
     dashboardPath: "/institution-dashboard",
     description:
       "Manage educational institutions, campuses, departments, students, and academic operations.",
-    badgeColor: "#059669",
-    accentColor: "#10b981",
+    badgeColor: "#1d4ed8",
+    accentColor: "#2563eb",
   },
   organization: {
     key: "organization",
@@ -34,7 +34,7 @@ export const CATEGORY_CONFIGS = {
     entityPlaceholder: "e.g. Global Tech Foundation",
     defaultName: "Global Tech Foundation",
     roleLabel: "Organization Leader",
-    dashboardPath: "/organization-dashboard",
+    dashboardPath: "/institution-dashboard",
     description:
       "Manage organizations, teams, members, training programs, and organizational activities.",
     badgeColor: "#2563eb",
@@ -47,11 +47,11 @@ export const CATEGORY_CONFIGS = {
     entityPlaceholder: "e.g. Acme Technologies Inc.",
     defaultName: "Acme Technologies Inc.",
     roleLabel: "Corporate HR & Operations",
-    dashboardPath: "/company-dashboard",
+    dashboardPath: "/institution-dashboard",
     description:
       "Manage companies, employees, recruitment, training, and business operations.",
-    badgeColor: "#7c3aed",
-    accentColor: "#8b5cf6",
+    badgeColor: "#0284c7",
+    accentColor: "#2563eb",
   },
 };
 

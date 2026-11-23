@@ -78,7 +78,7 @@ export default function PortalInstitutionDashboard() {
   return (
     <PortalDashboardLayout
       user={user}
-      category="institution"
+      category={user?.category || "institution"}
       modules={INSTITUTION_NAV_MODULES}
       activeModule={activeModule}
       onSelectModule={setActiveModule}

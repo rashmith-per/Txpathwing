@@ -79,14 +79,17 @@ function InstitutionDashboardRoute() {
   const isInstitutionSession =
     localStorage.getItem("institutionLoggedIn") === "true" ||
     (localStorage.getItem("isLoggedIn") === "true" &&
-      (userRole === "institution" || userRole === "institution_admin"));
+      (userRole === "institution" ||
+        userRole === "institution_admin" ||
+        userRole === "organization" ||
+        userRole === "company"));
 
   if (!isInstitutionSession) {
     return <Navigate to="/institution-signin" replace />;
   }
 
   const activePortalUser = getActivePortalUser();
-  if (activePortalUser && activePortalUser.category === "institution") {
+  if (activePortalUser) {
     return <PortalInstitutionDashboard />;
   }
 
@@ -94,27 +97,11 @@ function InstitutionDashboardRoute() {
 }
 
 function OrganizationDashboardRoute() {
-  const userRole = localStorage.getItem("userRole") || "";
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const activePortalUser = getActivePortalUser();
-
-  if (!isLoggedIn || (userRole !== "organization" && activePortalUser?.category !== "organization")) {
-    return <Navigate to="/login?portal=institution" replace />;
-  }
-
-  return <PortalOrganizationDashboard />;
+  return <Navigate to="/institution-dashboard" replace />;
 }
 
 function CompanyDashboardRoute() {
-  const userRole = localStorage.getItem("userRole") || "";
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const activePortalUser = getActivePortalUser();
-
-  if (!isLoggedIn || (userRole !== "company" && activePortalUser?.category !== "company")) {
-    return <Navigate to="/login?portal=institution" replace />;
-  }
-
-  return <PortalCompanyDashboard />;
+  return <Navigate to="/institution-dashboard" replace />;
 }
 
 function AppRoutes() {
