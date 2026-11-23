@@ -1,0 +1,198 @@
+/* User Profile Modal Styling */
+.portal-profile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.portal-profile-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.portal-profile-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.portal-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.portal-profile-avatar-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: #f1f5f9;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.portal-profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.portal-profile-avatar-fallback {
+  color: #64748b;
+}
+
+.portal-avatar-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid #ffffff;
+}
+
+.portal-profile-titles h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.portal-profile-entity-pill {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #4f46e5;
+  background: #ede9fe;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.portal-profile-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.portal-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.portal-meta-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.portal-meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.portal-meta-label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.portal-meta-val {
+  font-size: 13px;
+  color: #0f172a;
+  word-break: break-all;
+}
+
+.portal-meta-val.mono {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.portal-meta-val.capitalize {
+  text-transform: capitalize;
+}
+
+.portal-status-badge.active {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #059669;
+}
+
+.portal-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.portal-profile-footer {
+  padding-top: 8px;
+}
+
+.portal-profile-logout-btn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1px solid #fee2e2;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.portal-profile-logout-btn:hover {
+  background: #fee2e2;
+}

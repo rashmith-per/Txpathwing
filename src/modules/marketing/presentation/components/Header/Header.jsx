@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
-import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
-import Login from "../Login/Login";
+import PortalAuthFlow from "../PortalAuth/PortalAuthFlow";
 import { NAV_LINKS } from "./navLinks";
 import { useHeaderAuth } from "./useHeaderAuth";
 import { MobileNavDrawer } from "./MobileNavDrawer";
@@ -11,9 +10,7 @@ import "./Header.css";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectionOpen, setSelectionOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("student");
+  const [authFlowOpen, setAuthFlowOpen] = useState(false);
 
   const {
     location,
@@ -37,24 +34,11 @@ export default function Header() {
 
   const openSelectionPopup = () => {
     closeMenu();
-    setSelectionOpen(true);
-    setLoginOpen(false);
-  };
-
-  const handleSelectRole = (role) => {
-    setSelectedRole(role);
-    setSelectionOpen(false);
-    setLoginOpen(true);
-  };
-
-  const handleBackToSelection = () => {
-    setLoginOpen(false);
-    setSelectionOpen(true);
+    setAuthFlowOpen(true);
   };
 
   const closeAllPopups = () => {
-    setSelectionOpen(false);
-    setLoginOpen(false);
+    setAuthFlowOpen(false);
   };
 
   return (
@@ -159,17 +143,9 @@ export default function Header() {
         openSelectionPopup={openSelectionPopup}
       />
 
-      <DashboardSelectionModal
-        isOpen={selectionOpen}
+      <PortalAuthFlow
+        isOpen={authFlowOpen}
         onClose={closeAllPopups}
-        onSelectRole={handleSelectRole}
-      />
-
-      <Login
-        isOpen={loginOpen}
-        selectedRole={selectedRole}
-        onClose={closeAllPopups}
-        onBack={handleBackToSelection}
       />
     </>
   );

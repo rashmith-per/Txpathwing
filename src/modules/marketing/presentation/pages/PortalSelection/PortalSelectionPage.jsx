@@ -6,7 +6,7 @@ import {
   Building2,
   BookOpen,
 } from "lucide-react";
-import Login from "../../components/Login/Login";
+import PortalAuthFlow from "../../components/PortalAuth/PortalAuthFlow";
 import "./PortalSelectionPage.css";
 
 const PORTALS = [
@@ -103,12 +103,13 @@ export default function PortalSelectionPage() {
         </div>
       </div>
 
-      {/* Particular Sign-in Page (Exact Screenshot UI) */}
-      <Login
+      {/* Unified Authentication & Category Workflow */}
+      <PortalAuthFlow
         isOpen={Boolean(activePortal)}
-        selectedRole={activePortal || "student"}
+        initialView={activePortal === "institution" ? "category-selection" : "standard-login"}
+        initialRole={activePortal || "student"}
+        initialCategory="institution"
         onClose={handleClosePortal}
-        onBack={handleClosePortal}
       />
     </div>
   );

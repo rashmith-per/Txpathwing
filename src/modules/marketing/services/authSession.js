@@ -18,6 +18,8 @@ export function normalizeRole(role) {
   if (r === "admin" || r === "platform_admin" || r === "super admin") return "admin";
   if (r === "instructor" || r === "mentor") return "instructor";
   if (r === "institution" || r === "institution_admin" || r === "org admin") return "institution";
+  if (r === "organization") return "organization";
+  if (r === "company") return "company";
   if (r === "hackathon_admin") return "hackathon_admin";
   return "student";
 }
@@ -27,6 +29,8 @@ export function getRoleDisplayName(role) {
   if (norm === "admin") return "Admin";
   if (norm === "instructor") return "Instructor";
   if (norm === "institution") return "Institution";
+  if (norm === "organization") return "Organization";
+  if (norm === "company") return "Company";
   if (norm === "hackathon_admin") return "Hackathon Admin";
   return "Student";
 }
@@ -36,6 +40,8 @@ export function getDashboardRouteForRole(role) {
   if (norm === "admin") return "/admin-dashboard";
   if (norm === "instructor") return "/instructor-dashboard";
   if (norm === "institution") return "/institution-dashboard";
+  if (norm === "organization") return "/organization-dashboard";
+  if (norm === "company") return "/company-dashboard";
   if (norm === "hackathon_admin") return "/hackathon-dashboard";
   return "/dashboard";
 }

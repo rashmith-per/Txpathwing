@@ -3,11 +3,15 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useSe
 
 import Header from "./modules/marketing/presentation/components/Header/Header";
 import Footer from "./modules/marketing/presentation/components/Footer/Footer";
-import DashboardSelectionModal from "./modules/marketing/presentation/components/DashboardSelection/DashboardSelectionModal";
-import Login from "./modules/marketing/presentation/components/Login/Login";
-import ProtectedRoute from "./modules/marketing/routes/ProtectedRoute";
+import PortalAuthFlow from "./modules/marketing/presentation/components/PortalAuth/PortalAuthFlow";
+import { getActivePortalUser } from "./modules/marketing/services/portalAuth/portalStorage";
+import { seedDemoAccountsIfEmpty } from "./modules/marketing/services/portalAuth/portalAuthService";
 
 const InstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/InstitutionDashboard.jsx"));
+const PortalInstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalInstitutionDashboard/PortalInstitutionDashboard"));
+const PortalOrganizationDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalOrganizationDashboard/PortalOrganizationDashboard"));
+const PortalCompanyDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalCompanyDashboard/PortalCompanyDashboard"));
+
 const InstitutionSignIn = lazy(() => import("./modules/marketing/presentation/pages/InstitutionSignIn/InstitutionSignIn"));
 const Signin = lazy(() => import("./modules/marketing/presentation/components/Login/signin"));
 const RegistrationForm = lazy(() => import("./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm"));
@@ -42,38 +46,22 @@ function ScrollToTop() {
 
 function LoginPageContent({ portalParam }) {
   const navigate = useNavigate();
-  const [selectionOpen, setSelectionOpen] = useState(!portalParam);
-  const [loginOpen, setLoginOpen] = useState(Boolean(portalParam));
-  const [selectedRole, setSelectedRole] = useState(portalParam || "student");
 
-  const handleSelectRole = (role) => {
-    setSelectedRole(role);
-    setSelectionOpen(false);
-    setLoginOpen(true);
-  };
-
-  const handleBackToSelection = () => {
-    setLoginOpen(false);
-    setSelectionOpen(true);
-  };
-
-  const handleClose = () => {
-    navigate("/");
-  };
+  let initialView = "role-selection";
+  if (portalParam === "institution") {
+    initialView = "category-selection";
+  } else if (portalParam) {
+    initialView = "standard-login";
+  }
 
   return (
     <>
       <Home />
-      <DashboardSelectionModal
-        isOpen={selectionOpen}
-        onClose={handleClose}
-        onSelectRole={handleSelectRole}
-      />
-      <Login
-        isOpen={loginOpen}
-        selectedRole={selectedRole}
-        onClose={handleClose}
-        onBack={handleBackToSelection}
+      <PortalAuthFlow
+        isOpen={true}
+        initialView={initialView}
+        initialRole={portalParam || "student"}
+        onClose={() => navigate("/")}
       />
     </>
   );
@@ -97,15 +85,59 @@ function InstitutionDashboardRoute() {
     return <Navigate to="/institution-signin" replace />;
   }
 
+  const activePortalUser = getActivePortalUser();
+  if (activePortalUser && activePortalUser.category === "institution") {
+    return <PortalInstitutionDashboard />;
+  }
+
   return <InstitutionDashboard />;
+}
+
+function OrganizationDashboardRoute() {
+  const userRole = localStorage.getItem("userRole") || "";
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const activePortalUser = getActivePortalUser();
+
+  if (!isLoggedIn || (userRole !== "organization" && activePortalUser?.category !== "organization")) {
+    return <Navigate to="/login?portal=institution" replace />;
+  }
+
+  return <PortalOrganizationDashboard />;
+}
+
+function CompanyDashboardRoute() {
+  const userRole = localStorage.getItem("userRole") || "";
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const activePortalUser = getActivePortalUser();
+
+  if (!isLoggedIn || (userRole !== "company" && activePortalUser?.category !== "company")) {
+    return <Navigate to="/login?portal=institution" replace />;
+  }
+
+  return <PortalCompanyDashboard />;
 }
 
 function AppRoutes() {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    seedDemoAccountsIfEmpty();
+  }, []);
+
   const isConsole = pathname === "/institution"
     || pathname.startsWith("/institution/")
-    || pathname.startsWith("/institution-dashboard");
-  const isPrivateDashboard = pathname.toLowerCase().startsWith("/hackathon") || pathname.toLowerCase().startsWith("/dashboard") || pathname.toLowerCase().startsWith("/student") || pathname.toLowerCase().startsWith("/assessments") || pathname.toLowerCase().startsWith("/certificates") || pathname.toLowerCase().startsWith("/admin") || pathname.toLowerCase().startsWith("/instructor");
+    || pathname.startsWith("/institution-dashboard")
+    || pathname.startsWith("/organization")
+    || pathname.startsWith("/company");
+  const isPrivateDashboard = pathname.toLowerCase().startsWith("/hackathon")
+    || pathname.toLowerCase().startsWith("/dashboard")
+    || pathname.toLowerCase().startsWith("/student")
+    || pathname.toLowerCase().startsWith("/assessments")
+    || pathname.toLowerCase().startsWith("/certificates")
+    || pathname.toLowerCase().startsWith("/admin")
+    || pathname.toLowerCase().startsWith("/instructor")
+    || pathname.toLowerCase().startsWith("/organization-dashboard")
+    || pathname.toLowerCase().startsWith("/company-dashboard");
   const showWebsiteChrome = !isConsole && !isPrivateDashboard;
 
   return <>
@@ -152,6 +184,10 @@ function AppRoutes() {
       <Route path="/institution-signin" element={<InstitutionSignIn />} />
       <Route path="/institution/*" element={<InstitutionDashboardRoute />} />
       <Route path="/institution-dashboard/*" element={<InstitutionDashboardRoute />} />
+      <Route path="/organization/*" element={<OrganizationDashboardRoute />} />
+      <Route path="/organization-dashboard/*" element={<OrganizationDashboardRoute />} />
+      <Route path="/company/*" element={<CompanyDashboardRoute />} />
+      <Route path="/company-dashboard/*" element={<CompanyDashboardRoute />} />
       <Route path="/hackathon-dashboard/*" element={<HackathonDashboard />} />
       <Route path="/dashboard/*" element={<StudentDashboard />} />
       <Route path="/student/*" element={<StudentDashboard />} />

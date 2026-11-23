@@ -1,13 +1,13 @@
-import { KNOWN_ACCOUNTS } from "./authConstants";
+import { KNOWN_ACCOUNTS } from "./authConstants.js";
 import {
   getCustomUsers,
   normalizeRole,
   getRoleDisplayName,
   getDashboardRouteForRole,
-} from "./authSession";
+} from "./authSession.js";
 
-export * from "./authConstants";
-export * from "./authSession";
+export * from "./authConstants.js";
+export * from "./authSession.js";
 
 /**
  * Find user by email across canonical and registered accounts

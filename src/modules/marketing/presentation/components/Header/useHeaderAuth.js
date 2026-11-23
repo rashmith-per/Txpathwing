@@ -23,6 +23,8 @@ export function useHeaderAuth() {
     const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
     if (userRole === "platform_admin" || isPlatformAdmin) return "/admin-dashboard";
     if (userRole === "institution" || userRole === "institution_admin") return "/institution-dashboard";
+    if (userRole === "organization") return "/organization-dashboard";
+    if (userRole === "company") return "/company-dashboard";
     if (userRole === "instructor") return "/instructor-dashboard";
     if (userRole === "hackathon_admin" || isAdmin) return "/hackathon-dashboard";
     return "/dashboard";
@@ -32,6 +34,8 @@ export function useHeaderAuth() {
     const isPlatformAdmin = localStorage.getItem("isPlatformAdmin") === "true";
     if (userRole === "platform_admin" || isPlatformAdmin) return "Admin Console";
     if (userRole === "institution" || userRole === "institution_admin") return "Institution Portal";
+    if (userRole === "organization") return "Organization Portal";
+    if (userRole === "company") return "Company Portal";
     if (userRole === "instructor") return "Instructor Portal";
     if (userRole === "hackathon_admin" || isAdmin) return "Hackathon Portal";
     return "Dashboard";
