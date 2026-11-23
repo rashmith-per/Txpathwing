@@ -21,8 +21,6 @@ export default function PortalDashboardHeader({
   onOpenProfile,
   onLogout,
 }) {
-  const isInstitution = category === "institution" || user?.category === "institution";
-
   return (
     <header className="pdb-header">
       <div className="pdb-header-left">
@@ -35,40 +33,15 @@ export default function PortalDashboardHeader({
           <Menu size={20} />
         </button>
 
-        {/* Dynamic Registered Entity Banner: Logo | Entity Name */}
+        {/* Dynamic Registered Entity Banner: TX Pathwing Logo Only */}
         <div className="pdb-brand-display">
           <div className="pdb-logo-frame">
-            {isInstitution ? (
-              <img
-                src={txIcon}
-                alt="TX Pathwing"
-                className="pdb-uploaded-logo pdb-default-logo"
-              />
-            ) : user?.logo ? (
-              <img
-                src={user.logo}
-                alt={user.entityName || "Uploaded Logo"}
-                className="pdb-uploaded-logo pdb-custom-logo"
-              />
-            ) : (
-              <img
-                src={txIcon}
-                alt="TX Pathwing"
-                className="pdb-uploaded-logo pdb-default-logo"
-              />
-            )}
+            <img
+              src={txIcon}
+              alt="TX Pathwing"
+              className="pdb-uploaded-logo pdb-default-logo"
+            />
           </div>
-
-          {!isInstitution && (
-            <div className="pdb-entity-details">
-              <strong className="pdb-entity-name" title={user?.entityName}>
-                {user?.entityName || "Workspace Portal"}
-              </strong>
-              <span className="pdb-welcome-text">
-                Welcome back, <strong>{user?.username || "Admin"}</strong>!
-              </span>
-            </div>
-          )}
         </div>
       </div>
 
@@ -112,20 +85,6 @@ export default function PortalDashboardHeader({
             <span className="pdb-user-role-text">{user?.categoryTitle || user?.category}</span>
           </div>
         </button>
-
-        {/* Logout Button (hidden in institution dashboard) */}
-        {!isInstitution && (
-          <button
-            type="button"
-            className="pdb-logout-action-btn"
-            onClick={onLogout}
-            title="Logout from dashboard"
-            aria-label="Logout from dashboard"
-          >
-            <LogOut size={16} />
-            <span className="pdb-logout-label">Logout</span>
-          </button>
-        )}
       </div>
     </header>
   );
