@@ -6,6 +6,7 @@ import "./PortalDashboardSidebar.css";
 
 export default function PortalDashboardSidebar({
   user,
+  category = "institution",
   modules = [],
   activeModule,
   onSelectModule,
@@ -13,8 +14,9 @@ export default function PortalDashboardSidebar({
   onClose,
   onLogout,
 }) {
-  const displayLogo = user?.logo || txIcon;
-  const displayName = user?.entityName || "Pathwing";
+  const isInstitution = category === "institution" || user?.category === "institution";
+  const displayLogo = isInstitution ? txIcon : (user?.logo || txIcon);
+  const displayName = isInstitution ? "Pathwing" : (user?.entityName || "Pathwing");
 
   return (
     <aside className={`pdb-sidebar ${isOpen ? "open" : ""}`}>
@@ -28,7 +30,7 @@ export default function PortalDashboardSidebar({
           <img
             src={displayLogo}
             alt={displayName}
-            className={`pdb-sidebar-logo ${user?.logo ? "pdb-uploaded-logo-img" : "pdb-default-logo"}`}
+            className={`pdb-sidebar-logo ${!isInstitution && user?.logo ? "pdb-uploaded-logo-img" : "pdb-default-logo"}`}
           />
           <span className="pdb-sidebar-brand-name">
             {displayName}
@@ -49,7 +51,9 @@ export default function PortalDashboardSidebar({
         <div className="pdb-signed-tag">SIGNED IN AS</div>
         <div className="pdb-signed-entity">
           <div className="pdb-entity-avatar">
-            {user?.logo ? (
+            {isInstitution ? (
+              <img src={txIcon} alt="Pathwing" />
+            ) : user?.logo ? (
               <img src={user.logo} alt={user.entityName} />
             ) : (
               <span>{(user?.entityName || "E")[0].toUpperCase()}</span>

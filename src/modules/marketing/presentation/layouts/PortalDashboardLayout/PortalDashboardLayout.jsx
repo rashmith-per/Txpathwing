@@ -66,6 +66,7 @@ export default function PortalDashboardLayout({
       {/* Sidebar */}
       <PortalDashboardSidebar
         user={currentUser}
+        category={category}
         modules={modules}
         activeModule={activeModule}
         onSelectModule={onSelectModule}
@@ -78,6 +79,7 @@ export default function PortalDashboardLayout({
       <div className="pdb-main-body">
         <PortalDashboardHeader
           user={currentUser}
+          category={category}
           activeModule={activeModule}
           search={search}
           onSearchChange={onSearchChange}

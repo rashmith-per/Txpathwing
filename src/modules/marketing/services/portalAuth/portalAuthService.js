@@ -168,7 +168,7 @@ export async function loginPortalAccount({ email, password, rememberMe = true })
       username: legacyAccount.name || "Administrator",
       category: legacyAccount.role === "admin" ? "company" : "institution",
       categoryTitle: "Institution",
-      entityName: legacyAccount.name?.includes("KITS") ? "KITS Warangal" : "Academic Campus",
+      entityName: legacyAccount.name?.includes("KITS") ? "KITS Warangal" : (legacyAccount.name ? `${legacyAccount.name} Campus` : "KITS Warangal"),
       email: normalizedEmail,
       logo: null,
       createdAt: "Established",
