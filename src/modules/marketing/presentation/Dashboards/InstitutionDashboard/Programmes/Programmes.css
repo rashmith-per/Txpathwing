@@ -1,28 +1,177 @@
-/* Programmes.css — programme cards */
-.programme-list { display: grid; gap: 10px; }
-.programme-card { min-height: 145px; display: grid; grid-template-columns: 38px minmax(0, 1fr) 75px 36px; align-items: center; gap: 15px; padding: 16px 18px; }
-.programme-index { align-self: start; padding-top: 4px; color: #8a98ad; font: 11px ui-monospace, SFMono-Regular, monospace; }
-.programme-code { display: flex; align-items: center; gap: 8px; color: #7c8ba3; font: 9px ui-monospace, SFMono-Regular, monospace; }
-.programme-main h2 { margin: 8px 0 3px; color: #18273e; font-size: 14px; font-weight: 700; }
-.programme-main > p { margin: 0 0 12px; color: var(--muted); font-size: 10px; }
-.programme-progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; color: var(--muted); font-size: 9px; }
-.programme-progress-label strong { color: #25364e; }
-.programme-main .progress-track { height: 6px; }
-.programme-count { display: flex; flex-direction: column; gap: 3px; text-align: center; }
-.programme-count strong { color: #17263c; font-size: 17px; }
-.programme-count span { color: var(--muted); font-size: 9px; }
+/* ==========================================================
+   Programmes.css — Enterprise Structured Pathway Cards
+   ========================================================== */
 
-.institution-app-dark .programme-main h2, .institution-app-dark .programme-count strong, .institution-app-dark .programme-progress-label strong { color: #edf2ff; }
+.programme-list {
+  display: grid;
+  gap: 12px;
+}
+
+.programme-card {
+  min-height: 120px;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 95px 36px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+}
+
+.programme-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+  border-color: #b9cdf6;
+}
+
+.institution-app-dark .programme-card:hover {
+  border-color: #3b5278;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.programme-index {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--canvas);
+  color: var(--muted);
+  font: 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  border: 1px solid var(--line);
+}
+
+.programme-main {
+  min-width: 0;
+}
+
+.programme-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font: 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 650;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.programme-main h2 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.programme-main > p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.programme-progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 550;
+}
+
+.programme-progress-label strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.programme-main .progress-track {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.institution-app-dark .programme-main .progress-track {
+  background: #253347;
+}
+
+.programme-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: var(--canvas);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.programme-count strong {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.programme-count span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.institution-app-dark .programme-main h2,
+.institution-app-dark .programme-count strong,
+.institution-app-dark .programme-progress-label strong {
+  color: #edf2ff;
+}
 
 @media (max-width: 820px) {
-	.programme-card { grid-template-columns: 25px minmax(0, 1fr) 55px 32px; gap: 9px; padding: 13px 11px; }
-	.programme-index { font-size: 9px; }
-	.programme-main h2 { font-size: 12px; }
-	.programme-code { flex-wrap: wrap; font-size: 8px; }
-	.programme-count strong { font-size: 15px; }
+  .programme-card {
+    grid-template-columns: 32px minmax(0, 1fr) 75px 32px;
+    gap: 12px;
+    padding: 14px;
+  }
+  .programme-index {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+  .programme-main h2 {
+    font-size: 13.5px;
+  }
+  .programme-code {
+    flex-wrap: wrap;
+    font-size: 10.5px;
+  }
+  .programme-count strong {
+    font-size: 16px;
+  }
 }
-@media (max-width: 520px) {
-	.programme-card { grid-template-columns: minmax(0, 1fr) 28px; }
-	.programme-index, .programme-count { display: none; }
-	.programme-card .record-action { grid-column: 2; grid-row: 1; }
+
+@media (max-width: 540px) {
+  .programme-card {
+    grid-template-columns: minmax(0, 1fr) 32px;
+    gap: 10px;
+  }
+  .programme-index,
+  .programme-count {
+    display: none;
+  }
+  .programme-card .record-action {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }

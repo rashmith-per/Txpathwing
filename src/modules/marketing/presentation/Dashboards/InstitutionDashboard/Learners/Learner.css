@@ -1,11 +1,194 @@
-/* Learner.css — learner directory cells */
-.person-cell { display: flex; align-items: center; gap: 9px; }
-.person-cell strong, .person-cell small { display: block; }
-.person-cell strong { color: #1d2b42; font-size: 10px; font-weight: 650; }
-.person-cell small { margin-top: 3px; color: var(--muted); font-size: 9px; }
-.table-avatar { width: 28px; height: 28px; display: grid; flex: 0 0 28px; place-items: center; color: #244bd2; background: #eaf0ff; border-radius: 7px; font-size: 9px; font-weight: 700; }
-.table-progress { min-width: 105px; display: flex; align-items: center; gap: 7px; }
-.table-progress .progress-track { width: 72px; height: 6px; }
-.table-progress > span { color: #5d6d84; font-size: 9px; }
+/* ==========================================================
+   Learner.css — Clean Text-Based Identity & Modern Table Controls
+   ========================================================== */
 
-.institution-app-dark .person-cell strong { color: #edf2ff; }
+/* Clean Text Identity (No Avatar) */
+.person-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.person-cell strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -0.1px;
+}
+
+.person-cell small {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.institution-app-dark .person-cell strong {
+  color: #f8fafc;
+}
+
+/* Learner ID Monospace Tag */
+.learner-id-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-border);
+  padding: 2px 7px;
+  border-radius: 5px;
+  display: inline-block;
+  letter-spacing: 0.3px;
+}
+
+/* Table Progress Bar */
+.table-progress {
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.table-progress .progress-track {
+  flex: 1;
+  width: 76px;
+  height: 6px;
+  background: #f1f5f9;
+}
+
+.table-progress > span {
+  color: var(--ink-secondary);
+  font-size: 11.5px;
+  font-weight: 650;
+  min-width: 32px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.institution-app-dark .table-progress .progress-track {
+  background: #334155;
+}
+
+.institution-app-dark .table-progress > span {
+  color: #cbd5e1;
+}
+
+/* Action Button Cluster */
+.learner-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.learner-action-btn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 130ms ease;
+}
+
+.learner-action-btn:hover {
+  background: #f1f5f9;
+  color: var(--ink);
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.learner-action-btn:active {
+  transform: translateY(0);
+}
+
+.learner-action-btn.btn-delete:hover {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+/* Toolbar Filters & Actions */
+.learner-toolbar-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.learner-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Table Pagination Bar */
+.learner-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+  background: #fafcff;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.institution-app-dark .learner-pagination-bar {
+  background: #192336;
+  border-color: var(--line);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pagination-btn {
+  height: 30px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-secondary);
+  font-size: 11.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: var(--ink);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pagination-btn.active {
+  background: var(--blue);
+  color: #ffffff;
+  border-color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  .learner-toolbar-filters {
+    width: 100%;
+  }
+
+  .learner-pagination-bar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
