@@ -1,32 +1,38 @@
 import React, { useState } from "react";
 import {
   LayoutGrid,
-  Users,
   Layers,
-  UserPlus,
-  Briefcase,
+  GraduationCap,
+  Users,
   BookOpen,
-  TrendingUp,
+  Calendar,
+  CheckCircle,
+  Award,
+  Briefcase,
   FileText,
   Settings,
 } from "lucide-react";
 import PortalDashboardLayout from "../../layouts/PortalDashboardLayout/PortalDashboardLayout";
-import CompanyOverviewModule from "./CompanyOverviewModule";
-import CompanyEmployeesDeptsModule from "./CompanyEmployeesDeptsModule";
-import CompanyRecruitmentJobsModule from "./CompanyRecruitmentJobsModule";
-import CompanyTrainingPerformanceModule from "./CompanyTrainingPerformanceModule";
-import CompanyReportsSettingsModule from "./CompanyReportsSettingsModule";
+import InstOverviewModule from "../PortalInstitutionDashboard/InstOverviewModule";
+import InstDepartmentsModule from "../PortalInstitutionDashboard/InstDepartmentsModule";
+import InstStudentsFacultyModule from "../PortalInstitutionDashboard/InstStudentsFacultyModule";
+import InstCoursesBatchesModule from "../PortalInstitutionDashboard/InstCoursesBatchesModule";
+import InstAttendanceProgramsModule from "../PortalInstitutionDashboard/InstAttendanceProgramsModule";
+import InstPlacementsReportsSettingsModule from "../PortalInstitutionDashboard/InstPlacementsReportsSettingsModule";
 import { getActivePortalUser } from "../../../services/portalAuth/portalStorage";
-import "./PortalCompanyDashboard.css";
+import "../PortalInstitutionDashboard/PortalInstitutionDashboard.css";
+import "../PortalInstitutionDashboard/InstModulesCommon.css";
 
-const COMPANY_NAV_MODULES = [
+const PORTAL_NAV_MODULES = [
   { id: "Overview", label: "Dashboard Overview", icon: LayoutGrid },
-  { id: "Employees", label: "Employees", icon: Users, badge: "1.4k" },
-  { id: "Departments", label: "Departments", icon: Layers, badge: "6" },
-  { id: "Recruitment", label: "Recruitment", icon: UserPlus, badge: "186" },
-  { id: "Jobs", label: "Job Openings", icon: Briefcase, badge: "24" },
-  { id: "Training", label: "Training", icon: BookOpen, badge: "18" },
-  { id: "Performance", label: "Performance", icon: TrendingUp },
+  { id: "Departments", label: "Departments", icon: Layers, badge: "8" },
+  { id: "Students", label: "Students", icon: GraduationCap, badge: "3.4k" },
+  { id: "Faculty", label: "Faculty", icon: Users, badge: "142" },
+  { id: "Courses", label: "Courses", icon: BookOpen, badge: "64" },
+  { id: "Batches", label: "Batches", icon: Calendar },
+  { id: "Attendance", label: "Attendance", icon: CheckCircle },
+  { id: "Programs", label: "Academic Programs", icon: Award },
+  { id: "Placements", label: "Placements", icon: Briefcase, badge: "91%" },
   { id: "Reports", label: "Reports", icon: FileText },
   { id: "Settings", label: "Settings", icon: Settings },
 ];
@@ -46,25 +52,29 @@ export default function PortalCompanyDashboard() {
   const renderModuleContent = () => {
     switch (activeModule) {
       case "Overview":
-        return <CompanyOverviewModule user={user} onNavigate={setActiveModule} />;
-      case "Employees":
-        return <CompanyEmployeesDeptsModule mode="employees" search={search} />;
+        return <InstOverviewModule user={user} onNavigate={setActiveModule} />;
       case "Departments":
-        return <CompanyEmployeesDeptsModule mode="departments" search={search} />;
-      case "Recruitment":
-        return <CompanyRecruitmentJobsModule mode="recruitment" search={search} />;
-      case "Jobs":
-        return <CompanyRecruitmentJobsModule mode="jobs" search={search} />;
-      case "Training":
-        return <CompanyTrainingPerformanceModule mode="training" search={search} />;
-      case "Performance":
-        return <CompanyTrainingPerformanceModule mode="performance" search={search} />;
+        return <InstDepartmentsModule search={search} />;
+      case "Students":
+        return <InstStudentsFacultyModule mode="students" search={search} />;
+      case "Faculty":
+        return <InstStudentsFacultyModule mode="faculty" search={search} />;
+      case "Courses":
+        return <InstCoursesBatchesModule mode="courses" search={search} />;
+      case "Batches":
+        return <InstCoursesBatchesModule mode="batches" search={search} />;
+      case "Attendance":
+        return <InstAttendanceProgramsModule mode="attendance" search={search} />;
+      case "Programs":
+        return <InstAttendanceProgramsModule mode="programs" search={search} />;
+      case "Placements":
+        return <InstPlacementsReportsSettingsModule mode="placements" user={user} search={search} />;
       case "Reports":
-        return <CompanyReportsSettingsModule mode="reports" user={user} search={search} />;
+        return <InstPlacementsReportsSettingsModule mode="reports" user={user} search={search} />;
       case "Settings":
-        return <CompanyReportsSettingsModule mode="settings" user={user} search={search} />;
+        return <InstPlacementsReportsSettingsModule mode="settings" user={user} search={search} />;
       default:
-        return <CompanyOverviewModule user={user} onNavigate={setActiveModule} />;
+        return <InstOverviewModule user={user} onNavigate={setActiveModule} />;
     }
   };
 
@@ -72,7 +82,7 @@ export default function PortalCompanyDashboard() {
     <PortalDashboardLayout
       user={user}
       category="company"
-      modules={COMPANY_NAV_MODULES}
+      modules={PORTAL_NAV_MODULES}
       activeModule={activeModule}
       onSelectModule={setActiveModule}
       search={search}
