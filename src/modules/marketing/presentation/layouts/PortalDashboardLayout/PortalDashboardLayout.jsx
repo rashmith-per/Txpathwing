@@ -8,6 +8,7 @@ import {
   clearActivePortalUser,
 } from "../../../services/portalAuth/portalStorage";
 import "./PortalDashboardLayout.css";
+import "./PortalSharedModules.css";
 
 export default function PortalDashboardLayout({
   user: propUser,

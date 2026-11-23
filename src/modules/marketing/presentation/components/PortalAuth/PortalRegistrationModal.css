@@ -257,6 +257,19 @@
   cursor: not-allowed;
 }
 
+/* Category Specific Themes */
+.reg-theme-institution .reg-pill-badge { background: #ecfdf5; color: #059669; }
+.reg-theme-institution .reg-submit-btn { background: linear-gradient(135deg, #059669 0%, #10b981 100%); }
+.reg-theme-institution .reg-input-box:focus-within { border-color: #10b981; }
+
+.reg-theme-organization .reg-pill-badge { background: #eff6ff; color: #2563eb; }
+.reg-theme-organization .reg-submit-btn { background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); }
+.reg-theme-organization .reg-input-box:focus-within { border-color: #3b82f6; }
+
+.reg-theme-company .reg-pill-badge { background: #f5f3ff; color: #7c3aed; }
+.reg-theme-company .reg-submit-btn { background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%); }
+.reg-theme-company .reg-input-box:focus-within { border-color: #8b5cf6; }
+
 .reg-footer {
   text-align: center;
   padding-top: 8px;

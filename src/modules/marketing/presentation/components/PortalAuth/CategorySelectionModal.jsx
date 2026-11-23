@@ -104,7 +104,7 @@ export default function CategorySelectionModal({
             return (
               <div
                 key={cat.key}
-                className="cat-card"
+                className={`cat-card cat-card-${cat.key}`}
                 onClick={() => onSelectCategory(cat.key)}
                 tabIndex={0}
                 role="button"

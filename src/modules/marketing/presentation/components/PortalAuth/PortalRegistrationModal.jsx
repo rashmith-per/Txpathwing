@@ -86,7 +86,7 @@ export default function PortalRegistrationModal({
     <div className="reg-modal-popup" role="dialog" aria-modal="true">
       <div className="reg-modal-overlay" onClick={onClose} />
 
-      <div className="reg-modal-window">
+      <div className={`reg-modal-window reg-theme-${category}`}>
         <button
           type="button"
           className="reg-modal-close"

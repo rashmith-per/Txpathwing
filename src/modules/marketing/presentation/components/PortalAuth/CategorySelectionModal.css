@@ -145,7 +145,37 @@
 .cat-card:hover {
   transform: translateY(-6px);
   border-color: #93c5fd;
-  box-shadow: 0 16px 36px -10px rgba(59, 130, 246, 0.18), 0 0 0 1px #3b82f6;
+  box-shadow: 0 16px 36px -10px rgba(59, 130, 246, 0.18);
+}
+
+/* Category 1: Institution Styling */
+.cat-card-institution:hover {
+  border-color: #10b981;
+  box-shadow: 0 16px 36px -10px rgba(16, 185, 129, 0.25), 0 0 0 1.5px #10b981;
+}
+.cat-card-institution .cat-get-started-btn {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.28);
+}
+
+/* Category 2: Organization Styling */
+.cat-card-organization:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 16px 36px -10px rgba(59, 130, 246, 0.25), 0 0 0 1.5px #3b82f6;
+}
+.cat-card-organization .cat-get-started-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+}
+
+/* Category 3: Company Styling */
+.cat-card-company:hover {
+  border-color: #8b5cf6;
+  box-shadow: 0 16px 36px -10px rgba(139, 92, 246, 0.25), 0 0 0 1.5px #8b5cf6;
+}
+.cat-card-company .cat-get-started-btn {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28);
 }
 
 .cat-icon-container {
