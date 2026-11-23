@@ -1,14 +1,10 @@
 import React from "react";
 import {
   Bell,
-  Building2,
-  LogOut,
   Menu,
   Search,
   User,
-  Shield,
 } from "lucide-react";
-import txIcon from "../../../../../assets/tx-icon.jpg";
 import "./PortalDashboardLayout.css";
 
 export default function PortalDashboardHeader({
@@ -19,7 +15,6 @@ export default function PortalDashboardHeader({
   onSearchChange,
   onToggleMobileNav,
   onOpenProfile,
-  onLogout,
 }) {
   return (
     <header className="pdb-header">
@@ -33,15 +28,10 @@ export default function PortalDashboardHeader({
           <Menu size={20} />
         </button>
 
-        {/* Dynamic Registered Entity Banner: TX Pathwing Logo Only */}
-        <div className="pdb-brand-display">
-          <div className="pdb-logo-frame">
-            <img
-              src={txIcon}
-              alt="TX Pathwing"
-              className="pdb-uploaded-logo pdb-default-logo"
-            />
-          </div>
+        <div className="pdb-header-breadcrumb">
+          <span className="pdb-bc-root">{user?.categoryTitle || "Portal"}</span>
+          <span className="pdb-bc-sep">/</span>
+          <strong className="pdb-bc-current">{activeModule}</strong>
         </div>
       </div>
 
