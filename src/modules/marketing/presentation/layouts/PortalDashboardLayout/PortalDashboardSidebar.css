@@ -23,22 +23,38 @@
 .pdb-sidebar-brand-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
+  min-width: 0;
+  flex: 1;
 }
 
 .pdb-sidebar-logo {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  object-fit: cover;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.pdb-sidebar-logo.pdb-uploaded-logo-img {
+  background: #ffffff;
+  border-color: #cbd5e1;
 }
 
 .pdb-sidebar-brand-name {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 800;
   color: #0f172a;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 175px;
 }
 
 .pdb-sidebar-close-btn {

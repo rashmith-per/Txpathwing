@@ -13,13 +13,26 @@ export default function PortalDashboardSidebar({
   onClose,
   onLogout,
 }) {
+  const displayLogo = user?.logo || txIcon;
+  const displayName = user?.entityName || "Pathwing";
+
   return (
     <aside className={`pdb-sidebar ${isOpen ? "open" : ""}`}>
       {/* Brand Header */}
       <div className="pdb-sidebar-brand">
-        <Link to="/" className="pdb-sidebar-brand-link">
-          <img src={txIcon} alt="TX Pathwing" className="pdb-sidebar-logo" />
-          <span className="pdb-sidebar-brand-name">Pathwing</span>
+        <Link
+          to="/"
+          className="pdb-sidebar-brand-link"
+          title={displayName}
+        >
+          <img
+            src={displayLogo}
+            alt={displayName}
+            className={`pdb-sidebar-logo ${user?.logo ? "pdb-uploaded-logo-img" : "pdb-default-logo"}`}
+          />
+          <span className="pdb-sidebar-brand-name">
+            {displayName}
+          </span>
         </Link>
         <button
           type="button"

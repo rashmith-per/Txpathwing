@@ -20,18 +20,32 @@ export default function PortalDashboardLayout({
   children,
 }) {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState(propUser || getActivePortalUser());
+  const [currentUser, setCurrentUser] = useState(() => {
+    const active = getActivePortalUser();
+    return active || propUser || null;
+  });
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   useEffect(() => {
-    if (!currentUser) {
+    const syncUser = () => {
       const active = getActivePortalUser();
       if (active) {
         setCurrentUser(active);
+      } else if (propUser) {
+        setCurrentUser(propUser);
       }
-    }
-  }, [currentUser]);
+    };
+
+    window.addEventListener("authChanged", syncUser);
+    window.addEventListener("storage", syncUser);
+    syncUser();
+
+    return () => {
+      window.removeEventListener("authChanged", syncUser);
+      window.removeEventListener("storage", syncUser);
+    };
+  }, [propUser]);
 
   const handleLogout = () => {
     clearActivePortalUser();

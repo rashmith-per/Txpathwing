@@ -45,6 +45,7 @@ export default function PortalInstitutionDashboard() {
     category: "institution",
     categoryTitle: "Institution",
     email: "admin@institution.edu",
+    logo: localStorage.getItem("institutionLogo") || localStorage.getItem("userLogo") || "",
   };
 
   const renderModuleContent = () => {

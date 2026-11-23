@@ -146,6 +146,14 @@ export function setActivePortalUser(user, rememberMe = true) {
     localStorage.setItem("userName", user.username || "User");
     localStorage.setItem("userRole", user.category);
 
+    if (user.logo) {
+      localStorage.setItem("userLogo", user.logo);
+      localStorage.setItem("institutionLogo", user.logo);
+    } else {
+      localStorage.removeItem("userLogo");
+      localStorage.removeItem("institutionLogo");
+    }
+
     if (user.category === "institution") {
       localStorage.setItem("institutionLoggedIn", "true");
       localStorage.setItem("institutionEmail", user.email);
@@ -182,6 +190,8 @@ export function clearActivePortalUser() {
     localStorage.removeItem("institutionLoggedIn");
     localStorage.removeItem("institutionEmail");
     localStorage.removeItem("institutionName");
+    localStorage.removeItem("userLogo");
+    localStorage.removeItem("institutionLogo");
 
     window.dispatchEvent(new Event("authChanged"));
     window.dispatchEvent(new Event("storage"));

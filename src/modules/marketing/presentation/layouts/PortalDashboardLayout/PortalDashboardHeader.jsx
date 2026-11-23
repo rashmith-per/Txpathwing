@@ -8,6 +8,7 @@ import {
   User,
   Shield,
 } from "lucide-react";
+import txIcon from "../../../../../assets/tx-icon.jpg";
 import "./PortalDashboardLayout.css";
 
 export default function PortalDashboardHeader({
@@ -37,13 +38,15 @@ export default function PortalDashboardHeader({
             {user?.logo ? (
               <img
                 src={user.logo}
-                alt={user.entityName}
-                className="pdb-uploaded-logo"
+                alt={user.entityName || "Uploaded Logo"}
+                className="pdb-uploaded-logo pdb-custom-logo"
               />
             ) : (
-              <div className="pdb-logo-fallback">
-                <Building2 size={18} />
-              </div>
+              <img
+                src={txIcon}
+                alt="TX Pathwing"
+                className="pdb-uploaded-logo pdb-default-logo"
+              />
             )}
           </div>
 

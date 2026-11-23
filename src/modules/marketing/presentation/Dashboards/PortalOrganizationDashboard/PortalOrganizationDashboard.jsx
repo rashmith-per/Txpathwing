@@ -40,6 +40,7 @@ export default function PortalOrganizationDashboard() {
     category: "organization",
     categoryTitle: "Organization",
     email: "contact@globaltech.org",
+    logo: localStorage.getItem("userLogo") || "",
   };
 
   const renderModuleContent = () => {

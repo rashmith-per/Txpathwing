@@ -40,6 +40,7 @@ export default function PortalCompanyDashboard() {
     category: "company",
     categoryTitle: "Company",
     email: "careers@acmetech.com",
+    logo: localStorage.getItem("userLogo") || "",
   };
 
   const renderModuleContent = () => {
