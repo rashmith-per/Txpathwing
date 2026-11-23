@@ -3,12 +3,9 @@ import { useState } from "react";
 import {
   Bell,
   Check,
-  Globe2,
   Menu,
-  Moon,
   Search,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 
 import Sidebar from "../Sidebar.jsx";
 import "./Layout.css";
@@ -19,7 +16,6 @@ export default function Layout({
   search,
   onSearchChange,
   darkMode,
-  onToggleTheme,
   mobileNavOpen,
   onOpenMobileNav,
   onCloseMobileNav,
@@ -115,25 +111,9 @@ export default function Layout({
                 )}
               </div>
 
-              {/* Theme Toggle */}
-              <button
-                className="icon-button theme-toggle"
-                type="button"
-                onClick={onToggleTheme}
-                aria-label={
-                  darkMode
-                    ? "Switch to light theme"
-                    : "Switch to dark theme"
-                }
-              >
-                <Moon size={17} />
-              </button>
+             
 
-              {/* Main Website */}
-              <Link className="website-button" to="/">
-                <Globe2 size={15} />
-                <span>Website</span>
-              </Link>
+             
 
             </div>
           </header>

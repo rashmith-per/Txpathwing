@@ -1,5 +1,5 @@
 
-import { Building2, X, LogOut } from "lucide-react";
+import { Building2, X, LogOut, Shield } from "lucide-react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { navigation } from "./sidebarData.js";
 import "./Sidebar.css";
@@ -79,11 +79,13 @@ export default function Sidebar({
 
       {/* Profile and Logout */}
       <div className="sidebar-profile">
-        <div className="profile-avatar">RS</div>
+        <div className="profile-role-badge">
+          <Shield size={15} />
+        </div>
 
         <div className="profile-details">
           <strong>R. Sathyanarayana</strong>
-          <span>Tenant admin · KITS Warangal</span>
+          <span>Admin · KITS Warangal</span>
         </div>
 
         <button

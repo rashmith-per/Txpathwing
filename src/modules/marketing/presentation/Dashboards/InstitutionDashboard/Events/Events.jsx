@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowLeft, CalendarDays, CheckCircle2, Plus } from "lucide-react";
 import PageHeading from "../Layout/PageHeading.jsx";
 import StatusTag from "../Layout/StatusTag.jsx";
@@ -5,23 +6,25 @@ import EventRow from "./EventRow.jsx";
 import SummaryStrip from "../Layout/SummaryStrip.jsx";
 import { initialEvents } from "./eventsData.js";
 import { matchesSearch } from "../utils.js";
+import AddEventModal from "./AddEventModal.jsx";
 import "./Events.css";
 
-const SUMMARY = [
-  { value: "4", label: "Upcoming events" },
-  { value: "640", label: "Learners in assessments" },
-  { value: "1", label: "Placement drives" },
-  { value: "1", label: "Needs attention" }
-];
+function EventDetail({ event, onBack, onMarkReviewed, showMessage }) {
+  const [isReviewed, setIsReviewed] = useState(event.reviewed || false);
 
-function EventDetail({ event, onBack, showMessage }) {
+  const handleReview = () => {
+    setIsReviewed(true);
+    if (onMarkReviewed) onMarkReviewed(event.title);
+    showMessage(`Event "${event.title}" marked as reviewed.`);
+  };
+
   return (
     <>
       <button className="back-link" type="button" onClick={onBack}>
         <ArrowLeft size={15} />All events
       </button>
       <PageHeading eyebrow={`${event.type.toUpperCase()} · EVENT DETAILS`} title={event.title} description={event.detail}>
-        <StatusTag>{event.urgent ? "Action needed" : "Scheduled"}</StatusTag>
+        <StatusTag>{isReviewed ? "Reviewed" : event.urgent ? "Action needed" : "Scheduled"}</StatusTag>
       </PageHeading>
       <div className="event-detail-grid">
         <section className="panel detail-panel">
@@ -38,8 +41,13 @@ function EventDetail({ event, onBack, showMessage }) {
           <CalendarDays size={20} />
           <h2>On the programme calendar</h2>
           <p>This event is included in the institution schedule for the 2026–27 term.</p>
-          <button className="secondary-action" type="button" onClick={() => showMessage("Event details are up to date.")}>
-            <CheckCircle2 size={15} />Mark reviewed
+          <button
+            className="secondary-action"
+            type="button"
+            onClick={handleReview}
+            disabled={isReviewed}
+          >
+            <CheckCircle2 size={15} /> {isReviewed ? "Reviewed" : "Mark reviewed"}
           </button>
         </aside>
       </div>
@@ -48,11 +56,43 @@ function EventDetail({ event, onBack, showMessage }) {
 }
 
 export default function Events({ search, selectedEvent, onSelectEvent, onBack, showMessage }) {
+  const [eventsList, setEventsList] = useState(initialEvents);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+
+  const handleAddEvent = (newEvent) => {
+    setEventsList((prev) => [newEvent, ...prev]);
+  };
+
+  const handleMarkReviewed = (title) => {
+    setEventsList((prev) =>
+      prev.map((e) => (e.title === title ? { ...e, reviewed: true, urgent: false } : e))
+    );
+  };
+
   if (selectedEvent) {
-    return <EventDetail event={selectedEvent} onBack={onBack} showMessage={showMessage} />;
+    // Find the latest state of selected event
+    const current = eventsList.find((e) => e.title === selectedEvent.title) || selectedEvent;
+    return (
+      <EventDetail
+        event={current}
+        onBack={onBack}
+        onMarkReviewed={handleMarkReviewed}
+        showMessage={showMessage}
+      />
+    );
   }
 
-  const visibleEvents = initialEvents.filter((event) => matchesSearch(event, search));
+  const visibleEvents = eventsList.filter((event) => matchesSearch(event, search));
+
+  const urgentCount = eventsList.filter((e) => e.urgent && !e.reviewed).length;
+  const placementCount = eventsList.filter((e) => e.type === "Placement").length;
+
+  const summary = [
+    { value: eventsList.length.toString(), label: "Upcoming events" },
+    { value: "640", label: "Learners in assessments" },
+    { value: placementCount.toString(), label: "Placement drives" },
+    { value: urgentCount.toString(), label: "Needs attention" }
+  ];
 
   return (
     <>
@@ -61,12 +101,12 @@ export default function Events({ search, selectedEvent, onSelectEvent, onBack, s
         title="Events"
         description="Browse upcoming academic, placement, and industry events for your institution."
       >
-        <button className="primary-action" type="button" onClick={() => showMessage("New event draft created.")}>
+        <button className="primary-action" type="button" onClick={() => setIsAddOpen(true)}>
           <Plus size={16} />Add event
         </button>
       </PageHeading>
 
-      <SummaryStrip items={SUMMARY} />
+      <SummaryStrip items={summary} />
 
       <section className="panel page-panel">
         <div className="table-toolbar">
@@ -78,10 +118,23 @@ export default function Events({ search, selectedEvent, onSelectEvent, onBack, s
         </div>
         <div className="event-list event-list-full">
           {visibleEvents.length
-            ? visibleEvents.map((event) => <EventRow key={event.title} event={event} onSelect={onSelectEvent} />)
+            ? visibleEvents.map((event) => (
+                <EventRow
+                  key={event.title}
+                  event={event}
+                  onSelect={onSelectEvent}
+                />
+              ))
             : <p className="empty-events">No matching events.</p>}
         </div>
       </section>
+
+      <AddEventModal
+        isOpen={isAddOpen}
+        onClose={() => setIsAddOpen(false)}
+        onAddEvent={handleAddEvent}
+        showMessage={showMessage}
+      />
     </>
   );
 }
