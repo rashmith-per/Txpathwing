@@ -1,6 +1,6 @@
-/* Company Dashboard Specific Styling */
+/* Company Dashboard Specific Styling - Unified White & Blue Theme */
 .company-hero-banner {
-  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
   border-radius: 18px;
   padding: 28px 32px;
   color: #ffffff;
@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25);
 }
 
 .company-hero-banner h2 {
@@ -34,17 +34,14 @@
   border-radius: 10px;
   border: none;
   background: #ffffff;
-  color: #7c3aed;
+  color: #1e40af;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   transition: transform 0.15s ease;
 }
-
-.company-banner-btn:hover {
-  transform: translateY(-1px);
-}
+.company-banner-btn:hover { transform: translateY(-1px); }
 
 .company-stats-grid {
   display: grid;
@@ -79,23 +76,9 @@
   gap: 2px;
 }
 
-.company-stat-label {
-  font-size: 11.5px;
-  color: #64748b;
-  font-weight: 500;
-}
-
-.company-stat-val {
-  font-size: 18px;
-  font-weight: 800;
-  color: #0f172a;
-}
-
-.company-stat-change {
-  font-size: 11px;
-  color: #7c3aed;
-  font-weight: 600;
-}
+.company-stat-label { font-size: 11.5px; color: #64748b; font-weight: 500; }
+.company-stat-val { font-size: 18px; font-weight: 800; color: #0f172a; }
+.company-stat-change { font-size: 11px; color: #2563eb; font-weight: 600; }
 
 .company-content-split {
   display: grid;
@@ -119,18 +102,13 @@
   justify-content: space-between;
 }
 
-.company-card-header h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #0f172a;
-  margin: 0;
-}
+.company-card-header h3 { font-size: 16px; font-weight: 700; color: #0f172a; margin: 0; }
 
 .company-badge-pill {
   font-size: 11px;
   font-weight: 700;
-  color: #7c3aed;
-  background: #f5f3ff;
+  color: #2563eb;
+  background: #eff6ff;
   padding: 3px 8px;
   border-radius: 10px;
 }
@@ -154,7 +132,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #7c3aed;
+  background: #2563eb;
   flex-shrink: 0;
 }
 
@@ -165,15 +143,8 @@
   gap: 2px;
 }
 
-.company-activity-main strong {
-  font-size: 13px;
-  color: #0f172a;
-}
-
-.company-activity-main span {
-  font-size: 11px;
-  color: #64748b;
-}
+.company-activity-main strong { font-size: 13px; color: #0f172a; }
+.company-activity-main span { font-size: 11px; color: #64748b; }
 
 .company-status-tag {
   font-size: 10.5px;
@@ -182,9 +153,9 @@
   border-radius: 6px;
 }
 
-.company-status-tag.offer-stage { background: #ecfdf5; color: #059669; }
+.company-status-tag.offer-stage { background: #eff6ff; color: #2563eb; }
 .company-status-tag.active-drive { background: #eff6ff; color: #2563eb; }
-.company-status-tag.evaluation { background: #f5f3ff; color: #7c3aed; }
+.company-status-tag.evaluation { background: #f0f9ff; color: #0284c7; }
 .company-status-tag.completed { background: #f8fafc; color: #475569; }
 
 .company-quick-actions-grid {
@@ -211,9 +182,9 @@
 }
 
 .company-quick-btn:hover {
-  background: #f5f3ff;
-  border-color: #ddd6fe;
-  color: #7c3aed;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
   transform: translateY(-2px);
 }
 
@@ -251,8 +222,8 @@
 .job-status-badge {
   font-size: 11px;
   font-weight: 700;
-  color: #059669;
-  background: #ecfdf5;
+  color: #2563eb;
+  background: #eff6ff;
   padding: 2px 8px;
   border-radius: 6px;
 }
@@ -282,15 +253,12 @@
 .job-manage-btn {
   background: none;
   border: none;
-  color: #7c3aed;
+  color: #2563eb;
   font-weight: 700;
   cursor: pointer;
   padding: 0;
 }
-
-.job-manage-btn:hover {
-  text-decoration: underline;
-}
+.job-manage-btn:hover { text-decoration: underline; color: #1d4ed8; }
 
 .company-primary-btn {
   display: inline-flex;
@@ -299,7 +267,7 @@
   padding: 9px 16px;
   border-radius: 9px;
   border: none;
-  background: #7c3aed;
+  background: #2563eb;
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;

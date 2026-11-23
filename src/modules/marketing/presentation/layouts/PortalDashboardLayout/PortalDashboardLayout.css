@@ -205,22 +205,32 @@
   display: none;
 }
 
-/* All Category Dashboard Themes */
-.theme-institution { --portal-primary: #059669; --portal-accent: #10b981; }
-.theme-organization { --portal-primary: #2563eb; --portal-accent: #3b82f6; }
-.theme-company { --portal-primary: #7c3aed; --portal-accent: #8b5cf6; }
+/* All Category Dashboard Themes - Unified Professional White & Blue */
+.theme-institution,
+.theme-organization,
+.theme-company {
+  --portal-primary: #2563eb;
+  --portal-accent: #3b82f6;
+}
 
-.theme-institution .pdb-notif-badge { background: #059669; }
-.theme-organization .pdb-notif-badge { background: #2563eb; }
-.theme-company .pdb-notif-badge { background: #7c3aed; }
+.theme-institution .pdb-notif-badge,
+.theme-organization .pdb-notif-badge,
+.theme-company .pdb-notif-badge {
+  background: #2563eb;
+}
 
-.theme-institution .pdb-nav-item.active { background: #ecfdf5; color: #059669; }
-.theme-organization .pdb-nav-item.active { background: #eff6ff; color: #2563eb; }
-.theme-company .pdb-nav-item.active { background: #f5f3ff; color: #7c3aed; }
+.theme-institution .pdb-nav-item.active,
+.theme-organization .pdb-nav-item.active,
+.theme-company .pdb-nav-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
 
-.theme-institution .pdb-nav-item.active .pdb-nav-icon { color: #059669; }
-.theme-organization .pdb-nav-item.active .pdb-nav-icon { color: #2563eb; }
-.theme-company .pdb-nav-item.active .pdb-nav-icon { color: #7c3aed; }
+.theme-institution .pdb-nav-item.active .pdb-nav-icon,
+.theme-organization .pdb-nav-item.active .pdb-nav-icon,
+.theme-company .pdb-nav-item.active .pdb-nav-icon {
+  color: #2563eb;
+}
 
 @media (max-width: 960px) {
   .pdb-mobile-toggle {
