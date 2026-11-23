@@ -3,18 +3,14 @@ import {
   Bell,
   Menu,
   Search,
-  User,
 } from "lucide-react";
 import "./PortalDashboardLayout.css";
 
 export default function PortalDashboardHeader({
-  user,
-  category = "institution",
   activeModule,
   search,
   onSearchChange,
   onToggleMobileNav,
-  onOpenProfile,
 }) {
   return (
     <header className="pdb-header">
@@ -29,7 +25,7 @@ export default function PortalDashboardHeader({
         </button>
 
         <div className="pdb-header-breadcrumb">
-          <span className="pdb-bc-root">{user?.categoryTitle || "Portal"}</span>
+          <span className="pdb-bc-root">Pathwing</span>
           <span className="pdb-bc-sep">/</span>
           <strong className="pdb-bc-current">{activeModule}</strong>
         </div>
@@ -57,23 +53,6 @@ export default function PortalDashboardHeader({
         >
           <Bell size={18} />
           <span className="pdb-notif-badge">2</span>
-        </button>
-
-        {/* User Profile Trigger Button */}
-        <button
-          type="button"
-          className="pdb-user-profile-btn"
-          onClick={onOpenProfile}
-          title="View account profile"
-          aria-label="View account profile"
-        >
-          <div className="pdb-user-avatar">
-            <User size={15} />
-          </div>
-          <div className="pdb-user-names">
-            <span className="pdb-user-name-text">{user?.username || "Account"}</span>
-            <span className="pdb-user-role-text">{user?.categoryTitle || user?.category}</span>
-          </div>
         </button>
       </div>
     </header>

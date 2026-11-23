@@ -220,7 +220,11 @@
   padding: 8px 10px;
   background: #f8fafc;
   border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
+
+.pdb-sidebar-profile-card:hover { background: #f1f5f9; }
 
 .pdb-profile-icon-wrap {
   width: 28px;
@@ -272,9 +276,7 @@
   transition: all 0.15s ease;
 }
 
-.pdb-sidebar-logout-btn:hover {
-  background: #fee2e2;
-}
+.pdb-sidebar-logout-btn:hover { background: #fee2e2; }
 
 @media (max-width: 960px) {
   .pdb-sidebar {
@@ -284,10 +286,6 @@
     left: 0;
     transform: translateX(-100%);
   }
-  .pdb-sidebar.open {
-    transform: translateX(0);
-  }
-  .pdb-sidebar-close-btn {
-    display: block;
-  }
+  .pdb-sidebar.open { transform: translateX(0); }
+  .pdb-sidebar-close-btn { display: block; }
 }

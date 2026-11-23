@@ -73,19 +73,16 @@ export default function PortalDashboardLayout({
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
         onLogout={handleLogout}
+        onOpenProfile={() => setIsProfileOpen(true)}
       />
 
       {/* Main Body */}
       <div className="pdb-main-body">
         <PortalDashboardHeader
-          user={currentUser}
-          category={category}
           activeModule={activeModule}
           search={search}
           onSearchChange={onSearchChange}
           onToggleMobileNav={() => setIsMobileNavOpen((o) => !o)}
-          onOpenProfile={() => setIsProfileOpen(true)}
-          onLogout={handleLogout}
         />
 
         <main className="pdb-content-area">{children}</main>

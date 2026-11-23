@@ -13,6 +13,7 @@ export default function PortalDashboardSidebar({
   isOpen,
   onClose,
   onLogout,
+  onOpenProfile,
 }) {
   const [logoLoadError, setLogoLoadError] = useState(false);
 
@@ -110,7 +111,13 @@ export default function PortalDashboardSidebar({
 
       {/* Profile & Logout Footer */}
       <div className="pdb-sidebar-footer">
-        <div className="pdb-sidebar-profile-card">
+        <div
+          className="pdb-sidebar-profile-card"
+          onClick={onOpenProfile}
+          role="button"
+          tabIndex={0}
+          title="View account profile"
+        >
           <div className="pdb-profile-icon-wrap">
             <Shield size={16} />
           </div>
