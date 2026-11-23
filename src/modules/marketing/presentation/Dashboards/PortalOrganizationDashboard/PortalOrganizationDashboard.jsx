@@ -10,7 +10,6 @@ import {
   Award,
   Briefcase,
   FileText,
-  Settings,
 } from "lucide-react";
 import PortalDashboardLayout from "../../layouts/PortalDashboardLayout/PortalDashboardLayout";
 import InstOverviewModule from "../PortalInstitutionDashboard/InstOverviewModule";
@@ -34,7 +33,6 @@ const PORTAL_NAV_MODULES = [
   { id: "Programs", label: "Academic Programs", icon: Award },
   { id: "Placements", label: "Placements", icon: Briefcase, badge: "91%" },
   { id: "Reports", label: "Reports", icon: FileText },
-  { id: "Settings", label: "Settings", icon: Settings },
 ];
 
 export default function PortalOrganizationDashboard() {
