@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, RefreshCw, AlertTriangle, CheckCircle } from "lucide-react";
-import { STAFF_STATUSES } from "../backend/models/StaffModel.js";
+import { STAFF_STATUSES } from "../staffData.js";
 
 export default function StaffStatusModal({ isOpen, staff, onClose, onConfirm }) {
   const [selectedStatus, setSelectedStatus] = useState(staff?.status || "Active");

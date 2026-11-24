@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowDownToLine,
   BookOpen,
@@ -17,9 +17,13 @@ import PageHeading from "../Layout/PageHeading.jsx";
 import StatusTag from "../Layout/StatusTag.jsx";
 import SummaryStrip from "../Layout/SummaryStrip.jsx";
 import DataTable from "../Layout/DataTable.jsx";
-import { PROGRAM_CATEGORIES, PROGRAM_STATUSES } from "./backend/models/LearningProgramModel.js";
-import { BATCHES } from "../Learners/backend/models/LearnerModel.js";
-import { learningApi } from "./services/learningApi.js";
+import {
+  BATCHES,
+  PROGRAM_CATEGORIES,
+  PROGRAM_STATUSES,
+  INITIAL_PROGRAMS,
+  INITIAL_ENROLLMENTS
+} from "./learningsData.js";
 import { downloadCsv } from "../utils.js";
 
 // Modals
@@ -34,15 +38,8 @@ import "./Learnings.css";
 
 export default function Learnings({ search = "", showMessage }) {
   const [activeTab, setActiveTab] = useState("programs"); // "programs" | "enrollments"
-  const [programsList, setProgramsList] = useState([]);
-  const [enrollmentsList, setEnrollmentsList] = useState([]);
-  const [stats, setStats] = useState({
-    totalPrograms: 0,
-    activePrograms: 0,
-    totalEnrolledLearners: 0,
-    completedPrograms: 0,
-    inProgressPrograms: 0
-  });
+  const [programsList, setProgramsList] = useState(() => INITIAL_PROGRAMS);
+  const [enrollmentsList, setEnrollmentsList] = useState(() => INITIAL_ENROLLMENTS);
 
   // Filters
   const [categoryFilter, setCategoryFilter] = useState("All categories");
@@ -50,7 +47,6 @@ export default function Learnings({ search = "", showMessage }) {
   const [batchFilter, setBatchFilter] = useState("All batches");
   const [programFilter, setProgramFilter] = useState("All programs");
   const [localSearch, setLocalSearch] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   // Modals
   const [isAddProgramOpen, setIsAddProgramOpen] = useState(false);
@@ -60,73 +56,93 @@ export default function Learnings({ search = "", showMessage }) {
   const [isEnrollOpen, setIsEnrollOpen] = useState(false);
   const [selectedEnrollmentForProgress, setSelectedEnrollmentForProgress] = useState(null);
 
-  const effectiveSearch = localSearch || search;
+  const effectiveSearch = (localSearch || search).trim().toLowerCase();
 
-  const refreshLearning = () => {
-    window.dispatchEvent(new CustomEvent("institution_learning_updated"));
+  // Reset list to default
+  const handleReset = () => {
+    setProgramsList(INITIAL_PROGRAMS);
+    setEnrollmentsList(INITIAL_ENROLLMENTS);
+    if (showMessage) showMessage("Learning records reset to initial sample state.");
   };
 
-  useEffect(() => {
-    let isCurrent = true;
+  // Add program (in-memory)
+  const handleAddProgram = (newProgram) => {
+    setProgramsList((prev) => [newProgram, ...prev]);
+  };
 
-    const fetchLearningData = () => {
-      Promise.all([
-        learningApi.getPrograms({
-          search: effectiveSearch,
-          category: categoryFilter,
-          status: statusFilter
-        }),
-        learningApi.getEnrollments({
-          search: effectiveSearch,
-          batch: batchFilter,
-          programId: programFilter === "All programs" ? "" : programFilter
-        }),
-        learningApi.getStatistics()
-      ])
-        .then(([progs, enrs, st]) => {
-          if (!isCurrent) return;
-          setProgramsList(progs || []);
-          setEnrollmentsList(enrs || []);
-          setStats(st || {});
+  // Edit program (in-memory)
+  const handleEditProgram = (updatedProgram) => {
+    setProgramsList((prev) =>
+      prev.map((p) => (p.id === updatedProgram.id ? updatedProgram : p))
+    );
+  };
 
-          if (selectedProgramForDetails) {
-            const updated = progs.find((p) => p.id === selectedProgramForDetails.id);
-            if (updated) setSelectedProgramForDetails(updated);
-          }
-        })
-        .catch((err) => {
-          if (!isCurrent) return;
-          if (showMessage) showMessage(`Error loading learning data: ${err.message}`);
-        })
-        .finally(() => {
-          if (isCurrent) setIsLoading(false);
-        });
-    };
-
-    fetchLearningData();
-
-    window.addEventListener("institution_learning_updated", fetchLearningData);
-    return () => {
-      isCurrent = false;
-      window.removeEventListener("institution_learning_updated", fetchLearningData);
-    };
-  }, [effectiveSearch, categoryFilter, statusFilter, batchFilter, programFilter, showMessage, selectedProgramForDetails]);
+  // Delete program (in-memory)
+  const handleDeleteProgram = (programId) => {
+    setProgramsList((prev) => prev.filter((p) => p.id !== programId));
+    setEnrollmentsList((prev) => prev.filter((enr) => enr.programId !== programId));
+  };
 
   // Status toggle handler
-  const handleToggleStatus = async (programId) => {
-    try {
-      const updated = await learningApi.toggleProgramStatus(programId);
-      showMessage(`Program "${updated.name}" is now ${updated.status}.`);
-      refreshLearning();
-    } catch (err) {
-      showMessage(`Failed to toggle program status: ${err.message}`);
-    }
+  const handleToggleStatus = (programId) => {
+    setProgramsList((prev) =>
+      prev.map((p) => {
+        if (p.id !== programId) return p;
+        const current = p.status || p.state || "Active";
+        const nextStatus = current === "Active" ? "Draft" : "Active";
+        if (showMessage) showMessage(`Program "${p.name || p.title}" is now ${nextStatus}.`);
+        return {
+          ...p,
+          state: nextStatus,
+          status: nextStatus
+        };
+      })
+    );
   };
+
+  // Enroll learner (in-memory)
+  const handleEnrollLearner = (newEnrollment) => {
+    setEnrollmentsList((prev) => [newEnrollment, ...prev]);
+    // increment learner count on matching program
+    setProgramsList((prev) =>
+      prev.map((p) =>
+        p.id === newEnrollment.programId
+          ? { ...p, learners: (p.learners || 0) + 1 }
+          : p
+      )
+    );
+  };
+
+  // Filtered Programs
+  const filteredPrograms = programsList.filter((p) => {
+    const nameMatch = (p.name || p.title || "").toLowerCase().includes(effectiveSearch);
+    const codeMatch = (p.code || "").toLowerCase().includes(effectiveSearch);
+    const instrMatch = (p.instructor || "").toLowerCase().includes(effectiveSearch);
+    const matchesSearch = !effectiveSearch || nameMatch || codeMatch || instrMatch;
+
+    const matchesCategory = categoryFilter === "All categories" || p.category === categoryFilter;
+    const matchesStatus = statusFilter === "All statuses" || (p.status || p.state) === statusFilter;
+
+    return matchesSearch && matchesCategory && matchesStatus;
+  });
+
+  // Filtered Enrollments
+  const filteredEnrollments = enrollmentsList.filter((enr) => {
+    const nameMatch = (enr.learnerName || "").toLowerCase().includes(effectiveSearch);
+    const emailMatch = (enr.learnerEmail || "").toLowerCase().includes(effectiveSearch);
+    const progMatch = (enr.programTitle || "").toLowerCase().includes(effectiveSearch);
+    const matchesSearch = !effectiveSearch || nameMatch || emailMatch || progMatch;
+
+    const matchesBatch = batchFilter === "All batches" || enr.batch === batchFilter;
+    const matchesProgram = programFilter === "All programs" || enr.programId === programFilter;
+
+    return matchesSearch && matchesBatch && matchesProgram;
+  });
 
   // Export catalogue to CSV
   const handleExportCatalogue = () => {
     if (!programsList.length) {
-      showMessage("No courses available to export.");
+      if (showMessage) showMessage("No courses available to export.");
       return;
     }
 
@@ -144,37 +160,43 @@ export default function Learnings({ search = "", showMessage }) {
     ]);
 
     downloadCsv(`learning-catalogue-${new Date().toISOString().split("T")[0]}.csv`, [headers, ...rows]);
-    showMessage("Course catalogue downloaded.");
+    if (showMessage) showMessage("Course catalogue downloaded.");
   };
 
+  const activeProgramsCount = programsList.filter((p) => (p.status || p.state) === "Active").length;
+  const totalLearnersCount = programsList.reduce((acc, p) => acc + (p.learners || 0), 0);
+  const completedProgramsCount = programsList.filter((p) => (p.completion || 0) >= 100).length;
+  const inProgressProgramsCount = programsList.filter((p) => (p.completion || 0) > 0 && (p.completion || 0) < 100).length;
+
   const summaryItems = [
-    { value: stats.totalPrograms?.toString() || "0", label: "Learning programs" },
-    { value: stats.activePrograms?.toString() || "0", label: "Active programs" },
-    { value: stats.totalEnrolledLearners?.toString() || "0", label: "Enrolled learners" },
-    { value: stats.completedPrograms?.toString() || "0", label: "Completed programs" },
-    { value: stats.inProgressPrograms?.toString() || "0", label: "In-progress programs" }
+    { value: programsList.length.toString(), label: "Learning programs" },
+    { value: activeProgramsCount.toString(), label: "Active programs" },
+    { value: totalLearnersCount.toLocaleString(), label: "Enrolled learners" },
+    { value: completedProgramsCount.toString(), label: "Completed programs" },
+    { value: inProgressProgramsCount.toString(), label: "In-progress programs" }
   ];
 
   // Enrollment table rows
-  const enrollmentRows = enrollmentsList.map((enr) => ({
+  const enrollmentRows = filteredEnrollments.map((enr) => ({
     key: enr.id,
     cells: [
-      <div className="person-cell">
+      <div className="person-cell" key="person">
         <strong>{enr.learnerName}</strong>
         <small>{enr.learnerEmail}</small>
       </div>,
       enr.programTitle,
       enr.batch,
-      <span style={{ fontWeight: 650, color: "#166534" }}>{enr.completedModules || 0} modules</span>,
-      <span style={{ color: "var(--muted)" }}>{enr.remainingModules || 0} modules</span>,
-      <div className="table-progress">
+      <span key="comp" style={{ fontWeight: 650, color: "#166534" }}>{enr.completedModules || 0} modules</span>,
+      <span key="rem" style={{ color: "var(--muted)" }}>{enr.remainingModules || 0} modules</span>,
+      <div className="table-progress" key="prog">
         <div className="progress-track">
           <div className="progress-fill" style={{ width: `${enr.progressPercentage || 0}%` }} />
         </div>
         <span>{enr.progressPercentage || 0}%</span>
       </div>,
-      <StatusTag>{enr.status}</StatusTag>,
+      <StatusTag key="status">{enr.status}</StatusTag>,
       <button
+        key="btn"
         type="button"
         className="secondary-action"
         style={{ height: "28px", fontSize: "11px", padding: "0 8px" }}
@@ -272,18 +294,17 @@ export default function Learnings({ search = "", showMessage }) {
               <button
                 type="button"
                 className="icon-button"
-                title="Refresh list"
-                onClick={refreshLearning}
-                disabled={isLoading}
+                title="Reset list"
+                onClick={handleReset}
               >
-                <RefreshCw size={14} className={isLoading ? "spinner-inline" : ""} />
+                <RefreshCw size={14} />
               </button>
             </div>
           </div>
 
           {/* Programs Card Grid */}
           <div className="institution-course-grid">
-            {programsList.map((course) => (
+            {filteredPrograms.map((course) => (
               <article className="panel institution-course-card" key={course.id || course.name}>
                 <div className={`institution-course-accent institution-course-accent-${course.tone || "blue"}`}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -357,7 +378,7 @@ export default function Learnings({ search = "", showMessage }) {
             ))}
           </div>
 
-          {!isLoading && programsList.length === 0 && (
+          {filteredPrograms.length === 0 && (
             <div className="panel table-empty" style={{ padding: "32px", textAlign: "center", color: "var(--muted)" }}>
               No learning programs match your search or filter.
             </div>
@@ -393,11 +414,10 @@ export default function Learnings({ search = "", showMessage }) {
               <button
                 type="button"
                 className="icon-button"
-                title="Refresh list"
-                onClick={refreshLearning}
-                disabled={isLoading}
+                title="Reset list"
+                onClick={handleReset}
               >
-                <RefreshCw size={14} className={isLoading ? "spinner-inline" : ""} />
+                <RefreshCw size={14} />
               </button>
             </div>
           </div>
@@ -416,7 +436,7 @@ export default function Learnings({ search = "", showMessage }) {
             rows={enrollmentRows}
           />
 
-          {!isLoading && enrollmentsList.length === 0 && (
+          {filteredEnrollments.length === 0 && (
             <div className="panel table-empty" style={{ padding: "32px", textAlign: "center", color: "var(--muted)" }}>
               No enrollments found matching the criteria. Click "Enroll Learner" to register a learner into a program.
             </div>
@@ -428,7 +448,7 @@ export default function Learnings({ search = "", showMessage }) {
       <AddProgramModal
         isOpen={isAddProgramOpen}
         onClose={() => setIsAddProgramOpen(false)}
-        onSuccess={refreshLearning}
+        onSuccess={handleAddProgram}
         showMessage={showMessage}
       />
 
@@ -438,7 +458,7 @@ export default function Learnings({ search = "", showMessage }) {
         isOpen={Boolean(selectedProgramForEdit)}
         program={selectedProgramForEdit}
         onClose={() => setSelectedProgramForEdit(null)}
-        onSuccess={refreshLearning}
+        onSuccess={handleEditProgram}
         showMessage={showMessage}
       />
 
@@ -448,7 +468,10 @@ export default function Learnings({ search = "", showMessage }) {
         isOpen={Boolean(selectedProgramForDetails)}
         program={selectedProgramForDetails}
         onClose={() => setSelectedProgramForDetails(null)}
-        onRefresh={refreshLearning}
+        onRefresh={() => {
+          // re-trigger local render by shallow copy
+          setProgramsList((prev) => [...prev]);
+        }}
         showMessage={showMessage}
       />
 
@@ -458,15 +481,16 @@ export default function Learnings({ search = "", showMessage }) {
         isOpen={Boolean(selectedProgramForDelete)}
         program={selectedProgramForDelete}
         onClose={() => setSelectedProgramForDelete(null)}
-        onSuccess={refreshLearning}
+        onSuccess={handleDeleteProgram}
         showMessage={showMessage}
       />
 
       {/* Enroll Learner Modal */}
       <EnrollLearnerModal
         isOpen={isEnrollOpen}
+        programs={programsList}
         onClose={() => setIsEnrollOpen(false)}
-        onSuccess={refreshLearning}
+        onSuccess={handleEnrollLearner}
         showMessage={showMessage}
       />
 
@@ -476,7 +500,10 @@ export default function Learnings({ search = "", showMessage }) {
         isOpen={Boolean(selectedEnrollmentForProgress)}
         enrollment={selectedEnrollmentForProgress}
         onClose={() => setSelectedEnrollmentForProgress(null)}
-        onRefresh={refreshLearning}
+        onRefresh={() => {
+          // re-trigger local render by shallow copy
+          setEnrollmentsList((prev) => [...prev]);
+        }}
         showMessage={showMessage}
       />
     </>

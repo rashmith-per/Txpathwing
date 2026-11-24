@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { UserPlus, RefreshCw } from "lucide-react";
 import PageHeading from "../Layout/PageHeading.jsx";
 import StaffOverview from "./components/StaffOverview.jsx";
@@ -9,25 +9,20 @@ import StaffProfileModal from "./components/StaffProfileModal.jsx";
 import StaffStatusModal from "./components/StaffStatusModal.jsx";
 import StaffDeleteModal from "./components/StaffDeleteModal.jsx";
 import StaffRoleSwitcher from "./components/StaffRoleSwitcher.jsx";
-import { staffApi } from "./services/staffApi.js";
-import { STAFF_ROLES, STAFF_PERMISSIONS, StaffRoleModel } from "./backend/models/StaffRoleModel.js";
+import {
+  initialStaffRecords,
+  STAFF_ROLES,
+  STAFF_PERMISSIONS,
+  StaffRoleModel
+} from "./staffData.js";
 import "./Staff.css";
 
 export default function StaffManagement({ search: globalSearch = "", showMessage }) {
-  // Active RBAC Role for simulation/testing
-  const [activeRole, setActiveRole] = useState(() => {
-    try {
-      return localStorage.getItem("tx_active_staff_test_role") || STAFF_ROLES.INSTITUTION_ADMIN;
-    } catch {
-      return STAFF_ROLES.INSTITUTION_ADMIN;
-    }
-  });
+  // Active RBAC Role for simulation/testing (pure local state)
+  const [activeRole, setActiveRole] = useState(STAFF_ROLES.INSTITUTION_ADMIN);
 
-  // Data & State
-  const [staffList, setStaffList] = useState([]);
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // In-memory staff list initialized from static mock records
+  const [staffList, setStaffList] = useState(() => initialStaffRecords);
 
   // Filter & Pagination State
   const [filters, setFilters] = useState({
@@ -45,13 +40,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
-    total: 0,
-    totalPages: 1,
-    hasNextPage: false,
-    hasPrevPage: false,
   });
-
-  const [dataVersion, setDataVersion] = useState(0);
 
   // Modals state
   const [isAddOpen, setIsAddOpen] = useState(false);
@@ -60,114 +49,64 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
   const [statusStaff, setStatusStaff] = useState(null);
   const [deleteStaff, setDeleteStaff] = useState(null);
 
-  const effectiveSearch = filters.search || globalSearch;
+  const effectiveSearch = (filters.search || globalSearch).trim().toLowerCase();
 
-  // Fetch statistics
-  const fetchStatistics = useCallback(async () => {
-    try {
-      const res = await staffApi.getStaffStatistics();
-      if (res && res.data) {
-        setStats(res.data);
-      }
-    } catch (err) {
-      console.warn("Could not load staff statistics:", err);
-    }
-  }, []);
-
-  // Load directory data
-  useEffect(() => {
-    let isCurrent = true;
-
-    async function loadData() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const res = await staffApi.getStaffList({
-          search: effectiveSearch,
-          department: filters.department === "All" ? "" : filters.department,
-          designation: filters.designation === "All" ? "" : filters.designation,
-          employmentType: filters.employmentType === "All" ? "" : filters.employmentType,
-          status: filters.status === "All" ? "" : filters.status,
-          category: filters.category === "All" ? "" : filters.category,
-          sortField,
-          sortDirection,
-          page: pagination.page,
-          limit: pagination.limit,
-        });
-
-        if (isCurrent && res && res.data) {
-          setStaffList(res.data);
-          if (res.pagination) {
-            setPagination(res.pagination);
-          }
-        }
-      } catch (err) {
-        if (isCurrent) {
-          setError(err.message || "Failed to fetch staff members.");
-        }
-      } finally {
-        if (isCurrent) {
-          setLoading(false);
-        }
-      }
-    }
-
-    loadData();
-
-    return () => {
-      isCurrent = false;
+  // Dynamic statistics calculated in-memory
+  const stats = useMemo(() => {
+    return {
+      totalStaff: staffList.length,
+      activeStaff: staffList.filter((s) => s.status === "Active").length,
+      inactiveStaff: staffList.filter((s) => s.status === "Inactive").length,
+      teachingStaff: staffList.filter((s) => s.category === "Teaching").length,
+      nonTeachingStaff: staffList.filter((s) => s.category === "Non-Teaching").length,
+      onLeaveStaff: staffList.filter((s) => s.status === "On Leave").length,
     };
-  }, [
-    effectiveSearch,
-    filters.department,
-    filters.designation,
-    filters.employmentType,
-    filters.status,
-    filters.category,
-    sortField,
-    sortDirection,
-    pagination.page,
-    pagination.limit,
-    dataVersion,
-  ]);
+  }, [staffList]);
 
-  // Load stats once and on external directory updates
-  useEffect(() => {
-    let mounted = true;
-    const refreshStats = async () => {
-      try {
-        const res = await staffApi.getStaffStatistics();
-        if (mounted && res?.data) {
-          setStats(res.data);
-        }
-      } catch (err) {
-        console.warn("Could not load staff statistics:", err);
-      }
-    };
+  // In-memory filtered and sorted staff list
+  const filteredStaff = useMemo(() => {
+    let result = staffList.filter((s) => {
+      const nameMatch = (s.name || "").toLowerCase().includes(effectiveSearch);
+      const emailMatch = (s.email || "").toLowerCase().includes(effectiveSearch);
+      const idMatch = (s.staffId || "").toLowerCase().includes(effectiveSearch);
+      const matchesSearch = !effectiveSearch || nameMatch || emailMatch || idMatch;
 
-    refreshStats();
+      const matchesDept = filters.department === "All" || s.department === filters.department;
+      const matchesDesig = filters.designation === "All" || s.designation === filters.designation;
+      const matchesEmp = filters.employmentType === "All" || s.employmentType === filters.employmentType;
+      const matchesStatus = filters.status === "All" || s.status === filters.status;
+      const matchesCat = filters.category === "All" || s.category === filters.category;
 
-    const handleUpdate = () => {
-      refreshStats();
-      setDataVersion((v) => v + 1);
-    };
+      return matchesSearch && matchesDept && matchesDesig && matchesEmp && matchesStatus && matchesCat;
+    });
 
-    window.addEventListener("institution_staff_updated", handleUpdate);
-    window.addEventListener("staff_record_created", handleUpdate);
-    window.addEventListener("staff_record_updated", handleUpdate);
-    window.addEventListener("staff_status_changed", handleUpdate);
-    window.addEventListener("staff_record_deleted", handleUpdate);
+    result.sort((a, b) => {
+      const valA = (a[sortField] || "").toString().toLowerCase();
+      const valB = (b[sortField] || "").toString().toLowerCase();
+      if (valA < valB) return sortDirection === "asc" ? -1 : 1;
+      if (valA > valB) return sortDirection === "asc" ? 1 : -1;
+      return 0;
+    });
 
-    return () => {
-      mounted = false;
-      window.removeEventListener("institution_staff_updated", handleUpdate);
-      window.removeEventListener("staff_record_created", handleUpdate);
-      window.removeEventListener("staff_record_updated", handleUpdate);
-      window.removeEventListener("staff_status_changed", handleUpdate);
-      window.removeEventListener("staff_record_deleted", handleUpdate);
-    };
-  }, []);
+    return result;
+  }, [staffList, effectiveSearch, filters, sortField, sortDirection]);
+
+  // Paginated slice
+  const paginatedStaff = useMemo(() => {
+    const start = (pagination.page - 1) * pagination.limit;
+    return filteredStaff.slice(start, start + pagination.limit);
+  }, [filteredStaff, pagination.page, pagination.limit]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredStaff.length / pagination.limit));
+
+  const paginationMeta = {
+    page: pagination.page,
+    limit: pagination.limit,
+    total: filteredStaff.length,
+    totalPages,
+    hasNextPage: pagination.page < totalPages,
+    hasPrevPage: pagination.page > 1,
+  };
 
   // Filter Handlers
   const handleFilterChange = (field, value) => {
@@ -219,118 +158,145 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
   };
 
   // Role Simulator
-  const handleRoleSelect = (newRole, dept = null) => {
+  const handleRoleSelect = (newRole) => {
     setActiveRole(newRole);
-    try {
-      localStorage.setItem("tx_active_staff_test_role", newRole);
-      if (dept) {
-        localStorage.setItem("tx_active_staff_test_dept", dept);
-      } else {
-        localStorage.removeItem("tx_active_staff_test_dept");
-      }
-    } catch (err) {
-      console.warn("Failed to store simulation test role:", err);
-    }
     const roleDef = StaffRoleModel.getRole(newRole);
-    showMessage(`Switched RBAC simulation role to: ${roleDef.name}`);
-    setDataVersion((v) => v + 1);
+    if (showMessage) showMessage(`Switched RBAC simulation role to: ${roleDef.name}`);
   };
 
-  // Action: Add Staff
-  const handleSaveNewStaff = async (formData) => {
-    const res = await staffApi.createStaff(formData);
-    showMessage(`Staff member ${formData.name} successfully enrolled!`);
-    setDataVersion((v) => v + 1);
-    fetchStatistics();
-    return res;
+  // Action: Add Staff (pure local state)
+  const handleSaveNewStaff = (formData) => {
+    const newStaff = {
+      id: `stf_${Date.now()}`,
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      ...formData,
+      activityLogs: [
+        {
+          id: `log_${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          action: "STAFF_CREATED",
+          actorName: "Institution Admin",
+          details: "Staff record enrolled into institution registry",
+        },
+      ],
+    };
+
+    setStaffList((prev) => [newStaff, ...prev]);
+    if (showMessage) showMessage(`Staff member ${formData.name} successfully enrolled!`);
   };
 
-  // Action: Edit Staff
-  const handleSaveEditStaff = async (id, formData) => {
-    const res = await staffApi.updateStaff(id, formData);
-    showMessage(`Staff profile for ${formData.name} updated successfully!`);
-    setDataVersion((v) => v + 1);
-    fetchStatistics();
-    if (viewStaff && viewStaff.id === id) {
-      setViewStaff(res.data);
+  // Action: Edit Staff (pure local state)
+  const handleSaveEditStaff = (formData) => {
+    if (!editStaff) return;
+    const updated = {
+      ...editStaff,
+      ...formData,
+    };
+
+    setStaffList((prev) =>
+      prev.map((s) => (s.id === editStaff.id ? updated : s))
+    );
+
+    if (viewStaff && viewStaff.id === editStaff.id) {
+      setViewStaff(updated);
     }
-    return res;
+
+    if (showMessage) showMessage(`Staff profile for ${formData.name} updated successfully!`);
   };
 
-  // Action: Status Change
-  const handleConfirmStatusChange = async (id, newStatus, reason) => {
-    const res = await staffApi.updateStaffStatus(id, newStatus, reason);
-    showMessage(`Status for ${statusStaff.name} updated to ${newStatus}.`);
-    setDataVersion((v) => v + 1);
-    fetchStatistics();
-    return res;
+  // Action: Status Change (pure local state)
+  const handleConfirmStatusChange = (id, newStatus, reason) => {
+    setStaffList((prev) =>
+      prev.map((s) => {
+        if (s.id !== id) return s;
+        const newLog = {
+          id: `log_${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          action: "STATUS_CHANGED",
+          actorName: "Institution Admin",
+          details: `Status updated to ${newStatus}.${reason ? ` Reason: ${reason}` : ""}`,
+        };
+        return {
+          ...s,
+          status: newStatus,
+          activityLogs: [newLog, ...(s.activityLogs || [])],
+        };
+      })
+    );
+
+    if (viewStaff && viewStaff.id === id) {
+      setViewStaff((prev) => prev ? { ...prev, status: newStatus } : null);
+    }
+
+    if (showMessage) showMessage(`Status for ${statusStaff?.name || "Staff member"} updated to ${newStatus}.`);
   };
 
-  // Action: Delete Staff
-  const handleConfirmDelete = async (id) => {
+  // Action: Delete Staff (pure local state)
+  const handleConfirmDelete = (id) => {
     const staffName = deleteStaff?.name || "Staff member";
-    const res = await staffApi.deleteStaff(id);
-    showMessage(`${staffName} was successfully deleted from registry.`);
-    setDataVersion((v) => v + 1);
-    fetchStatistics();
-    return res;
+    setStaffList((prev) => prev.filter((s) => s.id !== id));
+    if (viewStaff && viewStaff.id === id) {
+      setViewStaff(null);
+    }
+    if (showMessage) showMessage(`${staffName} was successfully deleted from registry.`);
   };
 
   // Action: Export CSV
-  const handleExportCsv = async () => {
-    try {
-      const allStaff = await staffApi.getStaffList({ limit: 1000 });
-      if (!allStaff?.data?.length) {
-        showMessage("No staff records available for CSV export.");
-        return;
-      }
-
-      const headers = [
-        "Staff ID",
-        "Full Name",
-        "Email",
-        "Phone",
-        "Department",
-        "Designation",
-        "Employment Type",
-        "Category",
-        "Joining Date",
-        "Status",
-        "Role",
-      ];
-
-      const csvRows = [
-        headers.join(","),
-        ...allStaff.data.map((s) =>
-          [
-            `"${s.staffId}"`,
-            `"${s.name}"`,
-            `"${s.email}"`,
-            `"${s.phone}"`,
-            `"${s.department}"`,
-            `"${s.designation}"`,
-            `"${s.employmentType}"`,
-            `"${s.category}"`,
-            `"${s.joiningDate}"`,
-            `"${s.status}"`,
-            `"${s.roleName || s.role}"`,
-          ].join(",")
-        ),
-      ];
-
-      const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.setAttribute("href", url);
-      link.setAttribute("download", `KITS_Warangal_Staff_Registry_${new Date().toISOString().split("T")[0]}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      showMessage("Staff directory CSV export downloaded.");
-    } catch (err) {
-      showMessage(`Export failed: ${err.message}`);
+  const handleExportCsv = () => {
+    if (!staffList.length) {
+      if (showMessage) showMessage("No staff records available for CSV export.");
+      return;
     }
+
+    const headers = [
+      "Staff ID",
+      "Full Name",
+      "Email",
+      "Phone",
+      "Department",
+      "Designation",
+      "Employment Type",
+      "Category",
+      "Joining Date",
+      "Status",
+      "Role",
+    ];
+
+    const csvRows = [
+      headers.join(","),
+      ...filteredStaff.map((s) =>
+        [
+          `"${s.staffId}"`,
+          `"${s.name}"`,
+          `"${s.email}"`,
+          `"${s.phone}"`,
+          `"${s.department}"`,
+          `"${s.designation}"`,
+          `"${s.employmentType}"`,
+          `"${s.category}"`,
+          `"${s.joiningDate}"`,
+          `"${s.status}"`,
+          `"${s.roleName || s.role}"`,
+        ].join(",")
+      ),
+    ];
+
+    const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `KITS_Warangal_Staff_Registry_${new Date().toISOString().split("T")[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    if (showMessage) showMessage("Staff directory CSV export downloaded.");
+  };
+
+  const handleResetToDefaults = () => {
+    setStaffList(initialStaffRecords);
+    handleResetFilters();
+    if (showMessage) showMessage("Staff records reset to initial sample state.");
   };
 
   const canAddStaff = StaffRoleModel.hasPermission(activeRole, STAFF_PERMISSIONS.STAFF_CREATE);
@@ -348,15 +314,11 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
         <button
           type="button"
           className="secondary-action"
-          onClick={() => {
-            fetchStatistics();
-            setDataVersion((v) => v + 1);
-            showMessage("Staff directory refreshed.");
-          }}
-          title="Refresh staff records"
+          onClick={handleResetToDefaults}
+          title="Reset staff records"
         >
           <RefreshCw size={15} />
-          <span>Refresh</span>
+          <span>Reset Sample Data</span>
         </button>
 
         {canAddStaff && (
@@ -387,10 +349,10 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
 
       {/* Main Staff Directory Table & Toolbar */}
       <StaffDirectory
-        staffList={staffList}
-        loading={loading}
-        error={error}
-        pagination={pagination}
+        staffList={paginatedStaff}
+        loading={false}
+        error={null}
+        pagination={paginationMeta}
         filters={{ ...filters, search: effectiveSearch }}
         sortField={sortField}
         sortDirection={sortDirection}
@@ -404,7 +366,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
         onStatusChange={(staff) => setStatusStaff(staff)}
         onDelete={(staff) => setDeleteStaff(staff)}
         onExportCsv={handleExportCsv}
-        onRetry={() => setDataVersion((v) => v + 1)}
+        onRetry={handleResetToDefaults}
         currentUserRole={activeRole}
       />
 
@@ -416,6 +378,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
       />
 
       <EditStaffModal
+        key={editStaff?.id}
         isOpen={Boolean(editStaff)}
         staff={editStaff}
         onClose={() => setEditStaff(null)}
@@ -423,6 +386,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
       />
 
       <StaffProfileModal
+        key={viewStaff?.id}
         isOpen={Boolean(viewStaff)}
         staff={viewStaff}
         onClose={() => setViewStaff(null)}
@@ -431,6 +395,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
       />
 
       <StaffStatusModal
+        key={statusStaff?.id}
         isOpen={Boolean(statusStaff)}
         staff={statusStaff}
         onClose={() => setStatusStaff(null)}
@@ -438,6 +403,7 @@ export default function StaffManagement({ search: globalSearch = "", showMessage
       />
 
       <StaffDeleteModal
+        key={deleteStaff?.id}
         isOpen={Boolean(deleteStaff)}
         staff={deleteStaff}
         onClose={() => setDeleteStaff(null)}

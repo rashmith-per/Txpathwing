@@ -1,5 +1,5 @@
 import { ShieldCheck, UserCheck, Briefcase, GraduationCap, Headphones, Info } from "lucide-react";
-import { STAFF_ROLES, ROLE_DEFINITIONS } from "../backend/models/StaffRoleModel.js";
+import { STAFF_ROLES, ROLE_DEFINITIONS } from "../staffData.js";
 
 const ROLE_ITEMS = [
   {

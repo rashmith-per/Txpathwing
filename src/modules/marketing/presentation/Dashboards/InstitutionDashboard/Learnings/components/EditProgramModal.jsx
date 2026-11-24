@@ -1,11 +1,6 @@
 import { useState } from "react";
-import { X, CheckCircle2, AlertCircle, Edit } from "lucide-react";
-import {
-  LearningProgramModel,
-  PROGRAM_CATEGORIES
-} from "../backend/models/LearningProgramModel.js";
-import { DEPARTMENTS } from "../../Learners/backend/models/LearnerModel.js";
-import { learningApi } from "../services/learningApi.js";
+import { X, CheckCircle2, Edit } from "lucide-react";
+import { PROGRAM_CATEGORIES, DEPARTMENTS } from "../learningsData.js";
 
 export default function EditProgramModal({ isOpen, program, onClose, onSuccess, showMessage }) {
   const [formData, setFormData] = useState(() => ({
@@ -21,8 +16,6 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
   }));
 
   const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen || !program) return null;
 
@@ -35,30 +28,31 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
         return copy;
       });
     }
-    setServerError("");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    setServerError("");
 
-    const validation = LearningProgramModel.validate(formData, true);
-    if (!validation.isValid) {
-      setErrors(validation.errors);
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Program name is required";
+    if (!formData.code.trim()) newErrors.code = "Program code is required";
+    if (!formData.instructor.trim()) newErrors.instructor = "Instructor name is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
-    try {
-      setIsSubmitting(true);
-      await learningApi.updateProgram(program.id, formData);
-      showMessage(`Program "${formData.name}" updated successfully.`);
-      if (onSuccess) onSuccess();
-      onClose();
-    } catch (err) {
-      setServerError(err.message || "Failed to update program");
-    } finally {
-      setIsSubmitting(false);
-    }
+    const updatedProgram = {
+      ...program,
+      ...formData,
+      title: formData.name,
+      status: formData.state
+    };
+
+    if (showMessage) showMessage(`Program "${formData.name}" updated successfully.`);
+    if (onSuccess) onSuccess(updatedProgram);
+    onClose();
   };
 
   return (
@@ -77,13 +71,6 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
           </button>
         </div>
 
-        {serverError && (
-          <div className="staff-error-banner" style={{ margin: "16px 20px 0" }}>
-            <AlertCircle size={16} />
-            <span>{serverError}</span>
-          </div>
-        )}
-
         <form onSubmit={handleSubmit}>
           <div className="staff-modal-body">
             <div className="form-field">
@@ -99,13 +86,14 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
 
             <div className="form-grid-2">
               <div className="form-field">
-                <label>Program Code</label>
+                <label>Program Code <span className="req-star">*</span></label>
                 <input
                   type="text"
                   value={formData.code}
-                  disabled
-                  style={{ background: "#f1f5f9" }}
+                  onChange={(e) => handleChange("code", e.target.value.toUpperCase())}
+                  className={errors.code ? "field-error-input" : ""}
                 />
+                {errors.code && <span className="field-error-msg">{errors.code}</span>}
               </div>
 
               <div className="form-field">
@@ -168,7 +156,7 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
             </div>
 
             <div className="form-field">
-              <label>Program Overview</label>
+              <label>Program Overview & Objectives</label>
               <textarea
                 rows={3}
                 value={formData.description}
@@ -178,17 +166,11 @@ export default function EditProgramModal({ isOpen, program, onClose, onSuccess, 
           </div>
 
           <div className="staff-modal-footer">
-            <button type="button" className="secondary-action" onClick={onClose} disabled={isSubmitting}>
+            <button type="button" className="secondary-action" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="primary-action btn-submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <span className="spinner-inline" />
-              ) : (
-                <>
-                  <CheckCircle2 size={16} /> Save Changes
-                </>
-              )}
+            <button type="submit" className="primary-action btn-submit">
+              <CheckCircle2 size={16} /> Save Changes
             </button>
           </div>
         </form>

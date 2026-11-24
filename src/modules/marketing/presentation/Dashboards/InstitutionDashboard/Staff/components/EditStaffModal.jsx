@@ -14,10 +14,11 @@ import {
   STAFF_CATEGORIES,
   STAFF_STATUSES,
   GENDERS,
-  EMAIL_REGEX,
-  PHONE_REGEX,
-} from "../backend/models/StaffModel.js";
-import { ROLE_DEFINITIONS } from "../backend/models/StaffRoleModel.js";
+  ROLE_DEFINITIONS,
+} from "../staffData.js";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{6,15}$/;
 
 export default function EditStaffModal({ isOpen, staff, onClose, onSave }) {
   const [activeSection, setActiveSection] = useState("personal");

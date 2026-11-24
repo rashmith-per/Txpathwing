@@ -8,7 +8,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import StaffStatusBadge from "./StaffStatusBadge.jsx";
-import { STAFF_PERMISSIONS, StaffRoleModel } from "../backend/models/StaffRoleModel.js";
+import { STAFF_PERMISSIONS, StaffRoleModel } from "../staffData.js";
 
 function formatDate(dateStr) {
   if (!dateStr) return "—";

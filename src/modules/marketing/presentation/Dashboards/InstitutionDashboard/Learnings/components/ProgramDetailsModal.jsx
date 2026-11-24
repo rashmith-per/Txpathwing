@@ -7,17 +7,17 @@ import {
   Clock,
   Layers,
   CheckCircle2,
-  AlertCircle,
   ChevronDown,
   ChevronRight,
   ChevronUp,
   FolderOpen,
   Folder
 } from "lucide-react";
-import { TOPIC_TYPES } from "../backend/models/LearningProgramModel.js";
-import { learningApi } from "../services/learningApi.js";
+import { TOPIC_TYPES } from "../learningsData.js";
 
 export default function ProgramDetailsModal({ isOpen, program, onClose, onRefresh, showMessage }) {
+  const [modules, setModules] = useState(() => program?.modules || []);
+
   // Adding module form state
   const [isAddingModule, setIsAddingModule] = useState(false);
   const [moduleTitle, setModuleTitle] = useState("");
@@ -36,12 +36,7 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
   // Collapsible accordion state: { [moduleId]: boolean }
   const [collapsedModules, setCollapsedModules] = useState({});
 
-  const [isSaving, setIsSaving] = useState(false);
-  const [error, setError] = useState("");
-
   if (!isOpen || !program) return null;
-
-  const modules = program.modules || [];
 
   const toggleModule = (modId) => {
     setCollapsedModules((prev) => ({
@@ -62,105 +57,112 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
     setCollapsedModules({});
   };
 
-  const handleAddModule = async (e) => {
+  const handleAddModule = (e) => {
     e.preventDefault();
     if (!moduleTitle.trim()) return;
 
-    try {
-      setIsSaving(true);
-      setError("");
-      await learningApi.addModule(program.id, {
-        title: moduleTitle,
-        description: moduleDesc
-      });
-      setModuleTitle("");
-      setModuleDesc("");
-      setIsAddingModule(false);
-      showMessage("Module added to curriculum.");
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to add module");
-    } finally {
-      setIsSaving(false);
-    }
+    const newModule = {
+      id: `mod_${Date.now()}`,
+      title: moduleTitle,
+      description: moduleDesc,
+      order: modules.length + 1,
+      topics: []
+    };
+
+    setModules((prev) => [...prev, newModule]);
+
+    setModuleTitle("");
+    setModuleDesc("");
+    setIsAddingModule(false);
+    if (showMessage) showMessage("Module added to curriculum.");
+    if (onRefresh) onRefresh();
   };
 
-  const handleUpdateModule = async (moduleId) => {
+  const handleUpdateModule = (moduleId) => {
     if (!editModuleTitle.trim()) return;
-    try {
-      setIsSaving(true);
-      await learningApi.updateModule(program.id, moduleId, { title: editModuleTitle });
-      setEditingModuleId(null);
-      showMessage("Module updated.");
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to update module");
-    } finally {
-      setIsSaving(false);
-    }
+
+    setModules((prev) =>
+      prev.map((m) => (m.id === moduleId ? { ...m, title: editModuleTitle } : m))
+    );
+
+    setEditingModuleId(null);
+    if (showMessage) showMessage("Module updated.");
+    if (onRefresh) onRefresh();
   };
 
-  const handleDeleteModule = async (moduleId) => {
-    if (!window.confirm("Are you sure you want to delete this module and all its topics?")) return;
-    try {
-      setIsSaving(true);
-      await learningApi.deleteModule(program.id, moduleId);
-      showMessage("Module deleted.");
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to delete module");
-    } finally {
-      setIsSaving(false);
-    }
+  const handleDeleteModule = (moduleId) => {
+    setModules((prev) => prev.filter((m) => m.id !== moduleId));
+
+    if (showMessage) showMessage("Module deleted.");
+    if (onRefresh) onRefresh();
   };
 
-  const handleAddTopic = async (moduleId) => {
+  const handleAddTopic = (moduleId) => {
     if (!topicTitle.trim()) return;
-    try {
-      setIsSaving(true);
-      setError("");
-      await learningApi.addTopic(program.id, moduleId, {
-        title: topicTitle,
-        type: topicType,
-        durationMinutes: topicDuration
-      });
-      setTopicTitle("");
-      setAddingTopicForModule(null);
-      // Ensure module is expanded so new topic is visible
-      setCollapsedModules((prev) => ({ ...prev, [moduleId]: false }));
-      showMessage("Topic added to module.");
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to add topic");
-    } finally {
-      setIsSaving(false);
-    }
+
+    setModules((prev) =>
+      prev.map((m) => {
+        if (m.id !== moduleId) return m;
+        const currentTopics = m.topics || [];
+        const newTopic = {
+          id: `top_${Date.now()}`,
+          title: topicTitle,
+          type: topicType,
+          durationMinutes: parseInt(topicDuration, 10) || 45,
+          order: currentTopics.length + 1
+        };
+        return {
+          ...m,
+          topics: [...currentTopics, newTopic]
+        };
+      })
+    );
+
+    setTopicTitle("");
+    setAddingTopicForModule(null);
+    setCollapsedModules((prev) => ({ ...prev, [moduleId]: false }));
+    if (showMessage) showMessage("Topic added to module.");
+    if (onRefresh) onRefresh();
   };
 
-  const handleDeleteTopic = async (moduleId, topicId) => {
-    try {
-      setIsSaving(true);
-      await learningApi.deleteTopic(program.id, moduleId, topicId);
-      showMessage("Topic removed.");
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to delete topic");
-    } finally {
-      setIsSaving(false);
-    }
+  const handleDeleteTopic = (moduleId, topicId) => {
+    setModules((prev) =>
+      prev.map((m) => {
+        if (m.id !== moduleId) return m;
+        return {
+          ...m,
+          topics: (m.topics || []).filter((t) => t.id !== topicId)
+        };
+      })
+    );
+
+    if (showMessage) showMessage("Topic removed.");
+    if (onRefresh) onRefresh();
   };
 
-  const handleReorderTopic = async (moduleId, topicId, direction) => {
-    try {
-      setIsSaving(true);
-      await learningApi.reorderTopic(program.id, moduleId, topicId, direction);
-      showMessage(`Topic moved ${direction}.`);
-      if (onRefresh) onRefresh();
-    } catch (err) {
-      setError(err.message || "Failed to reorder topic");
-    } finally {
-      setIsSaving(false);
-    }
+  const handleReorderTopic = (moduleId, topicId, direction) => {
+    setModules((prev) =>
+      prev.map((m) => {
+        if (m.id !== moduleId) return m;
+        const topics = [...(m.topics || [])];
+        const index = topics.findIndex((t) => t.id === topicId);
+        if (index === -1) return m;
+
+        if (direction === "up" && index > 0) {
+          const temp = topics[index];
+          topics[index] = topics[index - 1];
+          topics[index - 1] = temp;
+        } else if (direction === "down" && index < topics.length - 1) {
+          const temp = topics[index];
+          topics[index] = topics[index + 1];
+          topics[index + 1] = temp;
+        }
+        return { ...m, topics };
+      })
+    );
+
+    if (showMessage) showMessage(`Topic moved ${direction}.`);
+    if (onRefresh) onRefresh();
   };
 
   const getTypeClass = (type) => {
@@ -198,13 +200,6 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
             </div>
           </div>
         </div>
-
-        {error && (
-          <div className="staff-error-banner" style={{ margin: "14px 20px 0" }}>
-            <AlertCircle size={15} />
-            <span>{error}</span>
-          </div>
-        )}
 
         {/* Modal Body: Curriculum Management */}
         <div className="staff-modal-body" style={{ maxHeight: "65vh", overflowY: "auto" }}>
@@ -276,7 +271,7 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
               </div>
               <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end", marginTop: "10px" }}>
                 <button type="button" className="secondary-action" onClick={() => setIsAddingModule(false)}>Cancel</button>
-                <button type="submit" className="primary-action" disabled={isSaving}>Save Module</button>
+                <button type="submit" className="primary-action">Save Module</button>
               </div>
             </form>
           )}
@@ -436,7 +431,7 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
                                 className="learner-action-btn"
                                 style={{ width: "22px", height: "22px", padding: 0 }}
                                 title="Move Topic Up"
-                                disabled={tIndex === 0 || isSaving}
+                                disabled={tIndex === 0}
                                 onClick={() => handleReorderTopic(mod.id, topic.id, "up")}
                               >
                                 <ChevronUp size={12} />
@@ -446,7 +441,7 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
                                 className="learner-action-btn"
                                 style={{ width: "22px", height: "22px", padding: 0 }}
                                 title="Move Topic Down"
-                                disabled={tIndex === mod.topics.length - 1 || isSaving}
+                                disabled={tIndex === mod.topics.length - 1}
                                 onClick={() => handleReorderTopic(mod.id, topic.id, "down")}
                               >
                                 <ChevronDown size={12} />
@@ -458,7 +453,6 @@ export default function ProgramDetailsModal({ isOpen, program, onClose, onRefres
                               className="learner-action-btn btn-delete"
                               style={{ width: "22px", height: "22px" }}
                               title="Delete Topic"
-                              disabled={isSaving}
                               onClick={() => handleDeleteTopic(mod.id, topic.id)}
                             >
                               <Trash2 size={11} />

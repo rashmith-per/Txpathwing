@@ -17,7 +17,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import StaffStatusBadge from "./StaffStatusBadge.jsx";
-import { ROLE_DEFINITIONS } from "../backend/models/StaffRoleModel.js";
+import { ROLE_DEFINITIONS } from "../staffData.js";
 
 function formatDate(dateStr) {
   if (!dateStr) return "—";

@@ -1,11 +1,6 @@
 import { useState } from "react";
-import { X, CheckCircle2, AlertCircle, BookPlus } from "lucide-react";
-import {
-  LearningProgramModel,
-  PROGRAM_CATEGORIES
-} from "../backend/models/LearningProgramModel.js";
-import { DEPARTMENTS } from "../../Learners/backend/models/LearnerModel.js";
-import { learningApi } from "../services/learningApi.js";
+import { X, CheckCircle2, BookPlus } from "lucide-react";
+import { PROGRAM_CATEGORIES, DEPARTMENTS } from "../learningsData.js";
 
 const generateInitialCode = () => `PRG-${Math.floor(100 + Math.random() * 900)}`;
 
@@ -23,8 +18,6 @@ export default function AddProgramModal({ isOpen, onClose, onSuccess, showMessag
   }));
 
   const [errors, setErrors] = useState({});
-  const [serverError, setServerError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -37,30 +30,35 @@ export default function AddProgramModal({ isOpen, onClose, onSuccess, showMessag
         return copy;
       });
     }
-    setServerError("");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     if (e) e.preventDefault();
-    setServerError("");
 
-    const validation = LearningProgramModel.validate(formData, false);
-    if (!validation.isValid) {
-      setErrors(validation.errors);
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Program name is required";
+    if (!formData.code.trim()) newErrors.code = "Program code is required";
+    if (!formData.instructor.trim()) newErrors.instructor = "Instructor name is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
-    try {
-      setIsSubmitting(true);
-      await learningApi.createProgram(formData);
-      showMessage(`Program "${formData.name}" created successfully.`);
-      if (onSuccess) onSuccess();
-      onClose();
-    } catch (err) {
-      setServerError(err.message || "Failed to create program");
-    } finally {
-      setIsSubmitting(false);
-    }
+    const newProgram = {
+      id: `prog_${Date.now()}`,
+      ...formData,
+      title: formData.name,
+      status: formData.state,
+      learners: 0,
+      completion: 0,
+      progress: 0,
+      modules: []
+    };
+
+    if (showMessage) showMessage(`Program "${formData.name}" created successfully.`);
+    if (onSuccess) onSuccess(newProgram);
+    onClose();
   };
 
   return (
@@ -78,13 +76,6 @@ export default function AddProgramModal({ isOpen, onClose, onSuccess, showMessag
             <X size={17} />
           </button>
         </div>
-
-        {serverError && (
-          <div className="staff-error-banner" style={{ margin: "16px 20px 0" }}>
-            <AlertCircle size={16} />
-            <span>{serverError}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit}>
           <div className="staff-modal-body">
@@ -185,17 +176,11 @@ export default function AddProgramModal({ isOpen, onClose, onSuccess, showMessag
           </div>
 
           <div className="staff-modal-footer">
-            <button type="button" className="secondary-action" onClick={onClose} disabled={isSubmitting}>
+            <button type="button" className="secondary-action" onClick={onClose}>
               Cancel
             </button>
-            <button type="submit" className="primary-action btn-submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <span className="spinner-inline" />
-              ) : (
-                <>
-                  <CheckCircle2 size={16} /> Save Program
-                </>
-              )}
+            <button type="submit" className="primary-action btn-submit">
+              <CheckCircle2 size={16} /> Save Program
             </button>
           </div>
         </form>

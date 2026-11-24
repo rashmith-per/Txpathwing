@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import StaffTable from "./StaffTable.jsx";
 import { departments } from "../../Overview/overviewData.js";
-import { EMPLOYMENT_TYPES, STAFF_STATUSES } from "../backend/models/StaffModel.js";
+import { EMPLOYMENT_TYPES, STAFF_STATUSES } from "../staffData.js";
 
 const DESIGNATION_OPTIONS = [
   "All designations",
