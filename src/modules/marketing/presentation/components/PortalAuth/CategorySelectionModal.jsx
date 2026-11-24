@@ -165,16 +165,7 @@ export default function CategorySelectionModal({
           })}
         </div>
 
-        <div className="cat-modal-footer">
-          <span>Already registered your institution, organization, or company?</span>
-          <button
-            type="button"
-            className="cat-switch-login-btn"
-            onClick={onSwitchToLogin}
-          >
-            Sign In to Account
-          </button>
-        </div>
+        
       </div>
     </div>
   );
