@@ -113,13 +113,6 @@ export default function PortalLoginModal({
             <p className="portal-login-subheading">
               Access your {config.title.toLowerCase()} dashboard, administrative tools, and records.
             </p>
-
-            {/* Single Category Tab based on opened category */}
-            <div className="portal-cat-tabs portal-cat-tabs-single">
-              <div className="portal-cat-tab-btn active">
-                <span>{config.title}</span>
-              </div>
-            </div>
           </div>
 
           {error && (
@@ -229,7 +222,7 @@ export default function PortalLoginModal({
               className="portal-switch-reg-btn"
               onClick={() => onSwitchToRegister(selectedCategory)}
             >
-              Register {config.title}
+              Create {config.title} Account
             </button>
           </div>
         </div>

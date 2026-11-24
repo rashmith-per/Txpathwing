@@ -10,8 +10,8 @@ import {
 
 test("ROLE_CONFIGS defines exact dynamic text required by user specifications", () => {
   // Student
-  assert.equal(ROLE_CONFIGS.student.welcomeLabel, "Welcome Student");
-  assert.equal(ROLE_CONFIGS.student.welcomeHeading, "Welcome back, Student");
+  assert.equal(ROLE_CONFIGS.student.welcomeLabel, "");
+  assert.equal(ROLE_CONFIGS.student.welcomeHeading, "Welcome, Student");
   assert.equal(
     ROLE_CONFIGS.student.subtitle,
     "Sign in to access your Student Dashboard."
@@ -19,8 +19,8 @@ test("ROLE_CONFIGS defines exact dynamic text required by user specifications", 
   assert.equal(ROLE_CONFIGS.student.route, "/dashboard");
 
   // Admin
-  assert.equal(ROLE_CONFIGS.admin.welcomeLabel, "Welcome Admin");
-  assert.equal(ROLE_CONFIGS.admin.welcomeHeading, "Welcome back, Admin");
+  assert.equal(ROLE_CONFIGS.admin.welcomeLabel, "");
+  assert.equal(ROLE_CONFIGS.admin.welcomeHeading, "Welcome, Admin");
   assert.equal(
     ROLE_CONFIGS.admin.subtitle,
     "Sign in to access your Admin Dashboard."
@@ -28,10 +28,10 @@ test("ROLE_CONFIGS defines exact dynamic text required by user specifications", 
   assert.equal(ROLE_CONFIGS.admin.route, "/admin-dashboard");
 
   // Instructor
-  assert.equal(ROLE_CONFIGS.instructor.welcomeLabel, "Welcome Instructor");
+  assert.equal(ROLE_CONFIGS.instructor.welcomeLabel, "");
   assert.equal(
     ROLE_CONFIGS.instructor.welcomeHeading,
-    "Welcome back, Instructor"
+    "Welcome, Instructor"
   );
   assert.equal(
     ROLE_CONFIGS.instructor.subtitle,
@@ -40,10 +40,10 @@ test("ROLE_CONFIGS defines exact dynamic text required by user specifications", 
   assert.equal(ROLE_CONFIGS.instructor.route, "/instructor-dashboard");
 
   // Institution
-  assert.equal(ROLE_CONFIGS.institution.welcomeLabel, "Welcome Institution");
+  assert.equal(ROLE_CONFIGS.institution.welcomeLabel, "");
   assert.equal(
     ROLE_CONFIGS.institution.welcomeHeading,
-    "Welcome back, Institution"
+    "Welcome, Institution"
   );
   assert.equal(
     ROLE_CONFIGS.institution.subtitle,

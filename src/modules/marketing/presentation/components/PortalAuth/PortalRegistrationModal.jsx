@@ -102,10 +102,10 @@ export default function PortalRegistrationModal({
               type="button"
               className="reg-back-btn"
               onClick={onBack}
-              title="Return to category selection"
+              title="Return to Sign In"
             >
               <ArrowLeft size={14} />
-              <span>Back to Categories</span>
+              <span>Back to Sign In</span>
             </button>
           )}
 

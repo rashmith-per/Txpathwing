@@ -31,7 +31,7 @@ export default function PortalAuthFlow({
   // Step 2: Handle 4-role selection
   const handleSelectRole = (roleKey) => {
     if (roleKey === "institution") {
-      // Step 3 & 4: Open 3-category selection
+      // Step 3 & 4: Open 3-category selection (Institution, Organization, Company)
       setCurrentView("category-selection");
     } else {
       // Standard student, instructor, admin login
@@ -40,10 +40,10 @@ export default function PortalAuthFlow({
     }
   };
 
-  // Step 5: Handle category selection
+  // Step 5: Handle category selection (opens Sign In form first)
   const handleSelectCategory = (catKey) => {
     setSelectedCategory(catKey);
-    setCurrentView("register");
+    setCurrentView("login");
   };
 
   // Switch between register and login
@@ -104,7 +104,7 @@ export default function PortalAuthFlow({
         isOpen={currentView === "register"}
         category={selectedCategory}
         onClose={onClose}
-        onBack={() => setCurrentView("category-selection")}
+        onBack={() => setCurrentView("login")}
         onRegistrationSuccess={handleRegistrationSuccess}
         onSwitchToLogin={handleSwitchToLogin}
       />

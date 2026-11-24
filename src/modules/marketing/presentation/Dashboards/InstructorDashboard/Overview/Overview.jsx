@@ -27,7 +27,7 @@ export function Overview({
             <strong className="current">Dashboard</strong>
           </div>
 
-          <h1 className="overview-title"> Welcome back, {instructorProfile.name}</h1>
+          <h1 className="overview-title"> Welcome, {instructorProfile.name}</h1>
 
           <div className="instructor-meta-pills">
             <span className="meta-pill verified">

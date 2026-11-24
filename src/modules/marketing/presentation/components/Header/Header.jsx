@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import PortalAuthFlow from "../PortalAuth/PortalAuthFlow";
 import { NAV_LINKS } from "./navLinks";
 import { useHeaderAuth } from "./useHeaderAuth";
@@ -66,9 +66,9 @@ export default function Header() {
             <Link
               to="/cart"
               className="header-cart"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              aria-label={`Shopping bag with ${cartCount} items`}
             >
-              <ShoppingCart
+              <ShoppingBag
                 className="header-cart-icon"
                 size={25}
                 strokeWidth={2.2}
@@ -103,9 +103,9 @@ export default function Header() {
             <Link
               to="/cart"
               className="header-cart header-cart-mobile"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              aria-label={`Shopping bag with ${cartCount} items`}
             >
-              <ShoppingCart
+              <ShoppingBag
                 className="header-cart-icon"
                 size={22}
                 strokeWidth={2.2}

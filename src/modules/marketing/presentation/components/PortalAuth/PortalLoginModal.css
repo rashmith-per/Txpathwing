@@ -123,7 +123,13 @@
   color: #64748b;
   font-size: 13px;
   font-weight: 600;
-  cursor: default;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.portal-cat-tab-btn:hover:not(.active) {
+  color: #1e293b;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .portal-cat-tab-btn.active {
@@ -267,7 +273,7 @@
 
 .portal-login-footer {
   text-align: center;
-  padding-top: 8px;
+  padding-top: 14px;
   border-top: 1px solid #f1f5f9;
   font-size: 13px;
   color: #64748b;

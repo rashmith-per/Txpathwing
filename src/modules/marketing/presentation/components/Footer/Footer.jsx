@@ -41,7 +41,7 @@ const FOOTER_COLUMNS = [
       { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
       { label: "For institutions", href: "/solutions/colleges" },
-      { label: "Institution sign in", href: "/institution-signin" },
+      { label: "Institution sign in", href: "/login?portal=institution" },
     ],
   },
 ];

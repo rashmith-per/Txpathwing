@@ -12,7 +12,6 @@ const PortalInstitutionDashboard = lazy(() => import("./modules/marketing/presen
 const PortalOrganizationDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/PortalOrganizationDashboard/PortalOrganizationDashboard"));
 const PortalCompanyDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/PortalCompanyDashboard/PortalCompanyDashboard"));
 
-const InstitutionSignIn = lazy(() => import("./modules/marketing/presentation/pages/InstitutionSignIn/InstitutionSignIn"));
 const Signin = lazy(() => import("./modules/marketing/presentation/components/Login/signin"));
 const RegistrationForm = lazy(() => import("./modules/marketing/presentation/components/HackathonRegistration/RegistrationForm"));
 const FAQ = lazy(() => import("./modules/marketing/presentation/components/FAQ/FAQ"));
@@ -60,6 +59,7 @@ function LoginPageContent({ portalParam }) {
       <PortalAuthFlow
         isOpen={true}
         initialView={initialView}
+        initialCategory="institution"
         initialRole={portalParam || "student"}
         onClose={() => navigate("/")}
       />
@@ -85,7 +85,7 @@ function InstitutionDashboardRoute() {
         userRole === "company"));
 
   if (!isInstitutionSession) {
-    return <Navigate to="/institution-signin" replace />;
+    return <Navigate to="/login?portal=institution" replace />;
   }
 
   const activePortalUser = getActivePortalUser();
@@ -168,7 +168,7 @@ function AppRoutes() {
       <Route path="/signin" element={<LoginPage />} />
       <Route path="/Signin" element={<Signin />} />
       <Route path="/registration" element={<RegistrationForm />} />
-      <Route path="/institution-signin" element={<InstitutionSignIn />} />
+      <Route path="/institution-signin" element={<Navigate to="/login?portal=institution" replace />} />
       <Route path="/institution/*" element={<InstitutionDashboardRoute />} />
       <Route path="/institution-dashboard/*" element={<InstitutionDashboardRoute />} />
       <Route path="/organization/*" element={<OrganizationDashboardRoute />} />
