@@ -8,9 +8,9 @@ import { getActivePortalUser } from "./modules/marketing/services/portalAuth/por
 import { seedDemoAccountsIfEmpty } from "./modules/marketing/services/portalAuth/portalAuthService";
 
 const InstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/InstitutionDashboard.jsx"));
-const PortalInstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalInstitutionDashboard/PortalInstitutionDashboard"));
-const PortalOrganizationDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalOrganizationDashboard/PortalOrganizationDashboard"));
-const PortalCompanyDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/PortalCompanyDashboard/PortalCompanyDashboard"));
+const PortalInstitutionDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/PortalInstitutionDashboard/PortalInstitutionDashboard"));
+const PortalOrganizationDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/PortalOrganizationDashboard/PortalOrganizationDashboard"));
+const PortalCompanyDashboard = lazy(() => import("./modules/marketing/presentation/Dashboards/InstitutionDashboard/PortalCompanyDashboard/PortalCompanyDashboard"));
 
 const InstitutionSignIn = lazy(() => import("./modules/marketing/presentation/pages/InstitutionSignIn/InstitutionSignIn"));
 const Signin = lazy(() => import("./modules/marketing/presentation/components/Login/signin"));

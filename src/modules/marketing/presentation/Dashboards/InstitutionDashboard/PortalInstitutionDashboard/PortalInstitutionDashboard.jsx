@@ -11,14 +11,14 @@ import {
   Briefcase,
   FileText,
 } from "lucide-react";
-import PortalDashboardLayout from "../../layouts/PortalDashboardLayout/PortalDashboardLayout";
+import PortalDashboardLayout from "../PortalDashboardLayout/PortalDashboardLayout";
 import InstOverviewModule from "./InstOverviewModule";
 import InstDepartmentsModule from "./InstDepartmentsModule";
 import InstStudentsFacultyModule from "./InstStudentsFacultyModule";
 import InstCoursesBatchesModule from "./InstCoursesBatchesModule";
 import InstAttendanceProgramsModule from "./InstAttendanceProgramsModule";
 import InstPlacementsReportsSettingsModule from "./InstPlacementsReportsSettingsModule";
-import { getActivePortalUser } from "../../../services/portalAuth/portalStorage";
+import { getActivePortalUser } from "../../../../services/portalAuth/portalStorage";
 import "./PortalInstitutionDashboard.css";
 
 const INSTITUTION_NAV_MODULES = [

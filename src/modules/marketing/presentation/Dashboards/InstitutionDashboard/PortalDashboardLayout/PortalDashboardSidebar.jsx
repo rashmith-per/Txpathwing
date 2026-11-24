@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { X, LogOut, Shield, Building2 } from "lucide-react";
-import txIcon from "../../../../../assets/tx-icon.jpg";
+import txIcon from "../../../../../../assets/tx-icon.jpg";
 import "./PortalDashboardSidebar.css";
 
 export default function PortalDashboardSidebar({

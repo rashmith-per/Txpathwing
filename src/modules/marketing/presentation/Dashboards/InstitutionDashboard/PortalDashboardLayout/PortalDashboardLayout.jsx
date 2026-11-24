@@ -6,7 +6,7 @@ import PortalUserProfileModal from "./PortalUserProfileModal";
 import {
   getActivePortalUser,
   clearActivePortalUser,
-} from "../../../services/portalAuth/portalStorage";
+} from "../../../../services/portalAuth/portalStorage";
 import "./PortalDashboardLayout.css";
 import "./PortalSharedModules.css";
 
