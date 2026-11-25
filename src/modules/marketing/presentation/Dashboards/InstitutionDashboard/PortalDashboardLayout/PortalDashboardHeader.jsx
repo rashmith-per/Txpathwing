@@ -1,0 +1,60 @@
+import React from "react";
+import {
+  Bell,
+  Menu,
+  Search,
+} from "lucide-react";
+import "./PortalDashboardLayout.css";
+
+export default function PortalDashboardHeader({
+  activeModule,
+  search,
+  onSearchChange,
+  onToggleMobileNav,
+}) {
+  return (
+    <header className="pdb-header">
+      <div className="pdb-header-left">
+        <button
+          type="button"
+          className="pdb-mobile-toggle"
+          onClick={onToggleMobileNav}
+          aria-label="Toggle navigation drawer"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div className="pdb-header-breadcrumb">
+          <span className="pdb-bc-root">Pathwing</span>
+          <span className="pdb-bc-sep">/</span>
+          <strong className="pdb-bc-current">{activeModule}</strong>
+        </div>
+      </div>
+
+      <div className="pdb-header-right">
+        {/* Module Search Bar */}
+        <label className="pdb-search-wrap">
+          <Search size={15} className="pdb-search-icon" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder={`Search ${activeModule.toLowerCase()}...`}
+            aria-label={`Search ${activeModule}`}
+          />
+        </label>
+
+        {/* Notifications Icon */}
+        <button
+          type="button"
+          className="pdb-icon-action-btn"
+          title="Notifications"
+          aria-label="Notifications"
+        >
+          <Bell size={18} />
+          <span className="pdb-notif-badge">2</span>
+        </button>
+      </div>
+    </header>
+  );
+}

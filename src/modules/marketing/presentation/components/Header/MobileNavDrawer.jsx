@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { NAV_LINKS } from "./navLinks";
@@ -68,6 +67,14 @@ export function MobileNavDrawer({
         </nav>
 
         <div className="mobile-actions">
+          <Link
+            to="/get-quote"
+            className="btn-quote"
+            onClick={closeMenu}
+          >
+            Get Quote
+          </Link>
+
           {isInstitutionLoggedIn ? (
             <Link
               to="/institution-dashboard"

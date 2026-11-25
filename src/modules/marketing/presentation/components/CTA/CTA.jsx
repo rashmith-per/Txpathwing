@@ -128,7 +128,7 @@ export default function VerificationSection() {
               <div className="info-grid">
                 <div className="info-row">
                   <span className="info-label">AWARDED TO</span>
-                  <span className="info-value">BOMMALA VISHNU</span>
+                  <span className="info-value">Ajay Allavula</span>
                 </div>
                 <div className="info-row">
                   <span className="info-label">ISSUED</span>
@@ -219,7 +219,7 @@ export default function VerificationSection() {
               <h2 className="cert-course">Python Full Stack with Django & React</h2>
 
               <p className="cert-present">This certificate is proudly presented to</p>
-              <h3 className="cert-name">BOMMALA VISHNU</h3>
+              <h3 className="cert-name">Ajay Allavula</h3>
               <p className="cert-desc">
                 for successfully completing Python Full Stack with Django & React
                 program with Outstanding performance securing 91%

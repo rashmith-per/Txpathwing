@@ -1,0 +1,250 @@
+/* Portal Dashboard Layout, Header & Shell */
+.pdb-shell {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: inherit;
+  position: relative;
+}
+
+.pdb-main-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pdb-header {
+  height: 70px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.pdb-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.pdb-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.pdb-header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.pdb-bc-root {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.pdb-bc-sep {
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.pdb-bc-current {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+
+.pdb-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pdb-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  padding: 0 12px;
+  width: 240px;
+  height: 38px;
+}
+
+.pdb-search-icon {
+  color: #94a3b8;
+  margin-right: 8px;
+}
+
+.pdb-search-wrap input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12.5px;
+  color: #0f172a;
+  width: 100%;
+}
+
+.pdb-icon-action-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pdb-notif-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdb-user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 12px 5px 7px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pdb-user-profile-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.pdb-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdb-user-names {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.pdb-user-name-text {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pdb-user-role-text {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.pdb-logout-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid #fee2e2;
+  background: #fff5f5;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pdb-logout-action-btn:hover {
+  background: #fee2e2;
+}
+
+.pdb-content-area {
+  flex: 1;
+  padding: 24px 28px;
+  overflow-y: auto;
+}
+
+.pdb-mobile-scrim {
+  display: none;
+}
+
+/* All Category Dashboard Themes - Unified Professional White & Blue */
+.theme-institution,
+.theme-organization,
+.theme-company {
+  --portal-primary: #2563eb;
+  --portal-accent: #3b82f6;
+}
+
+.theme-institution .pdb-notif-badge,
+.theme-organization .pdb-notif-badge,
+.theme-company .pdb-notif-badge {
+  background: #2563eb;
+}
+
+.theme-institution .pdb-nav-item.active,
+.theme-organization .pdb-nav-item.active,
+.theme-company .pdb-nav-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.theme-institution .pdb-nav-item.active .pdb-nav-icon,
+.theme-organization .pdb-nav-item.active .pdb-nav-icon,
+.theme-company .pdb-nav-item.active .pdb-nav-icon {
+  color: #2563eb;
+}
+
+@media (max-width: 960px) {
+  .pdb-mobile-toggle {
+    display: block;
+  }
+  .pdb-search-wrap {
+    display: none;
+  }
+  .pdb-mobile-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 95;
+  }
+}

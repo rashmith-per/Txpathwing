@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   CheckCircle,
@@ -113,9 +113,11 @@ const Login = ({
               <span>{roleConfig.displayName}</span>
             </div>
 
-            <span className="login-label">
-              {isLogin ? roleConfig.welcomeLabel : "GET STARTED"}
-            </span>
+            {!isLogin ? (
+              <span className="login-label">GET STARTED</span>
+            ) : roleConfig.welcomeLabel ? (
+              <span className="login-label">{roleConfig.welcomeLabel}</span>
+            ) : null}
 
             <h1>{isLogin ? roleConfig.welcomeHeading : "Create your account"}</h1>
 
@@ -160,16 +162,6 @@ const Login = ({
               {isLogin ? "Create account" : "Sign in"}
             </button>
           </div>
-
-          {isLogin && (
-            <Link
-              className="institution-login-link"
-              to="/institution-signin"
-              onClick={handleClose}
-            >
-              Institution administrator? Sign in to your campus
-            </Link>
-          )}
 
           <p className="login-security">
             <ShieldCheck size={14} />

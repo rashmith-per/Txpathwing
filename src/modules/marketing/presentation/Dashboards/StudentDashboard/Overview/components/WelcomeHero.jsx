@@ -16,7 +16,7 @@ export default function WelcomeHero({
           <Sparkles size={13} />
           LEARNING DASHBOARD
         </span>
-        <h1 className="welcome-title">Welcome back, {userName}!</h1>
+        <h1 className="welcome-title">Welcome, {userName}!</h1>
         <p className="welcome-subtitle">
           🔥 {streakDays} Day Streak · ⏱ {learningHours} Hours Studied · 📚 {activeCoursesCount} Active Courses Enrolled
         </p>

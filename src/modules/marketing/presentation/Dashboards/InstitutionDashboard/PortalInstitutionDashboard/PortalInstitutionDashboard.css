@@ -1,0 +1,234 @@
+/* Institution Dashboard Overview & General Styling */
+.portal-module-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inst-hero-banner {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  border-radius: 18px;
+  padding: 28px 32px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.25);
+}
+
+.inst-hero-banner h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.inst-hero-banner p {
+  font-size: 13.5px;
+  margin: 0;
+  opacity: 0.92;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.inst-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease;
+}
+
+.inst-banner-btn:hover {
+  transform: translateY(-1px);
+}
+
+.inst-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.inst-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.inst-stat-icon-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.inst-stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inst-stat-label {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.inst-stat-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.inst-stat-change {
+  font-size: 11px;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.inst-content-split {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.inst-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inst-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inst-card-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.inst-badge-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.inst-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inst-activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.inst-activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+}
+
+.inst-activity-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.inst-activity-main strong {
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.inst-activity-main span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.inst-status-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.inst-status-tag.completed { background: #eff6ff; color: #2563eb; }
+.inst-status-tag.in-progress { background: #eff6ff; color: #2563eb; }
+.inst-status-tag.published { background: #eff6ff; color: #1d4ed8; }
+.inst-status-tag.upcoming { background: #fffbeb; color: #d97706; }
+
+.inst-quick-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.inst-quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inst-quick-btn:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #2563eb;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .inst-content-split {
+    grid-template-columns: 1fr;
+  }
+  .inst-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

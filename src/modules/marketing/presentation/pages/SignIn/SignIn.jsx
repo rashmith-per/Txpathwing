@@ -28,7 +28,7 @@ export default function SignIn() {
         {/* Logo / Brand */}
         <div className="signin-brand">
           <img src={txIcon} alt="TX Pathwing" className="signin-logo" />
-          <h1>Welcome back</h1>
+          <h1>Welcome</h1>
           <p>Sign in to continue your learning journey</p>
         </div>
 

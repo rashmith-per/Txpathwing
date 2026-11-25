@@ -5,7 +5,7 @@ import "./StudentReviews.css";
 const reviews = [
   {
     id: 1,
-    name: "Hari Chari",
+    name: "Sathyanarayana",
     course: "Full Stack Development",
     comment:
       "The training was very practical and well-structured. I gained real-world skills and confidence to face interviews.",
@@ -26,7 +26,7 @@ const reviews = [
   },
   {
     id: 5,
-    name: "Vishnu",
+    name: "Venkatesh",
     course: "Data Science",
     comment:
       "The content was easy to follow and very practical. I gained confidence working with real datasets and projects.",
@@ -55,7 +55,7 @@ const reviews = [
   },
   {
     id: 8,
-    name: "Bhargavi",
+    name: "Likhil",
     course: "AWS & DevOps",
     comment:
       "A structured learning experience with useful projects, clear explanations and excellent career guidance.",

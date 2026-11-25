@@ -14,7 +14,7 @@ function EventDetail({ event, onBack, onMarkReviewed, showMessage }) {
 
   const handleReview = () => {
     setIsReviewed(true);
-    if (onMarkReviewed) onMarkReviewed(event.title);
+    if (onMarkReviewed) onMarkReviewed(event.id);
     showMessage(`Event "${event.title}" marked as reviewed.`);
   };
 
@@ -56,16 +56,28 @@ function EventDetail({ event, onBack, onMarkReviewed, showMessage }) {
 }
 
 export default function Events({ search, selectedEvent, onSelectEvent, onBack, showMessage }) {
-  const [eventsList, setEventsList] = useState(initialEvents);
+  const [eventsList, setEventsList] = useState(() =>
+    initialEvents.map((event, index) => ({ ...event, id: `event-${index}` }))
+  );
+  const [nextEventId, setNextEventId] = useState(initialEvents.length);
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [eventToEdit, setEventToEdit] = useState(null);
 
   const handleAddEvent = (newEvent) => {
-    setEventsList((prev) => [newEvent, ...prev]);
+    setEventsList((prev) => [{ ...newEvent, id: `event-${nextEventId}` }, ...prev]);
+    setNextEventId((id) => id + 1);
   };
 
-  const handleMarkReviewed = (title) => {
+  const handleUpdateEvent = (eventId, updatedEvent) => {
     setEventsList((prev) =>
-      prev.map((e) => (e.title === title ? { ...e, reviewed: true, urgent: false } : e))
+      prev.map((event) => (event.id === eventId ? { ...event, ...updatedEvent } : event))
+    );
+    setEventToEdit(null);
+  };
+
+  const handleMarkReviewed = (eventId) => {
+    setEventsList((prev) =>
+      prev.map((e) => (e.id === eventId ? { ...e, reviewed: true, urgent: false } : e))
     );
   };
 
@@ -108,33 +120,48 @@ export default function Events({ search, selectedEvent, onSelectEvent, onBack, s
 
       <SummaryStrip items={summary} />
 
-      <section className="panel page-panel">
-        <div className="table-toolbar">
+      <section className="panel events-panel">
+        <div className="events-panel-heading">
+          <div className="events-month-icon"><CalendarDays size={19} /></div>
           <div>
+            <span className="events-kicker">EVENT CALENDAR</span>
             <h2>September 2026</h2>
             <p>Select an event to view its schedule and details.</p>
           </div>
-          <CalendarDays size={18} />
+          <span className="events-total">{visibleEvents.length} {visibleEvents.length === 1 ? "event" : "events"}</span>
         </div>
-        <div className="event-list event-list-full">
+        <div className="event-list event-list-full" aria-label="Upcoming events">
           {visibleEvents.length
             ? visibleEvents.map((event) => (
                 <EventRow
-                  key={event.title}
+                  key={event.id || event.title}
                   event={event}
                   onSelect={onSelectEvent}
+                  onEdit={setEventToEdit}
                 />
               ))
-            : <p className="empty-events">No matching events.</p>}
+            : <div className="events-empty-state">
+                <CalendarDays size={24} />
+                <strong>No events found</strong>
+                <p>Try adjusting your search or add a new event to the calendar.</p>
+              </div>}
         </div>
       </section>
 
-      <AddEventModal
-        isOpen={isAddOpen}
-        onClose={() => setIsAddOpen(false)}
-        onAddEvent={handleAddEvent}
-        showMessage={showMessage}
-      />
+      {(isAddOpen || eventToEdit) && (
+        <AddEventModal
+          key={eventToEdit?.id || "new-event"}
+          isOpen
+          eventToEdit={eventToEdit}
+          onClose={() => {
+            setIsAddOpen(false);
+            setEventToEdit(null);
+          }}
+          onAddEvent={handleAddEvent}
+          onUpdateEvent={handleUpdateEvent}
+          showMessage={showMessage}
+        />
+      )}
     </>
   );
 }

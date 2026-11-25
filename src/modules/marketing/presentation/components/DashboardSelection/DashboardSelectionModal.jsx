@@ -28,7 +28,7 @@ const DASHBOARDS = [
     icon: Building2,
     title: "Institution",
     roleName: "Institution",
-    description: "Oversee campus cohorts, compliance, and department records.",
+    description: "Oversee campus, compliance, and department records.",
   },
   {
     key: "admin",
@@ -71,7 +71,7 @@ export default function DashboardSelectionModal({
         </button>
 
         <div className="selection-header">
-          <h1 className="selection-title">WELCOME TO PATHWING PORTAL</h1>
+          <h1 className="selection-title">WELCOME TO TX-PATHWING PORTAL</h1>
           <p className="selection-subtitle">Select your role to access the system</p>
         </div>
 

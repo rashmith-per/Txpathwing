@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import txIcon from "../../../../../assets/tx-icon.jpg";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
-import DashboardSelectionModal from "../DashboardSelection/DashboardSelectionModal";
-import Login from "../Login/Login";
+import { ShoppingBag } from "lucide-react";
+import PortalAuthFlow from "../PortalAuth/PortalAuthFlow";
 import { NAV_LINKS } from "./navLinks";
 import { useHeaderAuth } from "./useHeaderAuth";
 import { MobileNavDrawer } from "./MobileNavDrawer";
@@ -11,9 +10,7 @@ import "./Header.css";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectionOpen, setSelectionOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("student");
+  const [authFlowOpen, setAuthFlowOpen] = useState(false);
 
   const {
     location,
@@ -37,24 +34,11 @@ export default function Header() {
 
   const openSelectionPopup = () => {
     closeMenu();
-    setSelectionOpen(true);
-    setLoginOpen(false);
-  };
-
-  const handleSelectRole = (role) => {
-    setSelectedRole(role);
-    setSelectionOpen(false);
-    setLoginOpen(true);
-  };
-
-  const handleBackToSelection = () => {
-    setLoginOpen(false);
-    setSelectionOpen(true);
+    setAuthFlowOpen(true);
   };
 
   const closeAllPopups = () => {
-    setSelectionOpen(false);
-    setLoginOpen(false);
+    setAuthFlowOpen(false);
   };
 
   return (
@@ -82,9 +66,9 @@ export default function Header() {
             <Link
               to="/cart"
               className="header-cart"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              aria-label={`Shopping bag with ${cartCount} items`}
             >
-              <ShoppingCart
+              <ShoppingBag
                 className="header-cart-icon"
                 size={25}
                 strokeWidth={2.2}
@@ -94,6 +78,10 @@ export default function Header() {
                   {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
+            </Link>
+
+            <Link to="/get-quote#enquiry-form" className="btn-quote">
+              Get Quote
             </Link>
 
             {isInstitutionLoggedIn ? (
@@ -119,9 +107,9 @@ export default function Header() {
             <Link
               to="/cart"
               className="header-cart header-cart-mobile"
-              aria-label={`Shopping cart with ${cartCount} items`}
+              aria-label={`Shopping bag with ${cartCount} items`}
             >
-              <ShoppingCart
+              <ShoppingBag
                 className="header-cart-icon"
                 size={22}
                 strokeWidth={2.2}
@@ -159,17 +147,9 @@ export default function Header() {
         openSelectionPopup={openSelectionPopup}
       />
 
-      <DashboardSelectionModal
-        isOpen={selectionOpen}
+      <PortalAuthFlow
+        isOpen={authFlowOpen}
         onClose={closeAllPopups}
-        onSelectRole={handleSelectRole}
-      />
-
-      <Login
-        isOpen={loginOpen}
-        selectedRole={selectedRole}
-        onClose={closeAllPopups}
-        onBack={handleBackToSelection}
       />
     </>
   );
