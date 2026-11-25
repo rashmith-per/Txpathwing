@@ -80,6 +80,10 @@ export default function Header() {
               )}
             </Link>
 
+            <Link to="/get-quote" className="btn-quote">
+              Get Quote
+            </Link>
+
             {isInstitutionLoggedIn ? (
               <Link to="/institution-dashboard" className="btn-signin">
                 Institution dashboard

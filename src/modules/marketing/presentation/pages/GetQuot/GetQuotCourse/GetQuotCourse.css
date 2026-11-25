@@ -1,0 +1,228 @@
+/* GetQuotCourse component styles */
+.gq {
+  --gq-blue: #1d4ed8;
+    --gq-blue-dark: #123b9e;
+    --gq-ink: #0f45a9;
+    --gq-muted: #60718f;
+    --gq-line: #dce7f7;
+    --gq-pale: #f3f7ff;
+    --gq-red: #be3038;
+    min-height: 100vh;
+    padding-bottom: max(42px, env(safe-area-inset-bottom, 0px));
+    color: var(--gq-ink);
+    background: #fff;
+    font-family: inherit;
+}
+
+.gq *,
+.gq *::before,
+.gq *::after {
+  box-sizing: border-box;
+}
+
+.gq-page-container {
+  width: min(100% - 48px, 1180px);
+    margin: 0 auto;
+}
+
+.gq-hero-eyebrow,
+.gq-section-eyebrow {
+  display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 17px;
+    color: var(--gq-blue);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1.5px;
+}
+
+.gq-hero h1 span,
+.gq-section-heading h2 span {
+  color: var(--gq-blue);
+}
+
+.gq-section-heading {
+  max-width: 760px;
+    margin: 0 0 32px;
+}
+
+.gq-section-eyebrow {
+  margin-bottom: 12px;
+    color: var(--gq-blue);
+}
+
+.gq-section-heading h2 {
+  margin: 0;
+    color: #10244a;
+    font-size: clamp(32px, 4.2vw, 48px);
+    font-weight: 820;
+    letter-spacing: -1.8px;
+    line-height: 1.12;
+}
+
+.gq-section-heading p {
+  max-width: 680px;
+    margin: 13px 0 0;
+    color: var(--gq-muted);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.gq-courses {
+  position: relative;
+    overflow: hidden;
+    padding: 72px 0 64px;
+    background:
+      radial-gradient(ellipse at 100% 0%, rgb(207 226 255 / 56%), transparent 32%),
+      #f0f5ff;
+}
+
+.gq-courses::before {
+  position: absolute;
+    top: -170px;
+    left: -150px;
+    width: 430px;
+    height: 430px;
+    border: 1px solid rgb(29 78 216 / 7%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 40px rgb(29 78 216 / 2%);
+    content: "";
+    pointer-events: none;
+}
+
+.gq-courses .gq-page-container {
+  position: relative;
+    width: min(100% - 48px, 1280px);
+}
+
+.gq-courses-heading {
+  display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 23px;
+}
+
+.gq-courses-heading .gq-section-heading {
+  margin: 0;
+}
+
+.gq-swipe-hint {
+  justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    color: #657895;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.gq-journey-grid > div:first-child > .gq-section-heading {
+  margin-bottom: 25px;
+}
+
+.gq-form-intro .gq-section-eyebrow {
+  margin-bottom: 15px;
+}
+
+.gq a:focus-visible,
+.gq button:focus-visible {
+  outline: 3px solid #73a4f5;
+    outline-offset: 3px;
+}
+
+@keyframes gq-enter {
+  from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gq-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 760px) {
+  .gq-page-container {
+    width: min(100% - 36px, 620px);
+  }
+
+  .gq-courses .gq-page-container {
+    width: min(100% - 36px, 620px);
+  }
+
+  .gq-benefits,
+    .gq-courses,
+    .gq-journey {
+    padding: 60px 0;
+  }
+
+  .gq-section-heading {
+    margin-bottom: 24px;
+  }
+
+  .gq-section-eyebrow {
+    font-size: 10px;
+  }
+
+  .gq-section-heading h2 {
+    font-size: clamp(31px, 8.2vw, 40px);
+        letter-spacing: -1.2px;
+  }
+
+  .gq-section-heading p {
+    margin-top: 10px;
+        font-size: 15px;
+        line-height: 1.65;
+  }
+
+  .gq-courses-heading {
+    display: block;
+        margin-bottom: 17px;
+  }
+
+  .gq-courses-heading .gq-section-heading {
+    margin-bottom: 16px;
+  }
+
+  .gq-courses-heading .gq-section-heading h2 br {
+    display: none;
+  }
+
+  .gq-swipe-hint {
+    grid-column: 1 / -1;
+        justify-self: center;
+        font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .gq-page-container {
+    width: min(100% - 28px, 620px);
+  }
+
+  .gq-courses .gq-page-container {
+    width: min(100% - 28px, 620px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gq *,
+    .gq *::before,
+    .gq *::after {
+    animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+  }
+}
+
+.gq {
+  overflow-x: clip;
+}
+
+/* Course component focus and layout helpers */
+.gq-course-track:focus-visible {
+  outline: 3px solid #78a8f4;
+  outline-offset: 3px;
+}

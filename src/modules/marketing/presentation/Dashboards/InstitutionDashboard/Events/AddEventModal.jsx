@@ -1,18 +1,29 @@
 import { useState } from "react";
 import { X, CalendarPlus, CheckCircle2 } from "lucide-react";
 
-export default function AddEventModal({ isOpen, onClose, onAddEvent, showMessage }) {
-  const [formData, setFormData] = useState({
-    title: "",
-    type: "Assessment",
-    day: "15",
-    month: "Sep",
-    time: "10:00 – 13:00",
-    place: "Campus Auditorium",
-    owner: "Academic Office",
-    detail: "All departments · registered learners",
-    urgent: false
-  });
+const emptyEvent = {
+  title: "",
+  type: "Assessment",
+  day: "15",
+  month: "Sep",
+  time: "10:00 – 13:00",
+  place: "Campus Auditorium",
+  owner: "Academic Office",
+  detail: "All departments · registered learners",
+  urgent: false
+};
+
+export default function AddEventModal({
+  isOpen,
+  eventToEdit,
+  onClose,
+  onAddEvent,
+  onUpdateEvent,
+  showMessage
+}) {
+  const [formData, setFormData] = useState(() =>
+    eventToEdit ? { ...emptyEvent, ...eventToEdit } : { ...emptyEvent }
+  );
 
   if (!isOpen) return null;
 
@@ -20,8 +31,13 @@ export default function AddEventModal({ isOpen, onClose, onAddEvent, showMessage
     e.preventDefault();
     if (!formData.title.trim()) return;
 
-    onAddEvent(formData);
-    showMessage(`Event "${formData.title}" scheduled successfully.`);
+    if (eventToEdit) {
+      onUpdateEvent(eventToEdit.id, formData);
+      showMessage(`Event "${formData.title}" updated successfully.`);
+    } else {
+      onAddEvent(formData);
+      showMessage(`Event "${formData.title}" scheduled successfully.`);
+    }
     onClose();
   };
 
@@ -32,8 +48,8 @@ export default function AddEventModal({ isOpen, onClose, onAddEvent, showMessage
           <div className="modal-title-wrap">
             <span className="modal-header-icon"><CalendarPlus size={18} /></span>
             <div>
-              <h2>Schedule New Event</h2>
-              <p>Add an academic, placement, or guest module event to the calendar.</p>
+              <h2>{eventToEdit ? "Edit Event" : "Schedule New Event"}</h2>
+              <p>{eventToEdit ? "Update the event details and save your changes." : "Add an academic, placement, or guest module event to the calendar."}</p>
             </div>
           </div>
           <button className="icon-button modal-close-btn" type="button" onClick={onClose} aria-label="Close modal">
@@ -153,7 +169,7 @@ export default function AddEventModal({ isOpen, onClose, onAddEvent, showMessage
               Cancel
             </button>
             <button type="submit" className="primary-action btn-submit">
-              <CheckCircle2 size={16} /> Save Event
+              <CheckCircle2 size={16} />{eventToEdit ? "Save Changes" : "Save Event"}
             </button>
           </div>
         </form>

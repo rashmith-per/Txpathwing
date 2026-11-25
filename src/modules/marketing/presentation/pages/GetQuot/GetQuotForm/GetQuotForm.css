@@ -1,0 +1,904 @@
+
+/* =========================================
+   TX PATHWING - GET QUOTE ENQUIRY FORM
+   ========================================= */
+
+.gq {
+  --gq-blue: #2457d2;
+  --gq-blue-dark: #1745bd;
+  --gq-ink: #10244a;
+  --gq-muted: #657b9f;
+  --gq-line: #d1def5;
+  --gq-pale: #f3f7ff;
+  --gq-red: #c8323b;
+
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: max(42px, env(safe-area-inset-bottom, 0px));
+  color: var(--gq-ink);
+  background: #f4f7ff;
+  font-family: inherit;
+  overflow-x: clip;
+}
+
+.gq-form-note {
+  margin: 18px 0 0;
+  color: #8295b5;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.gq *,
+.gq *::before,
+.gq *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   FORM SECTION
+   ========================================= */
+
+.gq-form-section {
+  width: 100%;
+  padding: 76px 0 84px;
+  background: #f4f7ff;
+}
+
+.gq-form-layout {
+  width: min(85%, 1550px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(40px, 5.5vw, 88px);
+  margin: 0 auto;
+}
+
+.gq-form-layout-success {
+  max-width: 900px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* =========================================
+   FORM INTRODUCTION
+   ========================================= */
+
+.gq-form-intro {
+  max-width: 620px;
+  margin: 22px 0 0;
+  text-align: left;
+}
+
+.gq-form-intro .gq-section-eyebrow {
+  display: inline-block;
+  margin: 0 0 22px;
+  color: #285cff;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  line-height: 1.5;
+}
+
+.gq-form-intro h2 {
+  margin: 0;
+  color: #10244a;
+  font-size:60px;
+  font-weight: 850;
+  line-height: 1.06;
+  letter-spacing: -3px;
+}
+
+.gq-form-intro h2 span {
+  color: var(--gq-blue);
+}
+
+.gq-form-intro p {
+  max-width: 590px;
+  margin: 24px 0 0;
+  color: #657b9f;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   FORM CARD
+   ========================================= */
+
+.gq-card {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #d9e5fb;
+  border-radius: 30px;
+  box-shadow: 0 25px 65px -35px
+    rgba(27, 68, 139, 0.28);
+  animation: gq-enter 0.55s ease both;
+}
+
+/* =========================================
+   CARD HEADER
+   ========================================= */
+
+.gq-card-header {
+  min-height: 126px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 34px;
+  color: #ffffff;
+  background: linear-gradient(110deg, #173fa8 0%, #3479ec 100%);
+}
+
+.gq-card-header h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(25px, 2vw, 32px);
+  font-weight: 850;
+  line-height: 1.25;
+  letter-spacing: -1px;
+}
+
+.gq-card-header p {
+  margin: 8px 0 0;
+  color: rgb(255 255 255 / 90%);
+  font-size: clamp(15px, 1.1vw, 19px);
+  line-height: 1.5;
+}
+
+/* Free demo badge */
+
+.gq-free-badge {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0 24px;
+  color: #1748ad;
+  background: #ffffff;
+  border: 1px solid #dce7f7;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* =========================================
+   FORM BODY
+   ========================================= */
+
+.gq-card form {
+  width: 100%;
+  padding: 30px;
+}
+
+.gq-form-subtitle {
+  margin: 0 0 8px;
+  color: #10244a;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.gq-sub {
+  margin: 0 0 28px;
+  color: #657b9f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   FORM GRID
+   ========================================= */
+
+.gq-row {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+  grid-template-areas:
+    "name mobile"
+    "email email"
+    "college college"
+    "year mode"
+    "course course"
+    "demo demo";
+  column-gap: 20px;
+  row-gap: 0;
+}
+
+/* Form field positions */
+
+.gq-row .gq-field:nth-child(1) {
+  grid-area: name;
+}
+
+.gq-row .gq-field:nth-child(2) {
+  grid-area: mobile;
+}
+
+.gq-row .gq-field:nth-child(3) {
+  grid-area: email;
+}
+
+.gq-row .gq-field:nth-child(4) {
+  grid-area: college;
+}
+
+.gq-row .gq-field:nth-child(5) {
+  grid-area: year;
+}
+
+.gq-row .gq-field:nth-child(6) {
+  grid-area: mode;
+}
+
+.gq-row .gq-field:nth-child(7) {
+  grid-area: course;
+}
+
+.gq-row .gq-field:nth-child(8) {
+  grid-area: demo;
+}
+
+/* =========================================
+   FORM FIELDS
+   ========================================= */
+
+.gq-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.gq-field label {
+  display: block;
+  color: #203f6b;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.gq-field label em {
+  color: var(--gq-red);
+  font-style: normal;
+}
+
+/* Inputs and dropdowns */
+
+.gq input:not([type="hidden"]):not([type="checkbox"]),
+.gq select {
+  width: 100%;
+  height: 38px;
+
+  padding: 0 16px;
+  color: #1748b8;
+  background: #fbfdff;
+  border: 1px solid #cbdcf8;
+  border-radius: 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* Placeholder */
+
+.gq input::placeholder,
+.gq textarea::placeholder {
+  color: #8da0bf;
+  opacity: 1;
+}
+
+/* Select dropdown */
+
+.gq select {
+  cursor: pointer;
+}
+
+/* Focus state */
+
+.gq input:not([type="hidden"]):not([type="checkbox"]):focus,
+.gq select:focus {
+  border-color: #3475f2;
+  box-shadow: 0 0 0 4px
+    rgba(52, 117, 242, 0.12);
+}
+
+/* Valid field */
+
+.gq-field.ok input:not([type="hidden"]),
+.gq-field.ok select {
+  border-color: #4180db;
+}
+
+/* Invalid field */
+
+.gq-field.bad input:not([type="hidden"]),
+.gq-field.bad select {
+  border-color: var(--gq-red);
+  animation: gq-shake 0.32s;
+}
+
+/* Error message */
+
+.gq-msg {
+  display: block;
+  color: var(--gq-red);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   CONSENT CHECKBOX
+   ========================================= */
+
+.gq .gq-card form > .gq-field:has(.gq-chk) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 8px 0 30px;
+}
+
+.gq .gq-chk {
+  display: grid !important;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  justify-content: start;
+  column-gap: 14px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  color: #536884 !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.gq .gq-chk input[type="checkbox"] {
+  display: block;
+  width: 22px !important;
+  min-width: 22px !important;
+  max-width: 22px !important;
+  height: 22px !important;
+  min-height: 22px !important;
+  max-height: 22px !important;
+  margin: 2px 0 0 !important;
+  padding: 0 !important;
+  border: initial !important;
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  appearance: auto;
+  accent-color: #245bd2;
+  cursor: pointer;
+}
+
+.gq .gq-chk span {
+  display: block;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+  font-size: 14px;
+}
+
+.gq .gq-field:has(.gq-chk) .gq-msg {
+  display: block;
+  margin-top: 10px;
+}
+
+/* =========================================
+   HIDDEN HONEYPOT FIELD
+   ========================================= */
+
+.gq .gq-hp {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* =========================================
+   FORM STATUS MESSAGE
+   ========================================= */
+
+.gq-server {
+  margin: 0 0 22px;
+  padding: 16px 20px;
+  color: #96262d;
+  background: #fff0f0;
+  border: 1px solid #f6d5d5;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+   ========================================= */
+
+.gq-btn {
+  position: relative;
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+  padding: 0 28px;
+  color: #ffffff;
+  background: linear-gradient(
+    105deg,
+    #1949c7 0%,
+    #3073ed 100%
+  );
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 14px 24px
+    rgba(31, 79, 198, 0.22);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gq-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px
+    rgba(29, 78, 216, 0.28);
+}
+
+.gq-btn:active {
+  transform: scale(0.99);
+}
+
+.gq-btn:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+/* Button shine effect */
+
+.gq-btn::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -80px;
+  width: 60px;
+  background: rgba(255, 255, 255, 0.33);
+  content: "";
+  transform: skewX(-20deg);
+  animation: gq-shine 3.2s 1.5s infinite;
+}
+
+/* Loading spinner */
+
+.gq-spin {
+  width: 18px;
+  height: 18px;
+  display: none;
+  border: 2px solid rgba(255, 255, 255, 0.42);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: gq-rotate 0.7s linear infinite;
+}
+
+.gq-btn.load .gq-spin {
+  display: inline-block;
+}
+
+/* =========================================
+   PRIVACY NOTE
+   ========================================= */
+
+.gq-privacy,
+.gq-card form > p:last-child {
+  margin: 18px 0 0;
+  color: #8295b5;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* =========================================
+   SUCCESS STATE
+   ========================================= */
+
+.gq-done {
+  padding: 55px 30px;
+  text-align: center;
+}
+
+.gq-done svg {
+  width: 88px;
+  height: 88px;
+}
+
+.gq-done circle,
+.gq-done path {
+  fill: none;
+  stroke: var(--gq-blue);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 230;
+  stroke-dashoffset: 230;
+  animation: gq-draw 0.8s 0.1s forwards;
+}
+
+.gq-done path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation-delay: 0.7s;
+}
+
+.gq-done h2 {
+  margin: 18px 0 10px;
+  color: #10244a;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.gq-done p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--gq-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+.gq a:focus-visible,
+.gq button:focus-visible {
+  outline: 3px solid #73a4f5;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes gq-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gq-shake {
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes gq-shine {
+  40%,
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes gq-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gq-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 1100px) {
+  .gq-form-section {
+    padding: 64px 0 72px;
+  }
+
+  .gq-form-layout {
+    width: min(90%, 1750px);
+    gap: 38px;
+  }
+
+  .gq-form-intro {
+    margin-top: 16px;
+  }
+
+  .gq-form-intro h2 {
+    font-size: clamp(42px, 5vw, 58px);
+    letter-spacing: -1.8px;
+  }
+
+  .gq-card-header {
+    min-height: 112px;
+    padding: 24px 28px;
+  }
+
+  .gq-card form {
+    padding: 28px;
+  }
+
+  .gq-row {
+    column-gap: 22px;
+  }
+
+  .gq-field {
+    margin-bottom: 24px;
+  }
+
+  .gq input:not([type="hidden"]):not([type="checkbox"]),
+  .gq select {
+    height: 54px;
+    min-height: 54px;
+    padding: 0 15px;
+    font-size: 16px;
+  }
+
+  .gq-field label {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   MOBILE / SMALL TABLET
+   ========================================= */
+
+@media (max-width: 760px) {
+  .gq-form-section {
+    padding: 52px 18px 65px;
+  }
+
+  .gq-form-layout {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .gq-form-intro {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .gq-form-intro .gq-section-eyebrow {
+    margin-bottom: 14px;
+    font-size: 11px;
+    letter-spacing: 1.3px;
+  }
+
+  .gq-form-intro h2 {
+    font-size: clamp(32px, 8vw, 46px);
+    letter-spacing: -1.2px;
+  }
+
+  .gq-form-intro p {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .gq-card {
+    border-radius: 22px;
+  }
+
+  .gq-card-header {
+    min-height: 96px;
+    padding: 22px 20px;
+    gap: 14px;
+  }
+
+  .gq-card-header h3 {
+    font-size: 21px;
+    letter-spacing: -0.4px;
+  }
+
+  .gq-card-header p {
+    margin-top: 7px;
+    font-size: 13px;
+  }
+
+  .gq-free-badge {
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+
+  .gq-card form {
+    padding: 24px 20px 26px;
+  }
+
+  .gq-sub {
+    margin-bottom: 22px;
+    font-size: 14px;
+  }
+
+  .gq-row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "name"
+      "mobile"
+      "email"
+      "college"
+      "year"
+      "mode"
+      "course"
+      "demo";
+    column-gap: 0;
+  }
+
+  .gq-field {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .gq-field label {
+    font-size: 15px;
+  }
+
+  .gq input:not([type="hidden"]):not([type="checkbox"]),
+  .gq select {
+    height: 52px;
+    min-height: 52px;
+    padding: 0 15px;
+    border-radius: 14px;
+    font-size: 16px;
+  }
+
+  .gq .gq-chk {
+    font-size: 14px !important;
+    column-gap: 10px;
+  }
+
+  .gq .gq-chk input[type="checkbox"] {
+    width: 19px !important;
+    min-width: 19px !important;
+    max-width: 19px !important;
+    height: 19px !important;
+    min-height: 19px !important;
+    max-height: 19px !important;
+  }
+
+  .gq-btn {
+    min-height: 60px;
+    padding: 0 20px;
+    border-radius: 16px;
+    font-size: 17px;
+  }
+
+  .gq-done {
+    padding: 38px 20px;
+  }
+
+  .gq-done h2 {
+    font-size: 25px;
+  }
+
+  .gq-done p {
+    font-size: 15px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+  .gq-form-section {
+    padding: 38px 14px 50px;
+  }
+
+  .gq-form-intro h2 {
+    font-size: clamp(29px, 8.5vw, 38px);
+    letter-spacing: -0.9px;
+  }
+
+  .gq-form-intro p {
+    font-size: 14px;
+  }
+
+  .gq-card-header {
+    align-items: flex-start;
+    padding: 19px 16px;
+  }
+
+  .gq-card-header h3 {
+    font-size: 18px;
+  }
+
+  .gq-card-header p {
+    font-size: 12px;
+  }
+
+  .gq-free-badge {
+    min-height: 27px;
+    padding: 0 9px;
+    font-size: 9px;
+  }
+
+  .gq-card form {
+    padding: 21px 16px 23px;
+  }
+
+  .gq-field {
+    margin-bottom: 18px;
+  }
+
+  .gq input:not([type="hidden"]):not([type="checkbox"]),
+  .gq select {
+    height: 50px;
+    min-height: 50px;
+    padding: 0 14px;
+    font-size: 15px;
+    border-radius: 13px;
+  }
+
+  .gq .gq-card form > .gq-field:has(.gq-chk) {
+    margin: 8px 0 22px;
+  }
+
+  .gq .gq-chk {
+    font-size: 13px !important;
+    line-height: 1.55;
+  }
+
+  .gq-btn {
+    min-height: 56px;
+    font-size: 16px;
+  }
+
+  .gq-privacy,
+  .gq-card form > p:last-child {
+    font-size: 12px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .gq *,
+  .gq *::before,
+  .gq *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
