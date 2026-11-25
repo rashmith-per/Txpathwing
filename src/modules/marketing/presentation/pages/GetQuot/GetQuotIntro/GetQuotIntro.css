@@ -307,6 +307,7 @@
   --transition-fast: 180ms ease;
   --transition-normal: 220ms ease;
   padding: 24px 0 28px;
+  scroll-margin-top: 84px;
   background: #f6f8fc;
   border-top: 2px solid #742cf3;
   border-bottom: 0;

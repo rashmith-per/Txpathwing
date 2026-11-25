@@ -18,7 +18,16 @@ const technologies = [
 export default function Hero({ onApply }) {
   const highlightedTitle = "Tech Career!";
   const highlightIndex = institution.heroTitle.indexOf(highlightedTitle);
- 
+
+  const handleApply = () => {
+    if (onApply) {
+      onApply();
+      return;
+    }
+
+    document.getElementById("gq-enquiry")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
 <section id="top" className="hero">
 <span className="hero-orbit-bottom" aria-hidden="true" />
@@ -37,8 +46,8 @@ export default function Hero({ onApply }) {
 </h1>
 <p className="hero-text">{institution.heroText}</p>
 <div className="row">
-<button className="btn big" onClick={onApply}>Apply Now</button>
-<a className="btn ghost big" href="#courses">See courses</a>
+<button type="button" className="btn big" onClick={handleApply}>Apply Now</button>
+<a className="btn ghost big" href="#gq-courses">See courses</a>
 </div>
 </div>
  

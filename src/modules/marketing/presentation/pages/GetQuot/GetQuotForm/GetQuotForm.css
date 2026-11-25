@@ -42,6 +42,7 @@
 .gq-form-section {
   width: 100%;
   padding: 76px 0 84px;
+  scroll-margin-top: 84px;
   background: #f4f7ff;
 }
 
@@ -64,6 +65,9 @@
    ========================================= */
 
 .gq-form-intro {
+  position: sticky;
+  top: clamp(96px, 12vh, 112px);
+  align-self: start;
   max-width: 620px;
   margin: 22px 0 0;
   text-align: left;
@@ -273,17 +277,18 @@
 .gq input:not([type="hidden"]):not([type="checkbox"]),
 .gq select {
   width: 100%;
-  height: 38px;
+  height: 48px;
+  min-height: 48px;
 
   padding: 0 16px;
   color: #1748b8;
   background: #fbfdff;
   border: 1px solid #cbdcf8;
   border-radius: 16px;
-  font-family: inherit;
-  font-size: 16px;
+  font: inherit;
+  font-size: max(1rem, 1em);
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.4;
   outline: none;
   transition:
     border-color 0.18s ease,
@@ -302,6 +307,13 @@
 
 .gq select {
   cursor: pointer;
+  appearance: auto;
+  -webkit-appearance: auto;
+  height: auto;
+  min-height: 48px;
+  padding: 12px 16px;
+  line-height: 22px;
+  white-space: nowrap;
 }
 
 /* Focus state */
@@ -311,6 +323,12 @@
   border-color: #3475f2;
   box-shadow: 0 0 0 4px
     rgba(52, 117, 242, 0.12);
+}
+
+.gq input:not([type="hidden"]):not([type="checkbox"]):focus-visible,
+.gq select:focus-visible {
+  outline: 3px solid rgba(52, 117, 242, 0.35);
+  outline-offset: 2px;
 }
 
 /* Valid field */
@@ -662,12 +680,19 @@
     margin-bottom: 24px;
   }
 
-  .gq input:not([type="hidden"]):not([type="checkbox"]),
-  .gq select {
+  .gq input:not([type="hidden"]):not([type="checkbox"]) {
     height: 54px;
     min-height: 54px;
     padding: 0 15px;
-    font-size: 16px;
+    font-size: max(1rem, 1em);
+  }
+
+  .gq select {
+    height: auto;
+    min-height: 54px;
+    padding: 15px;
+    line-height: 22px;
+    font-size: max(1rem, 1em);
   }
 
   .gq-field label {
@@ -691,6 +716,8 @@
   }
 
   .gq-form-intro {
+    position: static;
+    top: auto;
     max-width: 620px;
     margin: 0 auto;
     text-align: center;
@@ -771,13 +798,21 @@
     font-size: 15px;
   }
 
-  .gq input:not([type="hidden"]):not([type="checkbox"]),
-  .gq select {
+  .gq input:not([type="hidden"]):not([type="checkbox"]) {
     height: 52px;
     min-height: 52px;
     padding: 0 15px;
     border-radius: 14px;
-    font-size: 16px;
+    font-size: max(1rem, 1em);
+  }
+
+  .gq select {
+    height: auto;
+    min-height: 52px;
+    padding: 14px 15px;
+    line-height: 22px;
+    border-radius: 14px;
+    font-size: max(1rem, 1em);
   }
 
   .gq .gq-chk {
@@ -859,12 +894,20 @@
     margin-bottom: 18px;
   }
 
-  .gq input:not([type="hidden"]):not([type="checkbox"]),
-  .gq select {
+  .gq input:not([type="hidden"]):not([type="checkbox"]) {
     height: 50px;
     min-height: 50px;
     padding: 0 14px;
-    font-size: 15px;
+    font-size: max(1rem, 1em);
+    border-radius: 13px;
+  }
+
+  .gq select {
+    height: auto;
+    min-height: 50px;
+    padding: 13px 14px;
+    line-height: 22px;
+    font-size: max(1rem, 1em);
     border-radius: 13px;
   }
 
