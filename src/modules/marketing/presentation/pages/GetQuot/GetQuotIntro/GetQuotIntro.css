@@ -264,7 +264,7 @@
     transform: none !important;
   }
 }
-
+ 
 .training-intro-section {
   --space-1: 4px;
   --space-2: 8px;
@@ -309,20 +309,19 @@
   padding: 24px 0 28px;
   scroll-margin-top: 84px;
   background: #f6f8fc;
-  border-top: 2px solid #742cf3;
   border-bottom: 0;
 }
-
+ 
 .training-intro-section .page-container {
   width: min(100% - 48px, 1190px);
   margin: 0 auto;
 }
-
+ 
 .training-intro__header {
   max-width: 950px;
   margin-bottom: 48px;
 }
-
+ 
 .training-intro__badge {
   min-height: 36px;
   padding: 0 14px;
@@ -332,12 +331,12 @@
   border-color: #e1d0ff;
   font-size: 13px;
 }
-
+ 
 .training-intro__badge-dot {
   background: #8737f4;
   box-shadow: 0 0 0 4px rgb(135 55 244 / 14%);
 }
-
+ 
 .training-intro__title {
   margin-bottom: 14px;
   font-size: clamp(30px, 3.2vw, 42px);
@@ -345,25 +344,25 @@
   letter-spacing: -0.035em;
   line-height: 1.18;
 }
-
+ 
 .training-intro__title-gradient {
   background: linear-gradient(100deg, #792df1 0%, #1783e9 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
-
+ 
 .training-intro__subtitle {
   max-width: 930px;
   margin: 0 auto;
   font-size: 18px;
   line-height: 1.8;
 }
-
+ 
 .training-intro__grid {
   max-width: 1190px;
   gap: 36px;
 }
-
+ 
 .training-card {
   min-height: 452px;
   padding: 26px 28px 28px;
@@ -371,22 +370,22 @@
   border-radius: 16px;
   box-shadow: 0 2px 4px rgb(15 23 42 / 7%);
 }
-
+ 
 .training-card:hover {
   border-color: #d5c5f8;
   box-shadow: 0 12px 24px rgb(15 23 42 / 10%);
 }
-
+ 
 .training-card::before {
   height: 4px;
   opacity: 1;
 }
-
+ 
 .training-card__top {
   gap: 18px;
   margin-bottom: 20px;
 }
-
+ 
 .training-card__icon-wrapper {
   width: 64px;
   height: 64px;
@@ -394,111 +393,112 @@
   background: linear-gradient(120deg, #812cf3 0%, #087fe8 100%);
   box-shadow: 0 6px 14px rgb(92 54 218 / 25%);
 }
-
+ 
 .training-card__tag {
   margin-bottom: 6px;
   color: #8437ee;
   font-size: 13px;
   letter-spacing: 0.045em;
 }
-
+ 
 .training-card__heading {
   font-size: 22px;
   line-height: 1.25;
 }
-
+ 
 .training-card__summary {
   margin-bottom: 22px;
   font-size: 16px;
   line-height: 1.65;
 }
-
+ 
 .training-card__list {
   gap: 13px;
   margin-bottom: 24px;
 }
-
+ 
 .training-card__list-item {
   gap: 12px;
   font-size: 15px;
   line-height: 1.5;
 }
-
+ 
 .training-card__check {
   margin-top: 1px;
 }
-
+ 
 .training-card__action {
   padding-top: 18px;
 }
-
+ 
 .training-card__btn {
   min-height: 54px;
   padding: 12px 18px;
   font-size: 15px;
 }
-
+ 
 .training-card__btn--primary {
   background: linear-gradient(105deg, #812cf3 0%, #087fe8 100%);
   box-shadow: 0 4px 10px rgb(93 53 219 / 25%);
 }
-
+ 
 .training-card__btn--secondary {
   background: #e6f4ff;
   border-color: #b6dcff;
 }
-
+ 
 @media (max-width: 767px) {
   .training-intro-section {
     padding: 32px 0;
   }
-
+ 
   .training-intro-section .page-container {
     width: min(100% - 36px, 620px);
   }
-
+ 
   .training-intro__header {
     margin-bottom: 30px;
   }
-
+ 
   .training-intro__title {
     font-size: clamp(28px, 7vw, 36px);
   }
-
+ 
   .training-intro__subtitle {
     font-size: 16px;
     line-height: 1.65;
   }
-
+ 
   .training-intro__grid {
     gap: 20px;
   }
-
+ 
   .training-card {
     min-height: 0;
     padding: 24px 20px;
   }
 }
-
+ 
 @media (max-width: 420px) {
   .training-intro-section .page-container {
     width: min(100% - 28px, 620px);
   }
-
+ 
   .training-card__top {
     gap: 13px;
   }
-
+ 
   .training-card__icon-wrapper {
     width: 56px;
     height: 56px;
   }
-
+ 
   .training-card__heading {
     font-size: 19px;
   }
-
+ 
   .training-card__list-item {
     font-size: 14px;
   }
 }
+ 

@@ -85,7 +85,7 @@ export const GetQuotIntro = () => {
               ))}
             </ul>
  
-            <div className="training-card__action">
+            {/* <div className="training-card__action">
               <a
                 href="#gq-courses"
                 className="training-card__btn training-card__btn--primary"
@@ -94,7 +94,7 @@ export const GetQuotIntro = () => {
                 <span>Explore Training Programs</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </a>
-            </div>
+            </div> */}
           </div>
  
           {/* Card 2: Internship Programs */}
@@ -123,7 +123,7 @@ export const GetQuotIntro = () => {
               ))}
             </ul>
  
-            <div className="training-card__action">
+            {/* <div className="training-card__action">
               <a
                 href="#gq-enquiry"
                 className="training-card__btn training-card__btn--secondary"
@@ -132,7 +132,7 @@ export const GetQuotIntro = () => {
                 <span>Explore Internship Opportunities</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

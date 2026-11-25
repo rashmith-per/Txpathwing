@@ -1,9 +1,10 @@
-
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-
+ 
 import "./GetQuotForm.css";
-
+ 
+const SCRIPT_URL = import.meta.env.VITE_SCRIPT_URL;
+ 
 const COURSES = [
   "Python Full Stack with Gen AI",
   "Java Full Stack with Gen AI",
@@ -14,10 +15,10 @@ const COURSES = [
   "DevOps & AWS",
   "Other",
 ];
-
+ 
 const YEARS = ["2024", "2025", "2026", "2027", "2028", "Other"];
 const MODES = ["Offline", "Online", "Counselling"];
-
+ 
 const INITIAL = {
   full_name: "",
   mobile_number: "",
@@ -35,7 +36,7 @@ const INITIAL = {
   ad_id: "",
   adset_id: "",
 };
-
+ 
 const REQUIRED = {
   full_name: (value) => value.trim().length >= 2,
   mobile_number: (value) => /^[6-9]\d{9}$/.test(value),
@@ -45,7 +46,7 @@ const REQUIRED = {
   interested_course: Boolean,
   training_mode: Boolean,
 };
-
+ 
 const LABELS = {
   full_name: "Full name",
   mobile_number: "Mobile number",
@@ -55,10 +56,10 @@ const LABELS = {
   interested_course: "Interested course",
   training_mode: "Training mode",
 };
-
+ 
 function getTrackingData() {
   const params = new URLSearchParams(window.location.search);
-
+ 
   return {
     source:
       params.get("utm_source") ||
@@ -73,7 +74,7 @@ function getTrackingData() {
     adset_id: params.get("adset_id") || "",
   };
 }
-
+ 
 function Field({
   name,
   value,
@@ -87,7 +88,7 @@ function Field({
       <label htmlFor={name}>
         {LABELS[name]} <em>*</em>
       </label>
-
+ 
       {children || (
         <input
           id={name}
@@ -99,7 +100,7 @@ function Field({
           {...inputProps}
         />
       )}
-
+ 
       {error && (
         <span
           className="gq-msg"
@@ -112,17 +113,18 @@ function Field({
     </div>
   );
 }
-
+ 
 export default function GetQuotForm({ selectedCourse = "" }) {
   const [form, setForm] = useState(() => ({
     ...INITIAL,
     ...getTrackingData(),
     interested_course: selectedCourse,
   }));
-
+ 
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
-
+  const [submitError, setSubmitError] = useState("");
+ 
   useEffect(() => {
     if (selectedCourse) {
       setForm((previous) => ({
@@ -131,13 +133,13 @@ export default function GetQuotForm({ selectedCourse = "" }) {
       }));
     }
   }, [selectedCourse]);
-
+ 
   const update = (name, value) => {
     setForm((previous) => ({
       ...previous,
       [name]: value,
     }));
-
+ 
     if (errors[name]) {
       setErrors((previous) => ({
         ...previous,
@@ -145,41 +147,79 @@ export default function GetQuotForm({ selectedCourse = "" }) {
       }));
     }
   };
-
+ 
   const validate = () => {
     const nextErrors = {};
-
+ 
     Object.entries(REQUIRED).forEach(([key, rule]) => {
       if (!rule(form[key])) {
         nextErrors[key] =
           `Please enter/select ${LABELS[key].toLowerCase()}.`;
       }
     });
-
+ 
     if (!form.consent) {
       nextErrors.consent = "Please accept to continue.";
     }
-
+ 
     setErrors(nextErrors);
-
+ 
     return Object.keys(nextErrors).length === 0;
   };
-
-  // UI-only submit: validates fields and displays the demo success state.
-  // No API call or data submission is performed.
-  function submit(event) {
+ 
+  async function submit(event) {
     event.preventDefault();
-
+ 
     if (!validate()) return;
-
-    // Honeypot field check for the UI demo.
+ 
+    // Honeypot: silently drop bot submissions
     if (form.website) return;
-
-    setStatus("done");
+ 
+    setStatus("sending");
+    setSubmitError("");
+ 
+    const payload = {
+      full_name: form.full_name.trim(),
+      mobile_number: form.mobile_number,
+      email: form.email.trim(),
+      college_name: form.college_name.trim(),
+      graduation_year: form.graduation_year,
+      interested_course: form.interested_course,
+      training_mode: form.training_mode,
+      preferred_demo_date: form.preferred_demo_date,
+      consent: form.consent,
+      website: form.website,
+      source: form.source,
+      campaign: form.campaign,
+      medium: form.medium,
+      ad_id: form.ad_id,
+      adset_id: form.adset_id,
+    };
+ 
+    try {
+      // text/plain avoids a CORS preflight, which Apps Script doesn't support
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload),
+      });
+ 
+      const result = await response.json();
+ 
+      if (!result.ok) {
+        throw new Error(result.error || "Submission failed");
+      }
+ 
+      setStatus("done");
+    } catch (err) {
+      console.error("Enquiry submission failed:", err);
+      setSubmitError("Something went wrong. Please try again.");
+      setStatus("idle");
+    }
   }
-
+ 
   const today = new Date().toISOString().slice(0, 10);
-
+ 
   if (status === "done") {
     return (
       <section
@@ -193,7 +233,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
             aria-live="polite"
           >
             <h2>Enquiry received!</h2>
-
+ 
             <p>
               Thank you for your interest in TX Pathwing.
               Our admissions team will contact you shortly.
@@ -203,7 +243,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
       </section>
     );
   }
-
+ 
   return (
     <section
       className="gq-form-section"
@@ -215,17 +255,17 @@ export default function GetQuotForm({ selectedCourse = "" }) {
           <span className="gq-section-eyebrow">
             GET QUOTE · ENQUIRY FORM
           </span>
-
+ 
           <h2 id="gq-form-title">
             Get course details &amp; a free demo.
           </h2>
-
+ 
           <p>
             Share your details and our admissions team
             will contact you with course and demo information.
           </p>
         </div>
-
+ 
         <section
           className="gq-card"
           aria-label="Student enquiry form"
@@ -233,22 +273,22 @@ export default function GetQuotForm({ selectedCourse = "" }) {
           <header className="gq-card-header">
             <div className="gq-card-heading">
               <h3>Student Enquiry Form</h3>
-
+ 
               <p>
                 TX Pathwing · Course details and demo information
               </p>
             </div>
-
+ 
             <span className="gq-free-badge">
               FREE DEMO
             </span>
           </header>
-
+ 
           <form onSubmit={submit} noValidate>
             <p className="gq-sub">
               Fields marked * are required.
             </p>
-
+ 
             <div className="gq-row">
               <Field
                 name="full_name"
@@ -260,7 +300,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 autoComplete="name"
                 placeholder="Your full name"
               />
-
+ 
               <Field
                 name="mobile_number"
                 value={form.mobile_number}
@@ -278,7 +318,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 autoComplete="tel"
                 placeholder="10-digit mobile number"
               />
-
+ 
               <Field
                 name="email"
                 value={form.email}
@@ -290,7 +330,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 autoComplete="email"
                 placeholder="you@example.com"
               />
-
+ 
               <Field
                 name="college_name"
                 value={form.college_name}
@@ -301,7 +341,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 autoComplete="organization"
                 placeholder="Your college"
               />
-
+ 
               <Field
                 name="graduation_year"
                 error={errors.graduation_year}
@@ -319,7 +359,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   aria-invalid={Boolean(errors.graduation_year)}
                 >
                   <option value="">Select year</option>
-
+ 
                   {YEARS.map((year) => (
                     <option key={year} value={year}>
                       {year}
@@ -327,7 +367,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   ))}
                 </select>
               </Field>
-
+ 
               <Field
                 name="training_mode"
                 error={errors.training_mode}
@@ -345,7 +385,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   aria-invalid={Boolean(errors.training_mode)}
                 >
                   <option value="">Select mode</option>
-
+ 
                   {MODES.map((mode) => (
                     <option key={mode} value={mode}>
                       {mode}
@@ -353,7 +393,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   ))}
                 </select>
               </Field>
-
+ 
               <Field
                 name="interested_course"
                 error={errors.interested_course}
@@ -371,7 +411,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   aria-invalid={Boolean(errors.interested_course)}
                 >
                   <option value="">Select a course</option>
-
+ 
                   {COURSES.map((course) => (
                     <option key={course} value={course}>
                       {course}
@@ -379,12 +419,12 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                   ))}
                 </select>
               </Field>
-
+ 
               <div className="gq-field gq-field-demo">
                 <label htmlFor="preferred_demo_date">
                   Preferred demo date
                 </label>
-
+ 
                 <input
                   id="preferred_demo_date"
                   name="preferred_demo_date"
@@ -400,7 +440,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 />
               </div>
             </div>
-
+ 
             {/* Honeypot field */}
             <input
               className="gq-hp"
@@ -414,8 +454,8 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 update("website", event.target.value)
               }
             />
-
-            {/* Tracking values are retained for UI representation */}
+ 
+            {/* Tracking values */}
             {[
               "source",
               "campaign",
@@ -430,7 +470,7 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 key={key}
               />
             ))}
-
+ 
             <div
               className={`gq-field gq-consent-field${
                 errors.consent ? " bad" : ""
@@ -455,13 +495,13 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                       : undefined
                   }
                 />
-
+ 
                 <span>
                   I agree to be contacted by TX Pathwing
                   and accept the privacy notice.
                 </span>
               </label>
-
+ 
               {errors.consent && (
                 <span
                   className="gq-msg"
@@ -472,7 +512,13 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 </span>
               )}
             </div>
-
+ 
+            {submitError && (
+              <p className="gq-msg" role="alert">
+                {submitError}
+              </p>
+            )}
+ 
             <button
               className={`gq-btn${
                 status === "sending" ? " load" : ""
@@ -484,15 +530,15 @@ export default function GetQuotForm({ selectedCourse = "" }) {
                 className="gq-spin"
                 aria-hidden="true"
               />
-
+ 
               <span>Submit Enquiry</span>
-
+ 
               <ArrowRight
                 size={17}
                 aria-hidden="true"
               />
             </button>
-
+ 
             <p className="gq-form-note">
               Your details are used only to respond to
               your course enquiry.
@@ -503,3 +549,4 @@ export default function GetQuotForm({ selectedCourse = "" }) {
     </section>
   );
 }
+ 

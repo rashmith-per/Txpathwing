@@ -1,5 +1,5 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import GetQuotHero from "./GetQuotHero/GetQuotHero";
 import { GetQuotIntro } from "./GetQuotIntro/GetQuotIntro";
@@ -8,6 +8,21 @@ import GetQuotForm from "./GetQuotForm/GetQuotForm";
 
 export default function GetQuot() {
   const [selectedCourse, setSelectedCourse] = useState("");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#enquiry-form") {
+      const formSection = document.getElementById("enquiry-form");
+
+      if (formSection) {
+        formSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+  }, [location]);
 
   return (
     <main className="gq">
@@ -24,7 +39,9 @@ export default function GetQuot() {
       />
 
       {/* Enquiry Form */}
-      <GetQuotForm selectedCourse={selectedCourse} />
+      <section id="enquiry-form">
+        <GetQuotForm selectedCourse={selectedCourse} />
+      </section>
     </main>
   );
 }

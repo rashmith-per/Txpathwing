@@ -129,7 +129,9 @@ const InstructorDashboard = lazy(() =>
 const GetQuot = lazy(() =>
   import("./modules/marketing/presentation/pages/GetQuot/GetQuot.jsx")
 );
-
+const GetQuotForm = lazy(() =>
+  import("./modules/marketing/presentation/pages/GetQuot/GetQuotForm/GetQuotForm.jsx")
+);
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -347,7 +349,14 @@ function AppRoutes() {
 
           {/* Get Quote page */}
           <Route path="/get-quote" element={<GetQuot />} />
-
+          <Route
+            path="/get-quote-form"
+            element={
+              <main className="gq">
+                <GetQuotForm />
+              </main>
+            }
+          />
           <Route
             path="/institution-signin"
             element={

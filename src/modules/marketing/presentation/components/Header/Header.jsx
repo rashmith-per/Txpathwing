@@ -80,7 +80,7 @@ export default function Header() {
               )}
             </Link>
 
-            <Link to="/get-quote" className="btn-quote">
+            <Link to="/get-quote#enquiry-form" className="btn-quote">
               Get Quote
             </Link>
 
