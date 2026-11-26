@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "bootstrap-icons": "^1.13.2",
     "chart.js": "^4.6.1",
     "framer-motion": "^13.2.0",
     "lucide-react": "^1.44.0",
